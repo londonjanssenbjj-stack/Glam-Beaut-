@@ -6,13 +6,23 @@
     <title>Salão Glam - Gestão e Aplicativo</title>
     <!-- Tailwind CSS para um design limpo e sem poluição visual -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo elegante personalizado para o topo */
+        .logo-elegante {
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
     <!-- Cabeçalho Principal -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-pink-600">Salão Glam</h1>
+            <h1 class="text-3xl font-bold logo-elegante">Glam</h1>
             <nav class="space-x-4">
                 <button onclick="mudarAba('produtos')" class="text-gray-600 hover:text-pink-600 font-medium">Produtos</button>
                 <button onclick="mudarAba('servicos')" class="text-gray-600 hover:text-pink-600 font-medium">Serviços</button>
@@ -94,7 +104,6 @@
 
     <!-- Script de lógica e carga inicial dos 30 itens -->
     <script>
-        // Dados Iniciais: 30 Produtos e 30 Serviços pré-carregados com fotos ilustrativas
         let produtos = [
             {id: 1, nome: "Kit Manutenção Cabelos Loiros", preco: 150.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
             {id: 2, nome: "Máscara de Hidratação Profunda 500g", preco: 89.90, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
@@ -170,7 +179,6 @@
         }
 
         function renderizarTudo() {
-            // Renderizar Produtos Cliente
             const gridP = document.getElementById('grid-produtos');
             gridP.innerHTML = produtos.map(p => `
                 <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
@@ -183,7 +191,6 @@
                 </div>
             `).join('');
 
-            // Renderizar Serviços Cliente
             const gridS = document.getElementById('grid-servicos');
             gridS.innerHTML = servicos.map(s => `
                 <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
@@ -196,9 +203,8 @@
                 </div>
             `).join('');
 
-            // Renderizar Aniversariantes
             const listaA = document.getElementById('lista-aniversariantes');
-            listaA.innerHTML = aniversariantes.length === t => `<p class="text-gray-500">Nenhum aniversariante cadastrado ainda.</p>` : aniversariantes.map((a, index) => `
+            listaA.innerHTML = aniversariantes.length === 0 ? `<p class="text-gray-500">Nenhum aniversariante cadastrado ainda.</p>` : aniversariantes.map((a, index) => `
                 <div class="bg-white p-4 rounded-xl shadow-sm border flex justify-between items-center">
                     <div>
                         <h4 class="font-bold">${a.nome}</h4>
@@ -209,7 +215,6 @@
                 </div>
             `).join('');
 
-            // Renderizar Admin Produtos
             document.getElementById('admin-lista-produtos').innerHTML = produtos.map(p => `
                 <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
                     <span>${p.nome} - R$ ${p.preco.toFixed(2)}</span>
@@ -220,7 +225,6 @@
                 </div>
             `).join('');
 
-            // Renderizar Admin Serviços
             document.getElementById('admin-lista-servicos').innerHTML = servicos.map(s => `
                 <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
                     <span>${s.nome} - R$ ${s.preco.toFixed(2)}</span>
@@ -232,7 +236,6 @@
             `).join('');
         }
 
-        // Ações de formulário admin
         document.getElementById('form-admin').addEventListener('submit', function(e) {
             e.preventDefault();
             const id = document.getElementById('item-id').value;
@@ -244,11 +247,9 @@
             const lista = tipo === 'produto' ? produtos : servicos;
 
             if(id) {
-                // Editar
                 const item = lista.find(i => i.id == id);
                 if(item) { item.nome = nome; item.preco = preco; item.foto = foto; }
             } else {
-                // Inserir Novo
                 const novoId = lista.length > 0 ? Math.max(...lista.map(i => i.id)) + 1 : 1;
                 lista.push({id: novoId, nome, preco, foto});
             }
@@ -282,7 +283,6 @@
             }
         }
 
-        // Cadastro de Aniversariantes
         document.getElementById('form-aniversariante').addEventListener('submit', function(e) {
             e.preventDefault();
             const nome = document.getElementById('aniv-nome').value;
@@ -307,7 +307,6 @@
             alert(`Abrindo opções de kits de presentes personalizados para ${nome}. O pagamento somará o produto escolhido + taxa de entrega para o dia exato.`);
         }
 
-        // Inicializar renderização na carga da página
         renderizarTudo();
     </script>
 </body>
