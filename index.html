@@ -143,7 +143,34 @@
       margin:0 0 24px;
       max-width:650px;
     }
+.hero-art{
+      min-height:330px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        linear-gradient(135deg,#f8edf3,#ead6e1);
+      position:relative;
+      overflow:hidden;
+    }
 
+    /* Insere a sua logo como marca d'água grande no fundo */
+    .hero-art:after{
+      content:"";
+      position:absolute;
+      inset: 0;
+      background-image: url('Logo-Glam-Beaut.png.jpeg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.15; /* Transparência suave para fundo */
+      pointer-events: none;
+    }
+
+    .hero-orb{
+      display: none; /* Oculta a bola com a letra antiga */
+    }
+    
     .hero-copy p{
       max-width:540px;
       line-height:1.65;
@@ -151,49 +178,7 @@
       margin:0 0 28px;
     }
 
-    .hero-art{
-      min-height:330px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-        radial-gradient(circle at 60% 40%,#fff 0 12%,transparent 13%),
-        linear-gradient(135deg,#f8edf3,#ead6e1);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .hero-art:after{
-      content:"GLAM";
-      position:absolute;
-      font-size:clamp(90px,13vw,170px);
-      font-weight:800;
-      letter-spacing:-.08em;
-      opacity:.08;
-    }
-
-    .hero-orb{
-      width:210px;
-      height:280px;
-      border-radius:50% 50% 48% 48%;
-      background:linear-gradient(145deg,#fff,#ddd);
-      box-shadow:0 25px 60px rgba(0,0,0,.14);
-      transform:rotate(8deg);
-      position:relative;
-      z-index:2;
-    }
-
-    .hero-orb:before{
-      content:"G";
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      font-size:110px;
-      font-weight:800;
-      color:#111;
-    }
-
+    
     .btn{
       border:1px solid var(--black);
       background:var(--black);
