@@ -11,7 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Biblioteca Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -911,17 +910,46 @@ const CONFIG = {
   cidade: "Corumbá",
   estado: "MS",
   taxaEntrega: 15.00,
-  whatsappLoja: "5567992979532", // WhatsApp de compras atualizado
+  whatsappLoja: "5567992979532",
   cupomAniversario: "GLAMANIVER",
   diasAvisoAniversario: 7
 };
 
-let PRODUCTS = [];
-let SERVICES = [];
+/* Produtos padrão iniciais para não sumir nada */
+let PRODUCTS = [
+  { id:"p1", name:"Glow Facial Premium Express", price:145.00, category:"skincare", badge:"NEW", badgeType:"new", description:"Experiência facial para devolver viço e luminosidade.", image:"" },
+  { id:"p2", name:"Glass Skin Coreano", price:130.00, category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit", description:"Protocolo de aparência iluminada e pele bem cuidada.", image:"" },
+  { id:"p3", name:"Glam Deep Hydration", price:140.90, category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit", description:"Hidratação profunda para cabelos que precisam de cuidado.", image:"" },
+  { id:"p4", name:"Glam Absolut Repair", price:159.99, category:"skincare", badge:"NEW", badgeType:"new", description:"Tratamento de reparação e cuidado.", image:"" },
+  { id:"p5", name:"Glam Hi Repair", price:179.99, category:"skincare", badge:"NEW", badgeType:"new", description:"Reconstrução e reparação para fios sensibilizados.", image:"" },
+  { id:"p6", name:"Glam CPR SOS", price:265.00, category:"skincare", badge:"AVALIAÇÃO", badgeType:"kit", description:"Protocolo SOS mediante avaliação profissional.", image:"" },
+  { id:"p7", name:"Glam Platinum Repair", price:275.90, category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit", description:"Experiência premium de reparação.", image:"" },
+  { id:"p8", name:"Glam Hair Experience", price:285.99, category:"skincare", badge:"KIT ANIVER", badgeType:"kit", description:"Experiência completa de cuidado capilar.", image:"" },
+  { id:"p9", name:"Kit Aniversário Glam", price:199.90, category:"kits", badge:"KIT ANIVER", badgeType:"kit", description:"Seleção especial para presentear alguém.", image:"" },
+  { id:"p10", name:"Experiência Glam — Kit Misto", price:299.90, category:"kits", badge:"KIT ANIVER", badgeType:"kit", description:"Produto + experiência estética em um único presente.", image:"" },
+  { id:"p11", name:"Kit Dia de Beleza", price:349.90, category:"kits", badge:"MAIS VENDIDO", badgeType:"kit", description:"Uma experiência de autocuidado para celebrar.", image:"" },
+  { id:"p12", name:"Perfume Glam", price:189.90, category:"perfumaria", badge:"NEW", badgeType:"new", description:"Fragrância para acompanhar seus melhores momentos.", image:"" },
+  { id:"p13", name:"Bolsa Glam", price:219.90, category:"bolsas", badge:"NEW", badgeType:"new", description:"Modelo selecionado para compor seu look.", image:"" },
+  { id:"p14", name:"Acessório Glam", price:59.90, category:"acessorios", badge:"NEW", badgeType:"new", description:"Detalhe delicado para completar sua produção.", image:"" },
+  { id:"p15", name:"Look Glam", price:169.90, category:"roupas", badge:"NEW", badgeType:"new", description:"Peça selecionada para um visual sofisticado.", image:"" },
+  { id:"p16", name:"Kit Presente Skincare", price:159.90, category:"kits", badge:"KIT ANIVER", badgeType:"kit", description:"Cuidados para uma rotina de beleza especial.", image:"" }
+];
+
+let SERVICES = [
+  { id:"s1", name:"Hidratação + Escova", price:89.90, desc:"Cuidado e finalização para um cabelo macio e bonito." },
+  { id:"s2", name:"Reconstrução + Escova", price:139.00, desc:"Reconstrução com finalização. Consulte disponibilidade do brinde promocional." },
+  { id:"s3", name:"Glow Facial Premium Express", price:145.00, desc:"Protocolo facial com foco em luminosidade e viço." },
+  { id:"s4", name:"Limpeza de Pele", price:135.00, desc:"Higienização e cuidado facial conforme avaliação." },
+  { id:"s5", name:"Drenagem Linfática", price:120.00, desc:"Sessão de cuidado corporal." },
+  { id:"s6", name:"Massagem Relaxante", price:120.00, desc:"Momento de relaxamento e bem-estar." },
+  { id:"s7", name:"Microagulhamento Facial", price:0, desc:"Valor mediante avaliação e indicação profissional." },
+  { id:"s8", name:"Protocolo Papada sem Agulhas", price:0, desc:"Avaliação necessária para definir protocolo." }
+];
+
 let cart = JSON.parse(localStorage.getItem("glam_cart") || "[]");
 let currentFilter = "todos";
 
-/* Carregar dados do Supabase ao iniciar */
+/* Sincronização opcional com Supabase */
 async function loadDataFromSupabase() {
   try {
     const { data: prods } = await supabaseClient.from('products').select('*');
@@ -930,7 +958,7 @@ async function loadDataFromSupabase() {
     const { data: servs } = await supabaseClient.from('services').select('*');
     if (servs && servs.length > 0) SERVICES = servs;
   } catch (e) {
-    console.log("Modo offline ou dados locais padrão.");
+    console.log("Usando catálogo local padrão.");
   }
   renderProducts(PRODUCTS);
   renderServices();
@@ -1138,8 +1166,6 @@ function forgotPassword(){
   const emailDestino = "odiselma_vital@gmail.com";
   const assunto = encodeURIComponent("Recuperação de Senha - Painel Glam");
   const corpo = encodeURIComponent("Olá,\n\nSolicitei a recuperação da senha de administrador para o painel do aplicativo Glam.\nPor favor, envie as instruções de redefinição.");
-  
-  // Abre o cliente de e-mail de forma segura direcionando para o e-mail solicitado
   window.location.href = `mailto:${emailDestino}?subject=${assunto}&body=${corpo}`;
   showToast("Redirecionando para envio seguro ao e-mail autorizado.");
 }
@@ -1147,7 +1173,7 @@ function forgotPassword(){
 function renderAdminDashboard(){
   document.getElementById("adminContent").innerHTML = `
     <h3 style="margin-top:0">Painel de Controle</h3>
-    <p style="font-size:12px;color:#555">Gerencie seus produtos e serviços na nuvem em tempo real.</p>
+    <p style="font-size:12px;color:#555">Gerencie seus produtos e serviços em tempo real.</p>
     <div style="display:flex;gap:10px;margin-bottom:15px">
       <button class="btn" onclick="openProductForm()">+ Adicionar Produto</button>
       <button class="btn outline" onclick="loadDataFromSupabase();showToast('Dados atualizados!');">Atualizar Lista</button>
@@ -1232,6 +1258,9 @@ document.addEventListener("keydown",e=>{
 });
 
 /* Inicialização */
+renderProducts(PRODUCTS);
+renderServices();
+updateCart();
 loadDataFromSupabase();
 </script>
 </body>
