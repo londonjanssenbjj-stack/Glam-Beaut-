@@ -807,13 +807,20 @@
       <button class="modal-close" onclick="closeModal('adminModal')">×</button>
       <h2>Painel Administrativo Glam</h2>
       <div id="adminContent">
-        <div class="notice">Digite a senha de administrador para gerenciar o catálogo.</div>
-        <form onsubmit="checkAdminPassword(event)">
+        <div class="notice">Insira suas credenciais de acesso seguro.</div>
+        <form onsubmit="checkAdminCredentials(event)">
+          <div class="field">
+            <label>Login</label>
+            <input type="text" id="adminUser" required placeholder="Usuário administrador">
+          </div>
           <div class="field">
             <label>Senha</label>
-            <input type="password" id="adminPass" required placeholder="Senha de acesso">
+            <input type="password" id="adminPass" required placeholder="Sua senha secreta">
           </div>
           <button class="btn" style="width:100%">Entrar no Painel</button>
+          <div style="margin-top:12px;text-align:center;">
+            <a href="#" onclick="forgotPassword();return false;" style="font-size:12px;text-decoration:underline;color:#555;">Esqueci minha senha</a>
+          </div>
         </form>
       </div>
     </div>
@@ -904,7 +911,7 @@ const CONFIG = {
   cidade: "Corumbá",
   estado: "MS",
   taxaEntrega: 15.00,
-  whatsappLoja: "",
+  whatsappLoja: "5567992979532", // WhatsApp de compras atualizado
   cupomAniversario: "GLAMANIVER",
   diasAvisoAniversario: 7
 };
@@ -1096,23 +1103,45 @@ function openAccount(){ document.getElementById("accountModal").classList.add("s
    ========================================================= */
 function openAdminLogin(){
   document.getElementById("adminContent").innerHTML = `
-    <div class="notice">Digite a senha de administrador para gerenciar o catálogo.</div>
-    <form onsubmit="checkAdminPassword(event)">
-      <div class="field"><label>Senha Admin</label><input type="password" id="adminPass" required placeholder="Digite a senha"></div>
-      <button class="btn" style="width:100%">Entrar</button>
+    <div class="notice">Insira suas credenciais de acesso seguro.</div>
+    <form onsubmit="checkAdminCredentials(event)">
+      <div class="field">
+        <label>Login</label>
+        <input type="text" id="adminUser" required placeholder="Usuário administrador">
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="adminPass" required placeholder="Sua senha secreta">
+      </div>
+      <button class="btn" style="width:100%">Entrar no Painel</button>
+      <div style="margin-top:12px;text-align:center;">
+        <a href="#" onclick="forgotPassword();return false;" style="font-size:12px;text-decoration:underline;color:#555;">Esqueci minha senha</a>
+      </div>
     </form>
   `;
   document.getElementById("adminModal").classList.add("show");
 }
 
-function checkAdminPassword(e){
+function checkAdminCredentials(e){
   e.preventDefault();
-  const pass = document.getElementById("adminPass").value;
-  if(pass === "123456"){ // Altere aqui a sua senha de acesso
+  const user = document.getElementById("adminUser").value.trim();
+  const pass = document.getElementById("adminPass").value.trim();
+  
+  if(user === "Mikhael" && pass === "12381314*Lj"){
     renderAdminDashboard();
   } else {
-    showToast("Senha incorreta!");
+    showToast("Login ou senha incorretos!");
   }
+}
+
+function forgotPassword(){
+  const emailDestino = "odiselma_vital@gmail.com";
+  const assunto = encodeURIComponent("Recuperação de Senha - Painel Glam");
+  const corpo = encodeURIComponent("Olá,\n\nSolicitei a recuperação da senha de administrador para o painel do aplicativo Glam.\nPor favor, envie as instruções de redefinição.");
+  
+  // Abre o cliente de e-mail de forma segura direcionando para o e-mail solicitado
+  window.location.href = `mailto:${emailDestino}?subject=${assunto}&body=${corpo}`;
+  showToast("Redirecionando para envio seguro ao e-mail autorizado.");
 }
 
 function renderAdminDashboard(){
