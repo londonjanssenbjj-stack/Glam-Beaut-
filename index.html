@@ -156,25 +156,42 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background: linear-gradient(135deg,#f8edf3,#ead6e1);
+      background:
+        radial-gradient(circle at 60% 40%,#fff 0 12%,transparent 13%),
+        linear-gradient(135deg,#f8edf3,#ead6e1);
       position:relative;
       overflow:hidden;
     }
 
     .hero-art:after{
-      content:"";
+      content:"GLAM";
       position:absolute;
-      inset:15px;
-      background-image: url('Logo-Glam-Beaut.png.jpeg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      opacity: 0.18;
-      pointer-events: none;
+      font-size:clamp(90px,13vw,170px);
+      font-weight:800;
+      letter-spacing:-.08em;
+      opacity:.08;
     }
 
     .hero-orb{
-      display: none;
+      width:210px;
+      height:280px;
+      border-radius:50% 50% 48% 48%;
+      background:linear-gradient(145deg,#fff,#ddd);
+      box-shadow:0 25px 60px rgba(0,0,0,.14);
+      transform:rotate(8deg);
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-orb:before{
+      content:"G";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-size:110px;
+      font-weight:800;
+      color:#111;
     }
 
     .btn{
@@ -594,7 +611,7 @@
 
   <header>
     <nav class="nav">
-      <a href="#" class="logo" onclick="goHome();return false;">Glam</a>
+      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 42px; width: auto; object-fit: contain; vertical-align: middle;"></a>
 
       <div class="nav-actions">
         <button class="icon-btn" aria-label="Buscar" onclick="openSearch()">⌕</button>
@@ -609,7 +626,9 @@
   <!-- MENU SANFONA -->
   <div class="menu-overlay" id="menuOverlay">
     <div class="menu-head">
-      <div class="logo">Glam</div>  
+      <div class="logo">
+        <img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 42px; width: auto; object-fit: contain; vertical-align: middle;">
+      </div>  
       <button class="menu-btn" onclick="closeMenu()">FECHAR ×</button>
     </div>
 
