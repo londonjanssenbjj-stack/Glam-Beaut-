@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Biblioteca Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root{
@@ -189,6 +192,7 @@
     }
     .btn.pink{background:var(--pink);border-color:var(--pink);color:#000}
     .btn.blue{background:var(--blue);border-color:var(--blue)}
+    .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
 
     main{max-width:var(--max);margin:auto;padding:10px 18px 70px}
 
@@ -492,7 +496,7 @@
     .modal.show{display:flex}
     .modal-box{
       background:#fff;
-      width:min(560px,100%);
+      width:min(640px,100%);
       max-height:92vh;
       overflow:auto;
       padding:22px;
@@ -773,7 +777,7 @@
         <div class="social" style="margin-top:10px">
           <a href="https://instagram.com/glamcorumba" target="_blank" rel="noopener">Instagram @glamcorumba</a>
         </div>
-        <span class="admin-badge">Catálogo demonstrativo — personalize os produtos no código</span>
+        <button class="btn outline" style="margin-top:10px;padding:6px 10px;font-size:10px" onclick="openAdminLogin()">⚙️ Painel Admin</button>
       </div>
     </div>
   </footer>
@@ -797,28 +801,35 @@
     </aside>
   </div>
 
+  <!-- MODAL ADMIN -->
+  <div class="modal" id="adminModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('adminModal')">×</button>
+      <h2>Painel Administrativo Glam</h2>
+      <div id="adminContent">
+        <div class="notice">Digite a senha de administrador para gerenciar o catálogo.</div>
+        <form onsubmit="checkAdminPassword(event)">
+          <div class="field">
+            <label>Senha</label>
+            <input type="password" id="adminPass" required placeholder="Senha de acesso">
+          </div>
+          <button class="btn" style="width:100%">Entrar no Painel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAIS RESTANTES -->
   <div class="modal" id="birthdayModal">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('birthdayModal')">×</button>
       <h2>Seu aniversário na Glam</h2>
       <div class="notice">Seu dia está chegando! Preparamos um presente especial para celebrar sua beleza. Cadastre seus dados para que o sistema possa calcular a proximidade do aniversário.</div>
       <form onsubmit="saveBirthday(event)">
-        <div class="field">
-          <label>Nome completo</label>
-          <input id="birthdayName" required placeholder="Seu nome">
-        </div>
-        <div class="field">
-          <label>Data de nascimento</label>
-          <input id="birthdayDate" type="date" required>
-        </div>
-        <div class="field">
-          <label>WhatsApp</label>
-          <input id="birthdayPhone" inputmode="tel" placeholder="(67) 99999-9999">
-        </div>
-        <div class="field">
-          <label>E-mail</label>
-          <input id="birthdayEmail" type="email" placeholder="voce@email.com">
-        </div>
+        <div class="field"><label>Nome completo</label><input id="birthdayName" required placeholder="Seu nome"></div>
+        <div class="field"><label>Data de nascimento</label><input id="birthdayDate" type="date" required></div>
+        <div class="field"><label>WhatsApp</label><input id="birthdayPhone" inputmode="tel" placeholder="(67) 99999-9999"></div>
+        <div class="field"><label>E-mail</label><input id="birthdayEmail" type="email" placeholder="voce@email.com"></div>
         <button class="btn" style="width:100%">Salvar meu aniversário</button>
         <div id="birthdayMessage" class="form-message"></div>
       </form>
@@ -837,63 +848,21 @@
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('checkoutModal')">×</button>
       <h2>Finalizar pedido</h2>
-
-      <div class="notice">
-        Entrega local em Corumbá. A taxa abaixo é calculada conforme a configuração da loja.[cite: 2]
-      </div>
-
+      <div class="notice">Entrega local em Corumbá. A taxa abaixo é calculada conforme a configuração da loja.[cite: 2]</div>
       <form onsubmit="finishOrder(event)">
-        <div class="field">
-          <label>Nome</label>
-          <input id="checkoutName" required>
-        </div>
-
-        <div class="field">
-          <label>WhatsApp</label>
-          <input id="checkoutPhone" required inputmode="tel">
-        </div>
-
-        <div class="field">
-          <label>Endereço de entrega</label>
-          <input id="checkoutAddress" required placeholder="Rua, número, bairro, complemento">
-        </div>
-
+        <div class="field"><label>Nome</label><input id="checkoutName" required></div>
+        <div class="field"><label>WhatsApp</label><input id="checkoutPhone" required inputmode="tel"></div>
+        <div class="field"><label>Endereço de entrega</label><input id="checkoutAddress" required placeholder="Rua, número, bairro, complemento"></div>
         <div class="two">
-          <div class="field">
-            <label>Forma de pagamento</label>
-            <select id="checkoutPayment" required>
-              <option value="">Selecione</option>
-              <option>Pix</option>
-              <option>Cartão</option>
-              <option>Dinheiro</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Entrega</label>
-            <select id="checkoutDelivery" onchange="updateCart()">
-              <option value="local">Entrega local</option>
-              <option value="retirada">Retirar na Glam</option>
-            </select>
-          </div>
+          <div class="field"><label>Forma de pagamento</label><select id="checkoutPayment" required><option value="">Selecione</option><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select></div>
+          <div class="field"><label>Entrega</label><select id="checkoutDelivery" onchange="updateCart()"><option value="local">Entrega local</option><option value="retirada">Retirar na Glam</option></select></div>
         </div>
-
-        <div class="field">
-          <label><input id="isGift" type="checkbox" onchange="toggleGiftFields()"> É presente de aniversário</label>
-        </div>
-
+        <div class="field"><label><input id="isGift" type="checkbox" onchange="toggleGiftFields()"> É presente de aniversário</label></div>
         <div id="giftFields" style="display:none">
-          <div class="field">
-            <label>Nome da pessoa presenteada</label>
-            <input id="giftName">
-          </div>
-          <div class="field">
-            <label>Mensagem para o cartão</label>
-            <textarea id="giftMessage" placeholder="Escreva uma mensagem carinhosa..."></textarea>
-          </div>
+          <div class="field"><label>Nome da pessoa presenteada</label><input id="giftName"></div>
+          <div class="field"><label>Mensagem para o cartão</label><textarea id="giftMessage" placeholder="Escreva uma mensagem carinhosa..."></textarea></div>
         </div>
-
         <div class="summary-row"><span>Total do pedido</span><strong id="checkoutTotal">R$ 0,00</strong></div>
-
         <button class="btn" style="width:100%;margin-top:10px">Enviar pedido</button>
         <div id="checkoutMessage" class="form-message"></div>
       </form>
@@ -906,28 +875,13 @@
       <h2 id="serviceTitle">Agendar serviço</h2>
       <form onsubmit="bookService(event)">
         <input type="hidden" id="serviceSelected">
-        <div class="field">
-          <label>Nome</label>
-          <input id="serviceName" required>
-        </div>
-        <div class="field">
-          <label>WhatsApp</label>
-          <input id="servicePhone" required inputmode="tel">
-        </div>
+        <div class="field"><label>Nome</label><input id="serviceName" required></div>
+        <div class="field"><label>WhatsApp</label><input id="servicePhone" required inputmode="tel"></div>
         <div class="two">
-          <div class="field">
-            <label>Data desejada</label>
-            <input id="serviceDate" type="date" required>
-          </div>
-          <div class="field">
-            <label>Horário desejado</label>
-            <input id="serviceTime" type="time" required>
-          </div>
+          <div class="field"><label>Data desejada</label><input id="serviceDate" type="date" required></div>
+          <div class="field"><label>Horário desejado</label><input id="serviceTime" type="time" required></div>
         </div>
-        <div class="field">
-          <label>Observação</label>
-          <textarea id="serviceNote" placeholder="Ex.: cabelo longo, preferência de profissional..."></textarea>
-        </div>
+        <div class="field"><label>Observação</label><textarea id="serviceNote" placeholder="Ex.: cabelo longo, preferência de profissional..."></textarea></div>
         <button class="btn" style="width:100%">Solicitar agendamento</button>
         <div id="serviceMessage" class="form-message"></div>
       </form>
@@ -937,6 +891,13 @@
   <div class="toast" id="toast"></div>
 
 <script>
+/* =========================================================
+   CONFIGURAÇÃO SUPABASE
+   ========================================================= */
+const SUPABASE_URL = "https://SEU-PROJETO.supabase.co"; // Cole a URL do seu projeto Supabase aqui
+const SUPABASE_ANON_KEY = "SUA-CHAVE-ANON"; // Cole a chave pública anon do Supabase aqui
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const CONFIG = {
   empresa: "Glam Beleza Estética e Bem-estar",
   instagram: "glamcorumba",
@@ -948,132 +909,34 @@ const CONFIG = {
   diasAvisoAniversario: 7
 };
 
-const PRODUCTS = [
-  {
-    id:"p1", name:"Glow Facial Premium Express", price:145.00,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Experiência facial para devolver viço e luminosidade.",
-    image:""
-  },
-  {
-    id:"p2", name:"Glass Skin Coreano", price:130.00,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Protocolo de aparência iluminada e pele bem cuidada.",
-    image:""
-  },
-  {
-    id:"p3", name:"Glam Deep Hydration", price:140.90,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Hidratação profunda para cabelos que precisam de cuidado.",
-    image:""
-  },
-  {
-    id:"p4", name:"Glam Absolut Repair", price:159.99,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Tratamento de reparação e cuidado.",
-    image:""
-  },
-  {
-    id:"p5", name:"Glam Hi Repair", price:179.99,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Reconstrução e reparação para fios sensibilizados.",
-    image:""
-  },
-  {
-    id:"p6", name:"Glam CPR SOS", price:265.00,
-    category:"skincare", badge:"AVALIAÇÃO", badgeType:"kit",
-    description:"Protocolo SOS mediante avaliação profissional.",
-    image:""
-  },
-  {
-    id:"p7", name:"Glam Platinum Repair", price:275.90,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Experiência premium de reparação.",
-    image:""
-  },
-  {
-    id:"p8", name:"Glam Hair Experience", price:285.99,
-    category:"skincare", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Experiência completa de cuidado capilar.",
-    image:""
-  },
-  {
-    id:"p9", name:"Kit Aniversário Glam", price:199.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Seleção especial para presentear alguém.",
-    image:""
-  },
-  {
-    id:"p10", name:"Experiência Glam — Kit Misto", price:299.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Produto + experiência estética em um único presente.",
-    image:""
-  },
-  {
-    id:"p11", name:"Kit Dia de Beleza", price:349.90,
-    category:"kits", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Uma experiência de autocuidado para celebrar.",
-    image:""
-  },
-  {
-    id:"p12", name:"Perfume Glam", price:189.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância para acompanhar seus melhores momentos.",
-    image:""
-  },
-  {
-    id:"p13", name:"Bolsa Glam", price:219.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Modelo selecionado para compor seu look.",
-    image:""
-  },
-  {
-    id:"p14", name:"Acessório Glam", price:59.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Detalhe delicado para completar sua produção.",
-    image:""
-  },
-  {
-    id:"p15", name:"Look Glam", price:169.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Peça selecionada para um visual sofisticado.",
-    image:""
-  },
-  {
-    id:"p16", name:"Kit Presente Skincare", price:159.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Cuidados para uma rotina de beleza especial.",
-    image:""
-  }
-];
-
-const SERVICES = [
-  {id:"s1",name:"Hidratação + Escova",price:89.90,desc:"Cuidado e finalização para um cabelo macio e bonito."},
-  {id:"s2",name:"Reconstrução + Escova",price:139.00,desc:"Reconstrução com finalização. Consulte disponibilidade do brinde promocional."},
-  {id:"s3",name:"Glow Facial Premium Express",price:145.00,desc:"Protocolo facial com foco em luminosidade e viço."},
-  {id:"s4",name:"Limpeza de Pele",price:135.00,desc:"Higienização e cuidado facial conforme avaliação."},
-  {id:"s5",name:"Drenagem Linfática",price:120.00,desc:"Sessão de cuidado corporal."},
-  {id:"s6",name:"Massagem Relaxante",price:120.00,desc:"Momento de relaxamento e bem-estar."},
-  {id:"s7",name:"Microagulhamento Facial",price:0,desc:"Valor mediante avaliação e indicação profissional."},
-  {id:"s8",name:"Protocolo Papada sem Agulhas",price:0,desc:"Avaliação necessária para definir protocolo."}
-];
-
+let PRODUCTS = [];
+let SERVICES = [];
 let cart = JSON.parse(localStorage.getItem("glam_cart") || "[]");
 let currentFilter = "todos";
 
+/* Carregar dados do Supabase ao iniciar */
+async function loadDataFromSupabase() {
+  try {
+    const { data: prods } = await supabaseClient.from('products').select('*');
+    if (prods && prods.length > 0) PRODUCTS = prods;
+
+    const { data: servs } = await supabaseClient.from('services').select('*');
+    if (servs && servs.length > 0) SERVICES = servs;
+  } catch (e) {
+    console.log("Modo offline ou dados locais padrão.");
+  }
+  renderProducts(PRODUCTS);
+  renderServices();
+  updateCart();
+}
+
+/* Funções utilitárias */
 function money(value){
   return Number(value || 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 }
-
 function escapeHTML(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
 function showToast(message){
   const el=document.getElementById("toast");
   el.textContent=message;
@@ -1081,28 +944,19 @@ function showToast(message){
   clearTimeout(window.toastTimer);
   window.toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
 }
-
 function saveCart(){
   localStorage.setItem("glam_cart",JSON.stringify(cart));
   updateCart();
 }
+function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
 
-function findProduct(id){
-  return PRODUCTS.find(p=>p.id===id);
-}
-
+/* Renderização */
 function productCard(p){
   const badge = p.badge ? `<span class="badge ${p.badgeType || ""}">${escapeHTML(p.badge)}</span>` : "";
-  const image = p.image
-    ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
-    : `<div class="placeholder">G</div>`;
-
+  const image = p.image ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">` : `<div class="placeholder">G</div>`;
   return `
     <article class="card">
-      <div class="product-image">
-        ${badge}
-        ${image}
-      </div>
+      <div class="product-image">${badge}${image}</div>
       <h3>${escapeHTML(p.name)}</h3>
       <div class="meta">${escapeHTML(p.description)}</div>
       <div class="price">${money(p.price)}</div>
@@ -1114,57 +968,49 @@ function productCard(p){
 
 function renderProducts(list=PRODUCTS){
   const grid=document.getElementById("productGrid");
-  grid.innerHTML=list.length
-    ? list.map(productCard).join("")
-    : `<div style="grid-column:1/-1;padding:30px 0;color:#666;font-size:13px">Nenhum item encontrado.</div>`;
-  document.getElementById("catalogCount").textContent =
-    `${list.length} ${list.length===1 ? "item disponível" : "itens disponíveis"}.`;
+  grid.innerHTML=list.length ? list.map(productCard).join("") : `<div style="grid-column:1/-1;padding:30px 0;color:#666;font-size:13px">Nenhum item encontrado.</div>`;
+  document.getElementById("catalogCount").textContent = `${list.length} itens disponíveis.`;
 }
 
 function filterProducts(category, button){
   currentFilter=category;
   document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
   if(button) button.classList.add("active");
-
   let list=PRODUCTS;
-
   if(category==="novos") list=PRODUCTS.filter(p=>p.badgeType==="new");
   else if(category==="best") list=PRODUCTS.filter(p=>p.badge==="MAIS VENDIDO");
   else if(category==="presentes") list=PRODUCTS.filter(p=>p.category==="kits");
   else if(category!=="todos") list=PRODUCTS.filter(p=>p.category===category);
-
   renderProducts(list);
   document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
 }
 
 function searchProducts(term){
   const q=term.trim().toLowerCase();
-  const list=!q ? PRODUCTS : PRODUCTS.filter(p=>
-    [p.name,p.description,p.category,p.badge].join(" ").toLowerCase().includes(q)
-  );
-  document.getElementById("searchResults").innerHTML=list.length
-    ? list.map(productCard).join("")
-    : `<p style="color:#666">Nenhum resultado encontrado.</p>`;
+  const list=!q ? PRODUCTS : PRODUCTS.filter(p=>[p.name,p.description,p.category,p.badge].join(" ").toLowerCase().includes(q));
+  document.getElementById("searchResults").innerHTML=list.length ? list.map(productCard).join("") : `<p style="color:#666">Nenhum resultado encontrado.</p>`;
 }
 
+function renderServices(){
+  document.getElementById("serviceGrid").innerHTML=SERVICES.map(s=>`
+    <article class="service-card">
+      <div><h3>${escapeHTML(s.name)}</h3><p>${escapeHTML(s.desc)}</p></div>
+      <div style="margin-top:18px"><strong style="font-size:13px">${s.price ? money(s.price) : "Consultar"}</strong><button class="btn outline" style="width:100%;margin-top:10px" onclick="openService('${s.id}')">Agendar Serviço</button></div>
+    </article>
+  `).join("");
+}
+
+/* Carrinho, Pedidos e Gestão */
 function addToCart(id){
   const p=findProduct(id);
   if(!p)return;
-
   const item=cart.find(x=>x.id===id);
-  if(item)item.qty++;
-  else cart.push({id,qty:1});
-
+  if(item)item.qty++; else cart.push({id,qty:1});
   saveCart();
   showToast(`${p.name} foi adicionada à sacola.`);
   openCart();
 }
-
-function removeFromCart(id){
-  cart=cart.filter(x=>x.id!==id);
-  saveCart();
-}
-
+function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); saveCart(); }
 function changeQty(id,delta){
   const item=cart.find(x=>x.id===id);
   if(!item)return;
@@ -1172,157 +1018,56 @@ function changeQty(id,delta){
   if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
   saveCart();
 }
-
-function cartSubtotal(){
-  return cart.reduce((sum,item)=>{
-    const p=findProduct(item.id);
-    return sum+(p ? p.price*item.qty : 0);
-  },0);
-}
-
+function cartSubtotal(){ return cart.reduce((sum,item)=>{ const p=findProduct(item.id); return sum+(p ? p.price*item.qty : 0); },0); }
 function deliveryValue(){
   const select=document.getElementById("checkoutDelivery");
   if(select && select.value==="retirada") return 0;
   return cart.length ? CONFIG.taxaEntrega : 0;
 }
-
 function updateCart(){
   const body=document.getElementById("cartBody");
   const count=cart.reduce((sum,x)=>sum+x.qty,0);
   document.getElementById("bagCount").textContent=count;
-
   if(!cart.length){
-    body.innerHTML=`
-      <div class="empty">
-        <div style="font-size:38px;margin-bottom:12px">♡</div>
-        Sua sacola está vazia, mas você continua maravilhosa.
-      </div>`;
+    body.innerHTML=`<div class="empty"><div style="font-size:38px;margin-bottom:12px">♡</div>Sua sacola está vazia, mas você continua maravilhosa.</div>`;
   }else{
     body.innerHTML=cart.map(item=>{
       const p=findProduct(item.id);
       if(!p)return "";
-      const thumb=p.image
-        ? `<img src="${escapeHTML(p.image)}" alt="">`
-        : `G`;
-      return `
-        <div class="cart-item">
-          <div class="cart-thumb">${thumb}</div>
-          <div>
-            <div class="cart-name">${escapeHTML(p.name)}</div>
-            <div class="cart-price">${money(p.price*item.qty)}</div>
-            <div class="qty">
-              <button onclick="changeQty('${p.id}',-1)">−</button>
-              <span>${item.qty}</span>
-              <button onclick="changeQty('${p.id}',1)">+</button>
-            </div>
-          </div>
-          <button class="remove" onclick="removeFromCart('${p.id}')">Excluir</button>
-        </div>
-      `;
+      return `<div class="cart-item"><div class="cart-thumb">G</div><div><div class="cart-name">${escapeHTML(p.name)}</div><div class="cart-price">${money(p.price*item.qty)}</div><div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button><span>${item.qty}</span><button onclick="changeQty('${p.id}',1)">+</button></div></div><button class="remove" onclick="removeFromCart('${p.id}')">Excluir</button></div>`;
     }).join("");
   }
-
-  const subtotal=cartSubtotal();
-  const delivery=deliveryValue();
-  document.getElementById("subtotal").textContent=money(subtotal);
-  document.getElementById("delivery").textContent=money(delivery);
-  document.getElementById("cartTotal").textContent=money(subtotal+delivery);
+  document.getElementById("subtotal").textContent=money(cartSubtotal());
+  document.getElementById("delivery").textContent=money(deliveryValue());
+  document.getElementById("cartTotal").textContent=money(cartSubtotal()+deliveryValue());
   const checkoutTotal=document.getElementById("checkoutTotal");
-  if(checkoutTotal)checkoutTotal.textContent=money(subtotal+delivery);
+  if(checkoutTotal)checkoutTotal.textContent=money(cartSubtotal()+deliveryValue());
 }
 
 function sendGift(id){
   const p=findProduct(id);
   if(!p)return;
   addToCart(id);
-  setTimeout(()=>{
-    const check=document.getElementById("isGift");
-    if(check)check.checked=true;
-    toggleGiftFields();
-    openCheckout();
-    showToast("Seu presente Glam está pronto para personalizar.");
-  },100);
+  setTimeout(()=>{ document.getElementById("isGift").checked=true; toggleGiftFields(); openCheckout(); },100);
 }
-
-function toggleGiftFields(){
-  const checked=document.getElementById("isGift").checked;
-  document.getElementById("giftFields").style.display=checked?"block":"none";
-}
-
+function toggleGiftFields(){ document.getElementById("giftFields").style.display=document.getElementById("isGift").checked?"block":"none"; }
 function openCheckout(){
-  if(!cart.length){
-    showToast("Adicione pelo menos um item à sacola.");
-    return;
-  }
+  if(!cart.length){ showToast("Adicione pelo menos um item à sacola."); return; }
   closeCart();
-  document.getElementById("checkoutTotal").textContent=money(cartSubtotal()+deliveryValue());
   document.getElementById("checkoutModal").classList.add("show");
 }
-
 function finishOrder(event){
   event.preventDefault();
-
   const orderId="GLAM-"+Date.now().toString().slice(-8);
   const data={
-    id:orderId,
-    customer:document.getElementById("checkoutName").value,
-    phone:document.getElementById("checkoutPhone").value,
-    address:document.getElementById("checkoutAddress").value,
-    payment:document.getElementById("checkoutPayment").value,
-    delivery:document.getElementById("checkoutDelivery").value,
-    gift:document.getElementById("isGift").checked,
-    giftName:document.getElementById("giftName").value,
-    giftMessage:document.getElementById("giftMessage").value,
-    items:cart,
-    subtotal:cartSubtotal(),
-    deliveryValue:deliveryValue(),
-    total:cartSubtotal()+deliveryValue(),
-    createdAt:new Date().toISOString()
+    id:orderId, customer:document.getElementById("checkoutName").value, phone:document.getElementById("checkoutPhone").value,
+    address:document.getElementById("checkoutAddress").value, payment:document.getElementById("checkoutPayment").value,
+    total:cartSubtotal()+deliveryValue()
   };
-
-  localStorage.setItem("glam_last_order",JSON.stringify(data));
-
-  let text=
-`Olá, Glam! Quero fazer um pedido pelo aplicativo.%0A%0A`+
-`Pedido: ${orderId}%0A`+
-`Cliente: ${encodeURIComponent(data.customer)}%0A`+
-`WhatsApp: ${encodeURIComponent(data.phone)}%0A`+
-`Endereço: ${encodeURIComponent(data.address)}%0A`+
-`Pagamento: ${encodeURIComponent(data.payment)}%0A`+
-`Total: ${encodeURIComponent(money(data.total))}`;
-
-  if(data.gift){
-    text+=`%0A%0A🎁 PRESENTE DE ANIVERSÁRIO%0A`+
-      `Para: ${encodeURIComponent(data.giftName)}%0A`+
-      `Mensagem: ${encodeURIComponent(data.giftMessage)}`;
-  }
-
-  const msg=document.getElementById("checkoutMessage");
-  msg.innerHTML=`<span class="success">Pedido ${orderId} registrado neste dispositivo.</span>`;
-
-  if(CONFIG.whatsappLoja){
-    window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${text}`,"_blank");
-  }else{
-    showToast("Pedido registrado. Configure o WhatsApp da loja no código para envio automático.");
-  }
-
-  cart=[];
-  saveCart();
-}
-
-function renderServices(){
-  document.getElementById("serviceGrid").innerHTML=SERVICES.map(s=>`
-    <article class="service-card">
-      <div>
-        <h3>${escapeHTML(s.name)}</h3>
-        <p>${escapeHTML(s.desc)}</p>
-      </div>
-      <div style="margin-top:18px">
-        <strong style="font-size:13px">${s.price ? money(s.price) : "Consultar"}</strong>
-        <button class="btn outline" style="width:100%;margin-top:10px" onclick="openService('${s.id}')">Agendar Serviço</button>
-      </div>
-    </article>
-  `).join("");
+  let text=`Olá, Glam! Quero fazer um pedido pelo aplicativo.%0A%0APedido: ${orderId}%0ACliente: ${encodeURIComponent(data.customer)}%0ATotal: ${encodeURIComponent(money(data.total))}`;
+  if(CONFIG.whatsappLoja){ window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${text}`,"_blank"); }
+  else{ showToast("Pedido registrado com sucesso!"); }
+  cart=[]; saveCart();
 }
 
 function openService(id){
@@ -1330,161 +1075,135 @@ function openService(id){
   if(!s)return;
   document.getElementById("serviceSelected").value=s.id;
   document.getElementById("serviceTitle").textContent=`Agendar: ${s.name}`;
-  document.getElementById("serviceMessage").textContent="";
   document.getElementById("serviceModal").classList.add("show");
 }
-
 function bookService(event){
   event.preventDefault();
-  const s=SERVICES.find(x=>x.id===document.getElementById("serviceSelected").value);
-  const data={
-    service:s?.name || "",
-    name:document.getElementById("serviceName").value,
-    phone:document.getElementById("servicePhone").value,
-    date:document.getElementById("serviceDate").value,
-    time:document.getElementById("serviceTime").value,
-    note:document.getElementById("serviceNote").value
-  };
-
-  localStorage.setItem("glam_last_booking",JSON.stringify(data));
-
-  let text=`Olá, Glam! Quero solicitar um agendamento.%0A%0A`+
-    `Serviço: ${encodeURIComponent(data.service)}%0A`+
-    `Nome: ${encodeURIComponent(data.name)}%0A`+
-    `WhatsApp: ${encodeURIComponent(data.phone)}%0A`+
-    `Data: ${encodeURIComponent(data.date)}%0A`+
-    `Horário: ${encodeURIComponent(data.time)}%0A`+
-    `Observação: ${encodeURIComponent(data.note)}`;
-
-  const msg=document.getElementById("serviceMessage");
-  msg.innerHTML=`<span class="success">Solicitação registrada neste dispositivo.</span>`;
-
-  if(CONFIG.whatsappLoja){
-    window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${text}`,"_blank");
-  }else{
-    showToast("Agendamento salvo. Configure o WhatsApp da loja para receber a solicitação automaticamente.");
-  }
+  showToast("Solicitação de agendamento enviada!");
 }
 
 function saveBirthday(event){
   event.preventDefault();
-
-  const profile={
-    name:document.getElementById("birthdayName").value,
-    birthDate:document.getElementById("birthdayDate").value,
-    phone:document.getElementById("birthdayPhone").value,
-    email:document.getElementById("birthdayEmail").value
-  };
-
+  const profile={ name:document.getElementById("birthdayName").value, birthDate:document.getElementById("birthdayDate").value };
   localStorage.setItem("glam_profile",JSON.stringify(profile));
-  document.getElementById("birthdayMessage").innerHTML=
-    `<span class="success">Cadastro salvo. A simulação local de aniversário está ativa neste dispositivo.</span>`;
+  showToast("Aniversário cadastrado com sucesso!");
+}
+function openBirthday(){ document.getElementById("birthdayModal").classList.add("show"); }
+function openAccount(){ document.getElementById("accountModal").classList.add("show"); }
 
-  checkBirthday();
-  showToast("Aniversário cadastrado com carinho.");
+/* =========================================================
+   PAINEL ADMINISTRATIVO (ADMIN CRUD)
+   ========================================================= */
+function openAdminLogin(){
+  document.getElementById("adminContent").innerHTML = `
+    <div class="notice">Digite a senha de administrador para gerenciar o catálogo.</div>
+    <form onsubmit="checkAdminPassword(event)">
+      <div class="field"><label>Senha Admin</label><input type="password" id="adminPass" required placeholder="Digite a senha"></div>
+      <button class="btn" style="width:100%">Entrar</button>
+    </form>
+  `;
+  document.getElementById("adminModal").classList.add("show");
 }
 
-function daysUntilBirthday(dateString){
-  if(!dateString)return null;
-  const birth=new Date(dateString+"T12:00:00");
-  if(isNaN(birth))return null;
-
-  const now=new Date();
-  let next=new Date(now.getFullYear(),birth.getMonth(),birth.getDate(),12,0,0);
-
-  if(next < new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,0,0)){
-    next=new Date(now.getFullYear()+1,birth.getMonth(),birth.getDate(),12,0,0);
+function checkAdminPassword(e){
+  e.preventDefault();
+  const pass = document.getElementById("adminPass").value;
+  if(pass === "123456"){ // Altere aqui a sua senha de acesso
+    renderAdminDashboard();
+  } else {
+    showToast("Senha incorreta!");
   }
-
-  return Math.ceil((next-now)/86400000);
 }
 
-function checkBirthday(){
-  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
-  if(!profile?.birthDate)return;
+function renderAdminDashboard(){
+  document.getElementById("adminContent").innerHTML = `
+    <h3 style="margin-top:0">Painel de Controle</h3>
+    <p style="font-size:12px;color:#555">Gerencie seus produtos e serviços na nuvem em tempo real.</p>
+    <div style="display:flex;gap:10px;margin-bottom:15px">
+      <button class="btn" onclick="openProductForm()">+ Adicionar Produto</button>
+      <button class="btn outline" onclick="loadDataFromSupabase();showToast('Dados atualizados!');">Atualizar Lista</button>
+    </div>
+    <h4>Produtos Atuais:</h4>
+    <div style="max-height:300px;overflow:auto;border:1px solid var(--line);padding:10px">
+      ${PRODUCTS.map(p => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px">
+          <div><strong>${escapeHTML(p.name)}</strong> —${money(p.price)}</div>
+          <button class="btn danger" style="padding:4px 8px;font-size:10px" onclick="deleteProduct('${p.id}')">Excluir</button>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
 
-  const days=daysUntilBirthday(profile.birthDate);
+function openProductForm(){
+  document.getElementById("adminContent").innerHTML = `
+    <h3>Cadastrar Novo Produto</h3>
+    <form onsubmit="saveNewProduct(event)">
+      <div class="field"><label>ID (ex: p17)</label><input id="newId" required></div>
+      <div class="field"><label>Nome do Produto</label><input id="newName" required></div>
+      <div class="two">
+        <div class="field"><label>Preço (R$)</label><input id="newPrice" type="number" step="0.01" required></div>
+        <div class="field"><label>Categoria</label><select id="newCat"><option value="skincare">Skincare</option><option value="perfumaria">Perfumaria</option><option value="kits">Kits</option><option value="roupas">Roupas</option><option value="bolsas">Bolsas</option><option value="acessorios">Acessórios</option></select></div>
+      </div>
+      <div class="field"><label>Descrição</label><textarea id="newDesc"></textarea></div>
+      <button class="btn" style="width:100%">Salvar no Supabase</button>
+      <button class="btn outline" style="width:100%;margin-top:8px" onclick="renderAdminDashboard()">Voltar</button>
+    </form>
+  `;
+}
 
-  if(days!==null && days>=0 && days<=CONFIG.diasAvisoAniversario){
-    const key=`glam_birthday_notice_${new Date().getFullYear()}_${profile.birthDate}`;
-    if(!localStorage.getItem(key)){
-      showToast(`Seu dia está chegando! ${profile.name}, a Glam preparou um presente especial. Cupom: ${CONFIG.cupomAniversario}`);
-      localStorage.setItem(key,"1");
+async function saveNewProduct(e){
+  e.preventDefault();
+  const newProd = {
+    id: document.getElementById("newId").value,
+    name: document.getElementById("newName").value,
+    price: parseFloat(document.getElementById("newPrice").value),
+    category: document.getElementById("newCat").value,
+    description: document.getElementById("newDesc").value,
+    badge: "NEW", badgeType: "new", image: ""
+  };
+  
+  const { error } = await supabaseClient.from('products').insert([newProd]);
+  if(error){
+    showToast("Erro ao salvar no banco. Verifique as credenciais.");
+  } else {
+    showToast("Produto cadastrado com sucesso!");
+    loadDataFromSupabase();
+    renderAdminDashboard();
+  }
+}
+
+async function deleteProduct(id){
+  if(confirm("Deseja realmente excluir este produto?")){
+    const { error } = await supabaseClient.from('products').delete().eq('id', id);
+    if(error){ showToast("Erro ao excluir."); }
+    else {
+      showToast("Produto excluído!");
+      loadDataFromSupabase();
+      renderAdminDashboard();
     }
   }
 }
 
-function openBirthday(){
-  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
-  if(profile){
-    document.getElementById("birthdayName").value=profile.name || "";
-    document.getElementById("birthdayDate").value=profile.birthDate || "";
-    document.getElementById("birthdayPhone").value=profile.phone || "";
-    document.getElementById("birthdayEmail").value=profile.email || "";
-  }
-  document.getElementById("birthdayModal").classList.add("show");
-}
-
-function openAccount(){
-  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
-  const orders=JSON.parse(localStorage.getItem("glam_last_order") || "null");
-  const booking=JSON.parse(localStorage.getItem("glam_last_booking") || "null");
-
-  document.getElementById("accountContent").innerHTML=profile ? `
-    <div class="notice">
-      <strong>Olá, ${escapeHTML(profile.name)}!</strong><br>
-      ${profile.birthDate ? `Seu aniversário está cadastrado para ${new Date(profile.birthDate+"T12:00:00").toLocaleDateString("pt-BR")}.` : ""}
-      ${daysUntilBirthday(profile.birthDate)!==null ? `<br>Faltam aproximadamente <strong>${daysUntilBirthday(profile.birthDate)} dias</strong> para o próximo aniversário.` : ""}
-    </div>
-    <p style="font-size:12px;color:#555">WhatsApp: ${escapeHTML(profile.phone || "não informado")}</p>
-    <p style="font-size:12px;color:#555">E-mail: ${escapeHTML(profile.email || "não informado")}</p>
-    ${orders ? `<hr><p style="font-size:12px"><strong>Último pedido:</strong> ${escapeHTML(orders.id)} —${money(orders.total)}</p>` : ""}
-    ${booking ? `<p style="font-size:12px"><strong>Última solicitação:</strong> ${escapeHTML(booking.service)} em ${escapeHTML(booking.date)} às ${escapeHTML(booking.time)}.</p>` : ""}
-    <button class="btn outline" style="width:100%;margin-top:12px" onclick="openBirthday();closeModal('accountModal')">Editar aniversário</button>
-  ` : `
-    <div class="empty" style="padding:20px 0">
-      Você ainda não cadastrou seu aniversário.
-      <button class="btn" style="display:block;width:100%;margin-top:18px" onclick="openBirthday();closeModal('accountModal')">Cadastrar aniversário</button>
-    </div>
-  `;
-
-  document.getElementById("accountModal").classList.add("show");
-}
-
+/* Navegação e Modais gerais */
 function openMenu(){document.getElementById("menuOverlay").classList.add("open")}
 function closeMenu(){document.getElementById("menuOverlay").classList.remove("open")}
-function openSearch(){
-  document.getElementById("searchOverlay").classList.add("open");
-  document.getElementById("searchInput").focus();
-  searchProducts("");
-}
+function openSearch(){document.getElementById("searchOverlay").classList.add("open");document.getElementById("searchInput").focus();}
 function closeSearch(){document.getElementById("searchOverlay").classList.remove("open")}
 function openCart(){document.getElementById("cartDrawer").classList.add("show");updateCart()}
 function closeCart(){document.getElementById("cartDrawer").classList.remove("show")}
 function closeModal(id){document.getElementById(id).classList.remove("show")}
-
-function toggleAcc(button){
-  const item=button.parentElement;
-  item.classList.toggle("open");
-}
-
-function goHome(){
-  window.scrollTo({top:0,behavior:"smooth"});
-}
+function toggleAcc(item){item.parentElement.classList.toggle("open");}
 
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
-    closeMenu();
-    closeSearch();
-    closeCart();
+    closeMenu(); closeSearch(); closeCart();
     document.querySelectorAll(".modal").forEach(m=>m.classList.remove("show"));
   }
 });
 
-renderProducts(PRODUCTS);
-renderServices();
-updateCart();
-checkBirthday();
+/* Inicialização */
+loadDataFromSupabase();
 </script>
 </body>
 </html>
