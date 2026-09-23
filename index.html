@@ -151,30 +151,24 @@
       margin:0 0 28px;
     }
 
-    /* Bloco direito com a mesma cor de fundo e a logo sem fundo preto (removendo o bloco quadrado escuro) */
+    /* Bloco da direita unificado perfeitamente com o fundo preto da logo */
     .hero-art{
       min-height:330px;
       display:flex;
       align-items:center;
       justify-content:center;
-      background: #e0c2d4;
+      background: #000000;
       position:relative;
       overflow:hidden;
       padding: 24px;
     }
 
     .hero-art img.logo-destaque {
-      width: 100%;
+      width: 95%;
       max-height: 320px;
       object-fit: contain;
       position: relative;
       z-index: 2;
-      mix-blend-mode: multiply;
-      filter: contrast(1.1);
-    }
-
-    .hero-orb{
-      display: none;
     }
 
     .btn{
@@ -709,7 +703,7 @@
           <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView()">Agendar serviço</button>
         </div>
       </div>
-      <!-- Logo oficial expressiva com fundo unificado e sem moldura preta -->
+      <!-- Logo destacada com fundo perfeitamente integrado e expressiva -->
       <div class="hero-art" aria-label="Logo Glam 10 Anos">
         <img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" class="logo-destaque">
       </div>
