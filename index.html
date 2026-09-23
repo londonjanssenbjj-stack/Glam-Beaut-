@@ -3,65 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glam Beleza Estética e Bem-estar</title>
-    <!-- Tailwind CSS -->
+    <title>Salão Glam - Gestão e Aplicativo</title>
+    <!-- Tailwind CSS para um design limpo e sem poluição visual -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-900 font-sans">
-
-    <!-- Top Bar / Aviso -->
-    <div class="bg-black text-white text-xs py-2 text-center tracking-wider">
-        Entrega rápida em Corumbá, MS | Presentes programados para amigos e família!
-    </div>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
     <!-- Cabeçalho Principal -->
-    <header class="border-b bg-white sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-black tracking-tight">Glam</h1>
-            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
-                <button onclick="mudarAba('inicio')" class="hover:text-pink-600 transition">INÍCIO</button>
-                <button onclick="mudarAba('produtos')" class="hover:text-pink-600 transition">PRODUTOS</button>
-                <button onclick="mudarAba('servicos')" class="hover:text-pink-600 transition">SERVIÇOS</button>
-                <button onclick="mudarAba('aniversariantes')" class="hover:text-pink-600 transition">ANIVERSARIANTES</button>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-pink-600">Salão Glam</h1>
+            <nav class="space-x-4">
+                <button onclick="mudarAba('produtos')" class="text-gray-600 hover:text-pink-600 font-medium">Produtos</button>
+                <button onclick="mudarAba('servicos')" class="text-gray-600 hover:text-pink-600 font-medium">Serviços</button>
+                <button onclick="mudarAba('aniversariantes')" class="text-gray-600 hover:text-pink-600 font-medium">Meus Aniversariantes</button>
+                <button onclick="mudarAba('admin')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition">Painel Admin</button>
             </nav>
-            <div class="flex items-center space-x-6 text-sm font-medium">
-                <button onclick="mudarAba('admin')" class="text-gray-500 hover:text-black">PAINEL ADMIN</button>
-                <span class="cursor-pointer hover:text-pink-600">MENU</span>
-                <span class="cursor-pointer hover:text-pink-600" onclick="mudarAba('aniversariantes')">PERFIL</span>
-                <span class="cursor-pointer hover:text-pink-600" onclick="mudarAba('produtos')">BAG (0)</span>
-            </div>
         </div>
     </header>
 
     <!-- Conteúdo Dinâmico -->
-    <main class="max-w-7xl mx-auto px-6 py-8">
-
-        <!-- ABA DE INÍCIO (HERO SECTION) -->
-        <section id="aba-inicio" class="secao-aba">
-            <div class="grid grid-cols-1 lg:grid-cols-2 bg-pink-50 rounded-3xl overflow-hidden mb-12 border border-pink-100">
-                <div class="p-10 lg:p-16 flex flex-col justify-center">
-                    <span class="text-xs font-bold tracking-widest uppercase text-pink-600 mb-3">Glam Beleza Estética e Bem-Estar</span>
-                    <h2 class="text-4xl lg:text-5xl font-light tracking-tight text-gray-900 mb-6">sinta-se linda hoje.</h2>
-                    <p class="text-gray-600 mb-8 leading-relaxed">Beleza, cuidados e presentes personalizados em Corumbá. Programe presentes para amigos e familiares com entrega no dia exato.</p>
-                    <div class="flex flex-wrap gap-4">
-                        <button onclick="mudarAba('produtos')" class="bg-black text-white px-8 py-3 rounded-full text-sm font-medium tracking-wider hover:bg-gray-800 transition">Ver Produtos</button>
-                        <button onclick="mudarAba('aniversariantes')" class="border border-black px-8 py-3 rounded-full text-sm font-medium tracking-wider hover:bg-black hover:text-white transition">Cadastrar Aniversariantes</button>
-                    </div>
-                </div>
-                <div class="bg-black text-white p-10 lg:p-16 flex flex-col justify-center items-center text-center">
-                    <div class="border border-white/30 p-8 rounded-2xl max-w-xs">
-                        <h3 class="text-3xl font-serif mb-2 tracking-widest">glam!</h3>
-                        <p class="text-[10px] tracking-widest uppercase text-gray-400 mb-4">Beleza, Estética e Bem Estar</p>
-                        <div class="text-xl font-bold tracking-widest text-pink-400">10 ANOS</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="max-w-7xl mx-auto px-4 py-8">
 
         <!-- ABA DE PRODUTOS -->
-        <section id="aba-produtos" class="secao-aba hidden">
+        <section id="aba-produtos" class="secao-aba">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold tracking-tight">Catálogo de Produtos (Taxa de entrega aplicada no checkout)</h2>
+                <h2 class="text-xl font-bold text-gray-800">Catálogo de Produtos (Taxa de entrega aplicada no checkout)</h2>
             </div>
             <div id="grid-produtos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Preenchido via JavaScript -->
@@ -71,21 +38,21 @@
         <!-- ABA DE SERVIÇOS -->
         <section id="aba-servicos" class="secao-aba hidden">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold tracking-tight">Catálogo de Serviços</h2>
+                <h2 class="text-xl font-bold text-gray-800">Catálogo de Serviços</h2>
             </div>
             <div id="grid-servicos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Preenchido via JavaScript -->
             </div>
         </section>
 
-        <!-- ABA DE ANIVERSARIANTES -->
+        <!-- ABA DE ANIVERSARIANTES (CLIENTE) -->
         <section id="aba-aniversariantes" class="secao-aba hidden">
-            <div class="bg-pink-50 p-8 rounded-2xl mb-8 border border-pink-100">
-                <h2 class="text-xl font-bold mb-4">Cadastrar Amigo ou Familiar Aniversariante</h2>
+            <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Cadastrar Amigo ou Familiar Aniversariante</h2>
                 <form id="form-aniversariante" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <input type="text" id="aniv-nome" placeholder="Nome do Aniversariante" required class="border bg-white p-3 rounded-xl">
-                    <input type="date" id="aniv-data" required class="border bg-white p-3 rounded-xl">
-                    <button type="submit" class="bg-black text-white p-3 rounded-xl hover:bg-gray-800 transition text-sm font-medium">Salvar e Programar Presente</button>
+                    <input type="text" id="aniv-nome" placeholder="Nome do Aniversariante" required class="border p-2 rounded-lg">
+                    <input type="date" id="aniv-data" required class="border p-2 rounded-lg">
+                    <button type="submit" class="bg-pink-600 text-white p-2 rounded-lg hover:bg-pink-700 transition">Salvar e Programar Presente</button>
                 </form>
             </div>
             <h3 class="text-lg font-bold mb-4">Aniversariantes Cadastrados e Kits Sugeridos</h3>
@@ -94,20 +61,20 @@
             </div>
         </section>
 
-        <!-- ABA PAINEL ADMINISTRADOR -->
+        <!-- ABA PAINEL ADMINISTRADOR (Inserir, Editar, Excluir) -->
         <section id="aba-admin" class="secao-aba hidden">
-            <div class="bg-gray-50 p-8 rounded-2xl mb-8 border">
-                <h2 class="text-xl font-bold mb-4">Painel Administrativo: Adicionar / Editar Item</h2>
+            <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Painel Administrativo: Adicionar / Editar Item</h2>
                 <form id="form-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input type="hidden" id="item-id">
-                    <select id="item-tipo" class="border bg-white p-3 rounded-xl">
+                    <select id="item-tipo" class="border p-2 rounded-lg">
                         <option value="produto">Produto</option>
                         <option value="servico">Serviço</option>
                     </select>
-                    <input type="text" id="item-nome" placeholder="Nome do Produto/Serviço" required class="border bg-white p-3 rounded-xl">
-                    <input type="number" step="0.01" id="item-preco" placeholder="Preço (R$)" required class="border bg-white p-3 rounded-xl">
-                    <input type="text" id="item-foto" placeholder="URL da Foto (Ex: https://...)" required class="border bg-white p-3 rounded-xl">
-                    <button type="submit" class="col-span-full bg-black text-white p-3 rounded-xl hover:bg-gray-800 transition text-sm font-medium">Salvar Item no Sistema</button>
+                    <input type="text" id="item-nome" placeholder="Nome do Produto/Serviço" required class="border p-2 rounded-lg">
+                    <input type="number" step="0.01" id="item-preco" placeholder="Preço (R$)" required class="border p-2 rounded-lg">
+                    <input type="text" id="item-foto" placeholder="URL da Foto (Ex: https://...)" required class="border p-2 rounded-lg">
+                    <button type="submit" class="col-span-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Salvar Item no Sistema</button>
                 </form>
             </div>
 
@@ -125,43 +92,73 @@
 
     </main>
 
-    <!-- Rodapé -->
-    <footer class="border-t mt-16 py-12 bg-gray-50 text-sm">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-600">
-            <div>
-                <h4 class="font-bold text-black text-base mb-2">Glam</h4>
-                <p>Glam Beleza Estética e Bem-estar</p>
-                <p>Corumbá — Mato Grosso do Sul[cite: 2]</p>
-                <p class="text-xs text-gray-400 mt-2">Valor dos pedidos + taxa de entrega local.</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-black text-base mb-2">Atendimento & Conta</h4>
-                <p class="cursor-pointer hover:underline" onclick="mudarAba('aniversariantes')">Meu Cadastro / Perfil</p>
-                <p class="cursor-pointer hover:underline" onclick="mudarAba('aniversariantes')">Gerenciar Aniversariantes</p>
-                <p class="cursor-pointer hover:underline" onclick="mudarAba('servicos')">Agendar Serviços</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-black text-base mb-2">Gestão & Siga</h4>
-                <p>Instagram @glamcorumba</p>
-                <p class="mt-2"><button onclick="mudarAba('admin')" class="underline text-black font-semibold">Painel Administrador</button></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Script de lógica e dados -->
+    <!-- Script de lógica e carga inicial dos 30 itens -->
     <script>
+        // Dados Iniciais: 30 Produtos e 30 Serviços pré-carregados com fotos ilustrativas
         let produtos = [
             {id: 1, nome: "Kit Manutenção Cabelos Loiros", preco: 150.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
             {id: 2, nome: "Máscara de Hidratação Profunda 500g", preco: 89.90, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
             {id: 3, nome: "Óleo Reparador de Pontas Argan", preco: 49.90, foto: "https://images.unsplash.com/photo-1608248597359-f5383a8b417b?auto=format&fit=crop&w=300&q=80"},
-            {id: 4, nome: "Shampoo Nutritivo Pós-Química", preco: 55.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"}
+            {id: 4, nome: "Shampoo Nutritivo Pós-Química", preco: 55.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
+            {id: 5, nome: "Condicionador Nutritivo Pós-Química", preco: 55.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
+            {id: 6, nome: "Esmalte Cremoso Vermelho Clássico", preco: 12.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
+            {id: 7, nome: "Esmalte com Glitter Holográfico", preco: 15.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
+            {id: 8, nome: "Base Fortalecedora para Unhas", preco: 18.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
+            {id: 9, nome: "Óleo Secante para Esmalte", preco: 10.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
+            {id: 10, nome: "Kit Pincéis de Maquiagem Profissional", preco: 120.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 11, nome: "Batom Matte Cor Nude", preco: 39.90, foto: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=300&q=80"},
+            {id: 12, nome: "Batom Líquido Vermelho Intenso", preco: 39.90, foto: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=300&q=80"},
+            {id: 13, nome: "Paleta de Sombras Neutras", preco: 85.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 14, nome: "Lápis de Olho Preto à Prova d'Água", preco: 29.90, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 15, nome: "Máscara de Cílios Volume Extremo", preco: 45.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 16, nome: "Pó Compacto Facial Textura Leve", preco: 52.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 17, nome: "Base Líquida Alta Cobertura", preco: 79.90, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 18, nome: "Corretivo Facial Líquido", preco: 42.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 19, nome: "Blush Compacto Tom Pêssego", preco: 48.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 20, nome: "Iluminador Facial em Pó", preco: 55.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
+            {id: 21, nome: "Perfume Feminino Deo Colônia Floral", preco: 149.90, foto: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80"},
+            {id: 22, nome: "Creme Hidratante Corporal Perfumado 400ml", preco: 64.90, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
+            {id: 23, nome: "Esfoliante Corporal de Baunilha", preco: 59.90, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
+            {id: 24, nome: "Sabonete Líquido Íntimo Suave", preco: 28.00, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
+            {id: 25, nome: "Kit Presente Dia das Mães (Miniaturas)", preco: 99.90, foto: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=300&q=80"},
+            {id: 26, nome: "Kit Presente Aniversário Luxo", preco: 180.00, foto: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=300&q=80"},
+            {id: 27, nome: "Difusor de Ambientes com Varetas", preco: 75.00, foto: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=300&q=80"},
+            {id: 28, nome: "Necessaire Feminina Estampada", preco: 45.00, foto: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80"},
+            {id: 29, nome: "Espelho de Bolsa com LED", preco: 35.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
+            {id: 30, nome: "Presilha de Cabelo Strass Luxo", preco: 22.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"}
         ];
 
         let servicos = [
             {id: 1, nome: "Corte Feminino Modelado", preco: 70.00, foto: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=300&q=80"},
-            {id: 2, nome: "Escova Modeladora Simples", preco: 50.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
-            {id: 3, nome: "Penteado para Festas", preco: 140.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
-            {id: 4, nome: "Consultoria de Imagem & Visagismo", preco: 200.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"}
+            {id: 2, nome: "Corte Bordado (Retirada de Pontas Duplas)", preco: 90.00, foto: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=300&q=80"},
+            {id: 3, nome: "Escova Modeladora Simples", preco: 50.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
+            {id: 4, nome: "Escova Progressiva Sem Formol", preco: 180.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
+            {id: 5, nome: "Hidratação Capilar Profunda com Massagem", preco: 90.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
+            {id: 6, nome: "Reconstrução Capilar Queratina", preco: 130.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
+            {id: 7, nome: "Cauterização Capilar", preco: 150.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
+            {id: 8, nome: "Coloração Raiz", preco: 80.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
+            {id: 9, nome: "Descoloração Global e Matização", preco: 250.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
+            {id: 10, nome: "Mechas / Luzes no Papel Alumínio", preco: 220.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
+            {id: 11, nome: "Manicure Tradicional (Mão)", preco: 35.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 12, nome: "Pedicure Tradicional (Pé)", preco: 40.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 13, nome: "Combo Manicure e Pedicure", preco: 70.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 14, nome: "Unha de Gel (Aplicação Inicial)", preco: 130.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 15, nome: "Manutenção de Unhas de Gel", preco: 80.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 16, nome: "Blindagem de Unhas Naturais", preco: 50.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
+            {id: 17, nome: "Design de Sobrancelhas com Pinça", preco: 35.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
+            {id: 18, nome: "Design de Sobrancelhas com Henna", preco: 50.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
+            {id: 19, nome: "Epilação de Buço com Linha", preco: 25.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
+            {id: 20, nome: "Extensão de Cílios Fio a Fio", preco: 120.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
+            {id: 21, nome: "Manutenção de Cílios Fio a Fio", preco: 70.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
+            {id: 22, nome: "Lifting de Cílios Natural", preco: 90.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
+            {id: 23, nome: "Maquiagem Social para Festa", preco: 150.00, foto: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=300&q=80"},
+            {id: 24, nome: "Maquiagem para Noivas", preco: 300.00, foto: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=300&q=80"},
+            {id: 25, nome: "Limpeza de Pele Profunda", preco: 120.00, foto: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80"},
+            {id: 26, nome: "Peeling Químico Facial", preco: 140.00, foto: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80"},
+            {id: 27, nome: "Design de Penteado para Festas", preco: 110.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
+            {id: 28, nome: "Spa dos Pés com Esfoliação", preco: 60.00, foto: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=300&q=80"},
+            {id: 29, nome: "Drenagem Linfática Corporal", preco: 100.00, foto: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=300&q=80"},
+            {id: 30, nome: "Massagem Relaxante com Óleos", preco: 120.00, foto: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=300&q=80"}
         ];
 
         let aniversariantes = [];
@@ -169,68 +166,73 @@
         function mudarAba(idAba) {
             document.querySelectorAll('.secao-aba').forEach(el => el.classList.add('hidden'));
             document.getElementById('aba-' + idAba).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             renderizarTudo();
         }
 
         function renderizarTudo() {
+            // Renderizar Produtos Cliente
             const gridP = document.getElementById('grid-produtos');
             gridP.innerHTML = produtos.map(p => `
-                <div class="bg-white p-4 rounded-2xl border flex flex-col justify-between hover:shadow-md transition">
-                    <img src="${p.foto}" alt="${p.nome}" class="w-full h-48 object-cover rounded-xl mb-3">
+                <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
+                    <img src="${p.foto}" alt="${p.nome}" class="w-full h-40 object-cover rounded-lg mb-3">
                     <div>
-                        <h4 class="font-bold text-gray-900">${p.nome}</h4>
-                        <p class="text-black font-semibold mt-1">R$ ${p.preco.toFixed(2)}</p>
+                        <h4 class="font-bold text-gray-800">${p.nome}</h4>
+                        <p class="text-pink-600 font-semibold mt-1">R$ ${p.preco.toFixed(2)}</p>
                     </div>
-                    <button onclick="comprarItem('${p.nome}', ${p.preco})" class="mt-4 bg-black text-white py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium">Comprar (+ Taxa)</button>
+                    <button onclick="comprarItem('${p.nome}', ${p.preco})" class="mt-4 bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 text-sm">Comprar (+ Taxa)</button>
                 </div>
             `).join('');
 
+            // Renderizar Serviços Cliente
             const gridS = document.getElementById('grid-servicos');
             gridS.innerHTML = servicos.map(s => `
-                <div class="bg-white p-4 rounded-2xl border flex flex-col justify-between hover:shadow-md transition">
-                    <img src="${s.foto}" alt="${s.nome}" class="w-full h-48 object-cover rounded-xl mb-3">
+                <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
+                    <img src="${s.foto}" alt="${s.nome}" class="w-full h-40 object-cover rounded-lg mb-3">
                     <div>
-                        <h4 class="font-bold text-gray-900">${s.nome}</h4>
-                        <p class="text-black font-semibold mt-1">R$ ${s.preco.toFixed(2)}</p>
+                        <h4 class="font-bold text-gray-800">${s.nome}</h4>
+                        <p class="text-pink-600 font-semibold mt-1">R$ ${s.preco.toFixed(2)}</p>
                     </div>
-                    <button onclick="agendarServico('${s.nome}')" class="mt-4 border border-black text-black py-2.5 rounded-xl hover:bg-black hover:text-white text-sm font-medium transition">Agendar Serviço</button>
+                    <button onclick="agendarServico('${s.nome}')" class="mt-4 bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 text-sm">Agendar</button>
                 </div>
             `).join('');
 
+            // Renderizar Aniversariantes
             const listaA = document.getElementById('lista-aniversariantes');
-            listaA.innerHTML = aniversariantes.length === 0 ? `<p class="text-gray-500">Nenhum aniversariante cadastrado ainda.</p>` : aniversariantes.map((a) => `
-                <div class="bg-white p-4 rounded-2xl border flex justify-between items-center">
+            listaA.innerHTML = aniversariantes.length === t => `<p class="text-gray-500">Nenhum aniversariante cadastrado ainda.</p>` : aniversariantes.map((a, index) => `
+                <div class="bg-white p-4 rounded-xl shadow-sm border flex justify-between items-center">
                     <div>
                         <h4 class="font-bold">${a.nome}</h4>
                         <p class="text-sm text-gray-500">Data: ${a.data}</p>
                         <p class="text-xs text-pink-600 mt-1 font-medium">💡 Sugestão de Kit Presente Pronta Programada!</p>
                     </div>
-                    <button onclick="programarPresente('${a.nome}')" class="bg-pink-100 text-pink-700 px-4 py-2 rounded-xl text-sm font-medium hover:bg-pink-200">Programar Envio</button>
+                    <button onclick="programarPresente('${a.nome}')" class="bg-pink-100 text-pink-700 px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-pink-200">Programar Envio</button>
                 </div>
             `).join('');
 
+            // Renderizar Admin Produtos
             document.getElementById('admin-lista-produtos').innerHTML = produtos.map(p => `
-                <div class="flex justify-between items-center bg-white p-3 border rounded-xl text-sm">
+                <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
                     <span>${p.nome} - R$ ${p.preco.toFixed(2)}</span>
                     <div>
-                        <button onclick="editarItem('produto', ${p.id})" class="text-blue-600 mr-3 font-medium">Editar</button>
-                        <button onclick="excluirItem('produto', ${p.id})" class="text-red-600 font-medium">Excluir</button>
+                        <button onclick="editarItem('produto', ${p.id})" class="text-blue-600 mr-2">Editar</button>
+                        <button onclick="excluirItem('produto', ${p.id})" class="text-red-600">Excluir</button>
                     </div>
                 </div>
             `).join('');
 
+            // Renderizar Admin Serviços
             document.getElementById('admin-lista-servicos').innerHTML = servicos.map(s => `
-                <div class="flex justify-between items-center bg-white p-3 border rounded-xl text-sm">
+                <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
                     <span>${s.nome} - R$ ${s.preco.toFixed(2)}</span>
                     <div>
-                        <button onclick="editarItem('servico', ${s.id})" class="text-blue-600 mr-3 font-medium">Editar</button>
-                        <button onclick="excluirItem('servico', ${s.id})" class="text-red-600 font-medium">Excluir</button>
+                        <button onclick="editarItem('servico', ${s.id})" class="text-blue-600 mr-2">Editar</button>
+                        <button onclick="excluirItem('servico', ${s.id})" class="text-red-600">Excluir</button>
                     </div>
                 </div>
             `).join('');
         }
 
+        // Ações de formulário admin
         document.getElementById('form-admin').addEventListener('submit', function(e) {
             e.preventDefault();
             const id = document.getElementById('item-id').value;
@@ -238,12 +240,15 @@
             const nome = document.getElementById('item-nome').value;
             const preco = parseFloat(document.getElementById('item-preco').value);
             const foto = document.getElementById('item-foto').value;
+
             const lista = tipo === 'produto' ? produtos : servicos;
 
             if(id) {
+                // Editar
                 const item = lista.find(i => i.id == id);
                 if(item) { item.nome = nome; item.preco = preco; item.foto = foto; }
             } else {
+                // Inserir Novo
                 const novoId = lista.length > 0 ? Math.max(...lista.map(i => i.id)) + 1 : 1;
                 lista.push({id: novoId, nome, preco, foto});
             }
@@ -256,8 +261,11 @@
 
         function excluirItem(tipo, id) {
             if(confirm('Deseja realmente excluir este item?')) {
-                if(tipo === 'produto') { produtos = produtos.filter(p => p.id !== id); }
-                else { servicos = servicos.filter(s => s.id !== id); }
+                if(tipo === 'produto') {
+                    produtos = produtos.filter(p => p.id !== id);
+                } else {
+                    servicos = servicos.filter(s => s.id !== id);
+                }
                 renderizarTudo();
             }
         }
@@ -274,6 +282,7 @@
             }
         }
 
+        // Cadastro de Aniversariantes
         document.getElementById('form-aniversariante').addEventListener('submit', function(e) {
             e.preventDefault();
             const nome = document.getElementById('aniv-nome').value;
@@ -281,22 +290,24 @@
             aniversariantes.push({nome, data});
             this.reset();
             renderizarTudo();
-            alert('Aniversariante cadastrado com sucesso!');
+            alert('Aniversariante cadastrado com sucesso! Você receberá lembretes e opções de kits.');
         });
 
         function comprarItem(nome, preco) {
-            const taxa = 15.00;
-            alert(`Produto: ${nome}\nValor: R$ ${preco.toFixed(2)}\nTaxa de Entrega: R$ ${taxa.toFixed(2)}\nTotal: R$ ${(preco + taxa).toFixed(2)}\nCompra iniciada!`);
+            const taxaEntrega = 15.00;
+            const total = preco + taxaEntrega;
+            alert(`Produto: ${nome}\nValor: R$ ${preco.toFixed(2)}\nTaxa de Entrega: R$ ${taxaEntrega.toFixed(2)}\nTotal a pagar: R$ ${total.toFixed(2)}\nCompra efetuada com os dados de entrega cadastrados!`);
         }
 
         function agendarServico(nome) {
-            alert(`Serviço "${nome}" selecionado para agendamento.`);
+            alert(`Serviço "${nome}" selecionado para agendamento! Escolha o dia e horário.`);
         }
 
         function programarPresente(nome) {
-            alert(`Abrindo opções de kits de presentes personalizados para ${nome}.`);
+            alert(`Abrindo opções de kits de presentes personalizados para ${nome}. O pagamento somará o produto escolhido + taxa de entrega para o dia exato.`);
         }
 
+        // Inicializar renderização na carga da página
         renderizarTudo();
     </script>
 </body>
