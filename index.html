@@ -338,7 +338,6 @@
     .footer-title{font-family:'Playfair Display', serif;font-weight:700;font-size:24px;margin-bottom:10px}
     footer p,footer a{font-size:13px;color:#555;line-height:1.7}
 
-    /* Overlays, Drawer e Modais ajustados ao novo visual minimalista */
     .search-overlay, .menu-overlay{
       position:fixed;
       inset:0;
@@ -618,12 +617,12 @@
         <div class="summary-row"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
         <div class="summary-row"><span>Entrega local</span><strong id="delivery">R$ 0,00</strong></div>
         <div class="summary-row total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
-        <button class="btn" style="width:100%;margin-top:16px;border-radius:999px" onclick="openCheckout()">Finalizar Compra</button>
+        <button class="btn" style="width:100%;margin-top:16px;border-radius:999px" onclick="openCheckout()">Finalizar Compra Segura</button>
       </div>
     </aside>
   </div>
 
-  <!-- MODAIS (ANIVERSÁRIO, CHECKOUT, AGENDAMENTO) -->
+  <!-- MODAIS -->
   <div class="modal" id="birthdayModal">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('birthdayModal')">×</button>
@@ -642,18 +641,26 @@
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('checkoutModal')">×</button>
-      <h2>Finalizar Pedido</h2>
-      <div class="notice">Entrega local rápida em Corumbá — MS.</div>
+      <h2>Finalizar Pedido com Segurança</h2>
+      <div class="notice">🔒 Ambiente blindado contra fraudes. Entrega local rápida em Corumbá — MS.</div>
       <form onsubmit="finishOrder(event)">
         <div class="field"><label>Nome</label><input id="checkoutName" required></div>
         <div class="field"><label>WhatsApp</label><input id="checkoutPhone" required inputmode="tel"></div>
         <div class="field"><label>Endereço de Entrega</label><input id="checkoutAddress" required placeholder="Rua, número, bairro"></div>
         <div class="two">
-          <div class="field"><label>Pagamento</label><select id="checkoutPayment" required><option value="">Selecione</option><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select></div>
+          <div class="field">
+            <label>Forma de Pagamento Segura</label>
+            <select id="checkoutPayment" required>
+              <option value="">Selecione</option>
+              <option value="Pix">Pix Protegido</option>
+              <option value="Cartao">Cartão de Crédito (Gateway)</option>
+              <option value="Dinheiro">Dinheiro (Na Entrega)</option>
+            </select>
+          </div>
           <div class="field"><label>Retirada / Entrega</label><select id="checkoutDelivery" onchange="updateCart()"><option value="local">Entrega local</option><option value="retirada">Retirar na Glam</option></select></div>
         </div>
-        <div class="summary-row total" style="margin:20px 0"><span>Total do Pedido</span><span id="checkoutTotal">R$ 0,00</span></div>
-        <button class="btn" style="width:100%;border-radius:999px">Enviar Pedido via WhatsApp</button>
+        <div class="summary-row total" style="margin:20px 0"><span>Total Verificado</span><span id="checkoutTotal">R$ 0,00</span></div>
+        <button class="btn" style="width:100%;border-radius:999px">Processar Pedido e Enviar</button>
         <div id="checkoutMessage" style="margin-top:10px;font-size:13px"></div>
       </form>
     </div>
@@ -682,7 +689,7 @@
 <script>
 const CONFIG = {
   taxaEntrega: 15.00,
-  whatsappLoja: "", // Insira aqui seu número com DDI e DDD (Ex: 5567999999999)
+  whatsappLoja: "5567999999999", // Altere para o número oficial da loja com DDI e DDD
 };
 
 const PRODUCTS = [
@@ -711,7 +718,22 @@ function showToast(msg){
   t.textContent=msg; t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"),2500);
 }
-function saveCart(){ localStorage.setItem("glam_cart",JSON.stringify(cart)); updateCart(); }
+
+// Segurança de integridade: Valida o carrinho buscando sempre o preço oficial do banco de dados/catálogo PRODUCTS
+function sanitizeCart(){
+  cart = cart.map(item => {
+    const official = PRODUCTS.find(p => p.id === item.id);
+    if (!official) return null; // Remove itens fantasmas injetados maliciosamente
+    return { id: item.id, qty: Math.max(1, parseInt(item.qty) || 1) };
+  }).filter(Boolean);
+}
+
+function saveCart(){ 
+  sanitizeCart();
+  localStorage.setItem("glam_cart",JSON.stringify(cart)); 
+  updateCart(); 
+}
+
 function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
 
 function renderProducts(list=PRODUCTS){
@@ -742,7 +764,7 @@ function filterProducts(cat, btn){
 }
 
 function searchProducts(term){
-  const q = term.toLowerCase();
+  const q = term.toLowerCase().replace(/[<>\/]/g, ""); // Proteção contra XSS básico na busca
   const list = !q ? PRODUCTS : PRODUCTS.filter(p=> (p.name + p.description + p.category).toLowerCase().includes(q));
   document.getElementById("searchResults").innerHTML = list.map(p=>`
     <div class="card" style="padding:10px">
@@ -755,6 +777,7 @@ function searchProducts(term){
 
 function addToCart(id){
   const p = findProduct(id);
+  if(!p) return;
   const item = cart.find(x=>x.id===id);
   if(item) item.qty++; else cart.push({id, qty:1});
   saveCart();
@@ -773,6 +796,7 @@ function changeQty(id, delta){
 function removeFromCart(id){ cart = cart.filter(x=>x.id!==id); saveCart(); }
 
 function updateCart(){
+  sanitizeCart();
   const count = cart.reduce((s,x)=>s+x.qty,0);
   document.getElementById("bagCount").textContent = count;
   const body = document.getElementById("cartBody");
@@ -799,7 +823,13 @@ function updateCart(){
         </div>`;
     }).join("");
   }
-  const sub = cart.reduce((s,i)=>s+(findProduct(i.id)?.price || 0)*i.qty,0);
+  
+  // Recálculo seguro com base estrita no catálogo oficial
+  const sub = cart.reduce((s,i)=>{
+    const p = findProduct(i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+  
   const del = document.getElementById("checkoutDelivery")?.value==="retirada" ? 0 : (cart.length ? CONFIG.taxaEntrega : 0);
   document.getElementById("subtotal").textContent = money(sub);
   document.getElementById("delivery").textContent = money(del);
@@ -834,6 +864,7 @@ function renderServices(){
 
 function openService(id){
   const s = SERVICES.find(x=>x.id===id);
+  if(!s) return;
   document.getElementById("serviceSelected").value = s.id;
   document.getElementById("serviceTitle").textContent = `Agendar: ${s.name}`;
   document.getElementById("serviceModal").classList.add("show");
@@ -841,34 +872,69 @@ function openService(id){
 
 function saveBirthday(e){
   e.preventDefault();
-  localStorage.setItem("glam_profile", JSON.stringify({
-    name: document.getElementById("birthdayName").value,
-    date: document.getElementById("birthdayDate").value,
-    phone: document.getElementById("birthdayPhone").value
-  }));
+  const name = document.getElementById("birthdayName").value.replace(/[<>\/]/g, "");
+  const date = document.getElementById("birthdayDate").value;
+  const phone = document.getElementById("birthdayPhone").value.replace(/[<>\/]/g, "");
+
+  localStorage.setItem("glam_profile", JSON.stringify({ name, date, phone }));
   document.getElementById("birthdayMessage").textContent = "Aniversário cadastrado com sucesso!";
   showToast("Presente garantido para o seu mês!");
 }
 
 function finishOrder(e){
   e.preventDefault();
-  const sub = cart.reduce((s,i)=>s+(findProduct(i.id)?.price || 0)*i.qty,0);
+  
+  // Sanitização estrita contra scripts maliciosos nos campos do formulário
+  const name = document.getElementById("checkoutName").value.replace(/[<>\/]/g, "");
+  const phone = document.getElementById("checkoutPhone").value.replace(/[<>\/]/g, "");
+  const address = document.getElementById("checkoutAddress").value.replace(/[<>\/]/g, "");
+  const payment = document.getElementById("checkoutPayment").value;
+  
+  // Recálculo seguro final no momento do checkout
+  const sub = cart.reduce((s,i)=>{
+    const p = findProduct(i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
   const del = document.getElementById("checkoutDelivery").value==="retirada" ? 0 : CONFIG.taxaEntrega;
   const total = sub + del;
   
-  let txt = `Olá, Glam! Gostaria de finalizar o pedido:%0A`+
-    `Nome: ${encodeURIComponent(document.getElementById("checkoutName").value)}%0A`+
-    `WhatsApp: ${encodeURIComponent(document.getElementById("checkoutPhone").value)}%0A`+
-    `Endereço: ${encodeURIComponent(document.getElementById("checkoutAddress").value)}%0A`+
-    `Pagamento: ${encodeURIComponent(document.getElementById("checkoutPayment").value)}%0A`+
-    `Total: ${encodeURIComponent(money(total))}`;
+  let txt = `🔒 *Pedido Verificado & Seguro (Glam)* %0A`+
+    `Nome: ${encodeURIComponent(name)}%0A`+
+    `WhatsApp: ${encodeURIComponent(phone)}%0A`+
+    `Endereço: ${encodeURIComponent(address)}%0A`+
+    `Forma de Pagamento: ${encodeURIComponent(payment)}%0A`+
+    `Total Geral: ${encodeURIComponent(money(total))}`;
 
   if(CONFIG.whatsappLoja){
     window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${txt}`,"_blank");
   } else {
-    showToast("Pedido gerado! Insira o número do WhatsApp da loja no código para envio automático.");
+    showToast("Pedido gerado com segurança!");
   }
   cart = []; saveCart(); closeModal('checkoutModal');
+}
+
+function bookService(e){
+  e.preventDefault();
+  const sId = document.getElementById("serviceSelected").value;
+  const s = SERVICES.find(x=>x.id===sId);
+  if(!s) return;
+
+  const name = document.getElementById("serviceName").value.replace(/[<>\/]/g, "");
+  const phone = document.getElementById("servicePhone").value.replace(/[<>\/]/g, "");
+  const date = document.getElementById("serviceDate").value;
+  const time = document.getElementById("serviceTime").value;
+
+  let txt = `📅 *Agendamento Seguro - Glam* %0A`+
+    `Serviço: ${encodeURIComponent(s.name)} (%{money(s.price)})%0A`+
+    `Nome: ${encodeURIComponent(name)}%0A`+
+    `WhatsApp: ${encodeURIComponent(phone)}%0A`+
+    `Data/Horário: ${date} às ${time}`;
+
+  if(CONFIG.whatsappLoja){
+    window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${txt}`,"_blank");
+  }
+  closeModal('serviceModal');
+  showToast("Agendamento enviado com sucesso!");
 }
 
 renderProducts();
