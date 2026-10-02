@@ -1,313 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salão Glam - Gestão e Aplicativo</title>
-    <!-- Tailwind CSS para um design limpo e sem poluição visual -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Estilo elegante personalizado para o topo */
-        .logo-elegante {
-            font-family: 'Playfair Display', Georgia, serif;
-            letter-spacing: 0.12em;
-            background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0b0b"><meta name="description" content="Glam — beleza, cabelo, moda, acessórios e experiências."><title>Glam — Beleza, Moda & Bem-estar</title><style>
+:root{--ink:#0b0b0b;--paper:#fff;--rose:#f6e8ef;--gold:#b9964a;--muted:#707070;--line:#e9e5e5;--soft:#faf8f8;--ok:#16734a;--danger:#b00020;--max:1220px;--r:18px;--shadow:0 16px 45px rgba(0,0,0,.09)}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font-family:Inter,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.top{background:var(--ink);color:#fff;text-align:center;padding:9px;font-size:11px;letter-spacing:.04em}.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.navin{max-width:var(--max);margin:auto;height:72px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:31px;font-weight:800;letter-spacing:-.07em}.actions{display:flex;gap:7px;align-items:center}.icon{border:0;background:transparent;padding:10px;font-size:12px;font-weight:700}.count{background:#000;color:#fff;border-radius:50%;font-size:9px;padding:3px 6px}.hero{max-width:var(--max);margin:auto;padding:28px 18px}.heroGrid{background:linear-gradient(120deg,#f7e8ef,#f7f1f2);border-radius:28px;min-height:470px;display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}.heroCopy{padding:52px;display:flex;justify-content:center;flex-direction:column}.eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;margin-bottom:15px}.hero h1{font-size:clamp(40px,6vw,70px);line-height:.96;letter-spacing:-.06em;font-weight:400;margin:0 0 22px}.hero p{max-width:560px;line-height:1.65;color:#444}.heroArt{position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 45%,#fff 0 15%,transparent 16%),linear-gradient(135deg,#f8edf3,#ead6e1)}.heroArt:after{content:'GLAM';font-size:clamp(90px,13vw,180px);font-weight:900;opacity:.06;position:absolute}.heroCard{width:260px;height:330px;background:#fff;box-shadow:var(--shadow);transform:rotate(7deg);display:grid;place-items:center;font-size:110px;font-weight:800;z-index:2}.btn{border:1px solid #000;background:#000;color:#fff;padding:12px 18px;min-height:44px;font-size:12px;font-weight:700}.btn.light{background:#fff;color:#000}.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}.section{max-width:var(--max);margin:auto;padding:28px 18px}.head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:18px}.head h2{margin:0;font-size:23px;letter-spacing:-.04em}.sub{font-size:12px;color:var(--muted);margin-top:5px}.chips{display:flex;gap:8px;overflow:auto;padding:3px 0 8px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid #000;background:#fff;border-radius:999px;padding:10px 14px;font-size:11px}.chip.active{background:var(--rose);border-color:var(--rose)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 11px}.card{min-width:0}.photo{position:relative;aspect-ratio:1/1.08;background:#f3f1f1;border-radius:13px;overflow:hidden;margin-bottom:10px}.photo img{width:100%;height:100%;object-fit:cover}.tag{position:absolute;left:9px;top:9px;background:#000;color:#fff;padding:5px 7px;font-size:8px;font-weight:800;letter-spacing:.06em}.card h3{font-size:13px;line-height:1.35;margin:0 0 4px}.meta{font-size:10px;color:#777;margin-bottom:7px}.price{font-weight:800;font-size:13px;margin-bottom:8px}.price.pending{color:#9b7a35;font-weight:700}.cardBtns{display:flex;gap:5px}.cardBtns .btn{flex:1;padding:9px 6px;font-size:10px}.featureGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.feature{border:1px solid var(--line);padding:18px;min-height:150px;background:#fff}.feature:nth-child(2n){background:var(--rose)}.feature b{font-size:13px}.feature p{font-size:11px;line-height:1.5;color:#555}.loyal{background:#000;color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.loyal h2{margin:0 0 8px;font-size:26px}.loyal p{margin:0;color:#ccc;font-size:12px;line-height:1.55}.footer{border-top:1px solid var(--line);padding:40px 18px}.footin{max-width:var(--max);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}.footin p,.footin a{font-size:11px;color:#666;line-height:1.6}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none}.overlay.show{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(510px,100%);background:#fff;overflow:auto;padding:22px}.panel h2{margin:0 0 16px;font-size:22px}.close{border:0;background:transparent;font-size:24px;float:right}.field{margin:0 0 12px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #ccc;padding:11px;background:#fff}.field textarea{min-height:85px}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail{display:grid;grid-template-columns:1fr 1fr;gap:18px}.detail img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f5f5f5;border-radius:14px}.detail h2{font-size:25px;margin:0 0 6px}.detail .brand{font-size:11px;color:#777}.detail p{font-size:12px;line-height:1.6;color:#444}.pill{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:6px 9px;font-size:9px;margin:3px 3px 3px 0}.adminTop{background:#111;color:#fff;padding:16px;border-radius:14px;margin-bottom:15px}.adminTop small{color:#bbb}.adminTabs{display:flex;gap:7px;overflow:auto;margin:10px 0 15px}.adminTab{border:1px solid #000;background:#fff;padding:9px 11px;font-size:10px;white-space:nowrap}.adminTab.active{background:#000;color:#fff}.adminList{display:grid;gap:9px}.adminItem{border:1px solid var(--line);padding:12px;display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center}.adminItem img{width:64px;height:64px;object-fit:cover;background:#eee}.adminItem h4{margin:0 0 3px;font-size:12px}.adminItem small{color:#777}.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modalBox{background:#fff;width:min(850px,100%);max-height:94vh;overflow:auto;border-radius:18px;padding:22px}.toast{position:fixed;z-index:300;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;background:#000;color:#fff;padding:12px 15px;font-size:11px;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.notice{background:var(--rose);padding:12px;font-size:11px;line-height:1.5;margin-bottom:14px}.empty{text-align:center;padding:50px 10px;color:#666;font-size:12px}@media(min-width:760px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 14px}.hero{padding-top:48px}.featureGrid{grid-template-columns:repeat(4,1fr)}}@media(max-width:759px){.heroGrid{grid-template-columns:1fr}.heroCopy{padding:35px 24px}.heroArt{min-height:260px}.featureGrid{grid-template-columns:1fr 1fr}.detail{grid-template-columns:1fr}.loyal{grid-template-columns:1fr}}@media(max-width:440px){.navin{padding:0 11px}.logo{font-size:27px}.hero,.section{padding-left:12px;padding-right:12px}.featureGrid{grid-template-columns:1fr}.footin{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top">GLAM BEAUTY & STYLE · beleza, cabelo, moda e acessórios em um só lugar</div>
+<header class="nav"><div class="navin"><a class="logo" href="#" onclick="home();return false">Glam</a><div class="actions"><button class="icon" onclick="openSearch()">⌕ BUSCAR</button><button class="icon" onclick="openAdmin()">ADMIN</button><button class="icon" onclick="openCart()">SACOLA <span class="count" id="bagCount">0</span></button></div></div></header>
+<section class="hero"><div class="heroGrid"><div class="heroCopy"><div class="eyebrow">Glam Beleza Estética e Bem-estar</div><h1>beleza que combina com você.</h1><p>Um ecossistema Glam para cabelo, skincare, corpo, moda, bolsas, acessórios, presentes e experiências. Descubra, personalize e compre em poucos passos.</p><div><button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">Explorar catálogo</button> <button class="btn light" onclick="openQuiz()">Descobrir meu Glam</button></div></div><div class="heroArt"><div class="heroCard">G</div></div></div></section>
+<section class="section"><div class="head"><div><h2>Compre do seu jeito</h2><div class="sub">Curadoria, personalização e compra rápida.</div></div></div><div class="featureGrid"><div class="feature"><b>✨ Consultor Glam</b><p>Quiz rápido para indicar categorias e produtos conforme preferências.</p></div><div class="feature"><b>💎 Glam Rewards</b><p>Pontos por compras, avaliações, aniversário e ações especiais.</p></div><div class="feature"><b>👗 Meu tamanho</b><p>Perfil de medidas, preferências de caimento e guia de tamanho para moda.</p></div><div class="feature"><b>🎁 Presente perfeito</b><p>Monte presentes, escolha mensagem e envie para outra pessoa.</p></div></div></section>
+<section class="section"><div class="head"><div><h2>Descubra a Glam</h2><div class="sub">Filtre por universo.</div></div></div><div class="chips" id="chips"></div></section>
+<section class="section" id="catalogo"><div class="head"><div><h2>Produtos selecionados</h2><div class="sub" id="catalogCount"></div></div><button class="btn light" onclick="openFilters()">Filtros</button></div><div class="grid" id="productGrid"></div></section>
+<section class="section"><div class="loyal"><div><h2>Glam Rewards</h2><p>Crie sua conta, acumule pontos, receba benefícios de aniversário e tenha uma área com favoritos, pedidos, avaliações e recomendações.</p></div><button class="btn gold" onclick="openRewards()">Ver meu programa</button></div></section>
+<section class="section"><div class="head"><div><h2>Experiências Glam</h2><div class="sub">Serviços e tratamentos continuam integrados ao catálogo.</div></div></div><div class="grid" id="serviceGrid"></div></section>
+<footer class="footer"><div class="footin"><div><div class="logo">Glam</div><p>Glam Beleza Estética e Bem-estar<br>Corumbá — MS</p></div><div><b>Comprar</b><p><a href="#catalogo">Produtos</a><br><a href="#" onclick="openRewards();return false">Glam Rewards</a><br><a href="#" onclick="openQuiz();return false">Consultor Glam</a></p></div><div><b>Atendimento</b><p>Entrega local configurável<br>Retirada na Glam<br>WhatsApp da loja configurável</p></div></div></footer>
 
-    <!-- Cabeçalho Principal -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold logo-elegante">Glam</h1>
-            <nav class="space-x-4">
-                <button onclick="mudarAba('produtos')" class="text-gray-600 hover:text-pink-600 font-medium">Produtos</button>
-                <button onclick="mudarAba('servicos')" class="text-gray-600 hover:text-pink-600 font-medium">Serviços</button>
-                <button onclick="mudarAba('aniversariantes')" class="text-gray-600 hover:text-pink-600 font-medium">Meus Aniversariantes</button>
-                <button onclick="mudarAba('admin')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition">Painel Admin</button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Conteúdo Dinâmico -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-
-        <!-- ABA DE PRODUTOS -->
-        <section id="aba-produtos" class="secao-aba">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-gray-800">Catálogo de Produtos (Taxa de entrega aplicada no checkout)</h2>
-            </div>
-            <div id="grid-produtos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </section>
-
-        <!-- ABA DE SERVIÇOS -->
-        <section id="aba-servicos" class="secao-aba hidden">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-gray-800">Catálogo de Serviços</h2>
-            </div>
-            <div id="grid-servicos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </section>
-
-        <!-- ABA DE ANIVERSARIANTES (CLIENTE) -->
-        <section id="aba-aniversariantes" class="secao-aba hidden">
-            <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Cadastrar Amigo ou Familiar Aniversariante</h2>
-                <form id="form-aniversariante" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <input type="text" id="aniv-nome" placeholder="Nome do Aniversariante" required class="border p-2 rounded-lg">
-                    <input type="date" id="aniv-data" required class="border p-2 rounded-lg">
-                    <button type="submit" class="bg-pink-600 text-white p-2 rounded-lg hover:bg-pink-700 transition">Salvar e Programar Presente</button>
-                </form>
-            </div>
-            <h3 class="text-lg font-bold mb-4">Aniversariantes Cadastrados e Kits Sugeridos</h3>
-            <div id="lista-aniversariantes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Dinâmico -->
-            </div>
-        </section>
-
-        <!-- ABA PAINEL ADMINISTRADOR (Inserir, Editar, Excluir) -->
-        <section id="aba-admin" class="secao-aba hidden">
-            <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Painel Administrativo: Adicionar / Editar Item</h2>
-                <form id="form-admin" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="hidden" id="item-id">
-                    <select id="item-tipo" class="border p-2 rounded-lg">
-                        <option value="produto">Produto</option>
-                        <option value="servico">Serviço</option>
-                    </select>
-                    <input type="text" id="item-nome" placeholder="Nome do Produto/Serviço" required class="border p-2 rounded-lg">
-                    <input type="number" step="0.01" id="item-preco" placeholder="Preço (R$)" required class="border p-2 rounded-lg">
-                    <input type="text" id="item-foto" placeholder="URL da Foto (Ex: https://...)" required class="border p-2 rounded-lg">
-                    <button type="submit" class="col-span-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Salvar Item no Sistema</button>
-                </form>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="font-bold text-lg mb-2">Gerenciar Produtos</h3>
-                    <div id="admin-lista-produtos" class="space-y-2"></div>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-2">Gerenciar Serviços</h3>
-                    <div id="admin-lista-servicos" class="space-y-2"></div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Script de lógica e carga inicial dos 30 itens -->
-    <script>
-        let produtos = [
-            {id: 1, nome: "Kit Manutenção Cabelos Loiros", preco: 150.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
-            {id: 2, nome: "Máscara de Hidratação Profunda 500g", preco: 89.90, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
-            {id: 3, nome: "Óleo Reparador de Pontas Argan", preco: 49.90, foto: "https://images.unsplash.com/photo-1608248597359-f5383a8b417b?auto=format&fit=crop&w=300&q=80"},
-            {id: 4, nome: "Shampoo Nutritivo Pós-Química", preco: 55.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
-            {id: 5, nome: "Condicionador Nutritivo Pós-Química", preco: 55.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"},
-            {id: 6, nome: "Esmalte Cremoso Vermelho Clássico", preco: 12.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
-            {id: 7, nome: "Esmalte com Glitter Holográfico", preco: 15.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
-            {id: 8, nome: "Base Fortalecedora para Unhas", preco: 18.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
-            {id: 9, nome: "Óleo Secante para Esmalte", preco: 10.00, foto: "https://images.unsplash.com/photo-1632345031435-8727f6c97d34?auto=format&fit=crop&w=300&q=80"},
-            {id: 10, nome: "Kit Pincéis de Maquiagem Profissional", preco: 120.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 11, nome: "Batom Matte Cor Nude", preco: 39.90, foto: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=300&q=80"},
-            {id: 12, nome: "Batom Líquido Vermelho Intenso", preco: 39.90, foto: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=300&q=80"},
-            {id: 13, nome: "Paleta de Sombras Neutras", preco: 85.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 14, nome: "Lápis de Olho Preto à Prova d'Água", preco: 29.90, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 15, nome: "Máscara de Cílios Volume Extremo", preco: 45.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 16, nome: "Pó Compacto Facial Textura Leve", preco: 52.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 17, nome: "Base Líquida Alta Cobertura", preco: 79.90, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 18, nome: "Corretivo Facial Líquido", preco: 42.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 19, nome: "Blush Compacto Tom Pêssego", preco: 48.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 20, nome: "Iluminador Facial em Pó", preco: 55.00, foto: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=300&q=80"},
-            {id: 21, nome: "Perfume Feminino Deo Colônia Floral", preco: 149.90, foto: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=300&q=80"},
-            {id: 22, nome: "Creme Hidratante Corporal Perfumado 400ml", preco: 64.90, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
-            {id: 23, nome: "Esfoliante Corporal de Baunilha", preco: 59.90, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
-            {id: 24, nome: "Sabonete Líquido Íntimo Suave", preco: 28.00, foto: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=300&q=80"},
-            {id: 25, nome: "Kit Presente Dia das Mães (Miniaturas)", preco: 99.90, foto: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=300&q=80"},
-            {id: 26, nome: "Kit Presente Aniversário Luxo", preco: 180.00, foto: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=300&q=80"},
-            {id: 27, nome: "Difusor de Ambientes com Varetas", preco: 75.00, foto: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=300&q=80"},
-            {id: 28, nome: "Necessaire Feminina Estampada", preco: 45.00, foto: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=300&q=80"},
-            {id: 29, nome: "Espelho de Bolsa com LED", preco: 35.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
-            {id: 30, nome: "Presilha de Cabelo Strass Luxo", preco: 22.00, foto: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=300&q=80"}
-        ];
-
-        let servicos = [
-            {id: 1, nome: "Corte Feminino Modelado", preco: 70.00, foto: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=300&q=80"},
-            {id: 2, nome: "Corte Bordado (Retirada de Pontas Duplas)", preco: 90.00, foto: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=300&q=80"},
-            {id: 3, nome: "Escova Modeladora Simples", preco: 50.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
-            {id: 4, nome: "Escova Progressiva Sem Formol", preco: 180.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
-            {id: 5, nome: "Hidratação Capilar Profunda com Massagem", preco: 90.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
-            {id: 6, nome: "Reconstrução Capilar Queratina", preco: 130.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
-            {id: 7, nome: "Cauterização Capilar", preco: 150.00, foto: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=300&q=80"},
-            {id: 8, nome: "Coloração Raiz", preco: 80.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
-            {id: 9, nome: "Descoloração Global e Matização", preco: 250.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
-            {id: 10, nome: "Mechas / Luzes no Papel Alumínio", preco: 220.00, foto: "https://images.unsplash.com/photo-1584297091905-b44c2642875b?auto=format&fit=crop&w=300&q=80"},
-            {id: 11, nome: "Manicure Tradicional (Mão)", preco: 35.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 12, nome: "Pedicure Tradicional (Pé)", preco: 40.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 13, nome: "Combo Manicure e Pedicure", preco: 70.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 14, nome: "Unha de Gel (Aplicação Inicial)", preco: 130.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 15, nome: "Manutenção de Unhas de Gel", preco: 80.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 16, nome: "Blindagem de Unhas Naturais", preco: 50.00, foto: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=80"},
-            {id: 17, nome: "Design de Sobrancelhas com Pinça", preco: 35.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
-            {id: 18, nome: "Design de Sobrancelhas com Henna", preco: 50.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
-            {id: 19, nome: "Epilação de Buço com Linha", preco: 25.00, foto: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80"},
-            {id: 20, nome: "Extensão de Cílios Fio a Fio", preco: 120.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
-            {id: 21, nome: "Manutenção de Cílios Fio a Fio", preco: 70.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
-            {id: 22, nome: "Lifting de Cílios Natural", preco: 90.00, foto: "https://images.unsplash.com/photo-1583209814637-bba2d35272a2?auto=format&fit=crop&w=300&q=80"},
-            {id: 23, nome: "Maquiagem Social para Festa", preco: 150.00, foto: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=300&q=80"},
-            {id: 24, nome: "Maquiagem para Noivas", preco: 300.00, foto: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=300&q=80"},
-            {id: 25, nome: "Limpeza de Pele Profunda", preco: 120.00, foto: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80"},
-            {id: 26, nome: "Peeling Químico Facial", preco: 140.00, foto: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=80"},
-            {id: 27, nome: "Design de Penteado para Festas", preco: 110.00, foto: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=300&q=80"},
-            {id: 28, nome: "Spa dos Pés com Esfoliação", preco: 60.00, foto: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=300&q=80"},
-            {id: 29, nome: "Drenagem Linfática Corporal", preco: 100.00, foto: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=300&q=80"},
-            {id: 30, nome: "Massagem Relaxante com Óleos", preco: 120.00, foto: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=300&q=80"}
-        ];
-
-        let aniversariantes = [];
-
-        function mudarAba(idAba) {
-            document.querySelectorAll('.secao-aba').forEach(el => el.classList.add('hidden'));
-            document.getElementById('aba-' + idAba).classList.remove('hidden');
-            renderizarTudo();
-        }
-
-        function renderizarTudo() {
-            const gridP = document.getElementById('grid-produtos');
-            gridP.innerHTML = produtos.map(p => `
-                <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
-                    <img src="${p.foto}" alt="${p.nome}" class="w-full h-40 object-cover rounded-lg mb-3">
-                    <div>
-                        <h4 class="font-bold text-gray-800">${p.nome}</h4>
-                        <p class="text-pink-600 font-semibold mt-1">R$ ${p.preco.toFixed(2)}</p>
-                    </div>
-                    <button onclick="comprarItem('${p.nome}', ${p.preco})" class="mt-4 bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 text-sm">Comprar (+ Taxa)</button>
-                </div>
-            `).join('');
-
-            const gridS = document.getElementById('grid-servicos');
-            gridS.innerHTML = servicos.map(s => `
-                <div class="bg-white p-4 rounded-xl shadow-sm border flex flex-col justify-between">
-                    <img src="${s.foto}" alt="${s.nome}" class="w-full h-40 object-cover rounded-lg mb-3">
-                    <div>
-                        <h4 class="font-bold text-gray-800">${s.nome}</h4>
-                        <p class="text-pink-600 font-semibold mt-1">R$ ${s.preco.toFixed(2)}</p>
-                    </div>
-                    <button onclick="agendarServico('${s.nome}')" class="mt-4 bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 text-sm">Agendar</button>
-                </div>
-            `).join('');
-
-            const listaA = document.getElementById('lista-aniversariantes');
-            listaA.innerHTML = aniversariantes.length === 0 ? `<p class="text-gray-500">Nenhum aniversariante cadastrado ainda.</p>` : aniversariantes.map((a, index) => `
-                <div class="bg-white p-4 rounded-xl shadow-sm border flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold">${a.nome}</h4>
-                        <p class="text-sm text-gray-500">Data: ${a.data}</p>
-                        <p class="text-xs text-pink-600 mt-1 font-medium">💡 Sugestão de Kit Presente Pronta Programada!</p>
-                    </div>
-                    <button onclick="programarPresente('${a.nome}')" class="bg-pink-100 text-pink-700 px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-pink-200">Programar Envio</button>
-                </div>
-            `).join('');
-
-            document.getElementById('admin-lista-produtos').innerHTML = produtos.map(p => `
-                <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
-                    <span>${p.nome} - R$ ${p.preco.toFixed(2)}</span>
-                    <div>
-                        <button onclick="editarItem('produto', ${p.id})" class="text-blue-600 mr-2">Editar</button>
-                        <button onclick="excluirItem('produto', ${p.id})" class="text-red-600">Excluir</button>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('admin-lista-servicos').innerHTML = servicos.map(s => `
-                <div class="flex justify-between items-center bg-white p-2 border rounded text-sm">
-                    <span>${s.nome} - R$ ${s.preco.toFixed(2)}</span>
-                    <div>
-                        <button onclick="editarItem('servico', ${s.id})" class="text-blue-600 mr-2">Editar</button>
-                        <button onclick="excluirItem('servico', ${s.id})" class="text-red-600">Excluir</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.getElementById('form-admin').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const id = document.getElementById('item-id').value;
-            const tipo = document.getElementById('item-tipo').value;
-            const nome = document.getElementById('item-nome').value;
-            const preco = parseFloat(document.getElementById('item-preco').value);
-            const foto = document.getElementById('item-foto').value;
-
-            const lista = tipo === 'produto' ? produtos : servicos;
-
-            if(id) {
-                const item = lista.find(i => i.id == id);
-                if(item) { item.nome = nome; item.preco = preco; item.foto = foto; }
-            } else {
-                const novoId = lista.length > 0 ? Math.max(...lista.map(i => i.id)) + 1 : 1;
-                lista.push({id: novoId, nome, preco, foto});
-            }
-
-            this.reset();
-            document.getElementById('item-id').value = '';
-            renderizarTudo();
-            alert('Item salvo com sucesso!');
-        });
-
-        function excluirItem(tipo, id) {
-            if(confirm('Deseja realmente excluir este item?')) {
-                if(tipo === 'produto') {
-                    produtos = produtos.filter(p => p.id !== id);
-                } else {
-                    servicos = servicos.filter(s => s.id !== id);
-                }
-                renderizarTudo();
-            }
-        }
-
-        function editarItem(tipo, id) {
-            const item = (tipo === 'produto' ? produtos : servicos).find(i => i.id === id);
-            if(item) {
-                document.getElementById('item-id').value = item.id;
-                document.getElementById('item-tipo').value = tipo;
-                document.getElementById('item-nome').value = item.nome;
-                document.getElementById('item-preco').value = item.preco;
-                document.getElementById('item-foto').value = item.foto;
-                mudarAba('admin');
-            }
-        }
-
-        document.getElementById('form-aniversariante').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nome = document.getElementById('aniv-nome').value;
-            const data = document.getElementById('aniv-data').value;
-            aniversariantes.push({nome, data});
-            this.reset();
-            renderizarTudo();
-            alert('Aniversariante cadastrado com sucesso! Você receberá lembretes e opções de kits.');
-        });
-
-        function comprarItem(nome, preco) {
-            const taxaEntrega = 15.00;
-            const total = preco + taxaEntrega;
-            alert(`Produto: ${nome}\nValor: R$ ${preco.toFixed(2)}\nTaxa de Entrega: R$ ${taxaEntrega.toFixed(2)}\nTotal a pagar: R$ ${total.toFixed(2)}\nCompra efetuada com os dados de entrega cadastrados!`);
-        }
-
-        function agendarServico(nome) {
-            alert(`Serviço "${nome}" selecionado para agendamento! Escolha o dia e horário.`);
-        }
-
-        function programarPresente(nome) {
-            alert(`Abrindo opções de kits de presentes personalizados para ${nome}. O pagamento somará o produto escolhido + taxa de entrega para o dia exato.`);
-        }
-
-        renderizarTudo();
-    </script>
-</body>
-</html>
+<div class="overlay" id="searchOverlay"><div class="panel"><button class="close" onclick="closeOverlay('searchOverlay')">×</button><h2>Buscar</h2><div class="field"><input id="searchInput" placeholder="Produto, marca, categoria..." oninput="search(this.value)"></div><div class="grid" id="searchResults"></div></div></div>
+<div class="overlay" id="cartOverlay"><div class="panel"><button class="close" onclick="closeOverlay('cartOverlay')">×</button><h2>Sua sacola</h2><div id="cartBody"></div><div id="cartFoot"></div></div></div>
+<div class="overlay" id="productOverlay"><div class="panel"><button class="close" onclick="closeOverlay('productOverlay')">×</button><div id="productDetail"></div></div></div>
+<div class="overlay" id="adminOverlay"><div class="panel"><button class="close" onclick="closeOverlay('adminOverlay')">×</button><div id="adminBody"></div></div></div>
+<div class="modal" id="editorModal"><div class="modalBox"><button class="close" onclick="closeModal('editorModal')">×</button><h2 id="editorTitle">Cadastrar produto</h2><div class="notice">Os produtos das fotos já vêm como modelos pré-preenchidos. A Administradora pode revisar preço, estoque, tamanhos, variações e publicar. Novos produtos digitados ficam salvos como modelos para o próximo cadastro.</div><form onsubmit="saveEditor(event)"><input type="hidden" id="editId"><div class="two"><div class="field"><label>Nome do produto</label><input id="fName" required></div><div class="field"><label>Marca</label><input id="fBrand"></div></div><div class="two"><div class="field"><label>Categoria</label><select id="fCategory"><option>Cabelo</option><option>Skincare</option><option>Corpo</option><option>Perfumaria</option><option>Moda</option><option>Acessórios</option><option>Bolsas</option><option>Presentes</option><option>Casa</option><option>Outros</option></select></div><div class="field"><label>Subcategoria</label><input id="fSub"></div></div><div class="two"><div class="field"><label>Preço (R$)</label><input id="fPrice" type="number" min="0" step="0.01" placeholder="Ex.: 129,90"></div><div class="field"><label>Estoque</label><input id="fStock" type="number" min="0" step="1" value="1"></div></div><div class="field"><label>Descrição para venda</label><textarea id="fDesc"></textarea></div><div class="two"><div class="field"><label>Benefícios / diferenciais</label><textarea id="fBenefits"></textarea></div><div class="field"><label>Modo de uso / cuidados</label><textarea id="fUse"></textarea></div></div><div class="two"><div class="field"><label>Variações (tamanho/cor/volume)</label><input id="fVariants" placeholder="P, M, G / Dourado / 250ml"></div><div class="field"><label>Caixa / presente</label><select id="fGift"><option>Não</option><option>Sim</option></select></div></div><button class="btn" style="width:100%">Salvar modelo</button></form></div></div>
+<div class="modal" id="quizModal"><div class="modalBox"><button class="close" onclick="closeModal('quizModal')">×</button><h2>Consultor Glam</h2><div class="notice">O resultado é uma curadoria comercial e não substitui avaliação profissional. Para procedimentos e tratamentos capilares, a indicação final pode ser feita pela equipe Glam.</div><div id="quizBody"></div></div></div>
+<div class="modal" id="filtersModal"><div class="modalBox"><button class="close" onclick="closeModal('filtersModal')">×</button><h2>Filtros inteligentes</h2><div class="two"><div class="field"><label>Marca</label><select id="filterBrand"><option value="">Todas</option></select></div><div class="field"><label>Faixa de preço</label><select id="filterPrice"><option value="">Todas</option><option value="0-100">Até R$ 100</option><option value="100-200">R$ 100–200</option><option value="200-99999">Acima de R$ 200</option></select></div></div><div class="field"><label>Categoria</label><select id="filterCat"><option value="">Todas</option></select></div><button class="btn" style="width:100%" onclick="applyFilters()">Aplicar filtros</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const SEED_PRODUCTS=[{"id": "keune-color-shampoo", "name": "Keune Care Color Brillianz Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Keune", "line": "Color Brillianz", "description": "Proteção e cuidado para cabelos coloridos.", "image": "assets/IMG_6330.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-color-conditioner", "name": "Keune Care Color Brillianz Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Keune", "line": "Color Brillianz", "description": "Condicionamento para cabelos coloridos.", "image": "assets/IMG_6330.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-keratin-shampoo", "name": "Keune Care Keratin Smooth Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Keune", "line": "Keratin Smooth", "description": "Limpeza e cuidado para fios que precisam de suavidade.", "image": "assets/IMG_6333.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-keratin-conditioner", "name": "Keune Care Keratin Smooth Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Keune", "line": "Keratin Smooth", "description": "Condicionamento e maciez para os fios.", "image": "assets/IMG_6333.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "glam-12em1", "name": "Glam 12 em 1 Leave-in 240ml", "category": "Cabelo", "subcategory": "Leave-in", "brand": "Glam", "line": "12 em 1", "description": "Finalizador multifuncional para proteção e tratamento dos fios.", "image": "assets/IMG_6344.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-tutano-shampoo", "name": "Mirra Elements Tutano + Caviar Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Tutano + Caviar", "description": "Linha voltada a brilho e vitalidade para cabelos ressecados.", "image": "assets/IMG_6334.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-tutano-cond", "name": "Mirra Elements Tutano + Caviar Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Tutano + Caviar", "description": "Cuidado de brilho e vitalidade.", "image": "assets/IMG_6335.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-leite-shampoo", "name": "Mirra Elements Proteínas do Leite Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Proteínas do Leite", "description": "Nutrição e restauração do brilho.", "image": "assets/IMG_6334.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-leite-cond", "name": "Mirra Elements Proteínas do Leite Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Proteínas do Leite", "description": "Nutrição e restauração do brilho.", "image": "assets/IMG_6335.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-vegetal-shampoo", "name": "Mirra Elements Nutrição Vegetal Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Nutrição Vegetal", "description": "Ação para raízes oleosas e pontas secas, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-vegetal-cond", "name": "Mirra Elements Nutrição Vegetal Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Nutrição Vegetal", "description": "Cuidado e equilíbrio para os fios.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-cacau-shampoo", "name": "Mirra Elements Cacau + Açaí + Mel Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Cacau + Açaí + Mel", "description": "Hidratação intensa para cabelos étnicos, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-cacau-cond", "name": "Mirra Elements Cacau + Açaí + Mel Leave-in", "category": "Cabelo", "subcategory": "Leave-in", "brand": "Mirra", "line": "Elements Cacau + Açaí + Mel", "description": "Hidratação e nutrição intensas.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-ginkgo-cond", "name": "Mirra Elements Ginkgo Biloba Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Ginkgo Biloba", "description": "Força e crescimento, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-elixir-gold", "name": "Mirra Elixir Gold Ultimate Oil Argan & Caviar", "category": "Cabelo", "subcategory": "Óleo / Finalizador", "brand": "Mirra", "line": "Elixir Gold", "description": "Óleo condicionante para cabelo e corpo, conforme embalagem.", "image": "assets/IMG_6351.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-shampoo", "name": "Magic Beauty Curly Crush Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Linha para cabelos cacheados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-cond", "name": "Magic Beauty Curly Crush Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Condicionamento para cabelos cacheados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-mask", "name": "Magic Beauty Curly Crush Magic Mask 500g", "category": "Cabelo", "subcategory": "Máscara", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Máscara de tratamento para cachos.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-liss", "name": "Magic Beauty Liss Extreme Magic Mask", "category": "Cabelo", "subcategory": "Máscara", "brand": "Magic Beauty", "line": "Liss Extreme", "description": "Máscara para cuidado de fios lisos/disciplinados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "miss-curls-shampoo", "name": "Mirra Miss Curls Shampoo Cachos Intensos", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Miss Curls", "description": "Limpeza para cachos intensos.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "miss-curls-cond", "name": "Mirra Miss Curls Conditioner Cachos Intensos", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Mirra", "line": "Miss Curls", "description": "Condicionamento para cachos intensos.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "salerm-hi-repair-shampoo", "name": "Salerm Hi Repair Shampoo 250ml", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Salerm", "line": "Hi Repair", "description": "Linha profissional de reparação.", "image": "assets/IMG_6349.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "salerm-hi-repair-cond", "name": "Salerm Hi Repair Conditioner 250ml", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Salerm", "line": "Hi Repair", "description": "Condicionamento e reparação.", "image": "assets/IMG_6349.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-color-brilliance", "name": "Wella Invigo Color Brilliance", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "Color Brilliance", "description": "Linha para cabelos coloridos.", "image": "assets/IMG_6342.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-blondorplex", "name": "Wella BlondorPlex", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "BlondorPlex", "description": "Linha profissional para cabelos descoloridos.", "image": "assets/IMG_6341.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-hydrate", "name": "Wella Hydrate Shampoo + Conditioner", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "Hydrate", "description": "Hidratação para cabelos.", "image": "assets/IMG_6342.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "maxiline-ouse", "name": "Maxiline Ouse Shampoo / Tratamento", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Maxiline", "line": "Ouse", "description": "Linha de home care profissional.", "image": "assets/IMG_6340.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "azzo-my-mask", "name": "Azzo My Mask", "category": "Cabelo", "subcategory": "Máscara", "brand": "Azzo", "line": "My Mask", "description": "Máscara de tratamento capilar.", "image": "assets/IMG_6331.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "maison-lotion", "name": "Maison Visage Body Lotion Maison", "category": "Corpo", "subcategory": "Hidratante corporal", "brand": "Maison Visage", "line": "Maison", "description": "Loção corporal perfumada.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "korres-olive-soap", "name": "Korres Olive Sabonete Cremoso 3x90g", "category": "Corpo", "subcategory": "Sabonete", "brand": "Korres", "line": "Olive", "description": "Kit com 3 sabonetes cremosos.", "image": "assets/IMG_6346.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-pink", "name": "Bolsa rosa matelassê", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa para composição de looks.", "image": "assets/IMG_6301.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-preta", "name": "Bolsa preta", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa preta para uso diário e ocasiões especiais.", "image": "assets/IMG_6325.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-azul", "name": "Bolsa azul estruturada", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa estruturada para composição de looks.", "image": "assets/IMG_6328.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-bege", "name": "Bolsa bege", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa neutra e versátil.", "image": "assets/IMG_6328.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "clutch-dourada", "name": "Clutch dourada", "category": "Moda", "subcategory": "Clutch", "brand": "Glam", "line": "Boutique Glam", "description": "Clutch para ocasiões especiais.", "image": "assets/IMG_6326.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "colar-dourado", "name": "Colar dourado", "category": "Acessórios", "subcategory": "Colar", "brand": "Glam", "line": "Boutique Glam", "description": "Acessório para completar a produção.", "image": "assets/IMG_6324.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "colar-dourado-2", "name": "Colar dourado — modelo 2", "category": "Acessórios", "subcategory": "Colar", "brand": "Glam", "line": "Boutique Glam", "description": "Acessório para composição de looks.", "image": "assets/IMG_6321.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "camisa-listrada-rosa", "name": "Camisa listrada rosa e branca", "category": "Moda", "subcategory": "Camisa", "brand": "Glam", "line": "Boutique Glam", "description": "Camisa de manga longa com listras rosa e gola clássica.", "image": "assets/IMG_6357.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "eudora-selecao", "name": "Seleção Eudora — cosméticos", "category": "Beleza", "subcategory": "Cosméticos", "brand": "Eudora", "line": "Seleção Glam", "description": "Expositor com itens Eudora. O modelo e preço devem ser conferidos no estoque.", "image": "assets/IMG_6308.jpeg", "price": null, "stock": 1, "status": "template"}];
+const CATEGORIES=['Tudo','Cabelo','Skincare','Corpo','Perfumaria','Moda','Bolsas','Acessórios','Presentes'];
+const SERVICES=[{id:'s1',name:'Hidratação + Escova',price:89.9,desc:'Cuidado e finalização.'},{id:'s2',name:'Reconstrução + Escova',price:139,desc:'Reconstrução com finalização.'},{id:'s3',name:'Glow Facial Premium Express',price:145,desc:'Protocolo facial para luminosidade e viço.'},{id:'s4',name:'Limpeza de Pele',price:135,desc:'Higienização e cuidado facial conforme avaliação.'},{id:'s5',name:'Drenagem Linfática',price:120,desc:'Sessão de cuidado corporal.'},{id:'s6',name:'Massagem Relaxante',price:120,desc:'Momento de relaxamento e bem-estar.'},{id:'s7',name:'Microagulhamento Facial',price:null,desc:'Valor mediante avaliação profissional.'},{id:'s8',name:'Protocolo Papada sem Agulhas',price:null,desc:'Avaliação necessária.'}];
+let products=JSON.parse(localStorage.getItem('glam_products_v2')||'null')||SEED_PRODUCTS.map(x=>({...x}));
+let templates=JSON.parse(localStorage.getItem('glam_templates_v2')||'null')||SEED_PRODUCTS.map(x=>({...x}));
+let cart=JSON.parse(localStorage.getItem('glam_cart_v2')||'[]'); let filter='Tudo';
+const $=id=>document.getElementById(id); const money=v=>v==null?'Preço a cadastrar':Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+function esc(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').classList.remove('show'),2400)}
+function save(){localStorage.setItem('glam_products_v2',JSON.stringify(products));localStorage.setItem('glam_templates_v2',JSON.stringify(templates));localStorage.setItem('glam_cart_v2',JSON.stringify(cart))}
+function img(p){return p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:`<div style="height:100%;display:grid;place-items:center;font-size:50px;font-weight:800">G</div>`}
+function card(p){return `<article class="card"><div class="photo">${p.status==='template'?'<span class="tag">MODELO PRONTO</span>':''}${img(p)}</div><h3>${esc(p.name)}</h3><div class="meta">${esc(p.brand||'Glam')} · ${esc(p.subcategory||p.category||'')}</div><div class="price ${p.price==null?'pending':''}">${money(p.price)}</div><div class="cardBtns"><button class="btn light" onclick="detail('${p.id}')">Ver detalhes</button><button class="btn" onclick="add('${p.id}')">Sacola</button></div></article>`}
+function render(list=products){$('productGrid').innerHTML=list.length?list.map(card).join(''):'<div class="empty" style="grid-column:1/-1">Nenhum produto encontrado.</div>';$('catalogCount').textContent=`${list.length} itens no catálogo`}
+function chips(){ $('chips').innerHTML=CATEGORIES.map(c=>`<button class="chip ${filter===c?'active':''}" onclick="setFilter('${c}')">${c}</button>`).join('') }
+function setFilter(c){filter=c;chips();let list=products.filter(p=>c==='Tudo'||p.category===c);render(list);document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})}
+function search(q){q=q.toLowerCase().trim();let list=products.filter(p=>[p.name,p.brand,p.line,p.category,p.subcategory,p.description].join(' ').toLowerCase().includes(q));$('searchResults').innerHTML=list.length?list.map(card).join(''):'<div class="empty">Nenhum resultado.</div>'}
+function openSearch(){openOverlay('searchOverlay');$('searchInput').value='';search('');$('searchInput').focus()}
+function detail(id){let p=products.find(x=>x.id===id)||templates.find(x=>x.id===id);if(!p)return;$('productDetail').innerHTML=`<div class="detail"><div>${img(p)}</div><div><div class="brand">${esc(p.brand||'Glam')} · ${esc(p.line||'')}</div><h2>${esc(p.name)}</h2><div class="price ${p.price==null?'pending':''}">${money(p.price)}</div><p>${esc(p.description||'')}</p>${p.benefits?`<p><b>Benefícios:</b> ${esc(p.benefits)}</p>`:''}${p.use?`<p><b>Modo de uso/cuidados:</b> ${esc(p.use)}</p>`:''}${p.variants?`<div>${esc(p.variants).split(',').map(x=>`<span class="pill">${esc(x.trim())}</span>`).join('')}</div>`:''}<button class="btn" style="width:100%;margin-top:14px" onclick="add('${p.id}')">Adicionar à sacola</button></div></div>`;openOverlay('productOverlay')}
+function add(id){let p=products.find(x=>x.id===id);if(!p||p.price==null){toast('Antes da venda, cadastre o preço deste produto no Painel Admin.');openAdmin();return}let i=cart.find(x=>x.id===id);i?i.qty++:cart.push({id,qty:1});save();cartRender();toast('Adicionado à sacola.');openCart()}
+function openCart(){openOverlay('cartOverlay');cartRender()}
+function cartRender(){let n=cart.reduce((s,x)=>s+x.qty,0);$('bagCount').textContent=n;if(!cart.length){$('cartBody').innerHTML='<div class="empty">Sua sacola está vazia.</div>';$('cartFoot').innerHTML='';return}let sub=0;$('cartBody').innerHTML=cart.map(i=>{let p=products.find(x=>x.id===i.id);if(!p)return '';sub+=p.price*i.qty;return `<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${money(p.price)} · Qtd. ${i.qty}</small><div style="margin-top:7px"><button class="btn light" onclick="qty('${p.id}',-1)">−</button> <button class="btn light" onclick="qty('${p.id}',1)">+</button></div></div><button class="btn light" onclick="removeCart('${p.id}')">Excluir</button></div>`}).join('');$('cartFoot').innerHTML=`<div style="margin-top:16px;border-top:1px solid #eee;padding-top:14px"><b>Total: ${money(sub)}</b><button class="btn" style="width:100%;margin-top:10px" onclick="checkout()">Finalizar pedido</button></div>`}
+function qty(id,d){let i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);save();cartRender()};function removeCart(id){cart=cart.filter(x=>x.id!==id);save();cartRender()};function checkout(){toast('Checkout preparado. Conecte o meio de pagamento e o WhatsApp da loja no ambiente de produção.')} 
+function openOverlay(id){$(id).classList.add('show')} function closeOverlay(id){$(id).classList.remove('show')} function closeModal(id){$(id).classList.remove('show')} function home(){scrollTo({top:0,behavior:'smooth'})}
+function openFilters(){populateFilters();$('filtersModal').classList.add('show')}
+function populateFilters(){let brands=[...new Set(products.map(p=>p.brand).filter(Boolean))].sort();$('filterBrand').innerHTML='<option value="">Todas</option>'+brands.map(b=>`<option>${esc(b)}</option>`).join('');$('filterCat').innerHTML='<option value="">Todas</option>'+CATEGORIES.filter(x=>x!=='Tudo').map(c=>`<option>${c}</option>`).join('')}
+function applyFilters(){let b=$('filterBrand').value,c=$('filterCat').value,pr=$('filterPrice').value;let list=products.filter(p=>(!b||p.brand===b)&&(!c||p.category===c)&&(!pr|| (p.price!=null&&p.price>=+pr.split('-')[0]&&p.price<=+pr.split('-')[1])));render(list);closeModal('filtersModal')}
+function openQuiz(){let q=[{t:'O que você procura?',o:['Cuidar dos cabelos','Cuidar da pele/corpo','Montar um look','Presentear alguém']},{t:'Qual estilo combina mais com você?',o:['Prático','Luxuoso','Natural','Tendência']},{t:'O que pesa mais na escolha?',o:['Tratamento','Praticidade','Visual','Presente'] }];let i=0,ans=[];function draw(){if(i>=q.length){let text=ans.join(' · ');let list=products.filter(p=>(ans[0]==='Cuidar dos cabelos'&&p.category==='Cabelo')||(ans[0]==='Cuidar da pele/corpo'&&(p.category==='Skincare'||p.category==='Corpo'))||(ans[0]==='Montar um look'&&(p.category==='Moda'||p.category==='Bolsas'||p.category==='Acessórios'))||(ans[0]==='Presentear alguém'&&p.category==='Presentes'));if(!list.length)list=products.slice(0,8);$('quizBody').innerHTML=`<h3>Curadoria Glam</h3><p style="font-size:12px">Preferências: ${esc(text)}</p><div class="grid">${list.slice(0,8).map(card).join('')}</div>`;return}$('quizBody').innerHTML=`<p style="font-size:12px;color:#777">Pergunta ${i+1} de ${q.length}</p><h3>${q[i].t}</h3>`+q[i].o.map(o=>`<button class="btn light" style="width:100%;margin:5px 0;text-align:left" onclick="window.__quiz('${esc(o)}')">${esc(o)}</button>`).join('')}window.__quiz=a=>{ans.push(a);i++;draw()}}$('quizModal').classList.add('show');draw()}
+function openRewards(){openOverlay('adminOverlay');$('adminBody').innerHTML=`<div class="adminTop"><b>Glam Rewards</b><br><small>Programa de relacionamento pronto para receber integração com backend.</small></div><div class="notice">Estrutura recomendada: pontos por compra, aniversário, avaliação e indicação; carteira de benefícios; histórico; níveis e cupons. Não guardar dados de pagamento no navegador.</div><button class="btn" onclick="toast('Programa preparado para integração.')">Ativar estrutura</button>`}
+function openAdmin(){openOverlay('adminOverlay');adminRender('catalogo')}
+function adminRender(tab){$('adminBody').innerHTML=`<div class="adminTop"><b>Painel da Administradora Odiselma</b><br><small>Catálogo rápido · modelos prontos · novos produtos · controle de publicação</small></div><div class="adminTabs"><button class="adminTab ${tab==='catalogo'?'active':''}" onclick="adminRender('catalogo')">Catálogo</button><button class="adminTab ${tab==='modelos'?'active':''}" onclick="adminRender('modelos')">Modelos prontos</button><button class="adminTab ${tab==='novo'?'active':''}" onclick="newProduct()">+ Novo produto</button></div>${tab==='catalogo'?catalogTab():templatesTab()}`}
+function catalogTab(){return `<button class="btn" style="width:100%;margin-bottom:12px" onclick="newProduct()">Cadastrar novo produto</button><div class="adminList">${products.map(p=>`<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${esc(p.category)} · ${money(p.price)} · estoque ${p.stock??0}</small></div><button class="btn light" onclick="editProduct('${p.id}')">Editar</button></div>`).join('')}</div>`}
+function templatesTab(){return `<div class="notice">Clique em <b>Cadastrar</b> para transformar um modelo das fotos em produto do catálogo. Os campos já vêm preenchidos; você só completa preço/estoque e publica.</div><div class="adminList">${templates.map(p=>`<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${esc(p.brand)} · ${esc(p.category)}</small></div><button class="btn" onclick="editProduct('${p.id}',true)">Cadastrar</button></div>`).join('')}</div>`}
+function newProduct(){let p={id:'new-'+Date.now(),name:'',brand:'',category:'Cabelo',subcategory:'',price:null,stock:1,description:'',benefits:'',use:'',variants:'',gift:'Não',image:'',status:'template'};editor(p,true)}
+function editProduct(id,fromTemplate=false){let p=(fromTemplate?templates:products).find(x=>x.id===id);if(p)editor({...p},fromTemplate)}
+function editor(p,fromTemplate){$('editId').value=p.id;$('fName').value=p.name||'';$('fBrand').value=p.brand||'';$('fCategory').value=p.category||'Outros';$('fSub').value=p.subcategory||'';$('fPrice').value=p.price??'';$('fStock').value=p.stock??1;$('fDesc').value=p.description||'';$('fBenefits').value=p.benefits||'';$('fUse').value=p.use||'';$('fVariants').value=p.variants||'';$('fGift').value=p.gift||'Não';$('editorTitle').textContent=fromTemplate?'Cadastrar produto no catálogo':'Editar produto';$('editorModal').dataset.fromTemplate=fromTemplate?'1':'0';$('editorModal').classList.add('show')}
+function saveEditor(e){e.preventDefault();let id=$('editId').value;let old=products.find(x=>x.id===id)||templates.find(x=>x.id===id)||{};let p={...old,id,name:$('fName').value,brand:$('fBrand').value,category:$('fCategory').value,subcategory:$('fSub').value,price:$('fPrice').value===''?null:Number($('fPrice').value),stock:Number($('fStock').value||0),description:$('fDesc').value,benefits:$('fBenefits').value,use:$('fUse').value,variants:$('fVariants').value,gift:$('fGift').value,status:'published'};let from=$('editorModal').dataset.fromTemplate==='1';if(!p.image&&old.image)p.image=old.image;if(from){products.push(p);templates=templates.filter(x=>x.id!==id)}else{let idx=products.findIndex(x=>x.id===id);if(idx>=0)products[idx]=p;else products.push(p)}save();closeModal('editorModal');closeOverlay('adminOverlay');toast('Produto salvo no catálogo.');render(products);}
+function openAdminAfter(){openAdmin()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.overlay').forEach(x=>x.classList.remove('show'));document.querySelectorAll('.modal').forEach(x=>x.classList.remove('show'))}})
+chips();render(products);cartRender();
+</script></body></html>
