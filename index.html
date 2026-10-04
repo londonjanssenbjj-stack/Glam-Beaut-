@@ -1,62 +1,1581 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0b0b"><meta name="description" content="Glam — beleza, cabelo, moda, acessórios e experiências."><title>Glam — Beleza, Moda & Bem-estar</title><style>
-:root{--ink:#0b0b0b;--paper:#fff;--rose:#f6e8ef;--gold:#b9964a;--muted:#707070;--line:#e9e5e5;--soft:#faf8f8;--ok:#16734a;--danger:#b00020;--max:1220px;--r:18px;--shadow:0 16px 45px rgba(0,0,0,.09)}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font-family:Inter,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.top{background:var(--ink);color:#fff;text-align:center;padding:9px;font-size:11px;letter-spacing:.04em}.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.navin{max-width:var(--max);margin:auto;height:72px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:31px;font-weight:800;letter-spacing:-.07em}.actions{display:flex;gap:7px;align-items:center}.icon{border:0;background:transparent;padding:10px;font-size:12px;font-weight:700}.count{background:#000;color:#fff;border-radius:50%;font-size:9px;padding:3px 6px}.hero{max-width:var(--max);margin:auto;padding:28px 18px}.heroGrid{background:linear-gradient(120deg,#f7e8ef,#f7f1f2);border-radius:28px;min-height:470px;display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden}.heroCopy{padding:52px;display:flex;justify-content:center;flex-direction:column}.eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;margin-bottom:15px}.hero h1{font-size:clamp(40px,6vw,70px);line-height:.96;letter-spacing:-.06em;font-weight:400;margin:0 0 22px}.hero p{max-width:560px;line-height:1.65;color:#444}.heroArt{position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 45%,#fff 0 15%,transparent 16%),linear-gradient(135deg,#f8edf3,#ead6e1)}.heroArt:after{content:'GLAM';font-size:clamp(90px,13vw,180px);font-weight:900;opacity:.06;position:absolute}.heroCard{width:260px;height:330px;background:#fff;box-shadow:var(--shadow);transform:rotate(7deg);display:grid;place-items:center;font-size:110px;font-weight:800;z-index:2}.btn{border:1px solid #000;background:#000;color:#fff;padding:12px 18px;min-height:44px;font-size:12px;font-weight:700}.btn.light{background:#fff;color:#000}.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}.section{max-width:var(--max);margin:auto;padding:28px 18px}.head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:18px}.head h2{margin:0;font-size:23px;letter-spacing:-.04em}.sub{font-size:12px;color:var(--muted);margin-top:5px}.chips{display:flex;gap:8px;overflow:auto;padding:3px 0 8px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid #000;background:#fff;border-radius:999px;padding:10px 14px;font-size:11px}.chip.active{background:var(--rose);border-color:var(--rose)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 11px}.card{min-width:0}.photo{position:relative;aspect-ratio:1/1.08;background:#f3f1f1;border-radius:13px;overflow:hidden;margin-bottom:10px}.photo img{width:100%;height:100%;object-fit:cover}.tag{position:absolute;left:9px;top:9px;background:#000;color:#fff;padding:5px 7px;font-size:8px;font-weight:800;letter-spacing:.06em}.card h3{font-size:13px;line-height:1.35;margin:0 0 4px}.meta{font-size:10px;color:#777;margin-bottom:7px}.price{font-weight:800;font-size:13px;margin-bottom:8px}.price.pending{color:#9b7a35;font-weight:700}.cardBtns{display:flex;gap:5px}.cardBtns .btn{flex:1;padding:9px 6px;font-size:10px}.featureGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.feature{border:1px solid var(--line);padding:18px;min-height:150px;background:#fff}.feature:nth-child(2n){background:var(--rose)}.feature b{font-size:13px}.feature p{font-size:11px;line-height:1.5;color:#555}.loyal{background:#000;color:#fff;border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.loyal h2{margin:0 0 8px;font-size:26px}.loyal p{margin:0;color:#ccc;font-size:12px;line-height:1.55}.footer{border-top:1px solid var(--line);padding:40px 18px}.footin{max-width:var(--max);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}.footin p,.footin a{font-size:11px;color:#666;line-height:1.6}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none}.overlay.show{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(510px,100%);background:#fff;overflow:auto;padding:22px}.panel h2{margin:0 0 16px;font-size:22px}.close{border:0;background:transparent;font-size:24px;float:right}.field{margin:0 0 12px}.field label{display:block;font-size:10px;font-weight:800;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #ccc;padding:11px;background:#fff}.field textarea{min-height:85px}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail{display:grid;grid-template-columns:1fr 1fr;gap:18px}.detail img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f5f5f5;border-radius:14px}.detail h2{font-size:25px;margin:0 0 6px}.detail .brand{font-size:11px;color:#777}.detail p{font-size:12px;line-height:1.6;color:#444}.pill{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:6px 9px;font-size:9px;margin:3px 3px 3px 0}.adminTop{background:#111;color:#fff;padding:16px;border-radius:14px;margin-bottom:15px}.adminTop small{color:#bbb}.adminTabs{display:flex;gap:7px;overflow:auto;margin:10px 0 15px}.adminTab{border:1px solid #000;background:#fff;padding:9px 11px;font-size:10px;white-space:nowrap}.adminTab.active{background:#000;color:#fff}.adminList{display:grid;gap:9px}.adminItem{border:1px solid var(--line);padding:12px;display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center}.adminItem img{width:64px;height:64px;object-fit:cover;background:#eee}.adminItem h4{margin:0 0 3px;font-size:12px}.adminItem small{color:#777}.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modalBox{background:#fff;width:min(850px,100%);max-height:94vh;overflow:auto;border-radius:18px;padding:22px}.toast{position:fixed;z-index:300;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;background:#000;color:#fff;padding:12px 15px;font-size:11px;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.notice{background:var(--rose);padding:12px;font-size:11px;line-height:1.5;margin-bottom:14px}.empty{text-align:center;padding:50px 10px;color:#666;font-size:12px}@media(min-width:760px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 14px}.hero{padding-top:48px}.featureGrid{grid-template-columns:repeat(4,1fr)}}@media(max-width:759px){.heroGrid{grid-template-columns:1fr}.heroCopy{padding:35px 24px}.heroArt{min-height:260px}.featureGrid{grid-template-columns:1fr 1fr}.detail{grid-template-columns:1fr}.loyal{grid-template-columns:1fr}}@media(max-width:440px){.navin{padding:0 11px}.logo{font-size:27px}.hero,.section{padding-left:12px;padding-right:12px}.featureGrid{grid-template-columns:1fr}.footin{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
-</style></head><body>
-<div class="top">GLAM BEAUTY & STYLE · beleza, cabelo, moda e acessórios em um só lugar</div>
-<header class="nav"><div class="navin"><a class="logo" href="#" onclick="home();return false">Glam</a><div class="actions"><button class="icon" onclick="openSearch()">⌕ BUSCAR</button><button class="icon" onclick="openAdmin()">ADMIN</button><button class="icon" onclick="openCart()">SACOLA <span class="count" id="bagCount">0</span></button></div></div></header>
-<section class="hero"><div class="heroGrid"><div class="heroCopy"><div class="eyebrow">Glam Beleza Estética e Bem-estar</div><h1>beleza que combina com você.</h1><p>Um ecossistema Glam para cabelo, skincare, corpo, moda, bolsas, acessórios, presentes e experiências. Descubra, personalize e compre em poucos passos.</p><div><button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">Explorar catálogo</button> <button class="btn light" onclick="openQuiz()">Descobrir meu Glam</button></div></div><div class="heroArt"><div class="heroCard">G</div></div></div></section>
-<section class="section"><div class="head"><div><h2>Compre do seu jeito</h2><div class="sub">Curadoria, personalização e compra rápida.</div></div></div><div class="featureGrid"><div class="feature"><b>✨ Consultor Glam</b><p>Quiz rápido para indicar categorias e produtos conforme preferências.</p></div><div class="feature"><b>💎 Glam Rewards</b><p>Pontos por compras, avaliações, aniversário e ações especiais.</p></div><div class="feature"><b>👗 Meu tamanho</b><p>Perfil de medidas, preferências de caimento e guia de tamanho para moda.</p></div><div class="feature"><b>🎁 Presente perfeito</b><p>Monte presentes, escolha mensagem e envie para outra pessoa.</p></div></div></section>
-<section class="section"><div class="head"><div><h2>Descubra a Glam</h2><div class="sub">Filtre por universo.</div></div></div><div class="chips" id="chips"></div></section>
-<section class="section" id="catalogo"><div class="head"><div><h2>Produtos selecionados</h2><div class="sub" id="catalogCount"></div></div><button class="btn light" onclick="openFilters()">Filtros</button></div><div class="grid" id="productGrid"></div></section>
-<section class="section"><div class="loyal"><div><h2>Glam Rewards</h2><p>Crie sua conta, acumule pontos, receba benefícios de aniversário e tenha uma área com favoritos, pedidos, avaliações e recomendações.</p></div><button class="btn gold" onclick="openRewards()">Ver meu programa</button></div></section>
-<section class="section"><div class="head"><div><h2>Experiências Glam</h2><div class="sub">Serviços e tratamentos continuam integrados ao catálogo.</div></div></div><div class="grid" id="serviceGrid"></div></section>
-<footer class="footer"><div class="footin"><div><div class="logo">Glam</div><p>Glam Beleza Estética e Bem-estar<br>Corumbá — MS</p></div><div><b>Comprar</b><p><a href="#catalogo">Produtos</a><br><a href="#" onclick="openRewards();return false">Glam Rewards</a><br><a href="#" onclick="openQuiz();return false">Consultor Glam</a></p></div><div><b>Atendimento</b><p>Entrega local configurável<br>Retirada na Glam<br>WhatsApp da loja configurável</p></div></div></footer>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Glam Beleza Estética e Bem-estar — cosméticos, perfumaria, moda, acessórios, presentes e serviços.">
+  <title>Glam Beleza Estética e Bem-estar</title>
 
-<div class="overlay" id="searchOverlay"><div class="panel"><button class="close" onclick="closeOverlay('searchOverlay')">×</button><h2>Buscar</h2><div class="field"><input id="searchInput" placeholder="Produto, marca, categoria..." oninput="search(this.value)"></div><div class="grid" id="searchResults"></div></div></div>
-<div class="overlay" id="cartOverlay"><div class="panel"><button class="close" onclick="closeOverlay('cartOverlay')">×</button><h2>Sua sacola</h2><div id="cartBody"></div><div id="cartFoot"></div></div></div>
-<div class="overlay" id="productOverlay"><div class="panel"><button class="close" onclick="closeOverlay('productOverlay')">×</button><div id="productDetail"></div></div></div>
-<div class="overlay" id="adminOverlay"><div class="panel"><button class="close" onclick="closeOverlay('adminOverlay')">×</button><div id="adminBody"></div></div></div>
-<div class="modal" id="editorModal"><div class="modalBox"><button class="close" onclick="closeModal('editorModal')">×</button><h2 id="editorTitle">Cadastrar produto</h2><div class="notice">Os produtos das fotos já vêm como modelos pré-preenchidos. A Administradora pode revisar preço, estoque, tamanhos, variações e publicar. Novos produtos digitados ficam salvos como modelos para o próximo cadastro.</div><form onsubmit="saveEditor(event)"><input type="hidden" id="editId"><div class="two"><div class="field"><label>Nome do produto</label><input id="fName" required></div><div class="field"><label>Marca</label><input id="fBrand"></div></div><div class="two"><div class="field"><label>Categoria</label><select id="fCategory"><option>Cabelo</option><option>Skincare</option><option>Corpo</option><option>Perfumaria</option><option>Moda</option><option>Acessórios</option><option>Bolsas</option><option>Presentes</option><option>Casa</option><option>Outros</option></select></div><div class="field"><label>Subcategoria</label><input id="fSub"></div></div><div class="two"><div class="field"><label>Preço (R$)</label><input id="fPrice" type="number" min="0" step="0.01" placeholder="Ex.: 129,90"></div><div class="field"><label>Estoque</label><input id="fStock" type="number" min="0" step="1" value="1"></div></div><div class="field"><label>Descrição para venda</label><textarea id="fDesc"></textarea></div><div class="two"><div class="field"><label>Benefícios / diferenciais</label><textarea id="fBenefits"></textarea></div><div class="field"><label>Modo de uso / cuidados</label><textarea id="fUse"></textarea></div></div><div class="two"><div class="field"><label>Variações (tamanho/cor/volume)</label><input id="fVariants" placeholder="P, M, G / Dourado / 250ml"></div><div class="field"><label>Caixa / presente</label><select id="fGift"><option>Não</option><option>Sim</option></select></div></div><button class="btn" style="width:100%">Salvar modelo</button></form></div></div>
-<div class="modal" id="quizModal"><div class="modalBox"><button class="close" onclick="closeModal('quizModal')">×</button><h2>Consultor Glam</h2><div class="notice">O resultado é uma curadoria comercial e não substitui avaliação profissional. Para procedimentos e tratamentos capilares, a indicação final pode ser feita pela equipe Glam.</div><div id="quizBody"></div></div></div>
-<div class="modal" id="filtersModal"><div class="modalBox"><button class="close" onclick="closeModal('filtersModal')">×</button><h2>Filtros inteligentes</h2><div class="two"><div class="field"><label>Marca</label><select id="filterBrand"><option value="">Todas</option></select></div><div class="field"><label>Faixa de preço</label><select id="filterPrice"><option value="">Todas</option><option value="0-100">Até R$ 100</option><option value="100-200">R$ 100–200</option><option value="200-99999">Acima de R$ 200</option></select></div></div><div class="field"><label>Categoria</label><select id="filterCat"><option value="">Todas</option></select></div><button class="btn" style="width:100%" onclick="applyFilters()">Aplicar filtros</button></div></div>
-<div class="toast" id="toast"></div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#000000;
+      --white:#ffffff;
+      --pink:#F7E8F1;
+      --blue:#0000FF;
+      --muted:#6b6b6b;
+      --line:#e9e9e9;
+      --soft:#fafafa;
+      --success:#147a43;
+      --danger:#b00020;
+      --shadow:0 12px 35px rgba(0,0,0,.08);
+      --radius:18px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--white);
+      color:var(--black);
+      font-family:Inter,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    .top-banner{
+      background:var(--black);
+      color:#fff;
+      text-align:center;
+      padding:10px 14px;
+      font-size:12px;
+      letter-spacing:.02em;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:40;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      height:72px;
+      max-width:var(--max);
+      margin:auto;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:800;
+      letter-spacing:-.06em;
+      line-height:1;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .icon-btn,.menu-btn{
+      background:transparent;
+      border:0;
+      min-height:42px;
+      padding:9px 10px;
+      font-weight:600;
+      font-size:12px;
+    }
+
+    .bag-count{
+      display:inline-flex;
+      min-width:18px;
+      height:18px;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:var(--black);
+      color:#fff;
+      font-size:10px;
+      margin-left:4px;
+    }
+
+    .hero{
+      max-width:var(--max);
+      margin:auto;
+      padding:52px 18px 30px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      min-height:430px;
+      background:var(--pink);
+      overflow:hidden;
+      border-radius:26px;
+    }
+
+    .hero-copy{
+      padding:48px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .eyebrow{
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(38px,6vw,64px);
+      line-height:1;
+      font-weight:400;
+      letter-spacing:-.055em;
+      margin:0 0 24px;
+      max-width:650px;
+    }
+
+    .hero-copy p{
+      max-width:540px;
+      line-height:1.65;
+      color:#333;
+      margin:0 0 28px;
+    }
+
+    .hero-art{
+      min-height:330px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at 60% 40%,#fff 0 12%,transparent 13%),
+        linear-gradient(135deg,#f8edf3,#ead6e1);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-art:after{
+      content:"GLAM";
+      position:absolute;
+      font-size:clamp(90px,13vw,170px);
+      font-weight:800;
+      letter-spacing:-.08em;
+      opacity:.08;
+    }
+
+    .hero-orb{
+      width:210px;
+      height:280px;
+      border-radius:50% 50% 48% 48%;
+      background:linear-gradient(145deg,#fff,#ddd);
+      box-shadow:0 25px 60px rgba(0,0,0,.14);
+      transform:rotate(8deg);
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-orb:before{
+      content:"G";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-size:110px;
+      font-weight:800;
+      color:#111;
+    }
+
+    .btn{
+      border:1px solid var(--black);
+      background:var(--black);
+      color:#fff;
+      min-height:46px;
+      padding:12px 18px;
+      font-size:13px;
+      font-weight:600;
+      border-radius:0;
+      transition:.2s;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.outline{
+      background:transparent;
+      color:var(--black);
+    }
+    .btn.pink{background:var(--pink);border-color:var(--pink);color:#000}
+    .btn.blue{background:var(--blue);border-color:var(--blue)}
+
+    main{max-width:var(--max);margin:auto;padding:10px 18px 70px}
+
+    .section{padding:34px 0}
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:20px;
+    }
+    .section h2{
+      font-size:21px;
+      letter-spacing:-.03em;
+      margin:0;
+    }
+    .section-sub{color:var(--muted);font-size:13px;margin-top:7px}
+
+    .chips{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding:3px 0 8px;
+      scrollbar-width:none;
+    }
+    .chips::-webkit-scrollbar{display:none}
+    .chip{
+      white-space:nowrap;
+      border:1px solid var(--black);
+      background:#fff;
+      padding:10px 14px;
+      font-size:12px;
+      border-radius:999px;
+    }
+    .chip.active{background:var(--pink);border-color:var(--pink)}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px 10px;
+    }
+
+    .card{min-width:0}
+    .product-image{
+      position:relative;
+      aspect-ratio:1/1.05;
+      overflow:hidden;
+      background:#f5f5f5;
+      border-radius:12px;
+      margin-bottom:10px;
+    }
+    .product-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .placeholder{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      font-size:44px;
+      font-weight:800;
+      letter-spacing:-.07em;
+      background:linear-gradient(135deg,#f5f5f5,#e7e7e7);
+    }
+    .badge{
+      position:absolute;
+      top:10px;
+      left:10px;
+      z-index:2;
+      font-size:9px;
+      font-weight:800;
+      padding:6px 8px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .badge.new{background:var(--blue);color:#fff}
+    .badge.kit{background:var(--pink);color:#000}
+
+    .card h3{
+      font-size:13px;
+      line-height:1.35;
+      margin:0 0 5px;
+      font-weight:600;
+    }
+    .price{font-size:13px;font-weight:700;margin-bottom:9px}
+    .meta{font-size:11px;color:var(--muted);margin-bottom:9px}
+    .card .btn{width:100%;min-height:40px;padding:9px 8px;font-size:11px}
+
+    .service-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+    .service-card{
+      padding:18px;
+      border:1px solid var(--line);
+      min-height:150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .service-card:nth-child(2n){background:var(--pink)}
+    .service-card h3{font-size:15px;margin:0 0 8px}
+    .service-card p{font-size:11px;color:#555;line-height:1.5;margin:0}
+
+    .birthday{
+      background:var(--black);
+      color:#fff;
+      padding:30px 22px;
+      border-radius:20px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:24px;
+    }
+    .birthday h2{margin:0 0 8px;font-size:25px}
+    .birthday p{margin:0;color:#ddd;line-height:1.55;font-size:13px}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:35px 18px 50px;
+    }
+    .footer-inner{
+      max-width:var(--max);
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:25px;
+    }
+    .footer-title{font-weight:800;font-size:20px}
+    footer p,footer a{font-size:12px;color:#555;line-height:1.6}
+    .social{display:flex;gap:12px;flex-wrap:wrap}
+
+    /* Search */
+    .search-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(255,255,255,.98);
+      z-index:90;
+      display:none;
+      padding:18px;
+    }
+    .search-overlay.open{display:block}
+    .search-top{
+      max-width:var(--max);
+      margin:auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .search-input{
+      flex:1;
+      border:0;
+      border-bottom:1px solid #000;
+      padding:14px 2px;
+      outline:0;
+      font-size:22px;
+    }
+
+    /* Full menu */
+    .menu-overlay{
+      position:fixed;
+      inset:0;
+      background:#fff;
+      z-index:80;
+      overflow:auto;
+      display:none;
+    }
+    .menu-overlay.open{display:block}
+    .menu-head{
+      max-width:var(--max);
+      margin:auto;
+      height:72px;
+      padding:0 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+    }
+    .accordion{
+      max-width:var(--max);
+      margin:auto;
+      padding:25px 18px 60px;
+    }
+    .acc-item{border-bottom:1px solid var(--line)}
+    .acc-btn{
+      width:100%;
+      padding:21px 0;
+      border:0;
+      background:transparent;
+      display:flex;
+      justify-content:space-between;
+      text-align:left;
+      font-size:18px;
+      font-weight:600;
+    }
+    .acc-content{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .acc-content a{
+      display:block;
+      padding:8px 0 16px;
+      font-size:13px;
+      color:#555;
+    }
+    .acc-item.open .acc-content{max-height:300px}
+    .acc-item.open .acc-btn span:last-child{transform:rotate(45deg)}
+
+    /* Cart drawer */
+    .drawer{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      pointer-events:none;
+    }
+    .drawer.show{pointer-events:auto}
+    .drawer-bg{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      opacity:0;
+      transition:.25s;
+    }
+    .drawer-panel{
+      position:absolute;
+      right:0;
+      top:0;
+      height:100%;
+      width:min(440px,100%);
+      background:#fff;
+      transform:translateX(100%);
+      transition:.3s;
+      display:flex;
+      flex-direction:column;
+    }
+    .drawer.show .drawer-bg{opacity:1}
+    .drawer.show .drawer-panel{transform:translateX(0)}
+    .drawer-head{
+      padding:18px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .drawer-body{padding:18px;overflow:auto;flex:1}
+    .drawer-foot{padding:18px;border-top:1px solid var(--line)}
+    .cart-item{
+      display:grid;
+      grid-template-columns:64px 1fr auto;
+      gap:10px;
+      padding:12px 0;
+      border-bottom:1px solid var(--line);
+      align-items:center;
+    }
+    .cart-thumb{
+      width:64px;height:64px;background:#f4f4f4;display:grid;place-items:center;font-weight:800;
+      overflow:hidden;border-radius:8px;
+    }
+    .cart-thumb img{width:100%;height:100%;object-fit:cover}
+    .cart-name{font-size:12px;font-weight:600}
+    .cart-price{font-size:12px;margin-top:4px}
+    .qty{
+      display:flex;align-items:center;gap:8px;margin-top:7px
+    }
+    .qty button{
+      width:25px;height:25px;border:1px solid #000;background:#fff
+    }
+    .remove{border:0;background:transparent;text-decoration:underline;font-size:10px}
+    .empty{
+      text-align:center;
+      padding:60px 20px;
+      color:#555;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      font-size:13px;
+      margin:10px 0;
+    }
+    .summary-row.total{
+      font-size:17px;
+      font-weight:800;
+      padding-top:12px;
+      border-top:1px solid var(--line);
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:120;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+    .modal.show{display:flex}
+    .modal-box{
+      background:#fff;
+      width:min(560px,100%);
+      max-height:92vh;
+      overflow:auto;
+      padding:22px;
+      border-radius:18px;
+      position:relative;
+    }
+    .modal-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      border:0;background:transparent;font-size:24px
+    }
+    .modal h2{font-size:22px;margin:0 0 18px}
+    .field{margin-bottom:14px}
+    .field label{display:block;font-size:11px;font-weight:700;margin-bottom:7px}
+    .field input,.field select,.field textarea{
+      width:100%;
+      border:1px solid #ccc;
+      padding:12px;
+      outline:none;
+      background:#fff;
+    }
+    .field textarea{min-height:90px;resize:vertical}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .notice{
+      background:var(--pink);
+      padding:12px;
+      font-size:11px;
+      line-height:1.5;
+      margin-bottom:15px;
+    }
+    .form-message{font-size:12px;margin-top:10px}
+    .success{color:var(--success)}
+    .danger{color:var(--danger)}
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      transform:translate(-50%,20px);
+      opacity:0;
+      z-index:200;
+      background:#000;
+      color:#fff;
+      padding:12px 16px;
+      font-size:12px;
+      transition:.25s;
+      max-width:90%;
+      text-align:center;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    .admin-badge{
+      display:inline-block;
+      background:#eee;
+      padding:4px 7px;
+      font-size:9px;
+      border-radius:4px;
+      margin-top:8px;
+    }
+
+    @media(min-width:760px){
+      .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 14px}
+      .service-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .hero{padding-top:60px}
+      .footer-inner{grid-template-columns:2fr 1fr 1fr}
+    }
+
+    @media(max-width:759px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-copy{padding:34px 24px}
+      .hero-art{min-height:250px}
+      .birthday{grid-template-columns:1fr}
+    }
+
+    @media(max-width:430px){
+      .logo{font-size:27px}
+      .nav{padding:0 12px}
+      .hero{padding-left:12px;padding-right:12px}
+      main{padding-left:12px;padding-right:12px}
+      .footer-inner{grid-template-columns:1fr}
+      .two{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-banner">Entrega rápida em Corumbá | Ganhe um presente no seu aniversário!</div>
+
+  <header>
+    <nav class="nav">
+      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;"></a>
+
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="Buscar" onclick="openSearch()">⌕</button>
+        <button class="menu-btn" onclick="openMenu()">MENU</button>
+        <button class="icon-btn" aria-label="Abrir sacola" onclick="openCart()">
+          BAG <span class="bag-count" id="bagCount">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MENU SANFONA -->
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-head">
+      <div class="logo">
+    <img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+</div>  
+      <button class="menu-btn" onclick="closeMenu()">FECHAR ×</button>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Lançamentos & Bestsellers</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#catalogo" onclick="filterProducts('novos');closeMenu()">Lançamentos</a>
+          <a href="#catalogo" onclick="filterProducts('best');closeMenu()">Mais vendidos</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Kits Presente & Aniversário</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#catalogo" onclick="filterProducts('kits');closeMenu()">Kits de aniversário</a>
+          <a href="#catalogo" onclick="filterProducts('presentes');closeMenu()">Enviar presente para alguém</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Cosméticos & Perfumaria</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#catalogo" onclick="filterProducts('skincare');closeMenu()">Skincare</a>
+          <a href="#catalogo" onclick="filterProducts('perfumaria');closeMenu()">Perfumaria</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Roupas & Bolsas</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#catalogo" onclick="filterProducts('roupas');closeMenu()">Roupas</a>
+          <a href="#catalogo" onclick="filterProducts('bolsas');closeMenu()">Bolsas</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Bijuterias & Acessórios</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#catalogo" onclick="filterProducts('acessorios');closeMenu()">Bijuterias & acessórios</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Serviços Estéticos & Cabelo</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#servicos" onclick="closeMenu()">Cabelo</a>
+          <a href="#servicos" onclick="closeMenu()">Estética</a>
+          <a href="#servicos" onclick="closeMenu()">Unhas</a>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span>Minha Conta / Aniversário</span><span>+</span>
+        </button>
+        <div class="acc-content">
+          <a href="#" onclick="openAccount();closeMenu();return false;">Meu perfil</a>
+          <a href="#" onclick="openBirthday();closeMenu();return false;">Cadastrar aniversário</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUSCA -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-top">
+      <input id="searchInput" class="search-input" type="search" placeholder="Buscar produtos, kits ou serviços..." oninput="searchProducts(this.value)">
+      <button class="btn outline" onclick="closeSearch()">Fechar</button>
+    </div>
+    <div style="max-width:1180px;margin:30px auto;padding:0 0 40px">
+      <div id="searchResults" class="grid"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Glam Beleza Estética e Bem-estar</div>
+        <h1>sinta-se linda hoje.</h1>
+        <p>Beleza, autocuidado e experiências pensadas para você. Descubra nossos produtos, presentes e serviços em Corumbá.</p>
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">Comprar agora</button>
+          <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView()">Agendar serviço</button>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Imagem ilustrativa Glam">
+        <div class="hero-orb"></div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- CATEGORIAS -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Descubra a Glam</h2>
+          <div class="section-sub">Escolha uma categoria para começar.</div>
+        </div>
+      </div>
+      <div class="chips">
+        <button class="chip active" onclick="filterProducts('todos',this)">Tudo</button>
+        <button class="chip" onclick="filterProducts('skincare',this)">Skincare</button>
+        <button class="chip" onclick="filterProducts('perfumaria',this)">Perfumaria</button>
+        <button class="chip" onclick="filterProducts('roupas',this)">Roupas</button>
+        <button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button>
+        <button class="chip" onclick="filterProducts('acessorios',this)">Acessórios</button>
+        <button class="chip" onclick="filterProducts('kits',this)">Kits Presente</button>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section class="section" id="catalogo">
+      <div class="section-head">
+        <div>
+          <h2>Produtos & kits</h2>
+          <div class="section-sub" id="catalogCount">Produtos selecionados para você.</div>
+        </div>
+      </div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <!-- ANIVERSÁRIO -->
+    <section class="section">
+      <div class="birthday">
+        <div>
+          <h2>Seu aniversário merece um momento Glam.</h2>
+          <p>Cadastre sua data de nascimento e receba uma mensagem especial perto do seu dia, com benefícios e presentes configurados pela Glam.</p>
+        </div>
+        <button class="btn pink" onclick="openBirthday()">Cadastrar aniversário</button>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="section" id="servicos">
+      <div class="section-head">
+        <div>
+          <h2>Serviços Glam</h2>
+          <div class="section-sub">Agende seu momento de cuidado.</div>
+        </div>
+      </div>
+      <div class="service-grid" id="serviceGrid"></div>
+    </section>
+
+    <!-- FRASE -->
+    <section class="section" style="text-align:center;padding:65px 0">
+      <div class="eyebrow">Perfumaria Glam</div>
+      <h2 style="font-size:clamp(28px,5vw,46px);font-weight:400;letter-spacing:-.04em;margin:0">você cheirosa todos os dias.</h2>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-title">Glam</div>
+        <p>Glam Beleza Estética e Bem-estar<br>Corumbá — Mato Grosso do Sul</p>
+        <p>Entrega local com taxa configurável.</p>
+      </div>
+      <div>
+        <strong>Atendimento</strong>
+        <p><a href="#" onclick="openAccount();return false;">Minha conta</a></p>
+        <p><a href="#" onclick="openBirthday();return false;">Cadastrar aniversário</a></p>
+        <p><a href="#servicos">Agendar serviços</a></p>
+      </div>
+      <div>
+        <strong>Siga a Glam</strong>
+        <div class="social" style="margin-top:10px">
+          <a href="https://instagram.com/glamcorumba" target="_blank" rel="noopener">Instagram @glamcorumba</a>
+        </div>
+        <span class="admin-badge">Catálogo demonstrativo — personalize os produtos no código</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CARRINHO -->
+  <div class="drawer" id="cartDrawer">
+    <div class="drawer-bg" onclick="closeCart()"></div>
+    <aside class="drawer-panel">
+      <div class="drawer-head">
+        <strong>Sua sacola</strong>
+        <button class="menu-btn" onclick="closeCart()">FECHAR ×</button>
+      </div>
+
+      <div class="drawer-body" id="cartBody"></div>
+
+      <div class="drawer-foot">
+        <div class="summary-row"><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+        <div class="summary-row"><span>Entrega local</span><strong id="delivery">R$ 0,00</strong></div>
+        <div class="summary-row total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+        <button class="btn" style="width:100%;margin-top:12px" onclick="openCheckout()">Finalizar pedido</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- MODAL ANIVERSÁRIO -->
+  <div class="modal" id="birthdayModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('birthdayModal')">×</button>
+      <h2>Seu aniversário na Glam</h2>
+      <div class="notice">Seu dia está chegando! Preparamos um presente especial para celebrar sua beleza. Cadastre seus dados para que o sistema possa calcular a proximidade do aniversário.</div>
+      <form onsubmit="saveBirthday(event)">
+        <div class="field">
+          <label>Nome completo</label>
+          <input id="birthdayName" required placeholder="Seu nome">
+        </div>
+        <div class="field">
+          <label>Data de nascimento</label>
+          <input id="birthdayDate" type="date" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp</label>
+          <input id="birthdayPhone" inputmode="tel" placeholder="(67) 99999-9999">
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input id="birthdayEmail" type="email" placeholder="voce@email.com">
+        </div>
+        <button class="btn" style="width:100%">Salvar meu aniversário</button>
+        <div id="birthdayMessage" class="form-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONTA -->
+  <div class="modal" id="accountModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('accountModal')">×</button>
+      <h2>Minha conta</h2>
+      <div id="accountContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL CHECKOUT -->
+  <div class="modal" id="checkoutModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('checkoutModal')">×</button>
+      <h2>Finalizar pedido</h2>
+
+      <div class="notice">
+        Entrega local em Corumbá. A taxa abaixo é calculada conforme a configuração da loja.
+      </div>
+
+      <form onsubmit="finishOrder(event)">
+        <div class="field">
+          <label>Nome</label>
+          <input id="checkoutName" required>
+        </div>
+
+        <div class="field">
+          <label>WhatsApp</label>
+          <input id="checkoutPhone" required inputmode="tel">
+        </div>
+
+        <div class="field">
+          <label>Endereço de entrega</label>
+          <input id="checkoutAddress" required placeholder="Rua, número, bairro, complemento">
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label>Forma de pagamento</label>
+            <select id="checkoutPayment" required>
+              <option value="">Selecione</option>
+              <option>Pix</option>
+              <option>Cartão</option>
+              <option>Dinheiro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Entrega</label>
+            <select id="checkoutDelivery" onchange="updateCart()">
+              <option value="local">Entrega local</option>
+              <option value="retirada">Retirar na Glam</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label><input id="isGift" type="checkbox" onchange="toggleGiftFields()"> É presente de aniversário</label>
+        </div>
+
+        <div id="giftFields" style="display:none">
+          <div class="field">
+            <label>Nome da pessoa presenteada</label>
+            <input id="giftName">
+          </div>
+          <div class="field">
+            <label>Mensagem para o cartão</label>
+            <textarea id="giftMessage" placeholder="Escreva uma mensagem carinhosa..."></textarea>
+          </div>
+        </div>
+
+        <div class="summary-row"><span>Total do pedido</span><strong id="checkoutTotal">R$ 0,00</strong></div>
+
+        <button class="btn" style="width:100%;margin-top:10px">Enviar pedido</button>
+        <div id="checkoutMessage" class="form-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL AGENDAMENTO -->
+  <div class="modal" id="serviceModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('serviceModal')">×</button>
+      <h2 id="serviceTitle">Agendar serviço</h2>
+      <form onsubmit="bookService(event)">
+        <input type="hidden" id="serviceSelected">
+        <div class="field">
+          <label>Nome</label>
+          <input id="serviceName" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp</label>
+          <input id="servicePhone" required inputmode="tel">
+        </div>
+        <div class="two">
+          <div class="field">
+            <label>Data desejada</label>
+            <input id="serviceDate" type="date" required>
+          </div>
+          <div class="field">
+            <label>Horário desejado</label>
+            <input id="serviceTime" type="time" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Observação</label>
+          <textarea id="serviceNote" placeholder="Ex.: cabelo longo, preferência de profissional..."></textarea>
+        </div>
+        <button class="btn" style="width:100%">Solicitar agendamento</button>
+        <div id="serviceMessage" class="form-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
 <script>
-const SEED_PRODUCTS=[{"id": "keune-color-shampoo", "name": "Keune Care Color Brillianz Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Keune", "line": "Color Brillianz", "description": "Proteção e cuidado para cabelos coloridos.", "image": "assets/IMG_6330.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-color-conditioner", "name": "Keune Care Color Brillianz Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Keune", "line": "Color Brillianz", "description": "Condicionamento para cabelos coloridos.", "image": "assets/IMG_6330.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-keratin-shampoo", "name": "Keune Care Keratin Smooth Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Keune", "line": "Keratin Smooth", "description": "Limpeza e cuidado para fios que precisam de suavidade.", "image": "assets/IMG_6333.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "keune-keratin-conditioner", "name": "Keune Care Keratin Smooth Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Keune", "line": "Keratin Smooth", "description": "Condicionamento e maciez para os fios.", "image": "assets/IMG_6333.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "glam-12em1", "name": "Glam 12 em 1 Leave-in 240ml", "category": "Cabelo", "subcategory": "Leave-in", "brand": "Glam", "line": "12 em 1", "description": "Finalizador multifuncional para proteção e tratamento dos fios.", "image": "assets/IMG_6344.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-tutano-shampoo", "name": "Mirra Elements Tutano + Caviar Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Tutano + Caviar", "description": "Linha voltada a brilho e vitalidade para cabelos ressecados.", "image": "assets/IMG_6334.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-tutano-cond", "name": "Mirra Elements Tutano + Caviar Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Tutano + Caviar", "description": "Cuidado de brilho e vitalidade.", "image": "assets/IMG_6335.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-leite-shampoo", "name": "Mirra Elements Proteínas do Leite Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Proteínas do Leite", "description": "Nutrição e restauração do brilho.", "image": "assets/IMG_6334.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-leite-cond", "name": "Mirra Elements Proteínas do Leite Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Proteínas do Leite", "description": "Nutrição e restauração do brilho.", "image": "assets/IMG_6335.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-vegetal-shampoo", "name": "Mirra Elements Nutrição Vegetal Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Nutrição Vegetal", "description": "Ação para raízes oleosas e pontas secas, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-vegetal-cond", "name": "Mirra Elements Nutrição Vegetal Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Nutrição Vegetal", "description": "Cuidado e equilíbrio para os fios.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-cacau-shampoo", "name": "Mirra Elements Cacau + Açaí + Mel Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Elements Cacau + Açaí + Mel", "description": "Hidratação intensa para cabelos étnicos, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-cacau-cond", "name": "Mirra Elements Cacau + Açaí + Mel Leave-in", "category": "Cabelo", "subcategory": "Leave-in", "brand": "Mirra", "line": "Elements Cacau + Açaí + Mel", "description": "Hidratação e nutrição intensas.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-ginkgo-cond", "name": "Mirra Elements Ginkgo Biloba Cond + Mask", "category": "Cabelo", "subcategory": "Condicionador / Máscara", "brand": "Mirra", "line": "Elements Ginkgo Biloba", "description": "Força e crescimento, conforme rótulo.", "image": "assets/IMG_6336.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "mirra-elixir-gold", "name": "Mirra Elixir Gold Ultimate Oil Argan & Caviar", "category": "Cabelo", "subcategory": "Óleo / Finalizador", "brand": "Mirra", "line": "Elixir Gold", "description": "Óleo condicionante para cabelo e corpo, conforme embalagem.", "image": "assets/IMG_6351.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-shampoo", "name": "Magic Beauty Curly Crush Shampoo", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Linha para cabelos cacheados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-cond", "name": "Magic Beauty Curly Crush Conditioner", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Condicionamento para cabelos cacheados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-curly-mask", "name": "Magic Beauty Curly Crush Magic Mask 500g", "category": "Cabelo", "subcategory": "Máscara", "brand": "Magic Beauty", "line": "Curly Crush", "description": "Máscara de tratamento para cachos.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "magic-liss", "name": "Magic Beauty Liss Extreme Magic Mask", "category": "Cabelo", "subcategory": "Máscara", "brand": "Magic Beauty", "line": "Liss Extreme", "description": "Máscara para cuidado de fios lisos/disciplinados.", "image": "assets/IMG_6337.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "miss-curls-shampoo", "name": "Mirra Miss Curls Shampoo Cachos Intensos", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Mirra", "line": "Miss Curls", "description": "Limpeza para cachos intensos.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "miss-curls-cond", "name": "Mirra Miss Curls Conditioner Cachos Intensos", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Mirra", "line": "Miss Curls", "description": "Condicionamento para cachos intensos.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "salerm-hi-repair-shampoo", "name": "Salerm Hi Repair Shampoo 250ml", "category": "Cabelo", "subcategory": "Shampoo", "brand": "Salerm", "line": "Hi Repair", "description": "Linha profissional de reparação.", "image": "assets/IMG_6349.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "salerm-hi-repair-cond", "name": "Salerm Hi Repair Conditioner 250ml", "category": "Cabelo", "subcategory": "Condicionador", "brand": "Salerm", "line": "Hi Repair", "description": "Condicionamento e reparação.", "image": "assets/IMG_6349.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-color-brilliance", "name": "Wella Invigo Color Brilliance", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "Color Brilliance", "description": "Linha para cabelos coloridos.", "image": "assets/IMG_6342.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-blondorplex", "name": "Wella BlondorPlex", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "BlondorPlex", "description": "Linha profissional para cabelos descoloridos.", "image": "assets/IMG_6341.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "wella-hydrate", "name": "Wella Hydrate Shampoo + Conditioner", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Wella", "line": "Hydrate", "description": "Hidratação para cabelos.", "image": "assets/IMG_6342.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "maxiline-ouse", "name": "Maxiline Ouse Shampoo / Tratamento", "category": "Cabelo", "subcategory": "Linha capilar", "brand": "Maxiline", "line": "Ouse", "description": "Linha de home care profissional.", "image": "assets/IMG_6340.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "azzo-my-mask", "name": "Azzo My Mask", "category": "Cabelo", "subcategory": "Máscara", "brand": "Azzo", "line": "My Mask", "description": "Máscara de tratamento capilar.", "image": "assets/IMG_6331.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "maison-lotion", "name": "Maison Visage Body Lotion Maison", "category": "Corpo", "subcategory": "Hidratante corporal", "brand": "Maison Visage", "line": "Maison", "description": "Loção corporal perfumada.", "image": "assets/IMG_6338.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "korres-olive-soap", "name": "Korres Olive Sabonete Cremoso 3x90g", "category": "Corpo", "subcategory": "Sabonete", "brand": "Korres", "line": "Olive", "description": "Kit com 3 sabonetes cremosos.", "image": "assets/IMG_6346.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-pink", "name": "Bolsa rosa matelassê", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa para composição de looks.", "image": "assets/IMG_6301.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-preta", "name": "Bolsa preta", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa preta para uso diário e ocasiões especiais.", "image": "assets/IMG_6325.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-azul", "name": "Bolsa azul estruturada", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa estruturada para composição de looks.", "image": "assets/IMG_6328.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "bolsa-bege", "name": "Bolsa bege", "category": "Moda", "subcategory": "Bolsa", "brand": "Glam", "line": "Boutique Glam", "description": "Bolsa neutra e versátil.", "image": "assets/IMG_6328.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "clutch-dourada", "name": "Clutch dourada", "category": "Moda", "subcategory": "Clutch", "brand": "Glam", "line": "Boutique Glam", "description": "Clutch para ocasiões especiais.", "image": "assets/IMG_6326.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "colar-dourado", "name": "Colar dourado", "category": "Acessórios", "subcategory": "Colar", "brand": "Glam", "line": "Boutique Glam", "description": "Acessório para completar a produção.", "image": "assets/IMG_6324.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "colar-dourado-2", "name": "Colar dourado — modelo 2", "category": "Acessórios", "subcategory": "Colar", "brand": "Glam", "line": "Boutique Glam", "description": "Acessório para composição de looks.", "image": "assets/IMG_6321.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "camisa-listrada-rosa", "name": "Camisa listrada rosa e branca", "category": "Moda", "subcategory": "Camisa", "brand": "Glam", "line": "Boutique Glam", "description": "Camisa de manga longa com listras rosa e gola clássica.", "image": "assets/IMG_6357.jpeg", "price": null, "stock": 1, "status": "template"}, {"id": "eudora-selecao", "name": "Seleção Eudora — cosméticos", "category": "Beleza", "subcategory": "Cosméticos", "brand": "Eudora", "line": "Seleção Glam", "description": "Expositor com itens Eudora. O modelo e preço devem ser conferidos no estoque.", "image": "assets/IMG_6308.jpeg", "price": null, "stock": 1, "status": "template"}];
-const CATEGORIES=['Tudo','Cabelo','Skincare','Corpo','Perfumaria','Moda','Bolsas','Acessórios','Presentes'];
-const SERVICES=[{id:'s1',name:'Hidratação + Escova',price:89.9,desc:'Cuidado e finalização.'},{id:'s2',name:'Reconstrução + Escova',price:139,desc:'Reconstrução com finalização.'},{id:'s3',name:'Glow Facial Premium Express',price:145,desc:'Protocolo facial para luminosidade e viço.'},{id:'s4',name:'Limpeza de Pele',price:135,desc:'Higienização e cuidado facial conforme avaliação.'},{id:'s5',name:'Drenagem Linfática',price:120,desc:'Sessão de cuidado corporal.'},{id:'s6',name:'Massagem Relaxante',price:120,desc:'Momento de relaxamento e bem-estar.'},{id:'s7',name:'Microagulhamento Facial',price:null,desc:'Valor mediante avaliação profissional.'},{id:'s8',name:'Protocolo Papada sem Agulhas',price:null,desc:'Avaliação necessária.'}];
-let products=JSON.parse(localStorage.getItem('glam_products_v2')||'null')||SEED_PRODUCTS.map(x=>({...x}));
-let templates=JSON.parse(localStorage.getItem('glam_templates_v2')||'null')||SEED_PRODUCTS.map(x=>({...x}));
-let cart=JSON.parse(localStorage.getItem('glam_cart_v2')||'[]'); let filter='Tudo';
-const $=id=>document.getElementById(id); const money=v=>v==null?'Preço a cadastrar':Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-function esc(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}
-function toast(t){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').classList.remove('show'),2400)}
-function save(){localStorage.setItem('glam_products_v2',JSON.stringify(products));localStorage.setItem('glam_templates_v2',JSON.stringify(templates));localStorage.setItem('glam_cart_v2',JSON.stringify(cart))}
-function img(p){return p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:`<div style="height:100%;display:grid;place-items:center;font-size:50px;font-weight:800">G</div>`}
-function card(p){return `<article class="card"><div class="photo">${p.status==='template'?'<span class="tag">MODELO PRONTO</span>':''}${img(p)}</div><h3>${esc(p.name)}</h3><div class="meta">${esc(p.brand||'Glam')} · ${esc(p.subcategory||p.category||'')}</div><div class="price ${p.price==null?'pending':''}">${money(p.price)}</div><div class="cardBtns"><button class="btn light" onclick="detail('${p.id}')">Ver detalhes</button><button class="btn" onclick="add('${p.id}')">Sacola</button></div></article>`}
-function render(list=products){$('productGrid').innerHTML=list.length?list.map(card).join(''):'<div class="empty" style="grid-column:1/-1">Nenhum produto encontrado.</div>';$('catalogCount').textContent=`${list.length} itens no catálogo`}
-function chips(){ $('chips').innerHTML=CATEGORIES.map(c=>`<button class="chip ${filter===c?'active':''}" onclick="setFilter('${c}')">${c}</button>`).join('') }
-function setFilter(c){filter=c;chips();let list=products.filter(p=>c==='Tudo'||p.category===c);render(list);document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})}
-function search(q){q=q.toLowerCase().trim();let list=products.filter(p=>[p.name,p.brand,p.line,p.category,p.subcategory,p.description].join(' ').toLowerCase().includes(q));$('searchResults').innerHTML=list.length?list.map(card).join(''):'<div class="empty">Nenhum resultado.</div>'}
-function openSearch(){openOverlay('searchOverlay');$('searchInput').value='';search('');$('searchInput').focus()}
-function detail(id){let p=products.find(x=>x.id===id)||templates.find(x=>x.id===id);if(!p)return;$('productDetail').innerHTML=`<div class="detail"><div>${img(p)}</div><div><div class="brand">${esc(p.brand||'Glam')} · ${esc(p.line||'')}</div><h2>${esc(p.name)}</h2><div class="price ${p.price==null?'pending':''}">${money(p.price)}</div><p>${esc(p.description||'')}</p>${p.benefits?`<p><b>Benefícios:</b> ${esc(p.benefits)}</p>`:''}${p.use?`<p><b>Modo de uso/cuidados:</b> ${esc(p.use)}</p>`:''}${p.variants?`<div>${esc(p.variants).split(',').map(x=>`<span class="pill">${esc(x.trim())}</span>`).join('')}</div>`:''}<button class="btn" style="width:100%;margin-top:14px" onclick="add('${p.id}')">Adicionar à sacola</button></div></div>`;openOverlay('productOverlay')}
-function add(id){let p=products.find(x=>x.id===id);if(!p||p.price==null){toast('Antes da venda, cadastre o preço deste produto no Painel Admin.');openAdmin();return}let i=cart.find(x=>x.id===id);i?i.qty++:cart.push({id,qty:1});save();cartRender();toast('Adicionado à sacola.');openCart()}
-function openCart(){openOverlay('cartOverlay');cartRender()}
-function cartRender(){let n=cart.reduce((s,x)=>s+x.qty,0);$('bagCount').textContent=n;if(!cart.length){$('cartBody').innerHTML='<div class="empty">Sua sacola está vazia.</div>';$('cartFoot').innerHTML='';return}let sub=0;$('cartBody').innerHTML=cart.map(i=>{let p=products.find(x=>x.id===i.id);if(!p)return '';sub+=p.price*i.qty;return `<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${money(p.price)} · Qtd. ${i.qty}</small><div style="margin-top:7px"><button class="btn light" onclick="qty('${p.id}',-1)">−</button> <button class="btn light" onclick="qty('${p.id}',1)">+</button></div></div><button class="btn light" onclick="removeCart('${p.id}')">Excluir</button></div>`}).join('');$('cartFoot').innerHTML=`<div style="margin-top:16px;border-top:1px solid #eee;padding-top:14px"><b>Total: ${money(sub)}</b><button class="btn" style="width:100%;margin-top:10px" onclick="checkout()">Finalizar pedido</button></div>`}
-function qty(id,d){let i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);save();cartRender()};function removeCart(id){cart=cart.filter(x=>x.id!==id);save();cartRender()};function checkout(){toast('Checkout preparado. Conecte o meio de pagamento e o WhatsApp da loja no ambiente de produção.')} 
-function openOverlay(id){$(id).classList.add('show')} function closeOverlay(id){$(id).classList.remove('show')} function closeModal(id){$(id).classList.remove('show')} function home(){scrollTo({top:0,behavior:'smooth'})}
-function openFilters(){populateFilters();$('filtersModal').classList.add('show')}
-function populateFilters(){let brands=[...new Set(products.map(p=>p.brand).filter(Boolean))].sort();$('filterBrand').innerHTML='<option value="">Todas</option>'+brands.map(b=>`<option>${esc(b)}</option>`).join('');$('filterCat').innerHTML='<option value="">Todas</option>'+CATEGORIES.filter(x=>x!=='Tudo').map(c=>`<option>${c}</option>`).join('')}
-function applyFilters(){let b=$('filterBrand').value,c=$('filterCat').value,pr=$('filterPrice').value;let list=products.filter(p=>(!b||p.brand===b)&&(!c||p.category===c)&&(!pr|| (p.price!=null&&p.price>=+pr.split('-')[0]&&p.price<=+pr.split('-')[1])));render(list);closeModal('filtersModal')}
-function openQuiz(){let q=[{t:'O que você procura?',o:['Cuidar dos cabelos','Cuidar da pele/corpo','Montar um look','Presentear alguém']},{t:'Qual estilo combina mais com você?',o:['Prático','Luxuoso','Natural','Tendência']},{t:'O que pesa mais na escolha?',o:['Tratamento','Praticidade','Visual','Presente'] }];let i=0,ans=[];function draw(){if(i>=q.length){let text=ans.join(' · ');let list=products.filter(p=>(ans[0]==='Cuidar dos cabelos'&&p.category==='Cabelo')||(ans[0]==='Cuidar da pele/corpo'&&(p.category==='Skincare'||p.category==='Corpo'))||(ans[0]==='Montar um look'&&(p.category==='Moda'||p.category==='Bolsas'||p.category==='Acessórios'))||(ans[0]==='Presentear alguém'&&p.category==='Presentes'));if(!list.length)list=products.slice(0,8);$('quizBody').innerHTML=`<h3>Curadoria Glam</h3><p style="font-size:12px">Preferências: ${esc(text)}</p><div class="grid">${list.slice(0,8).map(card).join('')}</div>`;return}$('quizBody').innerHTML=`<p style="font-size:12px;color:#777">Pergunta ${i+1} de ${q.length}</p><h3>${q[i].t}</h3>`+q[i].o.map(o=>`<button class="btn light" style="width:100%;margin:5px 0;text-align:left" onclick="window.__quiz('${esc(o)}')">${esc(o)}</button>`).join('')}window.__quiz=a=>{ans.push(a);i++;draw()}}$('quizModal').classList.add('show');draw()}
-function openRewards(){openOverlay('adminOverlay');$('adminBody').innerHTML=`<div class="adminTop"><b>Glam Rewards</b><br><small>Programa de relacionamento pronto para receber integração com backend.</small></div><div class="notice">Estrutura recomendada: pontos por compra, aniversário, avaliação e indicação; carteira de benefícios; histórico; níveis e cupons. Não guardar dados de pagamento no navegador.</div><button class="btn" onclick="toast('Programa preparado para integração.')">Ativar estrutura</button>`}
-function openAdmin(){openOverlay('adminOverlay');adminRender('catalogo')}
-function adminRender(tab){$('adminBody').innerHTML=`<div class="adminTop"><b>Painel da Administradora Odiselma</b><br><small>Catálogo rápido · modelos prontos · novos produtos · controle de publicação</small></div><div class="adminTabs"><button class="adminTab ${tab==='catalogo'?'active':''}" onclick="adminRender('catalogo')">Catálogo</button><button class="adminTab ${tab==='modelos'?'active':''}" onclick="adminRender('modelos')">Modelos prontos</button><button class="adminTab ${tab==='novo'?'active':''}" onclick="newProduct()">+ Novo produto</button></div>${tab==='catalogo'?catalogTab():templatesTab()}`}
-function catalogTab(){return `<button class="btn" style="width:100%;margin-bottom:12px" onclick="newProduct()">Cadastrar novo produto</button><div class="adminList">${products.map(p=>`<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${esc(p.category)} · ${money(p.price)} · estoque ${p.stock??0}</small></div><button class="btn light" onclick="editProduct('${p.id}')">Editar</button></div>`).join('')}</div>`}
-function templatesTab(){return `<div class="notice">Clique em <b>Cadastrar</b> para transformar um modelo das fotos em produto do catálogo. Os campos já vêm preenchidos; você só completa preço/estoque e publica.</div><div class="adminList">${templates.map(p=>`<div class="adminItem"><img src="${esc(p.image)}"><div><h4>${esc(p.name)}</h4><small>${esc(p.brand)} · ${esc(p.category)}</small></div><button class="btn" onclick="editProduct('${p.id}',true)">Cadastrar</button></div>`).join('')}</div>`}
-function newProduct(){let p={id:'new-'+Date.now(),name:'',brand:'',category:'Cabelo',subcategory:'',price:null,stock:1,description:'',benefits:'',use:'',variants:'',gift:'Não',image:'',status:'template'};editor(p,true)}
-function editProduct(id,fromTemplate=false){let p=(fromTemplate?templates:products).find(x=>x.id===id);if(p)editor({...p},fromTemplate)}
-function editor(p,fromTemplate){$('editId').value=p.id;$('fName').value=p.name||'';$('fBrand').value=p.brand||'';$('fCategory').value=p.category||'Outros';$('fSub').value=p.subcategory||'';$('fPrice').value=p.price??'';$('fStock').value=p.stock??1;$('fDesc').value=p.description||'';$('fBenefits').value=p.benefits||'';$('fUse').value=p.use||'';$('fVariants').value=p.variants||'';$('fGift').value=p.gift||'Não';$('editorTitle').textContent=fromTemplate?'Cadastrar produto no catálogo':'Editar produto';$('editorModal').dataset.fromTemplate=fromTemplate?'1':'0';$('editorModal').classList.add('show')}
-function saveEditor(e){e.preventDefault();let id=$('editId').value;let old=products.find(x=>x.id===id)||templates.find(x=>x.id===id)||{};let p={...old,id,name:$('fName').value,brand:$('fBrand').value,category:$('fCategory').value,subcategory:$('fSub').value,price:$('fPrice').value===''?null:Number($('fPrice').value),stock:Number($('fStock').value||0),description:$('fDesc').value,benefits:$('fBenefits').value,use:$('fUse').value,variants:$('fVariants').value,gift:$('fGift').value,status:'published'};let from=$('editorModal').dataset.fromTemplate==='1';if(!p.image&&old.image)p.image=old.image;if(from){products.push(p);templates=templates.filter(x=>x.id!==id)}else{let idx=products.findIndex(x=>x.id===id);if(idx>=0)products[idx]=p;else products.push(p)}save();closeModal('editorModal');closeOverlay('adminOverlay');toast('Produto salvo no catálogo.');render(products);}
-function openAdminAfter(){openAdmin()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.overlay').forEach(x=>x.classList.remove('show'));document.querySelectorAll('.modal').forEach(x=>x.classList.remove('show'))}})
-chips();render(products);cartRender();
-</script></body></html>
+/* =========================================================
+   GLAM — CONFIGURAÇÕES PRINCIPAIS
+   ========================================================= */
+const CONFIG = {
+  empresa: "Glam Beleza Estética e Bem-estar",
+  instagram: "glamcorumba",
+  cidade: "Corumbá",
+  estado: "MS",
+
+  // ALTERE AQUI A TAXA PADRÃO DE ENTREGA.
+  taxaEntrega: 15.00,
+
+  // Se quiser enviar pedidos diretamente ao WhatsApp,
+  // informe abaixo somente números, com DDI + DDD.
+  // Exemplo: "5567999999999"
+  whatsappLoja: "",
+
+  // Cupom demonstrativo de aniversário.
+  cupomAniversario: "GLAMANIVER",
+
+  // Dias antes do aniversário para o aviso local.
+  diasAvisoAniversario: 7
+};
+
+/* =========================================================
+   CATÁLOGO — EDITE / DUPLIQUE OS ITENS
+   ========================================================= */
+const PRODUCTS = [
+  {
+    id:"p1", name:"Glow Facial Premium Express", price:145.00,
+    category:"skincare", badge:"NEW", badgeType:"new",
+    description:"Experiência facial para devolver viço e luminosidade.",
+    image:""
+  },
+  {
+    id:"p2", name:"Glass Skin Coreano", price:130.00,
+    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
+    description:"Protocolo de aparência iluminada e pele bem cuidada.",
+    image:""
+  },
+  {
+    id:"p3", name:"Glam Deep Hydration", price:140.90,
+    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
+    description:"Hidratação profunda para cabelos que precisam de cuidado.",
+    image:""
+  },
+  {
+    id:"p4", name:"Glam Absolut Repair", price:159.99,
+    category:"skincare", badge:"NEW", badgeType:"new",
+    description:"Tratamento de reparação e cuidado.",
+    image:""
+  },
+  {
+    id:"p5", name:"Glam Hi Repair", price:179.99,
+    category:"skincare", badge:"NEW", badgeType:"new",
+    description:"Reconstrução e reparação para fios sensibilizados.",
+    image:""
+  },
+  {
+    id:"p6", name:"Glam CPR SOS", price:265.00,
+    category:"skincare", badge:"AVALIAÇÃO", badgeType:"kit",
+    description:"Protocolo SOS mediante avaliação profissional.",
+    image:""
+  },
+  {
+    id:"p7", name:"Glam Platinum Repair", price:275.90,
+    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
+    description:"Experiência premium de reparação.",
+    image:""
+  },
+  {
+    id:"p8", name:"Glam Hair Experience", price:285.99,
+    category:"skincare", badge:"KIT ANIVER", badgeType:"kit",
+    description:"Experiência completa de cuidado capilar.",
+    image:""
+  },
+  {
+    id:"p9", name:"Kit Aniversário Glam", price:199.90,
+    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
+    description:"Seleção especial para presentear alguém.",
+    image:""
+  },
+  {
+    id:"p10", name:"Experiência Glam — Kit Misto", price:299.90,
+    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
+    description:"Produto + experiência estética em um único presente.",
+    image:""
+  },
+  {
+    id:"p11", name:"Kit Dia de Beleza", price:349.90,
+    category:"kits", badge:"MAIS VENDIDO", badgeType:"kit",
+    description:"Uma experiência de autocuidado para celebrar.",
+    image:""
+  },
+  {
+    id:"p12", name:"Perfume Glam", price:189.90,
+    category:"perfumaria", badge:"NEW", badgeType:"new",
+    description:"Fragrância para acompanhar seus melhores momentos.",
+    image:""
+  },
+  {
+    id:"p13", name:"Bolsa Glam", price:219.90,
+    category:"bolsas", badge:"NEW", badgeType:"new",
+    description:"Modelo selecionado para compor seu look.",
+    image:""
+  },
+  {
+    id:"p14", name:"Acessório Glam", price:59.90,
+    category:"acessorios", badge:"NEW", badgeType:"new",
+    description:"Detalhe delicado para completar sua produção.",
+    image:""
+  },
+  {
+    id:"p15", name:"Look Glam", price:169.90,
+    category:"roupas", badge:"NEW", badgeType:"new",
+    description:"Peça selecionada para um visual sofisticado.",
+    image:""
+  },
+  {
+    id:"p16", name:"Kit Presente Skincare", price:159.90,
+    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
+    description:"Cuidados para uma rotina de beleza especial.",
+    image:""
+  }
+];
+
+const SERVICES = [
+  {id:"s1",name:"Hidratação + Escova",price:89.90,desc:"Cuidado e finalização para um cabelo macio e bonito."},
+  {id:"s2",name:"Reconstrução + Escova",price:139.00,desc:"Reconstrução com finalização. Consulte disponibilidade do brinde promocional."},
+  {id:"s3",name:"Glow Facial Premium Express",price:145.00,desc:"Protocolo facial com foco em luminosidade e viço."},
+  {id:"s4",name:"Limpeza de Pele",price:135.00,desc:"Higienização e cuidado facial conforme avaliação."},
+  {id:"s5",name:"Drenagem Linfática",price:120.00,desc:"Sessão de cuidado corporal."},
+  {id:"s6",name:"Massagem Relaxante",price:120.00,desc:"Momento de relaxamento e bem-estar."},
+  {id:"s7",name:"Microagulhamento Facial",price:0,desc:"Valor mediante avaliação e indicação profissional."},
+  {id:"s8",name:"Protocolo Papada sem Agulhas",price:0,desc:"Avaliação necessária para definir protocolo."}
+];
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+let cart = JSON.parse(localStorage.getItem("glam_cart") || "[]");
+let currentFilter = "todos";
+
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+function money(value){
+  return Number(value || 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function showToast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+}
+
+function saveCart(){
+  localStorage.setItem("glam_cart",JSON.stringify(cart));
+  updateCart();
+}
+
+function findProduct(id){
+  return PRODUCTS.find(p=>p.id===id);
+}
+
+/* =========================================================
+   PRODUTOS
+   ========================================================= */
+function productCard(p){
+  const badge = p.badge ? `<span class="badge ${p.badgeType || ""}">${escapeHTML(p.badge)}</span>` : "";
+  const image = p.image
+    ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
+    : `<div class="placeholder">G</div>`;
+
+  return `
+    <article class="card">
+      <div class="product-image">
+        ${badge}
+        ${image}
+      </div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <div class="meta">${escapeHTML(p.description)}</div>
+      <div class="price">${money(p.price)}</div>
+      <button class="btn outline" onclick="addToCart('${p.id}')">Adicionar à Sacola</button>
+      <button class="btn" style="margin-top:6px" onclick="sendGift('${p.id}')">Enviar de presente</button>
+    </article>
+  `;
+}
+
+function renderProducts(list=PRODUCTS){
+  const grid=document.getElementById("productGrid");
+  grid.innerHTML=list.length
+    ? list.map(productCard).join("")
+    : `<div style="grid-column:1/-1;padding:30px 0;color:#666;font-size:13px">Nenhum item encontrado.</div>`;
+  document.getElementById("catalogCount").textContent =
+    `${list.length} ${list.length===1 ? "item disponível" : "itens disponíveis"}.`;
+}
+
+function filterProducts(category, button){
+  currentFilter=category;
+  document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+  if(button) button.classList.add("active");
+
+  let list=PRODUCTS;
+
+  if(category==="novos") list=PRODUCTS.filter(p=>p.badgeType==="new");
+  else if(category==="best") list=PRODUCTS.filter(p=>p.badge==="MAIS VENDIDO");
+  else if(category==="presentes") list=PRODUCTS.filter(p=>p.category==="kits");
+  else if(category!=="todos") list=PRODUCTS.filter(p=>p.category===category);
+
+  renderProducts(list);
+  document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+}
+
+function searchProducts(term){
+  const q=term.trim().toLowerCase();
+  const list=!q ? PRODUCTS : PRODUCTS.filter(p=>
+    [p.name,p.description,p.category,p.badge].join(" ").toLowerCase().includes(q)
+  );
+  document.getElementById("searchResults").innerHTML=list.length
+    ? list.map(productCard).join("")
+    : `<p style="color:#666">Nenhum resultado encontrado.</p>`;
+}
+
+/* =========================================================
+   CARRINHO
+   ========================================================= */
+function addToCart(id){
+  const p=findProduct(id);
+  if(!p)return;
+
+  const item=cart.find(x=>x.id===id);
+  if(item)item.qty++;
+  else cart.push({id,qty:1});
+
+  saveCart();
+  showToast(`${p.name} foi adicionada à sacola.`);
+  openCart();
+}
+
+function removeFromCart(id){
+  cart=cart.filter(x=>x.id!==id);
+  saveCart();
+}
+
+function changeQty(id,delta){
+  const item=cart.find(x=>x.id===id);
+  if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+  saveCart();
+}
+
+function cartSubtotal(){
+  return cart.reduce((sum,item)=>{
+    const p=findProduct(item.id);
+    return sum+(p ? p.price*item.qty : 0);
+  },0);
+}
+
+function deliveryValue(){
+  const select=document.getElementById("checkoutDelivery");
+  if(select && select.value==="retirada") return 0;
+  return cart.length ? CONFIG.taxaEntrega : 0;
+}
+
+function updateCart(){
+  const body=document.getElementById("cartBody");
+  const count=cart.reduce((sum,x)=>sum+x.qty,0);
+  document.getElementById("bagCount").textContent=count;
+
+  if(!cart.length){
+    body.innerHTML=`
+      <div class="empty">
+        <div style="font-size:38px;margin-bottom:12px">♡</div>
+        Sua sacola está vazia, mas você continua maravilhosa.
+      </div>`;
+  }else{
+    body.innerHTML=cart.map(item=>{
+      const p=findProduct(item.id);
+      if(!p)return "";
+      const thumb=p.image
+        ? `<img src="${escapeHTML(p.image)}" alt="">`
+        : `G`;
+      return `
+        <div class="cart-item">
+          <div class="cart-thumb">${thumb}</div>
+          <div>
+            <div class="cart-name">${escapeHTML(p.name)}</div>
+            <div class="cart-price">${money(p.price*item.qty)}</div>
+            <div class="qty">
+              <button onclick="changeQty('${p.id}',-1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty('${p.id}',1)">+</button>
+            </div>
+          </div>
+          <button class="remove" onclick="removeFromCart('${p.id}')">Excluir</button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const subtotal=cartSubtotal();
+  const delivery=deliveryValue();
+  document.getElementById("subtotal").textContent=money(subtotal);
+  document.getElementById("delivery").textContent=money(delivery);
+  document.getElementById("cartTotal").textContent=money(subtotal+delivery);
+  const checkoutTotal=document.getElementById("checkoutTotal");
+  if(checkoutTotal)checkoutTotal.textContent=money(subtotal+delivery);
+}
+
+/* =========================================================
+   PRESENTE
+   ========================================================= */
+function sendGift(id){
+  const p=findProduct(id);
+  if(!p)return;
+  addToCart(id);
+  setTimeout(()=>{
+    const check=document.getElementById("isGift");
+    if(check)check.checked=true;
+    toggleGiftFields();
+    openCheckout();
+    showToast("Seu presente Glam está pronto para personalizar.");
+  },100);
+}
+
+function toggleGiftFields(){
+  const checked=document.getElementById("isGift").checked;
+  document.getElementById("giftFields").style.display=checked?"block":"none";
+}
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+function openCheckout(){
+  if(!cart.length){
+    showToast("Adicione pelo menos um item à sacola.");
+    return;
+  }
+  closeCart();
+  document.getElementById("checkoutTotal").textContent=money(cartSubtotal()+deliveryValue());
+  document.getElementById("checkoutModal").classList.add("show");
+}
+
+function finishOrder(event){
+  event.preventDefault();
+
+  const orderId="GLAM-"+Date.now().toString().slice(-8);
+  const data={
+    id:orderId,
+    customer:document.getElementById("checkoutName").value,
+    phone:document.getElementById("checkoutPhone").value,
+    address:document.getElementById("checkoutAddress").value,
+    payment:document.getElementById("checkoutPayment").value,
+    delivery:document.getElementById("checkoutDelivery").value,
+    gift:document.getElementById("isGift").checked,
+    giftName:document.getElementById("giftName").value,
+    giftMessage:document.getElementById("giftMessage").value,
+    items:cart,
+    subtotal:cartSubtotal(),
+    deliveryValue:deliveryValue(),
+    total:cartSubtotal()+deliveryValue(),
+    createdAt:new Date().toISOString()
+  };
+
+  localStorage.setItem("glam_last_order",JSON.stringify(data));
+
+  let text=
+`Olá, Glam! Quero fazer um pedido pelo aplicativo.%0A%0A`+
+`Pedido: ${orderId}%0A`+
+`Cliente: ${encodeURIComponent(data.customer)}%0A`+
+`WhatsApp: ${encodeURIComponent(data.phone)}%0A`+
+`Endereço: ${encodeURIComponent(data.address)}%0A`+
+`Pagamento: ${encodeURIComponent(data.payment)}%0A`+
+`Total: ${encodeURIComponent(money(data.total))}`;
+
+  if(data.gift){
+    text+=`%0A%0A🎁 PRESENTE DE ANIVERSÁRIO%0A`+
+      `Para: ${encodeURIComponent(data.giftName)}%0A`+
+      `Mensagem: ${encodeURIComponent(data.giftMessage)}`;
+  }
+
+  const msg=document.getElementById("checkoutMessage");
+  msg.innerHTML=`<span class="success">Pedido ${orderId} registrado neste dispositivo.</span>`;
+
+  if(CONFIG.whatsappLoja){
+    window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${text}`,"_blank");
+  }else{
+    showToast("Pedido registrado. Configure o WhatsApp da loja no código para envio automático.");
+  }
+
+  cart=[];
+  saveCart();
+}
+
+/* =========================================================
+   SERVIÇOS
+   ========================================================= */
+function renderServices(){
+  document.getElementById("serviceGrid").innerHTML=SERVICES.map(s=>`
+    <article class="service-card">
+      <div>
+        <h3>${escapeHTML(s.name)}</h3>
+        <p>${escapeHTML(s.desc)}</p>
+      </div>
+      <div style="margin-top:18px">
+        <strong style="font-size:13px">${s.price ? money(s.price) : "Consultar"}</strong>
+        <button class="btn outline" style="width:100%;margin-top:10px" onclick="openService('${s.id}')">Agendar Serviço</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function openService(id){
+  const s=SERVICES.find(x=>x.id===id);
+  if(!s)return;
+  document.getElementById("serviceSelected").value=s.id;
+  document.getElementById("serviceTitle").textContent=`Agendar: ${s.name}`;
+  document.getElementById("serviceMessage").textContent="";
+  document.getElementById("serviceModal").classList.add("show");
+}
+
+function bookService(event){
+  event.preventDefault();
+  const s=SERVICES.find(x=>x.id===document.getElementById("serviceSelected").value);
+  const data={
+    service:s?.name || "",
+    name:document.getElementById("serviceName").value,
+    phone:document.getElementById("servicePhone").value,
+    date:document.getElementById("serviceDate").value,
+    time:document.getElementById("serviceTime").value,
+    note:document.getElementById("serviceNote").value
+  };
+
+  localStorage.setItem("glam_last_booking",JSON.stringify(data));
+
+  let text=`Olá, Glam! Quero solicitar um agendamento.%0A%0A`+
+    `Serviço: ${encodeURIComponent(data.service)}%0A`+
+    `Nome: ${encodeURIComponent(data.name)}%0A`+
+    `WhatsApp: ${encodeURIComponent(data.phone)}%0A`+
+    `Data: ${encodeURIComponent(data.date)}%0A`+
+    `Horário: ${encodeURIComponent(data.time)}%0A`+
+    `Observação: ${encodeURIComponent(data.note)}`;
+
+  const msg=document.getElementById("serviceMessage");
+  msg.innerHTML=`<span class="success">Solicitação registrada neste dispositivo.</span>`;
+
+  if(CONFIG.whatsappLoja){
+    window.open(`https://wa.me/${CONFIG.whatsappLoja}?text=${text}`,"_blank");
+  }else{
+    showToast("Agendamento salvo. Configure o WhatsApp da loja para receber a solicitação automaticamente.");
+  }
+}
+
+/* =========================================================
+   ANIVERSARIANTES
+   ========================================================= */
+function saveBirthday(event){
+  event.preventDefault();
+
+  const profile={
+    name:document.getElementById("birthdayName").value,
+    birthDate:document.getElementById("birthdayDate").value,
+    phone:document.getElementById("birthdayPhone").value,
+    email:document.getElementById("birthdayEmail").value
+  };
+
+  localStorage.setItem("glam_profile",JSON.stringify(profile));
+  document.getElementById("birthdayMessage").innerHTML=
+    `<span class="success">Cadastro salvo. A simulação local de aniversário está ativa neste dispositivo.</span>`;
+
+  checkBirthday();
+  showToast("Aniversário cadastrado com carinho.");
+}
+
+function daysUntilBirthday(dateString){
+  if(!dateString)return null;
+  const birth=new Date(dateString+"T12:00:00");
+  if(isNaN(birth))return null;
+
+  const now=new Date();
+  let next=new Date(now.getFullYear(),birth.getMonth(),birth.getDate(),12,0,0);
+
+  if(next < new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,0,0)){
+    next=new Date(now.getFullYear()+1,birth.getMonth(),birth.getDate(),12,0,0);
+  }
+
+  return Math.ceil((next-now)/86400000);
+}
+
+function checkBirthday(){
+  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
+  if(!profile?.birthDate)return;
+
+  const days=daysUntilBirthday(profile.birthDate);
+
+  if(days!==null && days>=0 && days<=CONFIG.diasAvisoAniversario){
+    const key=`glam_birthday_notice_${new Date().getFullYear()}_${profile.birthDate}`;
+    if(!localStorage.getItem(key)){
+      showToast(`Seu dia está chegando! ${profile.name}, a Glam preparou um presente especial. Cupom: ${CONFIG.cupomAniversario}`);
+      localStorage.setItem(key,"1");
+    }
+  }
+}
+
+function openBirthday(){
+  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
+  if(profile){
+    document.getElementById("birthdayName").value=profile.name || "";
+    document.getElementById("birthdayDate").value=profile.birthDate || "";
+    document.getElementById("birthdayPhone").value=profile.phone || "";
+    document.getElementById("birthdayEmail").value=profile.email || "";
+  }
+  document.getElementById("birthdayModal").classList.add("show");
+}
+
+function openAccount(){
+  const profile=JSON.parse(localStorage.getItem("glam_profile") || "null");
+  const orders=JSON.parse(localStorage.getItem("glam_last_order") || "null");
+  const booking=JSON.parse(localStorage.getItem("glam_last_booking") || "null");
+
+  document.getElementById("accountContent").innerHTML=profile ? `
+    <div class="notice">
+      <strong>Olá, ${escapeHTML(profile.name)}!</strong><br>
+      ${profile.birthDate ? `Seu aniversário está cadastrado para ${new Date(profile.birthDate+"T12:00:00").toLocaleDateString("pt-BR")}.` : ""}
+      ${daysUntilBirthday(profile.birthDate)!==null ? `<br>Faltam aproximadamente <strong>${daysUntilBirthday(profile.birthDate)} dias</strong> para o próximo aniversário.` : ""}
+    </div>
+    <p style="font-size:12px;color:#555">WhatsApp: ${escapeHTML(profile.phone || "não informado")}</p>
+    <p style="font-size:12px;color:#555">E-mail: ${escapeHTML(profile.email || "não informado")}</p>
+    ${orders ? `<hr><p style="font-size:12px"><strong>Último pedido:</strong> ${escapeHTML(orders.id)} — ${money(orders.total)}</p>` : ""}
+    ${booking ? `<p style="font-size:12px"><strong>Última solicitação:</strong> ${escapeHTML(booking.service)} em ${escapeHTML(booking.date)} às ${escapeHTML(booking.time)}.</p>` : ""}
+    <button class="btn outline" style="width:100%;margin-top:12px" onclick="openBirthday();closeModal('accountModal')">Editar aniversário</button>
+  ` : `
+    <div class="empty" style="padding:20px 0">
+      Você ainda não cadastrou seu aniversário.
+      <button class="btn" style="display:block;width:100%;margin-top:18px" onclick="openBirthday();closeModal('accountModal')">Cadastrar aniversário</button>
+    </div>
+  `;
+
+  document.getElementById("accountModal").classList.add("show");
+}
+
+/* =========================================================
+   NAVEGAÇÃO / MODAIS
+   ========================================================= */
+function openMenu(){document.getElementById("menuOverlay").classList.add("open")}
+function closeMenu(){document.getElementById("menuOverlay").classList.remove("open")}
+function openSearch(){
+  document.getElementById("searchOverlay").classList.add("open");
+  document.getElementById("searchInput").focus();
+  searchProducts("");
+}
+function closeSearch(){document.getElementById("searchOverlay").classList.remove("open")}
+function openCart(){document.getElementById("cartDrawer").classList.add("show");updateCart()}
+function closeCart(){document.getElementById("cartDrawer").classList.remove("show")}
+function closeModal(id){document.getElementById(id).classList.remove("show")}
+
+function toggleAcc(button){
+  const item=button.parentElement;
+  item.classList.toggle("open");
+}
+
+function goHome(){
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ESC fecha overlays */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeMenu();
+    closeSearch();
+    closeCart();
+    document.querySelectorAll(".modal").forEach(m=>m.classList.remove("show"));
+  }
+});
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+renderProducts(PRODUCTS);
+renderServices();
+updateCart();
+checkBirthday();
+</script>
+</body>
+</html>
