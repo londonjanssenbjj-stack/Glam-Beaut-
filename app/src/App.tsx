@@ -7,7 +7,6 @@ export default function App() {
         </a>
         <span className="setup-label">Nova estrutura em desenvolvimento</span>
       </header>
-
       <section className="setup-hero" id="inicio">
         <p className="eyebrow">BELEZA • ESTÉTICA • BEM-ESTAR</p>
         <h1>A sua experiência Glam está sendo preparada.</h1>
@@ -20,7 +19,6 @@ export default function App() {
           a loja publicada.
         </div>
       </section>
-
       <footer className="setup-footer">
         Glam Beleza Estética e Bem-estar · Corumbá — Mato Grosso do Sul
       </footer>
