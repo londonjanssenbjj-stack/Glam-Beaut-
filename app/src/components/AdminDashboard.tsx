@@ -160,7 +160,9 @@ export function AdminDashboard() {
     {error && <p className="error-message" role="alert">{error}</p>}
     {notice && <p className="notice" role="status">{notice}</p>}
     {loading ? <p className="status-message">Carregando painel…</p> : <>
-      {tab === "commercial" && <AdminCommercialSettings />}\n      {tab === "birthdays" && <AdminBirthdays />}\n      {tab === "store" && <AdminStoreSettings />}
+      {tab === "commercial" && <AdminCommercialSettings />}
+      {tab === "birthdays" && <AdminBirthdays />}
+      {tab === "store" && <AdminStoreSettings />}
       {tab === "products" && <div className="admin-columns">
         <form className="admin-form" onSubmit={submitProduct}>
           <h3>{editingProduct ? "Editar produto" : "Novo produto"}</h3>
