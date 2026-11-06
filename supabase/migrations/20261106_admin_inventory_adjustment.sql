@@ -40,6 +40,7 @@ end;
 $$;
 
 revoke all on function private.admin_adjust_inventory(uuid, integer, text) from public, anon;
+grant usage on schema private to authenticated;
 grant execute on function private.admin_adjust_inventory(uuid, integer, text) to authenticated;
 
 create or replace function public.admin_adjust_inventory(
