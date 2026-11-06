@@ -11,7 +11,8 @@ type CartLine = { product: DbProduct; variant: DbVariant; quantity: number };
 export default function App() {
   const auth = useAuth();
   const [view, setView] = useState("loja");
-  const [products, setProducts] = useState<DbProduct[]>([]);\n  const [variants, setVariants] = useState<DbVariant[]>([]);
+  const [products, setProducts] = useState<DbProduct[]>([]);
+  const [variants, setVariants] = useState<DbVariant[]>([]);
   const [cart, setCart] = useState<CartLine[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [services, setServices] = useState<DbService[]>([]);
@@ -21,7 +22,10 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [busy, setBusy] = useState(false);\n  const [checkoutOpen, setCheckoutOpen] = useState(false);\n  const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("pickup");\n  const [address, setAddress] = useState({ recipient_name: "", phone: "", postal_code: "", street: "", number: "", complement: "", neighborhood: "", reference: "" });
+  const [busy, setBusy] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("pickup");
+  const [address, setAddress] = useState({ recipient_name: "", phone: "", postal_code: "", street: "", number: "", complement: "", neighborhood: "", reference: "" });
 
   useEffect(() => {
     try {
@@ -60,7 +64,24 @@ export default function App() {
     setCart(current => quantity < 1 ? current.filter(line => line.product.id !== productId) : current.map(line => line.product.id === productId ? { ...line, quantity } : line));
   }
   const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
-  const cartTotal = cart.reduce((sum, line) => sum + Number(line.variant.price_override ?? line.product.price) * line.quantity, 0);\n\n  async function submitOrder(event: FormEvent) {\n    event.preventDefault();\n    if (!auth.user) { setMessage("Entre ou crie sua conta para concluir o pedido."); setCheckoutOpen(false); setCartOpen(false); setView("login"); return; }\n    setBusy(true); setMessage("");\n    try {\n      const result = await createCustomerOrder(\n        cart.map(line => ({ variant_id: line.variant.id, quantity: line.quantity })),\n        deliveryMethod,\n        deliveryMethod === "delivery" ? address : null,\n      );\n      setCart([]); setCheckoutOpen(false); setCartOpen(false);\n      setMessage("Pedido " + result.order_number + " registrado como pendente. Total validado no servidor: " + formatCurrency(Number(result.total)) + ".");\n    } catch (error) {\n      setMessage(error instanceof Error ? error.message : "Não foi possível registrar o pedido.");\n    } finally { setBusy(false); }\n  }
+  const cartTotal = cart.reduce((sum, line) => sum + Number(line.variant.price_override ?? line.product.price) * line.quantity, 0);
+
+  async function submitOrder(event: FormEvent) {
+    event.preventDefault();
+    if (!auth.user) { setMessage("Entre ou crie sua conta para concluir o pedido."); setCheckoutOpen(false); setCartOpen(false); setView("login"); return; }
+    setBusy(true); setMessage("");
+    try {
+      const result = await createCustomerOrder(
+        cart.map(line => ({ variant_id: line.variant.id, quantity: line.quantity })),
+        deliveryMethod,
+        deliveryMethod === "delivery" ? address : null,
+      );
+      setCart([]); setCheckoutOpen(false); setCartOpen(false);
+      setMessage("Pedido " + result.order_number + " registrado como pendente. Total validado no servidor: " + formatCurrency(Number(result.total)) + ".");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Não foi possível registrar o pedido.");
+    } finally { setBusy(false); }
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault(); setBusy(true); setMessage("");
