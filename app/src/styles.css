@@ -141,3 +141,12 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(36px, 6vw, 68px); line-height
 .cart-total { display:flex; justify-content:space-between; padding:22px 0; font-size:17px; }
 .cart-note { color:var(--glam-muted); font-size:12px; line-height:1.6; }
 @media(max-width:480px) { .cart-drawer { padding:20px; } .cart-line { grid-template-columns:minmax(0,1fr) auto; } .cart-line > strong { grid-column:2; text-align:right; } }
+
+
+/* Seleção de variações e checkout */
+.variant-options { display:grid; gap:8px; margin-top:12px; }
+.checkout-form { display:grid; gap:12px; padding-top:18px; }
+.checkout-form h3 { margin:0 0 4px; }
+.checkout-form label { display:grid; gap:6px; font-size:13px; font-weight:600; }
+.checkout-form input, .checkout-form select { width:100%; min-height:42px; padding:9px 11px; border:1px solid var(--glam-line); border-radius:8px; background:white; color:inherit; font:inherit; }
+.checkout-form .submit-button { width:100%; }
