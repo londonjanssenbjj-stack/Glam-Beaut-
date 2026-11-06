@@ -38,14 +38,26 @@ begin
   if p_delivery_method not in ('delivery','pickup') then
     raise exception 'Método de entrega inválido';
   end if;
+  if p_delivery_method = 'pickup' and not exists (
+    select 1 from public.store_settings where id = 1 and pickup_enabled = true
+  ) then
+    raise exception 'Retirada não está habilitada no momento';
+  end if;
 
   if p_delivery_method = 'delivery' then
     if jsonb_typeof(p_shipping_address) <> 'object' then
       raise exception 'Endereço de entrega obrigatório';
     end if;
     v_neighborhood := nullif(trim(p_shipping_address->>'neighborhood'), '');
-    if v_neighborhood is null then
-      raise exception 'Bairro de entrega obrigatório';
+    if v_neighborhood is null or nullif(trim(p_shipping_address->>'recipient_name'), '') is null
+       or nullif(trim(p_shipping_address->>'phone'), '') is null
+       or nullif(trim(p_shipping_address->>'postal_code'), '') is null
+       or nullif(trim(p_shipping_address->>'street'), '') is null
+       or nullif(trim(p_shipping_address->>'number'), '') is null then
+      raise exception 'Preencha todos os campos obrigatórios do endereço';
+    end if;
+    if not exists (select 1 from public.store_settings where id = 1 and delivery_enabled = true) then
+      raise exception 'Entrega não está habilitada no momento';
     end if;
   end if;
 
