@@ -67,28 +67,14 @@ Deno.serve(async (req: Request) => {
     if (linesError) throw linesError;
     if (!lines?.length) return reply(409, { error: "Pedido sem itens." });
 
-    const items = lines.map((line) => ({
-      title: line.product_name,
-      quantity: line.quantity,
-      unit_price: Number(line.unit_price),
+    // A preferência usa o total fechado pelo banco. Os itens detalhados permanecem no pedido.
+    const items = [{
+      title: "Pedido " + order.order_number,
+      description: lines.map((line) => line.product_name + " x" + line.quantity).join(", "),
+      quantity: 1,
+      unit_price: Number(order.total),
       currency_id: "BRL",
-    }));
-    if (Number(order.delivery_fee) > 0) {
-      items.push({
-        title: "Taxa de entrega",
-        quantity: 1,
-        unit_price: Number(order.delivery_fee),
-        currency_id: "BRL",
-      });
-    }
-    if (Number(order.discount_amount) > 0) {
-      items.push({
-        title: "Desconto " + (order.coupon_code ?? ""),
-        quantity: 1,
-        unit_price: -Number(order.discount_amount),
-        currency_id: "BRL",
-      });
-    }
+    }];
 
     const preferenceResponse = await fetch("https://api.mercadopago.com/checkout/preferences", {
       method: "POST",
