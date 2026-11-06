@@ -72,3 +72,19 @@ export async function adjustInventory(variantId: string, quantity: number, note:
   if (error) throw error;
   return Number(data);
 }
+
+export async function updateAdminOrderStatus(orderId: string, status: string) {
+  const { error } = await supabase.rpc("admin_update_order_status", {
+    p_order_id: orderId,
+    p_status: status,
+  });
+  if (error) throw error;
+}
+
+export async function updateAdminAppointmentStatus(appointmentId: string, status: string) {
+  const { error } = await supabase.rpc("admin_update_appointment_status", {
+    p_appointment_id: appointmentId,
+    p_status: status,
+  });
+  if (error) throw error;
+}
