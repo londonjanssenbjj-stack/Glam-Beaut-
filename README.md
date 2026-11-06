@@ -84,6 +84,12 @@ O sistema não considera a URL de retorno como prova de pagamento. O webhook con
 - [ ] Configurar WhatsApp Business e regras comerciais definitivas.
 - [ ] Publicação final autorizada.
 
+## WhatsApp e modalidades da loja
+
+O painel administrativo ganhou a aba **Configurações**, que permite informar o WhatsApp oficial com código do país e DDD e habilitar/desabilitar retirada e entrega. O contato é disponibilizado ao cliente por uma função que retorna somente o número público da loja. A área do cliente monta mensagens com referência ao pedido ou agendamento, sem inventar o telefone comercial.
+
+Antes de usar, um administrador deve cadastrar o número oficial em **Admin > Configurações**. Nenhum número foi presumido ou cadastrado automaticamente.
+
 ## Preservação
 
 Não alterar o `index.html` da raiz nem publicar sobre o site antigo durante o desenvolvimento.
