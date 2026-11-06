@@ -6,7 +6,7 @@ import { supabaseConfigured } from "./lib/supabase";
 import { getPublicCatalog, testSupabaseConnection } from "./services/catalogService";
 import { formatCurrency } from "./lib/format";
 import type { DbProduct, DbService, DbVariant } from "./types/database";
-import { createCustomerOrder } from "./services/orderService";
+import { createCustomerOrder, startMercadoPagoCheckout } from "./services/orderService";
 import { createCustomerAppointment } from "./services/appointmentService";
 type CartLine = { product: DbProduct; variant: DbVariant; quantity: number };
 
@@ -112,7 +112,15 @@ export default function App() {
         couponCode.trim() || null,
       );
       setCart([]); setCheckoutOpen(false); setCartOpen(false); setCouponCode("");
-      setMessage("Pedido " + result.order_number + " registrado como pendente. Subtotal: " + formatCurrency(Number(result.subtotal)) + ". Desconto: " + formatCurrency(Number(result.discount_amount)) + ". Entrega: " + formatCurrency(Number(result.delivery_fee)) + ". Total validado no servidor: " + formatCurrency(Number(result.total)) + ".");
+      setMessage("Pedido " + result.order_number + " registrado. Total validado: " + formatCurrency(Number(result.total)) + ". Abrindo pagamento seguro…");
+      try {
+        const checkoutUrl = await startMercadoPagoCheckout(result.order_id);
+        window.location.assign(checkoutUrl);
+        return;
+      } catch (paymentError) {
+        setView("conta");
+        setMessage("Pedido " + result.order_number + " foi salvo, mas o pagamento ainda não foi iniciado. " + (paymentError instanceof Error ? paymentError.message : "Tente novamente em Minha conta."));
+      }
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Não foi possível registrar o pedido.");
     } finally { setBusy(false); }
