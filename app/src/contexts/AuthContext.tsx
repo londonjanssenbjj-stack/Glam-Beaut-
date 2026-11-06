@@ -34,20 +34,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadUserData = useCallback(async (userId: string) => {
-    const [profileResult, roleResult] = await Promise.all([
-      supabase.from("profiles").select("id,full_name,phone,email").eq("id", userId).maybeSingle(),
-      supabase.from("user_roles").select("role").eq("user_id", userId),
-    ]);
+  const loadUserData = useCallback(async (user: User) => {
+    const userId = user.id;
+    let profileResult = await supabase.from("profiles")
+      .select("id,full_name,phone,email").eq("id", userId).maybeSingle();
     if (profileResult.error) throw profileResult.error;
+    if (!profileResult.data) {
+      const metadata = user.user_metadata ?? {};
+      const { error: createProfileError } = await supabase.from("profiles").upsert({
+        id: userId,
+        full_name: typeof metadata.full_name === "string" ? metadata.full_name : "",
+        phone: typeof metadata.phone === "string" ? metadata.phone : null,
+        email: user.email ?? null,
+      });
+      if (createProfileError) throw createProfileError;
+      profileResult = await supabase.from("profiles")
+        .select("id,full_name,phone,email").eq("id", userId).maybeSingle();
+      if (profileResult.error) throw profileResult.error;
+    }
+
+    let roleResult = await supabase.from("user_roles").select("role").eq("user_id", userId);
     if (roleResult.error) throw roleResult.error;
+    if (!(roleResult.data ?? []).some((item) => item.role === "customer")) {
+      const { error: roleError } = await supabase.from("user_roles")
+        .upsert({ user_id: userId, role: "customer" }, { onConflict: "user_id,role", ignoreDuplicates: true });
+      if (roleError) throw roleError;
+      roleResult = await supabase.from("user_roles").select("role").eq("user_id", userId);
+      if (roleResult.error) throw roleResult.error;
+    }
     setProfile(profileResult.data as Profile | null);
     setRoles((roleResult.data ?? []).map((item) => item.role as AppRole));
   }, []);
 
   const refreshProfile = useCallback(async () => {
     if (!session?.user) return;
-    await loadUserData(session.user.id);
+    await loadUserData(session.user);
   }, [loadUserData, session]);
 
   useEffect(() => {
@@ -61,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (sessionError) setError(sessionError.message);
       setSession(data.session);
       try {
-        if (data.session?.user) await loadUserData(data.session.user.id);
+        if (data.session?.user) await loadUserData(data.session.user);
       } catch (cause) {
         if (alive) setError(cause instanceof Error ? cause.message : "Não foi possível carregar o perfil.");
       } finally {
@@ -82,7 +103,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         // Evita chamadas Supabase dentro do callback síncrono de auth.
         queueMicrotask(() => {
-          loadUserData(nextSession.user.id).catch((cause: unknown) =>
+          loadUserData(nextSession.user).catch((cause: unknown) =>
             setError(cause instanceof Error ? cause.message : "Falha ao carregar permissões."),
           ).finally(() => setLoading(false));
         });
