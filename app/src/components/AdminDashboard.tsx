@@ -1,0 +1,146 @@
+import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { formatCurrency } from "../lib/format";
+import { loadAdminData, saveAdminProduct, saveAdminService, setProductActive, setServiceActive } from "../services/adminService";
+import type { AdminAppointment, AdminOrder, AdminProduct, AdminService } from "../types/admin";
+import type { DbCategory } from "../types/database";
+
+type Tab = "products" | "services" | "orders" | "appointments";
+
+const emptyProduct = { category_id: "", name: "", slug: "", description: "", price: "0", image_url: "", is_active: false, is_featured: false };
+const emptyService = { name: "", slug: "", description: "", price: "", duration_minutes: "", is_active: false };
+
+export function AdminDashboard() {
+  const [tab, setTab] = useState<Tab>("products");
+  const [products, setProducts] = useState<AdminProduct[]>([]);
+  const [services, setServices] = useState<AdminService[]>([]);
+  const [categories, setCategories] = useState<DbCategory[]>([]);
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);
+  const [productForm, setProductForm] = useState(emptyProduct);
+  const [serviceForm, setServiceForm] = useState(emptyService);
+  const [editingProduct, setEditingProduct] = useState<string | null>(null);
+  const [editingService, setEditingService] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+
+  const refresh = useCallback(async () => {
+    setLoading(true); setError("");
+    try {
+      const data = await loadAdminData();
+      setProducts(data.products); setServices(data.services); setCategories(data.categories);
+      setOrders(data.orders); setAppointments(data.appointments);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Não foi possível carregar os dados administrativos.");
+    } finally { setLoading(false); }
+  }, []);
+
+  useEffect(() => { void refresh(); }, [refresh]);
+
+  function editProduct(item: AdminProduct) {
+    setEditingProduct(item.id);
+    setProductForm({
+      category_id: item.category_id ?? "", name: item.name, slug: item.slug,
+      description: item.description ?? "", price: String(item.price),
+      image_url: item.image_url ?? "", is_active: item.is_active, is_featured: item.is_featured,
+    });
+    setTab("products");
+  }
+
+  function editService(item: AdminService) {
+    setEditingService(item.id);
+    setServiceForm({
+      name: item.name, slug: item.slug, description: item.description ?? "",
+      price: item.price === null ? "" : String(item.price),
+      duration_minutes: item.duration_minutes === null ? "" : String(item.duration_minutes),
+      is_active: item.is_active,
+    });
+    setTab("services");
+  }
+
+  async function submitProduct(event: FormEvent) {
+    event.preventDefault(); setSaving(true); setError(""); setNotice("");
+    try {
+      await saveAdminProduct({
+        category_id: productForm.category_id || null,
+        name: productForm.name.trim(), slug: productForm.slug.trim(),
+        description: productForm.description.trim() || null,
+        price: Number(productForm.price), image_url: productForm.image_url.trim() || null,
+        is_active: productForm.is_active, is_featured: productForm.is_featured,
+      }, editingProduct ?? undefined);
+      setProductForm(emptyProduct); setEditingProduct(null); setNotice("Produto salvo."); await refresh();
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao salvar produto."); }
+    finally { setSaving(false); }
+  }
+
+  async function submitService(event: FormEvent) {
+    event.preventDefault(); setSaving(true); setError(""); setNotice("");
+    try {
+      await saveAdminService({
+        name: serviceForm.name.trim(), slug: serviceForm.slug.trim(),
+        description: serviceForm.description.trim() || null,
+        price: serviceForm.price === "" ? null : Number(serviceForm.price),
+        duration_minutes: serviceForm.duration_minutes === "" ? null : Number(serviceForm.duration_minutes),
+        is_active: serviceForm.is_active,
+      }, editingService ?? undefined);
+      setServiceForm(emptyService); setEditingService(null); setNotice("Serviço salvo."); await refresh();
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao salvar serviço."); }
+    finally { setSaving(false); }
+  }
+
+  async function toggleProduct(item: AdminProduct) {
+    try { await setProductActive(item.id, !item.is_active); setNotice("Situação do produto atualizada."); await refresh(); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao atualizar produto."); }
+  }
+  async function toggleService(item: AdminService) {
+    try { await setServiceActive(item.id, !item.is_active); setNotice("Situação do serviço atualizada."); await refresh(); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao atualizar serviço."); }
+  }
+
+  return <section className="admin-panel">
+    <div className="admin-heading"><div><p className="eyebrow">GESTÃO GLAM</p><h2>Painel administrativo</h2></div><button onClick={() => void refresh()}>Atualizar dados</button></div>
+    <div className="admin-tabs" role="tablist">
+      {([["products","Produtos"],["services","Serviços"],["orders","Pedidos"],["appointments","Agendamentos"]] as const).map(([key,label]) =>
+        <button key={key} role="tab" aria-selected={tab === key} className={tab === key ? "active" : ""} onClick={() => setTab(key)}>{label}</button>)}
+    </div>
+    {error && <p className="error-message" role="alert">{error}</p>}
+    {notice && <p className="notice" role="status">{notice}</p>}
+    {loading ? <p className="status-message">Carregando painel…</p> : <>
+      {tab === "products" && <div className="admin-columns">
+        <form className="admin-form" onSubmit={submitProduct}>
+          <h3>{editingProduct ? "Editar produto" : "Novo produto"}</h3>
+          <label>Nome<input required value={productForm.name} onChange={e => setProductForm({...productForm,name:e.target.value})}/></label>
+          <label>Identificador (slug)<input required pattern="[a-z0-9-]+" value={productForm.slug} onChange={e => setProductForm({...productForm,slug:e.target.value})}/></label>
+          <label>Categoria<select value={productForm.category_id} onChange={e => setProductForm({...productForm,category_id:e.target.value})}><option value="">Sem categoria</option>{categories.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
+          <label>Descrição<textarea rows={3} value={productForm.description} onChange={e => setProductForm({...productForm,description:e.target.value})}/></label>
+          <label>Preço (R$)<input required type="number" min="0" step="0.01" value={productForm.price} onChange={e => setProductForm({...productForm,price:e.target.value})}/></label>
+          <label>URL da imagem<input type="url" value={productForm.image_url} onChange={e => setProductForm({...productForm,image_url:e.target.value})}/></label>
+          <label className="check-label"><input type="checkbox" checked={productForm.is_featured} onChange={e => setProductForm({...productForm,is_featured:e.target.checked})}/> Destaque</label>
+          <label className="check-label"><input type="checkbox" checked={productForm.is_active} onChange={e => setProductForm({...productForm,is_active:e.target.checked})}/> Ativo na loja</label>
+          <div className="admin-actions"><button className="submit-button" disabled={saving}>{saving ? "Salvando…" : "Salvar produto"}</button><button type="button" onClick={()=>{setProductForm(emptyProduct);setEditingProduct(null);}}>Limpar</button></div>
+        </form>
+        <div className="admin-list"><h3>Produtos cadastrados ({products.length})</h3>
+          {products.map(item=><article className="admin-row" key={item.id}><div><strong>{item.name}</strong><small>{formatCurrency(Number(item.price))} · {item.is_active ? "Ativo" : "Inativo"}</small></div><div><button onClick={()=>editProduct(item)}>Editar</button><button onClick={()=>void toggleProduct(item)}>{item.is_active ? "Desativar" : "Ativar"}</button></div></article>)}
+        </div>
+      </div>}
+      {tab === "services" && <div className="admin-columns">
+        <form className="admin-form" onSubmit={submitService}>
+          <h3>{editingService ? "Editar serviço" : "Novo serviço"}</h3>
+          <label>Nome<input required value={serviceForm.name} onChange={e=>setServiceForm({...serviceForm,name:e.target.value})}/></label>
+          <label>Identificador (slug)<input required pattern="[a-z0-9-]+" value={serviceForm.slug} onChange={e=>setServiceForm({...serviceForm,slug:e.target.value})}/></label>
+          <label>Descrição<textarea rows={3} value={serviceForm.description} onChange={e=>setServiceForm({...serviceForm,description:e.target.value})}/></label>
+          <label>Preço (R$)<input type="number" min="0" step="0.01" value={serviceForm.price} onChange={e=>setServiceForm({...serviceForm,price:e.target.value})}/></label>
+          <label>Duração (minutos)<input type="number" min="1" step="1" value={serviceForm.duration_minutes} onChange={e=>setServiceForm({...serviceForm,duration_minutes:e.target.value})}/></label>
+          <label className="check-label"><input type="checkbox" checked={serviceForm.is_active} onChange={e=>setServiceForm({...serviceForm,is_active:e.target.checked})}/> Ativo na loja</label>
+          <div className="admin-actions"><button className="submit-button" disabled={saving}>Salvar serviço</button><button type="button" onClick={()=>{setServiceForm(emptyService);setEditingService(null);}}>Limpar</button></div>
+        </form>
+        <div className="admin-list"><h3>Serviços cadastrados ({services.length})</h3>
+          {services.map(item=><article className="admin-row" key={item.id}><div><strong>{item.name}</strong><small>{item.price === null ? "Consultar valor" : formatCurrency(Number(item.price))} · {item.is_active ? "Ativo" : "Inativo"}</small></div><div><button onClick={()=>editService(item)}>Editar</button><button onClick={()=>void toggleService(item)}>{item.is_active ? "Desativar" : "Ativar"}</button></div></article>)}
+        </div>
+      </div>}
+      {tab === "orders" && <div className="admin-list"><h3>Pedidos recentes ({orders.length})</h3>{orders.length ? orders.map(item=><article className="admin-row" key={item.id}><div><strong>{item.order_number}</strong><small>{new Date(item.created_at).toLocaleString("pt-BR")} · {item.status} · pagamento {item.payment_status}</small></div><strong>{formatCurrency(Number(item.total))}</strong></article>) : <p>Nenhum pedido registrado.</p>}</div>}
+      {tab === "appointments" && <div className="admin-list"><h3>Agendamentos ({appointments.length})</h3>{appointments.length ? appointments.map(item=><article className="admin-row" key={item.id}><div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")} · {item.status}</small></div><small>{item.customer_id.slice(0,8)}…</small></article>) : <p>Nenhum agendamento registrado.</p>}</div>}
+    </>}
+  </section>;
+}
