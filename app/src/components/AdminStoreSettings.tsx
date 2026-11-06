@@ -23,7 +23,7 @@ export function AdminStoreSettings() {
   async function save(event:FormEvent){
     event.preventDefault();setSaving(true);setError("");setNotice("");
     try {
-      const digits=phone.replace(/\\D/g,"");
+      const digits=phone.replaceAll("+","").replaceAll(" ","").replaceAll("-","").replaceAll("(","").replaceAll(")","");
       if(digits&& (digits.length<10||digits.length>15))throw new Error("Informe o WhatsApp com código do país e DDD.");
       const {error}=await supabase.rpc("admin_save_store_settings",{p_whatsapp_phone:digits||null,p_pickup_enabled:pickup,p_delivery_enabled:delivery});
       if(error)throw error;
