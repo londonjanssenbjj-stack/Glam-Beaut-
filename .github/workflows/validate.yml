@@ -1,0 +1,40 @@
+name: Validar estrutura Glam Beaut
+
+on:
+  push:
+    branches:
+      - fase-2-estrutura
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    name: TypeScript e build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+
+      - name: Verificar TypeScript
+        run: npm run typecheck
+
+      - name: Gerar build de produção
+        run: npm run build
+
+      - name: Configurar Deno para validar Edge Functions
+        uses: denoland/setup-deno@v2
+
+      - name: Verificar Edge Functions
+        run: deno check supabase/functions/create-payment/index.ts supabase/functions/mercadopago-webhook/index.ts
