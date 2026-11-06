@@ -24,7 +24,7 @@ Deno.serve(async (req: Request) => {
     const mpToken = Deno.env.get("MERCADO_PAGO_ACCESS_TOKEN");
     const siteUrl = Deno.env.get("APP_SITE_URL");
     const webhookUrl = Deno.env.get("MERCADO_PAGO_WEBHOOK_URL");
-    if (!supabaseUrl || !anonKey || !serviceKey || !accessToken || !mpToken || !siteUrl || !webhookUrl) {
+    if (!supabaseUrl || !anonKey || !serviceKey || !accessToken || !mpToken || !siteUrl || !webhookUrl || !allowedOrigin) {
       return reply(503, { error: "Integração de pagamento ainda não configurada no servidor." });
     }
 
@@ -53,7 +53,7 @@ Deno.serve(async (req: Request) => {
     }
     if (Number(order.total) <= 0) return reply(400, { error: "O total do pedido não permite pagamento online." });
 
-    const { data: existing } = await admin.from("payments")
+    const { data: existing, error: existingError } = await admin.from("payments")
       .select("preference_id,checkout_url,status")
       .eq("order_id", order.id)
       .maybeSingle();
