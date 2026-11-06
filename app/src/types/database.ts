@@ -38,3 +38,12 @@ export interface DbService {
   duration_minutes: number | null;
   is_active: boolean;
 }
+
+export interface DbVariant {
+  id: string;
+  product_id: string;
+  name: string;
+  sku: string | null;
+  price_override: number | null;
+  is_active: boolean;
+}
