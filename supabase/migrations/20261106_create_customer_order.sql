@@ -195,9 +195,9 @@ returns jsonb
 language sql
 security invoker
 set search_path = ''
-as $
+as $$
   select private.create_customer_order(p_items, p_delivery_method, p_shipping_address);
-$;
+$$;
 
 revoke all on function public.create_customer_order(jsonb, text, jsonb) from public, anon;
 grant execute on function public.create_customer_order(jsonb, text, jsonb) to authenticated;
