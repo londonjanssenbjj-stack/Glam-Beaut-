@@ -57,7 +57,7 @@ export default function App() {
   }, [auth.user]);
 
   function addToCart(product: DbProduct, variant: DbVariant) {
-    if (!variant.is_active || !product.is_active) {
+    if (!product.is_active || !variant.is_active) {
       setMessage("Este item não está disponível para compra.");
       return;
     }
@@ -72,6 +72,7 @@ export default function App() {
     setMessage("");
     setCartOpen(true);
   }
+
   function changeQuantity(variantId: string, quantity: number) {
     setCart(current => quantity < 1
       ? current.filter(line => line.variant.id !== variantId)
@@ -79,6 +80,7 @@ export default function App() {
         ? { ...line, quantity: Math.min(100, quantity) }
         : line));
   }
+
   const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
   const cartTotal = cart.reduce((sum, line) => sum + Number(line.variant.price_override ?? line.product.price) * line.quantity, 0);
 
