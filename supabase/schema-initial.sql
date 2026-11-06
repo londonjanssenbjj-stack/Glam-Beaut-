@@ -195,3 +195,147 @@ grant select on public.orders, public.order_items, public.appointments to authen
 
 -- Sem grants de cliente para estoque, movimentações, criação/alteração de pedidos
 -- ou agendamentos. Essas operações serão executadas por Edge Functions autenticadas.
+
+-- Complementos necessários para administração, endereços, entrega e pagamentos.
+-- Escritas administrativas e transacionais permanecem exclusivamente no backend
+-- (Edge Functions), após validação de sessão e papel administrativo.
+
+create table if not exists public.user_roles (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  role text not null check (role in ('admin','staff','customer')),
+  created_at timestamptz not null default now(),
+  primary key (user_id, role)
+);
+
+create table if not exists public.addresses (
+  id uuid primary key default gen_random_uuid(),
+  customer_id uuid not null references auth.users(id) on delete cascade,
+  recipient_name text not null,
+  phone text not null,
+  postal_code text not null,
+  street text not null,
+  number text not null,
+  complement text,
+  neighborhood text not null,
+  city text not null default 'Corumbá',
+  state text not null default 'MS',
+  reference text,
+  is_default boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.delivery_regions (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  neighborhoods text[] not null default '{}',
+  fee numeric(12,2) not null default 0 check (fee >= 0),
+  free_from numeric(12,2) check (free_from is null or free_from >= 0),
+  is_active boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.coupons (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique,
+  discount_type text not null check (discount_type in ('percentage','fixed')),
+  discount_value numeric(12,2) not null check (discount_value > 0),
+  minimum_order numeric(12,2) not null default 0 check (minimum_order >= 0),
+  starts_at timestamptz,
+  expires_at timestamptz,
+  usage_limit integer check (usage_limit is null or usage_limit > 0),
+  usage_count integer not null default 0 check (usage_count >= 0),
+  is_active boolean not null default false,
+  created_at timestamptz not null default now(),
+  check (expires_at is null or starts_at is null or expires_at > starts_at)
+);
+
+create table if not exists public.coupon_usages (
+  id uuid primary key default gen_random_uuid(),
+  coupon_id uuid not null references public.coupons(id),
+  customer_id uuid not null references auth.users(id),
+  order_id uuid references public.orders(id) on delete set null,
+  discount_amount numeric(12,2) not null check (discount_amount >= 0),
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.payments (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null unique references public.orders(id) on delete cascade,
+  provider text not null check (provider in ('mercado_pago')),
+  provider_payment_id text unique,
+  preference_id text,
+  status text not null default 'pending' check (status in ('pending','approved','authorized','in_process','rejected','cancelled','refunded','charged_back')),
+  amount numeric(12,2) not null check (amount >= 0),
+  currency text not null default 'BRL' check (currency = 'BRL'),
+  checkout_url text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.payment_events (
+  id uuid primary key default gen_random_uuid(),
+  payment_id uuid references public.payments(id) on delete set null,
+  provider text not null check (provider in ('mercado_pago')),
+  provider_event_id text,
+  event_type text not null,
+  signature_valid boolean not null default false,
+  payload jsonb not null default '{}'::jsonb,
+  processed_at timestamptz,
+  created_at timestamptz not null default now(),
+  unique (provider, provider_event_id)
+);
+
+create table if not exists public.store_settings (
+  id integer primary key default 1 check (id = 1),
+  store_name text not null default 'Glam Beaut',
+  whatsapp_phone text,
+  pickup_enabled boolean not null default true,
+  delivery_enabled boolean not null default true,
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists addresses_customer_idx on public.addresses(customer_id);
+create index if not exists coupon_usages_customer_idx on public.coupon_usages(customer_id, created_at desc);
+create index if not exists payments_order_idx on public.payments(order_id);
+create index if not exists payment_events_payment_idx on public.payment_events(payment_id, created_at desc);
+
+alter table public.user_roles enable row level security;
+alter table public.addresses enable row level security;
+alter table public.delivery_regions enable row level security;
+alter table public.coupons enable row level security;
+alter table public.coupon_usages enable row level security;
+alter table public.payments enable row level security;
+alter table public.payment_events enable row level security;
+alter table public.store_settings enable row level security;
+
+drop policy if exists "Users can read own roles" on public.user_roles;
+create policy "Users can read own roles" on public.user_roles
+for select to authenticated using ((select auth.uid()) = user_id);
+
+drop policy if exists "Customers can manage own addresses" on public.addresses;
+create policy "Customers can manage own addresses" on public.addresses
+for all to authenticated
+using ((select auth.uid()) = customer_id)
+with check ((select auth.uid()) = customer_id);
+
+drop policy if exists "Public can read active delivery regions" on public.delivery_regions;
+create policy "Public can read active delivery regions" on public.delivery_regions
+for select to anon, authenticated using (is_active = true);
+
+drop policy if exists "Customers can read own coupon usages" on public.coupon_usages;
+create policy "Customers can read own coupon usages" on public.coupon_usages
+for select to authenticated using ((select auth.uid()) = customer_id);
+
+drop policy if exists "Customers can read own payments" on public.payments;
+create policy "Customers can read own payments" on public.payments
+for select to authenticated using (exists (
+  select 1 from public.orders o
+  where o.id = order_id and o.customer_id = (select auth.uid())
+));
+
+-- Dados de pagamento, cupons, configurações e eventos não são expostos
+-- diretamente ao navegador. O backend faz as operações privilegiadas.
+grant select on public.user_roles, public.addresses, public.coupon_usages, public.payments to authenticated;
+grant insert, update, delete on public.addresses to authenticated;
+grant select on public.delivery_regions to anon, authenticated;
