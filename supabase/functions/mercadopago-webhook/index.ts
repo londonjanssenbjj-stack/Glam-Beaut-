@@ -66,6 +66,9 @@ Deno.serve(async (req: Request) => {
     if (!order) return json(404, { error: "Pedido não encontrado." });
 
     const amount = Number(mpPayment.transaction_amount);
+    if (order.payment_status === "paid" && mpPayment.status !== "refunded" && mpPayment.status !== "charged_back") {
+      return json(200, { received: true, ignored: "Pedido já está pago." });
+    }
     if (mpPayment.currency_id !== "BRL" || !Number.isFinite(amount) || Math.abs(amount - Number(order.total)) > 0.01) {
       return json(409, { error: "Valor ou moeda do pagamento não corresponde ao pedido." });
     }
@@ -83,19 +86,26 @@ Deno.serve(async (req: Request) => {
     const paymentStatus = statusMap[mpPayment.status];
     if (!paymentStatus) return json(202, { received: true, ignored_status: mpPayment.status });
 
-    const { data: paymentRow, error: paymentError } = await admin.from("payments")
-      .upsert({
-        order_id: order.id,
-        provider: "mercado_pago",
-        provider_payment_id: String(mpPayment.id),
-        status: mpPayment.status,
-        amount,
-        currency: "BRL",
-        updated_at: new Date().toISOString(),
-      }, { onConflict: "order_id" })
+    const { data: existingPayment, error: existingPaymentError } = await admin.from("payments")
       .select("id")
-      .single();
-    if (paymentError) throw paymentError;
+      .eq("order_id", order.id)
+      .maybeSingle();
+    if (existingPaymentError) throw existingPaymentError;
+
+    const paymentPayload = {
+      order_id: order.id,
+      provider: "mercado_pago",
+      provider_payment_id: String(mpPayment.id),
+      status: mpPayment.status,
+      amount,
+      currency: "BRL",
+      updated_at: new Date().toISOString(),
+    };
+    const paymentWrite = existingPayment
+      ? await admin.from("payments").update(paymentPayload).eq("id", existingPayment.id).select("id").single()
+      : await admin.from("payments").insert(paymentPayload).select("id").single();
+    if (paymentWrite.error) throw paymentWrite.error;
+    const paymentRow = paymentWrite.data;
 
     const { error: eventError } = await admin.from("payment_events").upsert({
       payment_id: paymentRow.id,
