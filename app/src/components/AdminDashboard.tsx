@@ -15,7 +15,9 @@ export function AdminDashboard() {
   const [services, setServices] = useState<AdminService[]>([]);
   const [categories, setCategories] = useState<DbCategory[]>([]);
   const [orders, setOrders] = useState<AdminOrder[]>([]);
-  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);\n  const [customers, setCustomers] = useState<import("../types/admin").AdminProfile[]>([]);\n  const [inventory, setInventory] = useState<import("../types/admin").AdminInventoryItem[]>([]);
+  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);
+  const [customers, setCustomers] = useState<import("../types/admin").AdminProfile[]>([]);
+  const [inventory, setInventory] = useState<import("../types/admin").AdminInventoryItem[]>([]);
   const [productForm, setProductForm] = useState(emptyProduct);
   const [serviceForm, setServiceForm] = useState(emptyService);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
