@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../lib/supabase";
 import { formatCurrency } from "../lib/format";
 import { startMercadoPagoCheckout } from "../services/orderService";
+import { sendStoreWhatsApp } from "../services/whatsappService";
 
 interface CustomerOrder {
   id: string;
@@ -67,6 +68,12 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
     return () => { active = false; };
   }, [userId]);
 
+  async function contactWhatsApp(message: string) {
+    setError("");
+    try { await sendStoreWhatsApp(message); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível abrir o WhatsApp."); }
+  }
+
   async function payOrder(orderId: string) {
     setPayingOrder(orderId); setError("");
     try {
@@ -108,13 +115,13 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
           <h3>Meus pedidos ({orders.length})</h3>
           {orders.length ? orders.map(order => <article className="admin-row" key={order.id}>
             <div><strong>{order.order_number}</strong><small>{new Date(order.created_at).toLocaleString("pt-BR")} · {order.status} · pagamento {order.payment_status}</small></div>
-            <div className="account-order-actions"><strong>{formatCurrency(Number(order.total))}</strong>{order.payment_status === "pending" && <button className="add-cart-button" disabled={payingOrder !== null} onClick={() => void payOrder(order.id)}>{payingOrder === order.id ? "Abrindo pagamento…" : "Pagar agora"}</button>}</div>
+            <div className="account-order-actions"><strong>{formatCurrency(Number(order.total))}</strong><button type="button" className="add-cart-button" onClick={() => void contactWhatsApp("Olá! Sou " + fullName + ". Gostaria de informações sobre o pedido " + order.order_number + ", no valor de " + formatCurrency(Number(order.total)) + ".")}>WhatsApp</button>{order.payment_status === "pending" && <button className="add-cart-button" disabled={payingOrder !== null} onClick={() => void payOrder(order.id)}>{payingOrder === order.id ? "Abrindo pagamento…" : "Pagar agora"}</button>}</div>
           </article>) : <p>Você ainda não possui pedidos.</p>}
         </div>
         <div className="admin-list">
           <h3>Meus agendamentos ({appointments.length})</h3>
           {appointments.length ? appointments.map(item => <article className="admin-row" key={item.id}>
-            <div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")} · {item.status}</small></div>
+            <div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")} · {item.status}</small></div><button type="button" className="add-cart-button" onClick={() => void contactWhatsApp("Olá! Sou " + fullName + ". Gostaria de informações sobre meu agendamento de " + item.service_name + " em " + new Date(item.starts_at).toLocaleString("pt-BR") + ".")}>WhatsApp</button>
           </article>) : <p>Você ainda não possui agendamentos.</p>}
         </div>
       </div>
