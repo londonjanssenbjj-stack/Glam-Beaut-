@@ -42,6 +42,7 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
             .eq("customer_id", userId)
             .order("starts_at", { ascending: false })
             .limit(50),
+          supabase.from("customer_birthdays").select("birth_date").eq("customer_id", userId).maybeSingle(),
         ]);
         if (orderResult.error) throw orderResult.error;
         if (appointmentResult.error) throw appointmentResult.error;\n        if (birthdayResult.error) throw birthdayResult.error;
