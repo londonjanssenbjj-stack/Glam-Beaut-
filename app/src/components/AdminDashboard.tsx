@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { formatCurrency } from "../lib/format";
 import { loadAdminData, saveAdminProduct, saveAdminService, saveAdminVariant, adjustInventory, setProductActive, setServiceActive, setVariantActive } from "../services/adminService";
-import type { AdminAppointment, AdminOrder, AdminProduct, AdminService } from "../types/admin";
+import type { AdminAppointment, AdminOrder, AdminProduct, AdminService, AdminVariant } from "../types/admin";
 import type { DbCategory } from "../types/database";
 
 type Tab = "products" | "services" | "orders" | "appointments" | "customers" | "inventory" | "variants";
