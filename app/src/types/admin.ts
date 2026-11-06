@@ -37,3 +37,16 @@ export interface AdminAppointment {
   status: string;
   customer_id: string;
 }
+
+export interface AdminProfile {
+  id: string;
+  full_name: string;
+  phone: string | null;
+  email: string | null;
+}
+export interface AdminInventoryItem {
+  variant_id: string;
+  quantity: number;
+  updated_at: string;
+  product_variants: { id: string; name: string; sku: string | null; product_id: string; products: { name: string } | null } | null;
+}
