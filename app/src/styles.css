@@ -52,3 +52,47 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(36px, 6vw, 68px); line-height
   .setup-hero { min-height: 480px; margin-block: 22px; border-radius: 20px; }
   .intro { font-size: 14px; }
 }
+
+
+/* Módulos conectados à loja, sem alterar a paleta Glam aprovada. */
+.glam-app { min-height: 100vh; display: flex; flex-direction: column; }
+.main-nav { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 18px; }
+.main-nav button, .main-nav a, .category-list button, .auth-links button {
+  border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 13px;
+}
+.main-nav button:hover, .main-nav a:hover, .auth-links button:hover { color: var(--glam-blue); }
+.welcome-hero {
+  width: min(100% - 36px, var(--glam-max-width)); min-height: 360px; margin: 28px auto 12px;
+  padding: clamp(28px, 6vw, 68px); display: flex; flex-direction: column; justify-content: center;
+  border-radius: 26px; background: var(--glam-pink);
+}
+.welcome-hero h1 { max-width: 780px; }
+.connection-state { margin: 24px 0 0; color: var(--glam-muted); font-size: 12px; }
+.catalog-section { width: min(100% - 36px, var(--glam-max-width)); margin: 44px auto; }
+.catalog-section h2, .auth-panel h2 { margin: 0 0 22px; font-size: clamp(26px, 4vw, 38px); letter-spacing: -.04em; }
+.product-grid, .service-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+.product-card, .service-card { min-width: 0; padding: 16px; border: 1px solid var(--glam-line); border-radius: var(--glam-radius); background: white; }
+.product-image { height: 190px; display: grid; place-items: center; overflow: hidden; border-radius: 12px; background: var(--glam-pink); color: var(--glam-muted); font-size: 11px; letter-spacing: .12em; }
+.product-image img { width: 100%; height: 100%; object-fit: cover; }
+.product-card h3, .service-card h3 { margin: 12px 0 8px; font-size: 16px; }
+.product-card p, .service-card p { min-height: 42px; color: var(--glam-muted); font-size: 13px; line-height: 1.55; }
+.product-card strong, .service-card strong { display: block; margin-top: 14px; font-size: 15px; }
+.auth-panel { width: min(100% - 36px, 480px); margin: 52px auto; padding: 30px; border: 1px solid var(--glam-line); border-radius: 20px; }
+.auth-panel form { display: grid; gap: 16px; }
+.auth-panel label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; }
+.auth-panel input, .section-heading input { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #d9d9d9; border-radius: 9px; background: white; }
+.submit-button { min-height: 46px; border: 0; border-radius: 9px; background: var(--glam-black); color: white; cursor: pointer; }
+.submit-button:disabled { opacity: .5; cursor: not-allowed; }
+.auth-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+.auth-links button { padding: 0; text-decoration: underline; }
+.notice, .status-message, .error-message { width: min(100% - 36px, var(--glam-max-width)); margin: 18px auto; color: var(--glam-muted); font-size: 13px; }
+.error-message { color: #b00020; }
+@media (max-width: 850px) { .product-grid, .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .main-nav { gap: 10px; }
+  .main-nav button, .main-nav a { font-size: 11px; }
+  .welcome-hero { min-height: 320px; }
+  .product-grid, .service-grid { grid-template-columns: 1fr; }
+  .product-image { height: 220px; }
+  .auth-panel { padding: 22px; }
+}
