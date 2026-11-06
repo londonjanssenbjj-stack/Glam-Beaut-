@@ -39,3 +39,17 @@ export async function createCustomerOrder(
     status: string;
   };
 }
+
+export async function startMercadoPagoCheckout(orderId: string): Promise<string> {
+  const { data, error } = await supabase.functions.invoke("create-payment", {
+    body: { order_id: orderId },
+  });
+  if (error) throw error;
+  const checkoutUrl = data?.checkout_url;
+  if (typeof checkoutUrl !== "string") throw new Error("O provedor não retornou o endereço de pagamento.");
+  const parsed = new URL(checkoutUrl);
+  if (parsed.protocol !== "https:" || !/(^|\\.)mercadopago\\.com(\\.br)?$/.test(parsed.hostname)) {
+    throw new Error("Endereço de pagamento inválido.");
+  }
+  return checkoutUrl;
+}
