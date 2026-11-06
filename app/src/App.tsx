@@ -35,6 +35,13 @@ export default function App() {
   const [address, setAddress] = useState({ recipient_name: "", phone: "", postal_code: "", street: "", number: "", complement: "", neighborhood: "", reference: "" });
 
   useEffect(() => {
+    const result = new URLSearchParams(window.location.search).get("payment");
+    if (result === "success") setMessage("Retorno do Mercado Pago recebido. Estamos aguardando a confirmação segura do pagamento.");
+    else if (result === "pending") setMessage("Seu pagamento está em processamento. O pedido será atualizado após a confirmação do Mercado Pago.");
+    else if (result === "failure") setMessage("O pagamento não foi confirmado. Você pode tentar novamente em Minha conta.");
+  }, []);
+
+  useEffect(() => {
     try {
       const saved = localStorage.getItem("glam-cart-v1");
       if (saved) { const parsed = JSON.parse(saved) as CartLine[]; setCart(Array.isArray(parsed) ? parsed.filter(line => line?.product?.id && line?.variant?.id && Number.isInteger(line.quantity) && line.quantity > 0) : []); }
