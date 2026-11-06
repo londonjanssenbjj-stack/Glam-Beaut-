@@ -4,7 +4,7 @@ import { loadAdminData, saveAdminProduct, saveAdminService, setProductActive, se
 import type { AdminAppointment, AdminOrder, AdminProduct, AdminService } from "../types/admin";
 import type { DbCategory } from "../types/database";
 
-type Tab = "products" | "services" | "orders" | "appointments";
+type Tab = "products" | "services" | "orders" | "appointments" | "customers" | "inventory";
 
 const emptyProduct = { category_id: "", name: "", slug: "", description: "", price: "0", image_url: "", is_active: false, is_featured: false };
 const emptyService = { name: "", slug: "", description: "", price: "", duration_minutes: "", is_active: false };
@@ -15,7 +15,7 @@ export function AdminDashboard() {
   const [services, setServices] = useState<AdminService[]>([]);
   const [categories, setCategories] = useState<DbCategory[]>([]);
   const [orders, setOrders] = useState<AdminOrder[]>([]);
-  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);
+  const [appointments, setAppointments] = useState<AdminAppointment[]>([]);\n  const [customers, setCustomers] = useState<import("../types/admin").AdminProfile[]>([]);\n  const [inventory, setInventory] = useState<import("../types/admin").AdminInventoryItem[]>([]);
   const [productForm, setProductForm] = useState(emptyProduct);
   const [serviceForm, setServiceForm] = useState(emptyService);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export function AdminDashboard() {
     try {
       const data = await loadAdminData();
       setProducts(data.products); setServices(data.services); setCategories(data.categories);
-      setOrders(data.orders); setAppointments(data.appointments);
+      setOrders(data.orders); setAppointments(data.appointments); setCustomers(data.profiles); setInventory(data.inventory);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Não foi possível carregar os dados administrativos.");
     } finally { setLoading(false); }
@@ -101,7 +101,7 @@ export function AdminDashboard() {
   return <section className="admin-panel">
     <div className="admin-heading"><div><p className="eyebrow">GESTÃO GLAM</p><h2>Painel administrativo</h2></div><button onClick={() => void refresh()}>Atualizar dados</button></div>
     <div className="admin-tabs" role="tablist">
-      {([["products","Produtos"],["services","Serviços"],["orders","Pedidos"],["appointments","Agendamentos"]] as const).map(([key,label]) =>
+      {([["products","Produtos"],["services","Serviços"],["orders","Pedidos"],["appointments","Agendamentos"],["customers","Clientes"],["inventory","Estoque"]] as const).map(([key,label]) =>
         <button key={key} role="tab" aria-selected={tab === key} className={tab === key ? "active" : ""} onClick={() => setTab(key)}>{label}</button>)}
     </div>
     {error && <p className="error-message" role="alert">{error}</p>}
@@ -141,6 +141,8 @@ export function AdminDashboard() {
       </div>}
       {tab === "orders" && <div className="admin-list"><h3>Pedidos recentes ({orders.length})</h3>{orders.length ? orders.map(item=><article className="admin-row" key={item.id}><div><strong>{item.order_number}</strong><small>{new Date(item.created_at).toLocaleString("pt-BR")} · {item.status} · pagamento {item.payment_status}</small></div><strong>{formatCurrency(Number(item.total))}</strong></article>) : <p>Nenhum pedido registrado.</p>}</div>}
       {tab === "appointments" && <div className="admin-list"><h3>Agendamentos ({appointments.length})</h3>{appointments.length ? appointments.map(item=><article className="admin-row" key={item.id}><div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")} · {item.status}</small></div><small>{item.customer_id.slice(0,8)}…</small></article>) : <p>Nenhum agendamento registrado.</p>}</div>}
+      {tab === "customers" && <div className="admin-list"><h3>Clientes cadastrados ({customers.length})</h3>{customers.length ? customers.map(item=><article className="admin-row" key={item.id}><div><strong>{item.full_name || "Nome não informado"}</strong><small>{item.email ?? "Sem e-mail"} · {item.phone ?? "Sem telefone"}</small></div><small>{item.id.slice(0,8)}…</small></article>) : <p>Nenhum cliente cadastrado.</p>}</div>}
+      {tab === "inventory" && <div className="admin-list"><h3>Posição de estoque ({inventory.length} variações)</h3><p>Consulta somente leitura. Ajustes serão liberados após ativação da rotina transacional segura no banco.</p>{inventory.length ? inventory.map(item=><article className="admin-row" key={item.variant_id}><div><strong>{item.product_variants?.products?.name ?? "Produto"} — {item.product_variants?.name ?? "Variação"}</strong><small>SKU: {item.product_variants?.sku ?? "Não informado"}</small></div><strong>{item.quantity} un.</strong></article>) : <p>Nenhum estoque cadastrado.</p>}</div>}
     </>}
   </section>;
 }
