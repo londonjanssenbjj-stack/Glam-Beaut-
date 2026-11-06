@@ -47,9 +47,9 @@ Antes de implantá-las, configure os segredos no projeto Supabase **Glam Beaut**
 | `SUPABASE_SERVICE_ROLE_KEY` | Acesso privilegiado apenas no servidor |
 | `APP_SITE_URL` | URL HTTPS da aplicação React publicada |
 | `MERCADO_PAGO_WEBHOOK_URL` | URL HTTPS da função `mercadopago-webhook` |
-| `APP_ORIGIN` | Opcional; origem permitida no CORS, se diferente de APP_SITE_URL |
+| `APP_ORIGIN` | Obrigatório; origem exata do navegador, somente protocolo + domínio (ex.: `https://seusite.com`) |
 
-Configure os valores em Supabase Dashboard > Edge Functions > Secrets. Não os envie pelo chat, não os grave no Git e não os exponha no frontend.
+Configure os valores em Supabase Dashboard > Edge Functions > Secrets. `APP_SITE_URL` é a URL completa da aplicação (pode conter caminho); `APP_ORIGIN` deve conter somente a origem do navegador, sem caminho ou barra final. Não os envie pelo chat, não os grave no Git e não os exponha no frontend.
 
 ### Implantação (somente após configurar os segredos)
 
