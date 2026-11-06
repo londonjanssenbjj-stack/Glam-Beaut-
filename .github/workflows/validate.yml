@@ -6,7 +6,7 @@ on:
       - fase-2-estrutura
   pull_request:
     branches:
-      - fase-2-estrutura
+      - main
 
 permissions:
   contents: read
