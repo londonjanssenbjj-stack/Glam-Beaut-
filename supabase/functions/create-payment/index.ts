@@ -1,8 +1,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2.119.0";
 
+const allowedOrigin = Deno.env.get("APP_ORIGIN") ?? "";
 const cors = {
-  "Access-Control-Allow-Origin": Deno.env.get("APP_SITE_URL") ?? Deno.env.get("APP_ORIGIN") ?? "",
+  "Access-Control-Allow-Origin": allowedOrigin,
   "Access-Control-Allow-Headers": "authorization, apikey, content-type, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Content-Type": "application/json",
@@ -14,6 +15,7 @@ function reply(status: number, body: Record<string, unknown>) {
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
+  if (!allowedOrigin || req.headers.get("Origin") !== allowedOrigin) return reply(403, { error: "Origem não autorizada." });
   if (req.method !== "POST") return reply(405, { error: "Método não permitido." });
 
   try {
@@ -57,6 +59,7 @@ Deno.serve(async (req: Request) => {
       .select("preference_id,checkout_url,status")
       .eq("order_id", order.id)
       .maybeSingle();
+    if (existingError) throw existingError;
     if (existing?.checkout_url && existing.status === "pending") {
       return reply(200, { checkout_url: existing.checkout_url, preference_id: existing.preference_id });
     }
