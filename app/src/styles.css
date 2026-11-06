@@ -150,3 +150,9 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(36px, 6vw, 68px); line-height
 .checkout-form label { display:grid; gap:6px; font-size:13px; font-weight:600; }
 .checkout-form input, .checkout-form select { width:100%; min-height:42px; padding:9px 11px; border:1px solid var(--glam-line); border-radius:8px; background:white; color:inherit; font:inherit; }
 .checkout-form .submit-button { width:100%; }
+
+
+.admin-row-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.admin-row-actions select,
+.admin-row > select { min-height:38px; max-width:220px; padding:7px 10px; border:1px solid var(--glam-line); border-radius:8px; background:#fff; color:inherit; font:inherit; }
+.admin-row select:disabled { opacity:.6; cursor:wait; }
