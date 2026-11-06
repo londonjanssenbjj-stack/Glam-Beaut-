@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../lib/supabase";
 import { formatCurrency } from "../lib/format";
 
@@ -23,7 +23,7 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
   const [orders, setOrders] = useState<CustomerOrder[]>([]);
   const [appointments, setAppointments] = useState<CustomerAppointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("");\n  const [birthDate, setBirthDate] = useState("");\n  const [birthdaySaving, setBirthdaySaving] = useState(false);\n  const [birthdayNotice, setBirthdayNotice] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -31,7 +31,7 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
       setLoading(true);
       setError("");
       try {
-        const [orderResult, appointmentResult] = await Promise.all([
+        const [orderResult, appointmentResult, birthdayResult] = await Promise.all([
           supabase.from("orders")
             .select("id,order_number,status,payment_status,total,created_at")
             .eq("customer_id", userId)
@@ -44,10 +44,10 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
             .limit(50),
         ]);
         if (orderResult.error) throw orderResult.error;
-        if (appointmentResult.error) throw appointmentResult.error;
+        if (appointmentResult.error) throw appointmentResult.error;\n        if (birthdayResult.error) throw birthdayResult.error;
         if (active) {
           setOrders((orderResult.data ?? []) as CustomerOrder[]);
-          setAppointments((appointmentResult.data ?? []) as CustomerAppointment[]);
+          setAppointments((appointmentResult.data ?? []) as CustomerAppointment[]);\n          setBirthDate(birthdayResult.data?.birth_date ?? "");
         }
       } catch (cause) {
         if (active) setError(cause instanceof Error ? cause.message : "Não foi possível carregar seu histórico.");
@@ -59,14 +59,14 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
     return () => { active = false; };
   }, [userId]);
 
-  return <section className="customer-account">
+  async function saveBirthday(event: FormEvent) {\n    event.preventDefault(); setBirthdaySaving(true); setError(""); setBirthdayNotice("");\n    try {\n      const { error } = await supabase.from("customer_birthdays").upsert({ customer_id: userId, birth_date: birthDate, updated_at: new Date().toISOString() }, { onConflict: "customer_id" });\n      if (error) throw error;\n      setBirthdayNotice("Data de nascimento salva.");\n    } catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível salvar a data."); }\n    finally { setBirthdaySaving(false); }\n  }\n\n  return <section className="customer-account">
     <div className="account-heading">
       <p className="eyebrow">ÁREA DO CLIENTE</p>
       <h2>Olá, {fullName || "Cliente"}</h2>
       <p>Acompanhe seus pedidos e solicitações de horário.</p>
     </div>
     {error && <p className="error-message" role="alert">{error}</p>}
-    {loading ? <p className="status-message">Carregando seu histórico…</p> : <>
+    <form className="admin-form birthday-form" onSubmit={saveBirthday}>\n      <h3>Meu aniversário</h3>\n      <p>Cadastre sua data para receber informações sobre benefícios de aniversário da loja.</p>\n      <label>Data de nascimento<input type="date" required max={new Date().toLocaleDateString("en-CA")} value={birthDate} onChange={e=>setBirthDate(e.target.value)}/></label>\n      <button className="submit-button" disabled={birthdaySaving || !birthDate}>{birthdaySaving ? "Salvando…" : "Salvar aniversário"}</button>\n      {birthdayNotice && <p className="notice" role="status">{birthdayNotice}</p>}\n    </form>\n    {loading ? <p className="status-message">Carregando seu histórico…</p> : <>
       <div className="account-history">
         <div className="admin-list">
           <h3>Meus pedidos ({orders.length})</h3>
