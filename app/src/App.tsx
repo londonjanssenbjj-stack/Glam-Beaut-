@@ -5,11 +5,14 @@ import { supabaseConfigured } from "./lib/supabase";
 import { getPublicCatalog, testSupabaseConnection } from "./services/catalogService";
 import { formatCurrency } from "./lib/format";
 import type { DbProduct, DbService } from "./types/database";
+type CartLine = { product: DbProduct; quantity: number };
 
 export default function App() {
   const auth = useAuth();
   const [view, setView] = useState("loja");
   const [products, setProducts] = useState<DbProduct[]>([]);
+  const [cart, setCart] = useState<CartLine[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
   const [services, setServices] = useState<DbService[]>([]);
   const [connection, setConnection] = useState("Verificando conexão…");
   const [message, setMessage] = useState("");
@@ -18,6 +21,15 @@ export default function App() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("glam-cart-v1");
+      if (saved) setCart(JSON.parse(saved) as CartLine[]);
+    } catch { localStorage.removeItem("glam-cart-v1"); }
+  }, []);
+
+  useEffect(() => { localStorage.setItem("glam-cart-v1", JSON.stringify(cart)); }, [cart]);
 
   useEffect(() => {
     let alive = true;
@@ -33,6 +45,21 @@ export default function App() {
     if (auth.user) setView("conta");
     else if (view === "conta" || view === "admin") setView("loja");
   }, [auth.user]);
+
+  function addToCart(product: DbProduct) {
+    setCart(current => {
+      const existing = current.find(line => line.product.id === product.id);
+      return existing
+        ? current.map(line => line.product.id === product.id ? { ...line, quantity: line.quantity + 1 } : line)
+        : [...current, { product, quantity: 1 }];
+    });
+    setCartOpen(true);
+  }
+  function changeQuantity(productId: string, quantity: number) {
+    setCart(current => quantity < 1 ? current.filter(line => line.product.id !== productId) : current.map(line => line.product.id === productId ? { ...line, quantity } : line));
+  }
+  const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
+  const cartTotal = cart.reduce((sum, line) => sum + Number(line.product.price) * line.quantity, 0);
 
   async function submit(e: FormEvent) {
     e.preventDefault(); setBusy(true); setMessage("");
@@ -51,6 +78,7 @@ export default function App() {
       <a className="brand" href="#inicio" onClick={() => setView("loja")}>glam<span>.</span></a>
       <nav className="main-nav">
         <button onClick={() => setView("loja")}>Loja</button>
+        <button onClick={() => setCartOpen(true)}>Sacola ({cartCount})</button>
         <a href="#servicos">Serviços</a>
         {auth.user ? <>
           <button onClick={() => setView("conta")}>Minha conta</button>
@@ -70,7 +98,7 @@ export default function App() {
       <section className="catalog-section"><p className="eyebrow">CURADORIA GLAM</p><h2>Produtos</h2>
         <div className="product-grid">{products.length ? products.map(p => <article className="product-card" key={p.id}>
           <div className="product-image">{p.image_url ? <img src={p.image_url} alt={p.name}/> : <span>GLAM BEAUT</span>}</div>
-          <h3>{p.name}</h3><p>{p.description}</p><strong>{formatCurrency(Number(p.price))}</strong>
+          <h3>{p.name}</h3><p>{p.description}</p><strong>{formatCurrency(Number(p.price))}</strong><button className="add-cart-button" onClick={() => addToCart(p)}>Adicionar à sacola</button>
         </article>) : <p>Nenhum produto ativo no momento.</p>}</div>
       </section>
       <section className="catalog-section" id="servicos"><p className="eyebrow">CUIDADO E BEM-ESTAR</p><h2>Serviços</h2>
@@ -79,6 +107,7 @@ export default function App() {
         </article>) : <p>Serviços serão exibidos quando estiverem ativos.</p>}</div>
       </section>
     </>}
+    {cartOpen && <div className="cart-backdrop" role="presentation" onClick={() => setCartOpen(false)}><aside className="cart-drawer" role="dialog" aria-modal="true" aria-label="Sacola de compras" onClick={e => e.stopPropagation()}><div className="cart-title"><h2>Sua sacola ({cartCount})</h2><button onClick={() => setCartOpen(false)} aria-label="Fechar sacola">×</button></div>{cart.length ? <>{cart.map(line => <article className="cart-line" key={line.product.id}><div><strong>{line.product.name}</strong><small>{formatCurrency(Number(line.product.price))} cada</small></div><div className="quantity-control"><button onClick={() => changeQuantity(line.product.id, line.quantity - 1)}>−</button><span>{line.quantity}</span><button onClick={() => changeQuantity(line.product.id, line.quantity + 1)}>+</button></div><strong>{formatCurrency(Number(line.product.price) * line.quantity)}</strong></article>)}<div className="cart-total"><span>Subtotal</span><strong>{formatCurrency(cartTotal)}</strong></div><p className="cart-note">O checkout será habilitado após a validação segura de estoque e preços no servidor.</p><button className="submit-button" disabled>Finalizar compra — em implementação</button></> : <p>Sua sacola está vazia.</p>}</aside></div>}
     {["login","cadastro","recuperar"].includes(view) && <section className="auth-panel">
       <p className="eyebrow">ÁREA DO CLIENTE</p><h2>{view === "login" ? "Entrar" : view === "cadastro" ? "Criar cadastro" : "Recuperar senha"}</h2>
       <form onSubmit={submit}>
