@@ -32,3 +32,9 @@ jobs:
 
       - name: Gerar build de produção
         run: npm run build
+
+      - name: Configurar Deno para validar Edge Functions
+        uses: denoland/setup-deno@v2
+
+      - name: Verificar Edge Functions
+        run: deno check supabase/functions/create-payment/index.ts supabase/functions/mercadopago-webhook/index.ts
