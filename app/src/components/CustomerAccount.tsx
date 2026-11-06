@@ -23,7 +23,10 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
   const [orders, setOrders] = useState<CustomerOrder[]>([]);
   const [appointments, setAppointments] = useState<CustomerAppointment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");\n  const [birthDate, setBirthDate] = useState("");\n  const [birthdaySaving, setBirthdaySaving] = useState(false);\n  const [birthdayNotice, setBirthdayNotice] = useState("");
+  const [error, setError] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [birthdaySaving, setBirthdaySaving] = useState(false);
+  const [birthdayNotice, setBirthdayNotice] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -45,10 +48,12 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
           supabase.from("customer_birthdays").select("birth_date").eq("customer_id", userId).maybeSingle(),
         ]);
         if (orderResult.error) throw orderResult.error;
-        if (appointmentResult.error) throw appointmentResult.error;\n        if (birthdayResult.error) throw birthdayResult.error;
+        if (appointmentResult.error) throw appointmentResult.error;
+        if (birthdayResult.error) throw birthdayResult.error;
         if (active) {
           setOrders((orderResult.data ?? []) as CustomerOrder[]);
-          setAppointments((appointmentResult.data ?? []) as CustomerAppointment[]);\n          setBirthDate(birthdayResult.data?.birth_date ?? "");
+          setAppointments((appointmentResult.data ?? []) as CustomerAppointment[]);
+          setBirthDate(birthdayResult.data?.birth_date ?? "");
         }
       } catch (cause) {
         if (active) setError(cause instanceof Error ? cause.message : "Não foi possível carregar seu histórico.");
@@ -60,14 +65,31 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
     return () => { active = false; };
   }, [userId]);
 
-  async function saveBirthday(event: FormEvent) {\n    event.preventDefault(); setBirthdaySaving(true); setError(""); setBirthdayNotice("");\n    try {\n      const { error } = await supabase.from("customer_birthdays").upsert({ customer_id: userId, birth_date: birthDate, updated_at: new Date().toISOString() }, { onConflict: "customer_id" });\n      if (error) throw error;\n      setBirthdayNotice("Data de nascimento salva.");\n    } catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível salvar a data."); }\n    finally { setBirthdaySaving(false); }\n  }\n\n  return <section className="customer-account">
+  async function saveBirthday(event: FormEvent) {
+    event.preventDefault(); setBirthdaySaving(true); setError(""); setBirthdayNotice("");
+    try {
+      const { error } = await supabase.from("customer_birthdays").upsert({ customer_id: userId, birth_date: birthDate, updated_at: new Date().toISOString() }, { onConflict: "customer_id" });
+      if (error) throw error;
+      setBirthdayNotice("Data de nascimento salva.");
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Não foi possível salvar a data."); }
+    finally { setBirthdaySaving(false); }
+  }
+
+  return <section className="customer-account">
     <div className="account-heading">
       <p className="eyebrow">ÁREA DO CLIENTE</p>
       <h2>Olá, {fullName || "Cliente"}</h2>
       <p>Acompanhe seus pedidos e solicitações de horário.</p>
     </div>
     {error && <p className="error-message" role="alert">{error}</p>}
-    <form className="admin-form birthday-form" onSubmit={saveBirthday}>\n      <h3>Meu aniversário</h3>\n      <p>Cadastre sua data para receber informações sobre benefícios de aniversário da loja.</p>\n      <label>Data de nascimento<input type="date" required max={new Date().toLocaleDateString("en-CA")} value={birthDate} onChange={e=>setBirthDate(e.target.value)}/></label>\n      <button className="submit-button" disabled={birthdaySaving || !birthDate}>{birthdaySaving ? "Salvando…" : "Salvar aniversário"}</button>\n      {birthdayNotice && <p className="notice" role="status">{birthdayNotice}</p>}\n    </form>\n    {loading ? <p className="status-message">Carregando seu histórico…</p> : <>
+    <form className="admin-form birthday-form" onSubmit={saveBirthday}>
+      <h3>Meu aniversário</h3>
+      <p>Cadastre sua data para receber informações sobre benefícios de aniversário da loja.</p>
+      <label>Data de nascimento<input type="date" required max={new Date().toLocaleDateString("en-CA")} value={birthDate} onChange={e=>setBirthDate(e.target.value)}/></label>
+      <button className="submit-button" disabled={birthdaySaving || !birthDate}>{birthdaySaving ? "Salvando…" : "Salvar aniversário"}</button>
+      {birthdayNotice && <p className="notice" role="status">{birthdayNotice}</p>}
+    </form>
+    {loading ? <p className="status-message">Carregando seu histórico…</p> : <>
       <div className="account-history">
         <div className="admin-list">
           <h3>Meus pedidos ({orders.length})</h3>
