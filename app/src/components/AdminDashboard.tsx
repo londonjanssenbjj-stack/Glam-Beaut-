@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { formatCurrency } from "../lib/format";
-import { loadAdminData, saveAdminProduct, saveAdminService, saveAdminVariant, adjustInventory, setProductActive, setServiceActive, setVariantActive } from "../services/adminService";
+import { loadAdminData, saveAdminProduct, saveAdminService, saveAdminVariant, adjustInventory, setProductActive, setServiceActive, setVariantActive, updateAdminOrderStatus, updateAdminAppointmentStatus } from "../services/adminService";
 import type { AdminAppointment, AdminOrder, AdminProduct, AdminService, AdminVariant } from "../types/admin";
 import type { DbCategory } from "../types/database";
 
@@ -119,6 +119,30 @@ export function AdminDashboard() {
     catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao atualizar variação."); }
   }
 
+  async function changeOrderStatus(item: AdminOrder, status: string) {
+    if (status === item.status) return;
+    setSaving(true); setError(""); setNotice("");
+    try {
+      await updateAdminOrderStatus(item.id, status);
+      setNotice("Status do pedido " + item.order_number + " atualizado.");
+      await refresh();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Falha ao atualizar pedido.");
+    } finally { setSaving(false); }
+  }
+
+  async function changeAppointmentStatus(item: AdminAppointment, status: string) {
+    if (status === item.status) return;
+    setSaving(true); setError(""); setNotice("");
+    try {
+      await updateAdminAppointmentStatus(item.id, status);
+      setNotice("Status do agendamento atualizado.");
+      await refresh();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Falha ao atualizar agendamento.");
+    } finally { setSaving(false); }
+  }
+
   async function toggleService(item: AdminService) {
     try { await setServiceActive(item.id, !item.is_active); setNotice("Situação do serviço atualizada."); await refresh(); }
     catch (cause) { setError(cause instanceof Error ? cause.message : "Falha ao atualizar serviço."); }
@@ -165,8 +189,8 @@ export function AdminDashboard() {
           {services.map(item=><article className="admin-row" key={item.id}><div><strong>{item.name}</strong><small>{item.price === null ? "Consultar valor" : formatCurrency(Number(item.price))} · {item.is_active ? "Ativo" : "Inativo"}</small></div><div><button onClick={()=>editService(item)}>Editar</button><button onClick={()=>void toggleService(item)}>{item.is_active ? "Desativar" : "Ativar"}</button></div></article>)}
         </div>
       </div>}
-      {tab === "orders" && <div className="admin-list"><h3>Pedidos recentes ({orders.length})</h3>{orders.length ? orders.map(item=><article className="admin-row" key={item.id}><div><strong>{item.order_number}</strong><small>{new Date(item.created_at).toLocaleString("pt-BR")} · {item.status} · pagamento {item.payment_status}</small></div><strong>{formatCurrency(Number(item.total))}</strong></article>) : <p>Nenhum pedido registrado.</p>}</div>}
-      {tab === "appointments" && <div className="admin-list"><h3>Agendamentos ({appointments.length})</h3>{appointments.length ? appointments.map(item=><article className="admin-row" key={item.id}><div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")} · {item.status}</small></div><small>{item.customer_id.slice(0,8)}…</small></article>) : <p>Nenhum agendamento registrado.</p>}</div>}
+      {tab === "orders" && <div className="admin-list"><h3>Pedidos recentes ({orders.length})</h3>{orders.length ? orders.map(item=><article className="admin-row" key={item.id}><div><strong>{item.order_number}</strong><small>{new Date(item.created_at).toLocaleString("pt-BR")} · pagamento {item.payment_status}</small></div><div className="admin-row-actions"><strong>{formatCurrency(Number(item.total))}</strong><select aria-label={"Status do pedido " + item.order_number} value={item.status} disabled={saving} onChange={e=>void changeOrderStatus(item,e.target.value)}><option value="pending">Pendente</option><option value="confirmed">Confirmado</option><option value="processing">Em preparação</option><option value="shipped">Enviado</option><option value="ready_for_pickup">Pronto para retirada</option><option value="completed">Concluído</option><option value="cancelled">Cancelado</option><option value="refunded">Reembolsado</option></select></div></article>) : <p>Nenhum pedido registrado.</p>}</div>}
+      {tab === "appointments" && <div className="admin-list"><h3>Agendamentos ({appointments.length})</h3>{appointments.length ? appointments.map(item=><article className="admin-row" key={item.id}><div><strong>{item.service_name}</strong><small>{new Date(item.starts_at).toLocaleString("pt-BR")}</small></div><select aria-label={"Status do agendamento " + item.service_name} value={item.status} disabled={saving} onChange={e=>void changeAppointmentStatus(item,e.target.value)}><option value="requested">Solicitado</option><option value="confirmed">Confirmado</option><option value="completed">Concluído</option><option value="cancelled">Cancelado</option><option value="no_show">Não compareceu</option></select></article>) : <p>Nenhum agendamento registrado.</p>}</div>}
       {tab === "customers" && <div className="admin-list"><h3>Clientes cadastrados ({customers.length})</h3>{customers.length ? customers.map(item=><article className="admin-row" key={item.id}><div><strong>{item.full_name || "Nome não informado"}</strong><small>{item.email ?? "Sem e-mail"} · {item.phone ?? "Sem telefone"}</small></div><small>{item.id.slice(0,8)}…</small></article>) : <p>Nenhum cliente cadastrado.</p>}</div>}
       {tab === "variants" && <div className="admin-columns"><form className="admin-form" onSubmit={submitVariant}><h3>Nova variação</h3><label>Produto<select required value={variantForm.product_id} onChange={e=>setVariantForm({...variantForm,product_id:e.target.value})}><option value="">Selecione</option>{products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label><label>Nome da variação<input required placeholder="Ex.: 100 ml, P, cor preta" value={variantForm.name} onChange={e=>setVariantForm({...variantForm,name:e.target.value})}/></label><label>SKU<input value={variantForm.sku} onChange={e=>setVariantForm({...variantForm,sku:e.target.value})}/></label><label>Preço específico (opcional)<input type="number" min="0" step="0.01" value={variantForm.price_override} onChange={e=>setVariantForm({...variantForm,price_override:e.target.value})}/></label><button className="submit-button" disabled={saving || products.length===0}>{saving ? "Salvando…" : "Cadastrar variação"}</button></form><div className="admin-list"><h3>Variações cadastradas ({variants.length})</h3>{variants.map(item=><article className="admin-row" key={item.id}><div><strong>{products.find(p=>p.id===item.product_id)?.name ?? "Produto"} — {item.name}</strong><small>{item.sku ?? "Sem SKU"} · {item.price_override===null ? "Preço do produto" : formatCurrency(Number(item.price_override))} · {item.is_active ? "Ativa" : "Inativa"}</small></div><button onClick={()=>void toggleVariant(item)}>{item.is_active ? "Desativar" : "Ativar"}</button></article>)}</div></div>}
       {tab === "inventory" && <div className="admin-columns"><form className="admin-form" onSubmit={submitStock}><h3>Movimentar estoque</h3><label>Variação<select required value={stockForm.variant_id} onChange={e=>setStockForm({...stockForm,variant_id:e.target.value})}><option value="">Selecione</option>{variants.map(v=><option key={v.id} value={v.id}>{products.find(p=>p.id===v.product_id)?.name ?? "Produto"} — {v.name}</option>)}</select></label><label>Quantidade (+ entrada / − saída)<input required type="number" step="1" value={stockForm.quantity} onChange={e=>setStockForm({...stockForm,quantity:e.target.value})}/></label><label>Observação<input value={stockForm.note} onChange={e=>setStockForm({...stockForm,note:e.target.value})}/></label><button className="submit-button" disabled={saving || variants.length===0}>{saving ? "Registrando…" : "Registrar movimentação"}</button></form><div className="admin-list"><h3>Posição de estoque ({inventory.length} variações)</h3>{inventory.length ? inventory.map(item=><article className="admin-row" key={item.variant_id}><div><strong>{item.product_variants?.products?.name ?? "Produto"} — {item.product_variants?.name ?? "Variação"}</strong><small>SKU: {item.product_variants?.sku ?? "Não informado"}</small></div><strong>{item.quantity} un.</strong></article>) : <p>Nenhum estoque cadastrado.</p>}</div></div>}
