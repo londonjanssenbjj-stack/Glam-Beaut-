@@ -60,3 +60,13 @@ export async function setVariantActive(id: string, isActive: boolean) {
   const { error } = await supabase.from("product_variants").update({ is_active: isActive }).eq("id", id);
   if (error) throw error;
 }
+
+export async function adjustInventory(variantId: string, quantity: number, note: string) {
+  const { data, error } = await supabase.rpc("admin_adjust_inventory", {
+    p_variant_id: variantId,
+    p_quantity: quantity,
+    p_note: note.trim() || null,
+  });
+  if (error) throw error;
+  return Number(data);
+}
