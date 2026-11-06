@@ -156,3 +156,9 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(36px, 6vw, 68px); line-height
 .admin-row-actions select,
 .admin-row > select { min-height:38px; max-width:220px; padding:7px 10px; border:1px solid var(--glam-line); border-radius:8px; background:#fff; color:inherit; font:inherit; }
 .admin-row select:disabled { opacity:.6; cursor:wait; }
+
+.admin-commercial { display:grid; gap:22px; }
+.admin-commercial h2 { margin:0 0 8px; }
+.admin-commercial .admin-columns { align-items:start; }
+.admin-commercial .admin-row { align-items:flex-start; }
+.admin-commercial .admin-row small { max-width:420px; overflow-wrap:anywhere; }
