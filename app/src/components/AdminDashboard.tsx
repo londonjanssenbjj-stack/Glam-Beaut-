@@ -4,8 +4,9 @@ import { loadAdminData, saveAdminProduct, saveAdminService, saveAdminVariant, ad
 import type { AdminAppointment, AdminOrder, AdminProduct, AdminService, AdminVariant } from "../types/admin";
 import type { DbCategory } from "../types/database";
 import { AdminCommercialSettings } from "./AdminCommercialSettings";
+import { AdminBirthdays } from "./AdminBirthdays";
 
-type Tab = "products" | "services" | "orders" | "appointments" | "customers" | "inventory" | "variants" | "commercial";
+type Tab = "products" | "services" | "orders" | "appointments" | "customers" | "inventory" | "variants" | "commercial" | "birthdays";
 
 const emptyProduct = { category_id: "", name: "", slug: "", description: "", price: "0", image_url: "", is_active: false, is_featured: false };
 const emptyService = { name: "", slug: "", description: "", price: "", duration_minutes: "", is_active: false };
@@ -152,13 +153,13 @@ export function AdminDashboard() {
   return <section className="admin-panel">
     <div className="admin-heading"><div><p className="eyebrow">GESTÃO GLAM</p><h2>Painel administrativo</h2></div><button onClick={() => void refresh()}>Atualizar dados</button></div>
     <div className="admin-tabs" role="tablist">
-      {([["products","Produtos"],["services","Serviços"],["orders","Pedidos"],["appointments","Agendamentos"],["customers","Clientes"],["variants","Variações"],["inventory","Estoque"],["commercial","Cupons e entregas"]] as const).map(([key,label]) =>
+      {([["products","Produtos"],["services","Serviços"],["orders","Pedidos"],["appointments","Agendamentos"],["customers","Clientes"],["variants","Variações"],["inventory","Estoque"],["commercial","Cupons e entregas"],["birthdays","Aniversariantes"]] as const).map(([key,label]) =>
         <button key={key} role="tab" aria-selected={tab === key} className={tab === key ? "active" : ""} onClick={() => setTab(key)}>{label}</button>)}
     </div>
     {error && <p className="error-message" role="alert">{error}</p>}
     {notice && <p className="notice" role="status">{notice}</p>}
     {loading ? <p className="status-message">Carregando painel…</p> : <>
-      {tab === "commercial" && <AdminCommercialSettings />}
+      {tab === "commercial" && <AdminCommercialSettings />}\n      {tab === "birthdays" && <AdminBirthdays />}
       {tab === "products" && <div className="admin-columns">
         <form className="admin-form" onSubmit={submitProduct}>
           <h3>{editingProduct ? "Editar produto" : "Novo produto"}</h3>
