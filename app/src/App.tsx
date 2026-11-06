@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { AdminDashboard } from "./components/AdminDashboard";
+import { CustomerAccount } from "./components/CustomerAccount";
 import { supabaseConfigured } from "./lib/supabase";
 import { getPublicCatalog, testSupabaseConnection } from "./services/catalogService";
 import { formatCurrency } from "./lib/format";
@@ -173,7 +174,7 @@ export default function App() {
       </form>
       <div className="auth-links"><button onClick={() => setView("login")}>Entrar</button><button onClick={() => setView("cadastro")}>Criar conta</button><button onClick={() => setView("recuperar")}>Esqueci a senha</button></div>
     </section>}
-    {view === "conta" && auth.user && <section className="auth-panel"><h2>Olá, {auth.profile?.full_name || auth.user.email}</h2><p>Perfil: {auth.roles.includes("admin") ? "Administrador" : "Cliente"}</p><button onClick={() => auth.signOut()}>Sair da conta</button></section>}
+    {view === "conta" && auth.user && <><CustomerAccount userId={auth.user.id} fullName={auth.profile?.full_name || auth.user.email || "Cliente"} /><section className="auth-panel"><p>Perfil: {auth.roles.includes("admin") ? "Administrador" : "Cliente"}</p><button onClick={() => auth.signOut()}>Sair da conta</button></section></>}
     {view === "admin" && (auth.roles.includes("admin") ? <AdminDashboard /> : <section className="catalog-section"><h2>Acesso restrito</h2><p>Esta área é exclusiva para administradores.</p></section>)}
     <footer className="setup-footer">Glam Beleza Estética e Bem-estar · Corumbá — Mato Grosso do Sul</footer>
   </main>;
