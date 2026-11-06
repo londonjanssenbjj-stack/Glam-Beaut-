@@ -4,13 +4,14 @@ import { AdminDashboard } from "./components/AdminDashboard";
 import { supabaseConfigured } from "./lib/supabase";
 import { getPublicCatalog, testSupabaseConnection } from "./services/catalogService";
 import { formatCurrency } from "./lib/format";
-import type { DbProduct, DbService } from "./types/database";
-type CartLine = { product: DbProduct; quantity: number };
+import type { DbProduct, DbService, DbVariant } from "./types/database";
+import { createCustomerOrder } from "./services/orderService";
+type CartLine = { product: DbProduct; variant: DbVariant; quantity: number };
 
 export default function App() {
   const auth = useAuth();
   const [view, setView] = useState("loja");
-  const [products, setProducts] = useState<DbProduct[]>([]);
+  const [products, setProducts] = useState<DbProduct[]>([]);\n  const [variants, setVariants] = useState<DbVariant[]>([]);
   const [cart, setCart] = useState<CartLine[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [services, setServices] = useState<DbService[]>([]);
@@ -20,12 +21,12 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState(false);\n  const [checkoutOpen, setCheckoutOpen] = useState(false);\n  const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("pickup");\n  const [address, setAddress] = useState({ recipient_name: "", phone: "", postal_code: "", street: "", number: "", complement: "", neighborhood: "", reference: "" });
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("glam-cart-v1");
-      if (saved) setCart(JSON.parse(saved) as CartLine[]);
+      if (saved) { const parsed = JSON.parse(saved) as CartLine[]; setCart(Array.isArray(parsed) ? parsed.filter(line => line?.product?.id && line?.variant?.id && Number.isInteger(line.quantity) && line.quantity > 0) : []); }
     } catch { localStorage.removeItem("glam-cart-v1"); }
   }, []);
 
@@ -36,7 +37,7 @@ export default function App() {
     if (!supabaseConfigured) { setConnection("Configure as variáveis de ambiente."); return; }
     testSupabaseConnection().then(r => { if (alive) setConnection(r.message); });
     getPublicCatalog().then(data => {
-      if (alive) { setProducts(data.products); setServices(data.services); }
+      if (alive) { setProducts(data.products); setServices(data.services); setVariants(data.variants); }
     }).catch(e => { if (alive) setMessage(e instanceof Error ? e.message : "Falha ao carregar catálogo."); });
     return () => { alive = false; };
   }, []);
@@ -59,7 +60,7 @@ export default function App() {
     setCart(current => quantity < 1 ? current.filter(line => line.product.id !== productId) : current.map(line => line.product.id === productId ? { ...line, quantity } : line));
   }
   const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
-  const cartTotal = cart.reduce((sum, line) => sum + Number(line.product.price) * line.quantity, 0);
+  const cartTotal = cart.reduce((sum, line) => sum + Number(line.variant.price_override ?? line.product.price) * line.quantity, 0);\n\n  async function submitOrder(event: FormEvent) {\n    event.preventDefault();\n    if (!auth.user) { setMessage("Entre ou crie sua conta para concluir o pedido."); setCheckoutOpen(false); setCartOpen(false); setView("login"); return; }\n    setBusy(true); setMessage("");\n    try {\n      const result = await createCustomerOrder(\n        cart.map(line => ({ variant_id: line.variant.id, quantity: line.quantity })),\n        deliveryMethod,\n        deliveryMethod === "delivery" ? address : null,\n      );\n      setCart([]); setCheckoutOpen(false); setCartOpen(false);\n      setMessage("Pedido " + result.order_number + " registrado como pendente. Total validado no servidor: " + formatCurrency(Number(result.total)) + ".");\n    } catch (error) {\n      setMessage(error instanceof Error ? error.message : "Não foi possível registrar o pedido.");\n    } finally { setBusy(false); }\n  }
 
   async function submit(e: FormEvent) {
     e.preventDefault(); setBusy(true); setMessage("");
@@ -98,7 +99,7 @@ export default function App() {
       <section className="catalog-section"><p className="eyebrow">CURADORIA GLAM</p><h2>Produtos</h2>
         <div className="product-grid">{products.length ? products.map(p => <article className="product-card" key={p.id}>
           <div className="product-image">{p.image_url ? <img src={p.image_url} alt={p.name}/> : <span>GLAM BEAUT</span>}</div>
-          <h3>{p.name}</h3><p>{p.description}</p><strong>{formatCurrency(Number(p.price))}</strong><button className="add-cart-button" onClick={() => addToCart(p)}>Adicionar à sacola</button>
+          <h3>{p.name}</h3><p>{p.description}</p><strong>{formatCurrency(Number(p.price))}</strong><div className="variant-options">{variants.filter(v => v.product_id === p.id).map(v => <button className="add-cart-button" key={v.id} onClick={() => addToCart(p, v)}>Adicionar {v.name} · {formatCurrency(Number(v.price_override ?? p.price))}</button>)}</div>{!variants.some(v => v.product_id === p.id) && <p className="cart-note">Opções de compra indisponíveis no momento.</p>}
         </article>) : <p>Nenhum produto ativo no momento.</p>}</div>
       </section>
       <section className="catalog-section" id="servicos"><p className="eyebrow">CUIDADO E BEM-ESTAR</p><h2>Serviços</h2>
@@ -107,7 +108,7 @@ export default function App() {
         </article>) : <p>Serviços serão exibidos quando estiverem ativos.</p>}</div>
       </section>
     </>}
-    {cartOpen && <div className="cart-backdrop" role="presentation" onClick={() => setCartOpen(false)}><aside className="cart-drawer" role="dialog" aria-modal="true" aria-label="Sacola de compras" onClick={e => e.stopPropagation()}><div className="cart-title"><h2>Sua sacola ({cartCount})</h2><button onClick={() => setCartOpen(false)} aria-label="Fechar sacola">×</button></div>{cart.length ? <>{cart.map(line => <article className="cart-line" key={line.product.id}><div><strong>{line.product.name}</strong><small>{formatCurrency(Number(line.product.price))} cada</small></div><div className="quantity-control"><button onClick={() => changeQuantity(line.product.id, line.quantity - 1)}>−</button><span>{line.quantity}</span><button onClick={() => changeQuantity(line.product.id, line.quantity + 1)}>+</button></div><strong>{formatCurrency(Number(line.product.price) * line.quantity)}</strong></article>)}<div className="cart-total"><span>Subtotal</span><strong>{formatCurrency(cartTotal)}</strong></div><p className="cart-note">O checkout será habilitado após a validação segura de estoque e preços no servidor.</p><button className="submit-button" disabled>Finalizar compra — em implementação</button></> : <p>Sua sacola está vazia.</p>}</aside></div>}
+    {cartOpen && <div className="cart-backdrop" role="presentation" onClick={() => setCartOpen(false)}><aside className="cart-drawer" role="dialog" aria-modal="true" aria-label="Sacola de compras" onClick={e => e.stopPropagation()}><div className="cart-title"><h2>Sua sacola ({cartCount})</h2><button onClick={() => setCartOpen(false)} aria-label="Fechar sacola">×</button></div>{cart.length ? <>{cart.map(line => <article className="cart-line" key={line.variant.id}><div><strong>{line.product.name} — {line.variant.name}</strong><small>{formatCurrency(Number(line.variant.price_override ?? line.product.price))} cada</small></div><div className="quantity-control"><button onClick={() => changeQuantity(line.variant.id, line.quantity - 1)}>−</button><span>{line.quantity}</span><button onClick={() => changeQuantity(line.variant.id, line.quantity + 1)}>+</button></div><strong>{formatCurrency(Number(line.variant.price_override ?? line.product.price) * line.quantity)}</strong></article>)}<div className="cart-total"><span>Subtotal</span><strong>{formatCurrency(cartTotal)}</strong></div>{!checkoutOpen ? <button className="submit-button" onClick={() => setCheckoutOpen(true)}>Continuar para entrega e pagamento</button> : <form className="checkout-form" onSubmit={submitOrder}><h3>Finalizar pedido</h3><label>Receber como<select value={deliveryMethod} onChange={e => setDeliveryMethod(e.target.value as "delivery" | "pickup")}><option value="pickup">Retirar na loja</option><option value="delivery">Receber por entrega</option></select></label>{deliveryMethod === "delivery" && <><label>Nome de quem recebe<input required value={address.recipient_name} onChange={e=>setAddress({...address,recipient_name:e.target.value})}/></label><label>Telefone<input required value={address.phone} onChange={e=>setAddress({...address,phone:e.target.value})}/></label><label>CEP<input required value={address.postal_code} onChange={e=>setAddress({...address,postal_code:e.target.value})}/></label><label>Rua<input required value={address.street} onChange={e=>setAddress({...address,street:e.target.value})}/></label><label>Número<input required value={address.number} onChange={e=>setAddress({...address,number:e.target.value})}/></label><label>Complemento<input value={address.complement} onChange={e=>setAddress({...address,complement:e.target.value})}/></label><label>Bairro<input required value={address.neighborhood} onChange={e=>setAddress({...address,neighborhood:e.target.value})}/></label><label>Referência<input value={address.reference} onChange={e=>setAddress({...address,reference:e.target.value})}/></label></>}<p className="cart-note">O servidor recalcula preços, frete e estoque. O pedido ficará pendente até a confirmação do pagamento.</p><button className="submit-button" disabled={busy}>{busy ? "Registrando…" : "Registrar pedido"}</button></form>}</> : <p>Sua sacola está vazia.</p>}</aside></div>}
     {["login","cadastro","recuperar"].includes(view) && <section className="auth-panel">
       <p className="eyebrow">ÁREA DO CLIENTE</p><h2>{view === "login" ? "Entrar" : view === "cadastro" ? "Criar cadastro" : "Recuperar senha"}</h2>
       <form onSubmit={submit}>
