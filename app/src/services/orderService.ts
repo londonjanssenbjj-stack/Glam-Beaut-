@@ -48,7 +48,8 @@ export async function startMercadoPagoCheckout(orderId: string): Promise<string>
   const checkoutUrl = data?.checkout_url;
   if (typeof checkoutUrl !== "string") throw new Error("O provedor não retornou o endereço de pagamento.");
   const parsed = new URL(checkoutUrl);
-  if (parsed.protocol !== "https:" || !/(^|\\.)mercadopago\\.com(\\.br)?$/.test(parsed.hostname)) {
+  const trustedHost = parsed.hostname === "mercadopago.com.br" || parsed.hostname.endsWith(".mercadopago.com.br") || parsed.hostname === "mercadopago.com" || parsed.hostname.endsWith(".mercadopago.com");
+  if (parsed.protocol !== "https:" || !trustedHost) {
     throw new Error("Endereço de pagamento inválido.");
   }
   return checkoutUrl;
