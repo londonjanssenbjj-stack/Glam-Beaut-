@@ -1,4 +1,6 @@
-create extension if not exists btree_gist;
+create schema if not exists extensions;
+create extension if not exists btree_gist with schema extensions;
+alter extension btree_gist set schema extensions;
 
 alter table public.appointments
   add constraint appointments_no_active_overlap
