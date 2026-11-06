@@ -1,4 +1,4 @@
-create or replace function public.create_customer_order(
+create or replace function private.create_customer_order(
   p_items jsonb,
   p_delivery_method text,
   p_shipping_address jsonb default null
@@ -181,6 +181,23 @@ begin
   );
 end;
 $$;
+
+revoke all on function private.create_customer_order(jsonb, text, jsonb) from public, anon;
+grant usage on schema private to authenticated;
+grant execute on function private.create_customer_order(jsonb, text, jsonb) to authenticated;
+
+create or replace function public.create_customer_order(
+  p_items jsonb,
+  p_delivery_method text,
+  p_shipping_address jsonb default null
+)
+returns jsonb
+language sql
+security invoker
+set search_path = ''
+as $
+  select private.create_customer_order(p_items, p_delivery_method, p_shipping_address);
+$;
 
 revoke all on function public.create_customer_order(jsonb, text, jsonb) from public, anon;
 grant execute on function public.create_customer_order(jsonb, text, jsonb) to authenticated;
