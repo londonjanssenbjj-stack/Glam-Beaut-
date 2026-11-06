@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../lib/supabase";
 import { formatCurrency } from "../lib/format";
+import { startMercadoPagoCheckout } from "../services/orderService";
 
 interface CustomerOrder {
   id: string;
@@ -27,6 +28,7 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
   const [birthDate, setBirthDate] = useState("");
   const [birthdaySaving, setBirthdaySaving] = useState(false);
   const [birthdayNotice, setBirthdayNotice] = useState("");
+  const [payingOrder, setPayingOrder] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -65,6 +67,17 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
     return () => { active = false; };
   }, [userId]);
 
+  async function payOrder(orderId: string) {
+    setPayingOrder(orderId); setError("");
+    try {
+      const url = await startMercadoPagoCheckout(orderId);
+      window.location.assign(url);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Não foi possível iniciar o pagamento.");
+      setPayingOrder(null);
+    }
+  }
+
   async function saveBirthday(event: FormEvent) {
     event.preventDefault(); setBirthdaySaving(true); setError(""); setBirthdayNotice("");
     try {
@@ -95,7 +108,7 @@ export function CustomerAccount({ userId, fullName }: { userId: string; fullName
           <h3>Meus pedidos ({orders.length})</h3>
           {orders.length ? orders.map(order => <article className="admin-row" key={order.id}>
             <div><strong>{order.order_number}</strong><small>{new Date(order.created_at).toLocaleString("pt-BR")} · {order.status} · pagamento {order.payment_status}</small></div>
-            <strong>{formatCurrency(Number(order.total))}</strong>
+            <div className="account-order-actions"><strong>{formatCurrency(Number(order.total))}</strong>{order.payment_status === "pending" && <button className="add-cart-button" disabled={payingOrder !== null} onClick={() => void payOrder(order.id)}>{payingOrder === order.id ? "Abrindo pagamento…" : "Pagar agora"}</button>}</div>
           </article>) : <p>Você ainda não possui pedidos.</p>}
         </div>
         <div className="admin-list">
