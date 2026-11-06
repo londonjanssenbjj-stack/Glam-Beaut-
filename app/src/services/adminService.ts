@@ -48,10 +48,3 @@ export async function setServiceActive(id: string, isActive: boolean) {
   const { error } = await supabase.from("services").update({ is_active: isActive }).eq("id", id);
   if (error) throw error;
 }
-
-export async function adjustInventory(variantId: string, quantity: number, note: string) {
-  const { error } = await supabase.rpc("admin_adjust_inventory", {
-    p_variant_id: variantId, p_quantity: quantity, p_note: note,
-  });
-  if (error) throw error;
-}
