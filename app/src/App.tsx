@@ -56,17 +56,28 @@ export default function App() {
     else if (view === "conta" || view === "admin") setView("loja");
   }, [auth.user]);
 
-  function addToCart(product: DbProduct) {
+  function addToCart(product: DbProduct, variant: DbVariant) {
+    if (!variant.is_active || !product.is_active) {
+      setMessage("Este item não está disponível para compra.");
+      return;
+    }
     setCart(current => {
-      const existing = current.find(line => line.product.id === product.id);
+      const existing = current.find(line => line.variant.id === variant.id);
       return existing
-        ? current.map(line => line.product.id === product.id ? { ...line, quantity: line.quantity + 1 } : line)
-        : [...current, { product, quantity: 1 }];
+        ? current.map(line => line.variant.id === variant.id
+          ? { ...line, quantity: Math.min(100, line.quantity + 1) }
+          : line)
+        : [...current, { product, variant, quantity: 1 }];
     });
+    setMessage("");
     setCartOpen(true);
   }
-  function changeQuantity(productId: string, quantity: number) {
-    setCart(current => quantity < 1 ? current.filter(line => line.product.id !== productId) : current.map(line => line.product.id === productId ? { ...line, quantity } : line));
+  function changeQuantity(variantId: string, quantity: number) {
+    setCart(current => quantity < 1
+      ? current.filter(line => line.variant.id !== variantId)
+      : current.map(line => line.variant.id === variantId
+        ? { ...line, quantity: Math.min(100, quantity) }
+        : line));
   }
   const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
   const cartTotal = cart.reduce((sum, line) => sum + Number(line.variant.price_override ?? line.product.price) * line.quantity, 0);
