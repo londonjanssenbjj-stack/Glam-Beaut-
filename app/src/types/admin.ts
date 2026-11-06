@@ -50,3 +50,12 @@ export interface AdminInventoryItem {
   updated_at: string;
   product_variants: { id: string; name: string; sku: string | null; product_id: string; products: { name: string } | null } | null;
 }
+
+export interface AdminVariant {
+  id: string;
+  product_id: string;
+  name: string;
+  sku: string | null;
+  price_override: number | null;
+  is_active: boolean;
+}
