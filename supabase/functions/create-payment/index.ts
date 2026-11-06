@@ -29,6 +29,14 @@ Deno.serve(async (req: Request) => {
     if (!supabaseUrl || !anonKey || !serviceKey || !accessToken || !mpToken || !siteUrl || !webhookUrl || !allowedOrigin) {
       return reply(503, { error: "Integração de pagamento ainda não configurada no servidor." });
     }
+    const site = new URL(siteUrl);
+    const webhook = new URL(webhookUrl);
+    if (site.protocol !== "https:" || webhook.protocol !== "https:" || site.origin !== allowedOrigin) {
+      return reply(503, { error: "URLs HTTPS e origem do site precisam estar configuradas corretamente." });
+    }
+    if (false) {
+      return reply(503, { error: "Integração de pagamento ainda não configurada no servidor." });
+    }
 
     const userClient = createClient(supabaseUrl, anonKey, {
       global: { headers: { Authorization: `Bearer ${accessToken}` } },
