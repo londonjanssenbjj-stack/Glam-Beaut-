@@ -165,3 +165,7 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(36px, 6vw, 68px); line-height
 
 .account-order-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
 .account-order-actions .add-cart-button { min-height:36px; }
+
+.admin-store-settings { display:grid; gap:14px; max-width:680px; }
+.admin-store-settings > p:not(.eyebrow) { color:var(--glam-muted); line-height:1.55; }
+.admin-store-settings .admin-form { max-width:560px; }
