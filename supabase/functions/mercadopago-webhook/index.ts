@@ -17,7 +17,7 @@ async function verifySignature(signature: string, requestId: string, dataId: str
     return [key, value.join("=")];
   }));
   if (!fields.ts || !fields.v1 || !requestId || !dataId) return false;
-  const manifest = `id:${dataId.toLowerCase()};request-id:${requestId};ts:${fields.ts};`;
+  const manifest = `id:${dataId};request-id:${requestId};ts:${fields.ts};`;
   const key = await crypto.subtle.importKey(
     "raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"],
   );
@@ -56,7 +56,7 @@ Deno.serve(async (req: Request) => {
     if (!mpResponse.ok) return json(502, { error: "Não foi possível consultar a order no Mercado Pago." });
 
     const orderId = mpOrder.external_reference;
-    if (typeof orderId !== "string") return json(400, { error: "Order sem referência externa." });
+    if (typeof orderId !== "string" || String(mpOrder.id) !== dataId) return json(400, { error: "Order sem referência externa válida." });
 
     const admin = createClient(supabaseUrl, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
