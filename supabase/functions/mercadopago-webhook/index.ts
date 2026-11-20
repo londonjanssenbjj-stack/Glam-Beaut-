@@ -83,6 +83,12 @@ Deno.serve(async (req: Request) => {
 
     const status = String(mpOrder.status ?? "");
     const detail = String(mpOrder.status_detail ?? "");
+    // Partial refunds keep the order status as processed in Mercado Pago.
+    // Do not misclassify them as pending or overwrite the original paid state;
+    // they require a separate reconciliation flow.
+    if (status === "processed" && detail === "partially_refunded") {
+      return json(202, { received: true, requires_manual_review: true, ignored_status_detail: detail });
+    }
     let paymentStatus: "paid" | "pending" | "failed" | "refunded";
     let providerStatus: "approved" | "in_process" | "rejected" | "cancelled" | "refunded";
     if (status === "processed" && detail === "accredited") {
