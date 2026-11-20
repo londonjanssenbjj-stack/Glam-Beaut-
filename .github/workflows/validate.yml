@@ -37,4 +37,4 @@ jobs:
         uses: denoland/setup-deno@v2
 
       - name: Verificar Edge Functions
-        run: deno check supabase/functions/create-payment/index.ts supabase/functions/mercadopago-webhook/index.ts
+        run: deno check --node-modules-dir=auto supabase/functions/create-payment/index.ts supabase/functions/mercadopago-webhook/index.ts
