@@ -75,6 +75,12 @@ Deno.serve(async (req: Request) => {
       return json(409, { error: "Valor ou moeda da order não corresponde ao pedido." });
     }
 
+    // An already-paid order must never be downgraded by a delayed/retried
+    // pending or failed notification. A verified refund remains actionable.
+    if (order.payment_status === "paid" && mpOrder.status !== "refunded") {
+      return json(200, { received: true, payment_status: "paid", ignored_stale_update: true });
+    }
+
     const status = String(mpOrder.status ?? "");
     const detail = String(mpOrder.status_detail ?? "");
     let paymentStatus: "paid" | "pending" | "failed" | "refunded";
