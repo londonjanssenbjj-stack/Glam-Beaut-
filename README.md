@@ -49,7 +49,7 @@ Antes de implantá-las, configure os segredos no projeto Supabase **Glam Beaut**
 | `MERCADO_PAGO_WEBHOOK_URL` | URL HTTPS da função `mercadopago-webhook` |
 | `APP_ORIGIN` | Obrigatório; origem exata do navegador, somente protocolo + domínio (ex.: `https://seusite.com`) |
 
-Configure os valores em Supabase Dashboard > Edge Functions > Secrets. `APP_SITE_URL` é a URL completa da aplicação (pode conter caminho); `APP_ORIGIN` deve conter somente a origem do navegador, sem caminho ou barra final. Não os envie pelo chat, não os grave no Git e não os exponha no frontend.
+Configure os segredos próprios em Supabase Dashboard > Edge Functions > Secrets. O Supabase fornece `SUPABASE_SERVICE_ROLE_KEY` automaticamente ao ambiente das Edge Functions; não é necessário copiá-la manualmente. `APP_SITE_URL` é a URL HTTPS completa da aplicação (pode conter caminho); `APP_ORIGIN` deve conter somente a origem do navegador, sem caminho ou barra final. Os dois endereços dependem da hospedagem final, que ainda não será alterada. Não envie segredos pelo chat, não os grave no Git e não os exponha no frontend.
 
 ### Implantação (somente após configurar os segredos)
 
@@ -58,13 +58,13 @@ supabase functions deploy create-payment --project-ref hxheluremudcdhtopdlv
 supabase functions deploy mercadopago-webhook --no-verify-jwt --project-ref hxheluremudcdhtopdlv
 ```
 
-A função `create-payment` exige JWT de usuário. O webhook não exige JWT Supabase porque a origem é autenticada pela assinatura HMAC do Mercado Pago.
+A função `create-payment` exige JWT de usuário. O webhook não exige JWT Supabase porque a origem é autenticada pela assinatura HMAC do Mercado Pago. Não implantar até que os segredos estejam configurados e a URL pública definitiva do app esteja decidida; a implantação do frontend continua bloqueada para preservar o site antigo.
 
 ### Configuração do Mercado Pago
 
 1. Criar/selecionar a aplicação no painel de desenvolvedores.
 2. Usar credenciais de teste inicialmente.
-3. Configurar Webhooks para o evento **Payments** e copiar o segredo de assinatura para `MERCADO_PAGO_WEBHOOK_SECRET`.
+3. Configurar Webhooks para o evento **Order (Mercado Pago)** e copiar o segredo de assinatura para `MERCADO_PAGO_WEBHOOK_SECRET`.
 4. Configurar a URL HTTPS da função `mercadopago-webhook`.
 5. Testar notificações e pagamentos com credenciais de teste.
 6. Só depois de validar, trocar para credenciais de produção.
@@ -75,7 +75,7 @@ O sistema não considera a URL de retorno como prova de pagamento. O webhook con
 
 - [x] Checkout calcula subtotal, entrega, desconto e total no banco.
 - [x] Cupom validado no servidor e utilização registrada transacionalmente.
-- [x] Função de criação de preferência Checkout Pro versionada.
+- [x] Função de criação de order Checkout Pro (Orders API) versionada.
 - [x] Webhook com validação HMAC, consulta do pagamento e conferência de valor/moeda versionado.
 - [x] Cliente pode retomar pagamento pendente na área da conta.
 - [ ] Configurar segredos do Supabase e credenciais Mercado Pago.
