@@ -111,3 +111,11 @@ PENDÊNCIAS PARA O PRÓXIMO CICLO
 [ ] Reunir e extrair imagens de vídeos/fotos de produtos para inventário visual; confirmar nomes e quantidades com evidência.
 [ ] Conectar vitrine pública ao catálogo ativo, mantendo visual e fallback atual; revisar diffs antes de alterar.
 [ ] Implementar pedido e pagamento em sandbox após verificar create_customer_order e webhook, sem duplicar baixa de estoque.
+
+
+VERIFICACAO ESTATICA DE CONFIGURACAO FRONTEND (24/11/2026)
+- Arquivos analisados: index.html, admin-panel.html, admin-panel-prototype.html e glam-supabase-config.js.
+- Não foi encontrada ocorrência de SUPABASE_SECRET_KEY, MERCADO_PAGO_ACCESS_TOKEN, MERCADO_PAGO_WEBHOOK_SECRET ou padrão de chave privada/token sensível nos três HTMLs.
+- glam-supabase-config.js contém somente URL do projeto e publishable key, com comentário explícito proibindo secrets privados; publishable key é credencial pública destinada ao frontend.
+- A busca por “service_role” no config encontrou apenas o comentário de proibição; não encontrou credencial.
+- Resultado é revisão estática, não substitui auditoria runtime/browser nem configuração de secrets do servidor.
