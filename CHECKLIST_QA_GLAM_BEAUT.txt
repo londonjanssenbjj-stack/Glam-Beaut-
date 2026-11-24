@@ -6,15 +6,15 @@ Status: PLANO DE QA — nenhuma operacao de escrita ou venda executada
 REGRA PERMANENTE
 Preservar o existente. Não refazer, redesenhar, apagar, alterar main, publicar, mexer em checkout ou enfraquecer segurança para contornar erros. Trabalhar isoladamente. Este checklist não autoriza mudanças no backend nem transações reais.
 
-1. VALIDACAO DE LOGIN (AINDA PENDENTE)
-[ ] Confirmar login com uma conta admin existente, após criação por processo seguro.
+1. VALIDACAO DE LOGIN (TESTE MANUAL REAL CONFIRMADO — 24/11/2026)
+[✓] Login real confirmado manualmente pelo usuário no Chrome local: painel mostra “Admin Master autenticado” e identifica a conta como Admin Master (captura de 24/11/2026).
 [ ] Confirmar sessão persistente e logout.
 [ ] Confirmar que conta sem role admin não acessa painel atual.
 [ ] Confirmar que erro ao consultar user_roles bloqueia acesso.
 [ ] Nunca solicitar senha em chat, log ou commit.
 
 2. VALIDACAO DO PAINEL ADMINISTRATIVO (LEITURA + FORMULARIOS DE GRAVACAO IMPLEMENTADOS, TESTES PENDENTES)
-[ ] Conferir leitura de produtos, categorias, variantes, estoque e movimentações.
+[✓] Consultas reais do painel confirmadas por captura: produtos/categorias exibidos; variantes e movimentações/estoque vazios. Consulta read-only SQL confirmou produtos=16, categorias=6, variants=0, inventory=0, inventory_movements=0.\n[ ] Conferir leitura de variantes, estoque e movimentações com registros de teste.
 [ ] Conferir tabelas vazias e estado sem dados.
 [ ] Conferir falhas parciais das consultas e mensagens de erro.
 [ ] Conferir responsividade em desktop e mobile.
