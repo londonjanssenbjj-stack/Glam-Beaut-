@@ -61,9 +61,10 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    <div class="metric"><small>Itens sem estoque / zero</small><strong id="zeroCount">—</strong></div>
   </div>
   <div class="grid">
-   <div class="card"><h2>Produtos e variantes</h2><div id="productsTable" class="table-wrap">Carregando…</div></div>
+   <div class="card"><h2>Produtos</h2><div id="productsTable" class="table-wrap">Carregando…</div></div>
    <div class="card"><h2>Categorias</h2><div id="categoriesTable" class="table-wrap">Carregando…</div></div>
   </div>
+  <div class="card"><h2>Variantes e estoque por item</h2><div id="variantsTable" class="table-wrap">Carregando…</div></div>
   <div class="card"><h2>Movimentações recentes</h2><div id="movementsTable" class="table-wrap">Carregando…</div></div>
   <div id="appMessage" class="msg" role="status"></div>
  </section>
@@ -125,8 +126,9 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    document.getElementById('activeCount').textContent=products.filter(x=>x.is_active).length;
    document.getElementById('variantCount').textContent=variants.length;
    document.getElementById('zeroCount').textContent=variants.filter(x=>(sMap.get(x.id)||0)<=0).length;
-   const productRows=products.map(x=>[x.name,x.sku||'—','R$ '+Number(x.price||0).toFixed(2).replace('.',','),x.is_active?'Ativo':'Inativo',x.is_featured?'Destaque':'—']);
-   renderTable('productsTable',['Produto','SKU','Preço','Status','Destaque'],productRows);
+   const productRows=products.map(x=>[x.name,x.sku||'—','R$ '+Number(x.price||0).toFixed(2).replace('.',','),variants.filter(v=>v.product_id===x.id).length,x.is_active?'Ativo':'Inativo',x.is_featured?'Destaque':'—']);
+   renderTable('productsTable',['Produto','SKU','Preço','Variantes','Status','Destaque'],productRows);
+   renderTable('variantsTable',['Produto','Variante','SKU','Preço variante','Estoque','Status'],variants.map(v=>[pMap.get(v.product_id)||'—',v.name,v.sku||'—',v.price_override===null?'Preço do produto':'R$ '+Number(v.price_override).toFixed(2).replace('.',','),sMap.get(v.id)??0,v.is_active?'Ativa':'Inativa']));
    renderTable('categoriesTable',['Categoria','Status'],categories.map(x=>[x.name,x.is_active?'Ativa':'Inativa']));
    renderTable('movementsTable',['Produto / variante','Tipo','Quantidade','Nota','Data'],movements.map(x=>{
     const variant=vMap.get(x.variant_id);
