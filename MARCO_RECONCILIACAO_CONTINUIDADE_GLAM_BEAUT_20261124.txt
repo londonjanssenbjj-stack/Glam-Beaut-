@@ -86,3 +86,11 @@ ATUALIZAÇÃO DE CONTINUIDADE — 24/11/2026 (REVISÃO POSTERIOR)
 - Migração draft: storefront_catalog inclui created_at para filtro; categorias padrão incluídas; hash de idempotência ordena variante/quantidade e rejeita variantes repetidas.
 - Todas as alterações permanecem na branch glam-product-stock-management-plan. Nenhuma migração aplicada, deploy, merge ou compra teste.
 - Ainda pendente: associar imagens reais, confirmar nome/sku/preço, variantes e contagem física; revisar e testar em navegador; validar comportamento pagamento e webhook em ambiente de teste antes de qualquer produção.
+
+
+CONTINUAÇÃO — CADASTRO ADMINISTRATIVO (24/11)
+- admin-panel.html cadastro rápido: fila de bijuterias/acessórios agora restaura rascunho salvo em localStorage e persiste ao adicionar/remover/esvaziar itens, ao concluir itens e ao falhar lote parcialmente.
+- Chave local: glam_admin_quick_jewelry_queue_v1. É armazenamento do navegador local, não sincroniza entre dispositivos.
+- A fila persistida não torna operações de banco transacionais/idempotentes. Após falha parcial, revisar o item/slug/variante/movimentação no banco antes de qualquer nova tentativa.
+- Criada AUDITORIA_CADASTRO_RAPIDO_RECONCILIACAO_20261124.txt com riscos e recomendações de reconciliação.
+- Atualização estática verificada: helper, persistência em add/remove e restauração inicial. Testes em navegador não executados.
