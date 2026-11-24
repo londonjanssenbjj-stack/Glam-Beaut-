@@ -42,3 +42,9 @@ Sugestão de fluxo para uso futuro:
 2. Registrar SKU/variante/volume/preço e quantidade física confirmada.
 3. Associar imagem ao SKU correto.
 4. Só então marcar produto/variante ativo no painel.
+
+
+ADENDO DE STATUS (24/11/2026)
+- O pacote ZIP atual verificado contém 49 frames em arquivos fotos/glam_video*_frame*.jpg; os 31 nomes abaixo referem-se a um índice de pacote antigo e podem não corresponder aos arquivos do pacote de 49 frames.
+- Storage glam-product-images e upload direto no painel estão implementados; upload real no navegador ainda requer teste autenticado.
+- Frames não são fotos individuais de SKU e não devem ser vinculados automaticamente sem identificação.
