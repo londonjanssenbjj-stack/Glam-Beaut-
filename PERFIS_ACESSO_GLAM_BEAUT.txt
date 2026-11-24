@@ -88,8 +88,10 @@ Gerente Operacional:
 - E-mail: odiselma.vital@hotmail.com
 
 IMPORTANTE — CONTAS DISTINTAS
-- Os três identificadores de e-mail acima são diferentes entre si.
-- A conta do Gerente Operacional é separada da conta Administrador Master 2, mesmo sendo nomes de e-mail semelhantes.
+- Os três endereços são distintos; atenção à diferença entre ponto (.) e underline (_).
+- Administrador Master 2 usa odiselma_vital@hotmail.com (underline).
+- Gerente Operacional usa odiselma.vital@hotmail.com (ponto).
+- São contas independentes, mesmo pertencendo à mesma pessoa.
 - Cada perfil terá login próprio, sem necessidade de alternar ou substituir e-mails.
 - Esta atualização é apenas documental. Nenhuma conta foi criada, nenhum papel foi atribuído e nenhuma permissão/auth/RLS foi alterada.
 
