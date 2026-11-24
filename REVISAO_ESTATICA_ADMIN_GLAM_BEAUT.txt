@@ -1,0 +1,48 @@
+GLAM BEAUT — REVISAO ESTATICA DO PAINEL ADMINISTRATIVO
+Data: 24/11/2026
+Escopo: inspeção de código existente na branch, sem executar login ou gravações.
+
+PRESERVAÇÃO
+- Nenhuma alteração em main.
+- Nenhuma alteração em site publicado, checkout, Mercado Pago, schema, RLS, policies, grants ou funções.
+- Nenhuma conta foi criada e nenhum dado de catálogo/estoque foi inserido.
+
+ARQUIVO INSPECIONADO
+- admin-panel.html (painel separado, somente leitura).
+
+ACHADOS DA REVISÃO
+1. Proteção de acesso:
+   - O painel exige autenticação Supabase e consulta user_roles para confirmar role admin.
+   - Erro ao consultar role bloqueia acesso.
+   - Conta que não possui admin recebe signOut e acesso bloqueado.
+   - O painel não suporta gerente operacional com permissões limitadas.
+2. Operações:
+   - O painel faz consultas de leitura de produtos, categorias, variantes, inventory e movimentos.
+   - Não possui formulários de gravação, CRUD, upload, entrada de estoque ou ajuste.
+   - Não detectada chamada a RPC de estoque dentro deste painel.
+3. Segurança da apresentação:
+   - Os dados das tabelas são colocados via textContent, evitando interpretar strings de registros como HTML.
+   - A tabela é construída com DOM elements; não há interpolação dos dados do banco em innerHTML no renderer.
+4. Estados/erros:
+   - Consultas são executadas em paralelo.
+   - Se alguma consulta retorna erro, a tela mostra mensagem geral e evita tratar o conjunto como concluído.
+   - O detalhamento do erro de consulta não é mostrado ao usuário; a mensagem orienta revisar erro/console. Isso pode ser aprimorado depois, sem revelar dados sensíveis.
+5. Indicador de estoque:
+   - A métrica "Itens sem estoque / zero" conta variantes com quantidade zero ou ausente.
+   - Produtos sem variante não entram nessa contagem; é uma métrica de variantes, não de produtos.
+6. Dados:
+   - O painel usa o catálogo real de tabelas, mas a consulta operacional só pode ser validada após login autorizado.
+   - A revisão estática não confirma execução no navegador nem comportamento real de RLS.
+
+BLOQUEIOS PARA TESTE EXECUTÁVEL
+- Não há credenciais disponíveis (não solicitar senhas no chat).
+- Não criar usuários nem atribuir roles automaticamente.
+- Testes de login devem ser feitos com conta admin criada por processo seguro, no próprio ambiente.
+- Não testar operações de estoque reais.
+
+PRÓXIMAS AÇÕES SEGURAS
+- Corrigir/confirmar documentação de e-mails de perfis.
+- Aguardar ambiente/admin seguro para teste manual do login read-only.
+- Planejar incremento mínimo do formulário de produto somente após definir fluxo de gravação e recuperação de falha parcial.
+- Gerente: autorização backend ainda é pré-requisito. Não conceder acesso com role staff por suposição.
+- Checkout e integração Mercado Pago permanecem fora do escopo desta revisão.
