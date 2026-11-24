@@ -1,0 +1,29 @@
+GLAM BEAUT — CATÁLOGO CONSOLIDADO DE TRABALHO
+Atualização: 24/11/2026
+Branch: glam-product-stock-management-plan
+Este consolidado combina os 16 produtos existentes na base com identificações detalhadas extraídas dos vídeos.
+
+RESUMO
+- 16 registros existentes na base: seus preços foram preservados como encontrados, sem afirmar que estão revisados ou atuais.
+- 11 identificações detalhadas de produtos capilares em vídeo, incluindo possíveis aparições repetidas.
+- 3 grupos visuais provisórios de bijuterias, bolsas e cosméticos/perfumaria que ainda exigem individualização.
+- Não há preços novos inferidos.
+- Quantidade “vista” é apenas evidência visual, não estoque físico confirmado.
+- SKU, estoque físico confirmado e fotos de catálogo ficam pendentes.
+- Produtos não devem ser ativados nem importados para produção por este arquivo.
+
+REGISTROS DA BASE
+Os 16 produtos existentes e seus preços estão incluídos no CSV com IDs DB-001 a DB-016. Categorias, descrições e imagens precisam ser revisadas, sem alterar os registros existentes no banco.
+
+IDENTIFICAÇÕES DOS VÍDEOS
+IDs VID-001 a VID-011: itens capilares com nome/linha/volume quando legíveis.
+IDs VID-012 a VID-014: grupos de displays que precisam ser separados em itens individuais antes do cadastro.
+
+REGRAS
+1. Não somar aparições repetidas entre frames ou vídeos.
+2. Não usar contagem de aparições como estoque.
+3. Preço somente quando confirmado por etiqueta, nota ou informação do usuário.
+4. SKU próprio para cada produto e variante comercializável.
+5. Produtos em displays de joias e bandejas de maquiagem precisam ser individualizados.
+6. Não importar para o Supabase, não ativar e não alterar a main.
+7. Usar este arquivo como lista de conferência e preparação; validar item por item.
