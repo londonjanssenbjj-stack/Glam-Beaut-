@@ -87,3 +87,11 @@ IMPLEMENTACAO INCREMENTAL — 24/11/2026
 - Testes de navegador, teste autenticado e gravações de prova no Supabase ainda NÃO foram executados.
 - Variantes e estoque ainda não têm formulário de gravação. Estoque seguirá exclusivamente a RPC admin_adjust_inventory após validar seu fluxo.
 - Não considerar a funcionalidade validada em produção até o teste manual seguro.
+
+SEGUNDA IMPLEMENTACAO INCREMENTAL — 24/11/2026
+- Formulário de variante: selecionar produto, nome, SKU opcional, preço específico opcional; variante é criada inativa.
+- Formulário de movimentação: seleção da variante, quantidade inteira positiva (entrada) ou negativa (ajuste de saída), observação.
+- Movimentação invoca a RPC existente public.admin_adjust_inventory(p_variant_id, p_quantity, p_note). Não faz update/insert direto em inventory nem inventory_movements.
+- A RPC existente foi inspecionada somente leitura: verifica auth.uid() e role admin; rejeita quantidade zero; bloqueia saldo negativo; grava movimento e retorna saldo.
+- Nenhuma variante ou movimento real foi criado; nenhuma gravação de teste foi executada.
+- Teste no navegador ainda pendente. CI/Actions não retornou execução/status para o commit revisado.
