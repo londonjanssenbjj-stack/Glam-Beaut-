@@ -1,0 +1,29 @@
+GLAM BEAUT — CORREÇÕES MÍNIMAS NO ADMIN PANEL
+Data: 24/11/2026
+Arquivo: admin-panel.html
+Branch: glam-product-stock-management-plan
+Commit: 9520278ccbf4ab86037b46baa0ff40a8f54924af
+Status: correções de código aplicadas na branch, não testadas em navegador.
+
+CORREÇÃO 1 — ESTADO ATIVO DA VARIANTE
+- fillVariantForm agora preenche checkbox variantActive a partir de variant.is_active.
+- Evita que reset do formulário faça uma variante ativa parecer inativa ao editar.
+- Verificação do arquivo após commit confirmou o código.
+
+CORREÇÃO 2 — CATEGORIA NO CADASTRO RÁPIDO
+- Placeholder foi alterado de "Joias / acessórios" para "Sem categoria (opcional)".
+- Evita a falsa impressão de categoria pré-selecionada; value vazio continua significando null.
+
+ESCOPO PRESERVADO
+- Apenas dois trechos pontuais em admin-panel.html.
+- Não alterada a lógica de login/Auth, tabelas, banco, RPC, RLS, policies, Storage, pagamentos, vitrine pública, main, publicação ou merge.
+- Não testado em navegador/runtime. São correções estáticas verificadas no arquivo remoto.
+
+PRÓXIMOS ACHADOS A TRATAR
+- Confirmar se a migration manager deve permitir ativação de produtos/variantes e alteração de preços.
+- Confirmar UX para transferir variante entre produtos.
+- Motivo obrigatório para ajustes negativos.
+- Tratar retorno de erro do logout.
+- Diagnóstico granular de loadData.
+- Cadastro em lote transacional/idempotente.
+- Limpeza segura de imagens órfãs.
