@@ -143,11 +143,28 @@
     const session = await getSession();
     if (!session) throw new Error("Faça login para continuar o pedido.");
     if (!Array.isArray(items) || !items.length) throw new Error("Carrinho vazio.");
+    if (!["delivery", "pickup"].includes(deliveryMethod)) {
+      throw new Error("Escolha entrega ou retirada.");
+    }
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    const normalizedItems = items.map(item => {
+      const quantity = Number(item.quantity);
+      if (!uuidPattern.test(String(item.variant_id || ""))) {
+        throw new Error("Uma variante do carrinho possui identificador inválido.");
+      }
+      if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
+        throw new Error("Quantidade inválida no carrinho.");
+      }
+      return { variant_id: item.variant_id, quantity };
+    });
+    if (deliveryMethod === "delivery") {
+      const requiredAddressFields = ["recipient_name", "phone", "postal_code", "street", "number", "neighborhood"];
+      if (!shippingAddress || requiredAddressFields.some(key => !String(shippingAddress[key] || "").trim())) {
+        throw new Error("Preencha todos os dados necessários para entrega.");
+      }
+    }
     const rpcArgs = {
-      p_items: items.map(item => ({
-        variant_id: item.variant_id,
-        quantity: Number(item.quantity)
-      })),
+      p_items: normalizedItems,
       p_delivery_method: deliveryMethod,
       p_shipping_address: deliveryMethod === "delivery" ? shippingAddress : null,
       p_coupon_code: couponCode || null
