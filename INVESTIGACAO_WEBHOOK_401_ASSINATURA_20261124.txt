@@ -1,0 +1,44 @@
+GLAM BEAUT — INVESTIGAÇÃO DA FALHA 401 DO WEBHOOK (SIGNATURE)
+24/11/2026
+Fonte: código ativo da Edge Function + documentação oficial Mercado Pago
+Status: análise estática, sem teste HTTP e sem alteração de função.
+
+FATO HISTÓRICO
+Contexto de trabalho anterior informa que o simulador Webhook "Order (Mercado Pago)" chegou ao Supabase e respondeu 401 assinatura inválida. Este teste não foi reproduzido nesta sessão.
+
+CÓDIGO ATUAL
+- Extrai ts e v1 do header x-signature.
+- Usa request-id header.
+- dataId: query param data.id; se ausente, fallback para body.data.id.
+- Manifest id lower-case; request-id; ts; trailing semicolon.
+- HMAC SHA-256 em hex.
+- Comparação constant-time.
+
+DOCUMENTAÇÃO OFICIAL CONSULTADA
+Mercado Pago informa que para Webhooks o manifest é:
+id:<data.id>;request-id:<x-request-id>;ts:<ts>;
+O id deve ser usado em lowercase para validação em Orders; HMAC SHA256 e comparar v1. (Documentação oficial: "Configurar notificações de orders" e "Configurar notificações opcionais".)
+
+HIPÓTESES A TESTAR — NÃO CONCLUSÕES
+1. O simulador pode não fornecer data.id como query parameter, mas o body contém data.id. Fallback pode ser compatível ou não com a assinatura específica enviada.
+2. Secret configurado pode corresponder a outro ambiente/aplicação (sandbox vs produção) ou webhook endpoint.
+3. Query param pode ser enviado com nome alternativo, case/encoding diferente, ou não chegar via URL no simulador.
+4. x-signature e x-request-id podem ser alterados/omitidos no simulator payload.
+5. Teste pode estar sendo enviado com resource/id incompatível com tipo de notificação Order.
+
+DIAGNÓSTICO SEGURO
+- Não logar segredo ou header completo.
+- Logar somente presença dos campos, origem do dataId (query/body), tamanho e formato, e resultado de cada validação sem revelar hash/secret.
+- Em sandbox, comparar exatamente request recebido com docs; usar test payload apenas para debugging.
+- Não aceitar webhook sem assinatura válida em produção.
+- Confirmar secret da aplicação e endpoint configurado pelo dashboard sem expor secret em logs/chat.
+
+RECOMENDAÇÃO
+Não mudar validador por tentativa. Reproduzir uma notificação sandbox válida, conferir query data.id, request-id, ts, v1, secret correto e payload, e então corrigir com teste unitário. A função atual já tem HMAC e lower-case conforme o padrão documentado; 401 pode ser configuração ou formato de request, não necessariamente bug do algoritmo.
+
+NÃO EXECUTADO
+- Não reenviei webhook.
+- Não criei pagamento.
+- Não alterei segredo.
+- Não deploy.
+- Não enfraqueci assinatura.
