@@ -86,7 +86,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
     <label for="productName">Nome do produto *</label><input id="productName" required maxlength="160">
     <label for="productCategory">Categoria</label><select id="productCategory"><option value="">Sem categoria</option></select>
     <label for="productDescription">Descrição</label><textarea id="productDescription" rows="3" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font:inherit"></textarea>
-    <label for="productImage">URL da imagem</label><input id="productImage" type="url" placeholder="https://"><div id="productImagePreview" class="hide" style="margin-top:10px"><img id="productImagePreviewImg" alt="Pré-visualização da imagem do produto" style="max-width:180px;max-height:180px;object-fit:contain;border:1px solid var(--line);border-radius:10px"><p>Pré-visualização</p></div>
+    <label for="productImage">URL da imagem</label><input id="productImage" type="url" placeholder="https://"><label for="productImageUpload">Enviar foto diretamente para Storage</label><input id="productImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><div id="imageUploadMessage" class="msg" role="status"></div><div id="productImagePreview" class="hide" style="margin-top:10px"><img id="productImagePreviewImg" alt="Pré-visualização da imagem do produto" style="max-width:180px;max-height:180px;object-fit:contain;border:1px solid var(--line);border-radius:10px"><p>Pré-visualização</p></div>
     <label for="productSku">SKU (opcional)</label><input id="productSku" maxlength="80">
     <div class="grid">
      <div><label for="productPrice">Preço de venda (R$) *</label><input id="productPrice" type="number" min="0" step="0.01" required></div>
@@ -269,7 +269,33 @@ variantForm.addEventListener('submit',async ev=>{
  let cachedCategories=[];
  let cachedProducts=[];
  const slugify=(text)=>text.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
- const imageInput=document.getElementById('productImage');
+ const imageUploadInput=document.getElementById('productImageUpload');
+const imageUploadMessage=document.getElementById('imageUploadMessage');
+imageUploadInput.addEventListener('change',async()=>{
+ const file=imageUploadInput.files?.[0]; if(!file)return;
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)){setMessage(imageUploadMessage,'Formato inválido. Use JPG, PNG ou WebP.','error');imageUploadInput.value='';return;}
+ if(file.size>8*1024*1024){setMessage(imageUploadMessage,'Arquivo acima de 8 MB.','error');imageUploadInput.value='';return;}
+ const productName=document.getElementById('productName').value.trim();
+ const productId=document.getElementById('editProductId').value;
+ if(!productName&&!productId){setMessage(imageUploadMessage,'Informe o nome do produto antes do upload.','error');return;}
+ const userState=await client.auth.getUser();
+ if(userState.error||!userState.data.user){setMessage(imageUploadMessage,'Sessão não autenticada.','error');return;}
+ const roleCheck=await client.from('user_roles').select('role').eq('user_id',userState.data.user.id);
+ if(roleCheck.error||!roleCheck.data?.some(r=>r.role==='admin')){setMessage(imageUploadMessage,'Upload restrito ao Admin Master.','error');return;}
+ const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+ const safeSlug=slugify(productName||'produto')||'produto';
+ const path='products/'+safeSlug+'-'+Date.now()+'.'+ext;
+ const btn=document.getElementById('saveProductBtn');imageUploadInput.disabled=true;setMessage(imageUploadMessage,'Enviando imagem…');
+ try{
+   const up=await client.storage.from('glam-product-images').upload(path,file,{contentType:file.type,upsert:false});
+   if(up.error)throw up.error;
+   const pub=client.storage.from('glam-product-images').getPublicUrl(path);
+   imageInput.value=pub.data.publicUrl;updateImagePreview();
+   setMessage(imageUploadMessage,'Upload concluído. URL preenchida; salve o cadastro do produto para vincular.','ok');
+ }catch(err){setMessage(imageUploadMessage,'Falha no upload: '+(err.message||'verifique bucket e policies do Storage.'),'error');}
+ finally{imageUploadInput.disabled=false;imageUploadInput.value='';}
+});
+const imageInput=document.getElementById('productImage');
 const imagePreview=document.getElementById('productImagePreview');
 const imagePreviewImg=document.getElementById('productImagePreviewImg');
 const updateImagePreview=()=>{const url=imageInput.value.trim();if(url){imagePreviewImg.src=url;imagePreview.classList.remove('hide');}else{imagePreviewImg.removeAttribute('src');imagePreview.classList.add('hide');}};
