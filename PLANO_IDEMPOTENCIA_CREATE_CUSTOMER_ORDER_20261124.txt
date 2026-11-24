@@ -1,0 +1,62 @@
+GLAM BEAUT — PLANO DE IDEMPOTÊNCIA DA RPC create_customer_order
+24/11/2026 — Draft; sem aplicação
+
+CONTEXTO
+private.create_customer_order já é transacional e reserva estoque, calcula preço/frete/cupom server-side. O principal risco é chamada repetida, porque não recebe request_key.
+
+PROPOSTA
+Adicionar p_request_key UUID NOT NULL na chamada de pedido e tabela privada de request:
+private.customer_order_requests
+- request_key UUID PRIMARY KEY
+- customer_id UUID NOT NULL
+- request_hash TEXT NOT NULL
+- order_id UUID NOT NULL UNIQUE REFERENCES public.orders(id)
+- created_at timestamptz NOT NULL DEFAULT now()
+
+A chave é gerada pelo cliente antes da primeira submissão e preservada no browser até confirmação/reconciliação. Nunca gerar outra em retry do mesmo checkout.
+
+SEQUÊNCIA SEGURA
+1. Validar auth e dados básicos.
+2. Canonicalizar payload (variant IDs ordenados, quantidades, delivery, address, coupon), calcular hash no servidor.
+3. Tentar adquirir request_key com lock/insert; concorrência precisa ser resolvida antes de reservar stock.
+4. Se chave já existe:
+   - confirmar customer_id coincide;
+   - hash coincide;
+   - retornar order_id/order_number/status existente sem tocar stock, cupom ou criar payment;
+   - hash diferente => conflito.
+5. Se request novo, continuar a lógica atual dentro da mesma transação: validar variante/estoque/cupom, reservar, inserir orders/order_items, cupom usage, registrar request table.
+6. Garantir rollback total se qualquer etapa falhar.
+7. Revoke table access de anon/authenticated; execute apenas RPC authenticated com auth.uid() validado.
+8. A tabela privada não deve conter payload de endereço completo; guardar hash, IDs e cliente somente.
+
+CUIDADO CONCORRÊNCIA
+- Request key deve ser UNIQUE e lock atômico. Não usar SELECT-before-insert como única defesa.
+- Para mesmo request simultâneo, segunda execução espera a primeira transação e retorna o pedido existente.
+- Payload hash deve ser calculado no backend, não confiar no hash enviado pelo browser.
+- Constraint order_id unique previne associar múltiplos pedidos ao mesmo request.
+- Retentativa com erro definitivo de validação deve poder ser corrigida com uma nova chave; chave original permanece para diagnóstico/replay controlado.
+
+FRONTEND
+- request_key persistido no session/local storage, alinhado com política de dados e sem armazenar dados sensíveis além do necessário.
+- Em sucesso, remover request_key e carrinho.
+- Em timeout, não limpar carrinho nem request_key; consultar status/repetir com mesma chave.
+- Desabilitar botão enquanto request está em voo (UX, não é a proteção de segurança).
+
+TESTES
+- Retry mesma chave e payload -> mesma order; stock debit uma vez.
+- Duas chamadas simultâneas -> uma order.
+- Mesma chave, payload alterado -> conflito.
+- Chave usada por outro cliente -> negado.
+- Falha depois de reservar estoque -> rollback.
+- Falha no insert de item -> rollback de order/stock/coupon.
+- Timeout depois de commit -> replay devolve pedido.
+- Cupom usage_count não duplica.
+- Pedido cancelado não pode ser recriado com chave idempotente antiga.
+- Garantir trigger de release marca inventory_released_at uma única vez.
+
+MIGRATION/IMPLEMENTAÇÃO
+- Criar migration draft na branch, não aplicar no Supabase.
+- Manter assinatura atual wrapper enquanto preparar versão nova e estratégia de compatibilidade.
+- Avaliar se alterar função existente com overload cria ambiguidade no PostgREST; preferir versão v2 ou alteração controlada, sem overload de defaults ambíguos.
+- Revisar grants e SECURITY DEFINER.
+- Testar em staging com dados sintéticos antes de qualquer aplicação.
