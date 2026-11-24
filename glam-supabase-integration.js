@@ -229,7 +229,7 @@
     const returned = parsePaymentReturn(search);
     if (!returned.orderId) return { status: "unknown", verified: false, reason: "missing_order_id" };
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9]{3}-[89ab][0-9]{3}-[0-9a-f]{12}$/i;
-    if (!uuidPattern.test(returned.orderId) && !/^GL-\\d{14}-[A-F0-9]{6}$/i.test(returned.orderId)) {
+    if (!uuidPattern.test(returned.orderId) && !/^GL-\d{14}-[A-F0-9]{6}$/i.test(returned.orderId)) {
       return { status: "unknown", verified: false, reason: "invalid_order_identifier" };
     }
     const serverData = await getOrderStatus(returned.orderId);
@@ -249,7 +249,7 @@
     if (!session) throw new Error("Faça login para consultar o pedido.");
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     const isUuid = uuidPattern.test(String(orderId || ""));
-    const isOrderNumber = /^GL-\\d{14}-[A-F0-9]{6}$/i.test(String(orderId || ""));
+    const isOrderNumber = /^GL-\d{14}-[A-F0-9]{6}$/i.test(String(orderId || ""));
     if (!isUuid && !isOrderNumber) throw new Error("Identificador de pedido inválido.");
     const { data, error } = await sb.functions.invoke("order-status", {
       body: isUuid ? { order_id: orderId } : { order_number: orderId }
