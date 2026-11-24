@@ -142,7 +142,7 @@
     window.addToCart=addToCartDb;window.removeFromCart=removeFromCartDb;window.changeQty=changeQtyDb;
     window.cartSubtotal=cartSubtotalDb;window.deliveryValue=deliveryValueDb;window.updateCart=updateCartDb;window.saveCart=saveCartDb;
     window.finishOrder=finishOrderDb;window.openCheckout=openCheckoutDb;window.filterProducts=filterDb;window.searchProducts=filterSearchDb;
-    const delivery=$("checkoutDelivery");if(delivery){delivery.innerHTML='<option value="local">Entrega local</option><option value="retirada">Retirar na Glam</option>';delivery.addEventListener("change",updateCartDb);}
+    const delivery=$("checkoutDelivery");if(delivery){delivery.innerHTML='<option value="local">Entrega local</option><option value="retirada">Retirar na Glam</option>';delivery.addEventListener("change",()=>{const pickup=delivery.value==="retirada";["checkoutStreet","checkoutNumber","checkoutNeighborhood","checkoutPostal"].forEach(id=>{const field=$(id);if(field){field.required=!pickup;field.disabled=pickup;}});updateCartDb();});}
     // Convert checkout UI to structured address, and make payment hosted by MP.
     const oldPayment=$("checkoutPayment");if(oldPayment){oldPayment.innerHTML='<option value="mercado_pago">Pix ou cartão via Mercado Pago</option>';oldPayment.required=false;oldPayment.value="mercado_pago";}
     const addr=$("checkoutAddress");if(addr){
