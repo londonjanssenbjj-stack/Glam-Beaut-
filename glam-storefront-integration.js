@@ -48,6 +48,9 @@
       badgeType:r.is_featured?"kit":"", available:true
     }));
     window.GLAM_CATALOG=catalog;
+    const validIds=new Set(catalog.map(p=>p.id));
+    cart=cart.filter(item=>validIds.has(item.variant_id||item.id));
+    localStorage.setItem("glam_cart",JSON.stringify(cart));
     renderDbProducts();
     updateCartDb();
   }
@@ -83,11 +86,11 @@
       return '<div class="cart-item"><div class="cart-thumb">'+(p.image?'<img src="'+escapeHTML(p.image)+'" alt="">':'G')+'</div><div><div class="cart-name">'+escapeHTML(p.name+(p.variant?' — '+p.variant:''))+'</div><div class="cart-price">'+moneyFmt(p.price*it.qty)+'</div><div class="qty"><button onclick="changeQtyDb(\''+it.id+'\',-1)">−</button><span>'+it.qty+'</span><button onclick="changeQtyDb(\''+it.id+'\',1)">+</button></div></div><button class="remove" onclick="removeFromCartDb(\''+it.id+'\')">Excluir</button></div>';
     }).join("");
     const sub=cartSubtotalDb(),fee=deliveryValueDb(),total=sub+fee;
-    $("subtotal").textContent=moneyFmt(sub);$("delivery").textContent=moneyFmt(fee);$("cartTotal").textContent=moneyFmt(total);
+    $("subtotal").textContent=moneyFmt(sub);$("delivery").textContent=fee===0 && cart.length && $("checkoutDelivery")?.value!=="retirada"?"Calculado no checkout":moneyFmt(fee);$("cartTotal").textContent=fee===0 && cart.length && $("checkoutDelivery")?.value!=="retirada"?"Subtotal + frete":"Total estimado: "+moneyFmt(total);
     if($("checkoutTotal"))$("checkoutTotal").textContent=moneyFmt(total);
   }
   function saveCartDb(){localStorage.setItem("glam_cart",JSON.stringify(cart));updateCartDb();}
-  function deliveryValueDb(){const s=$("checkoutDelivery");return s&&s.value==="retirada"?0:cart.length?CONFIG.taxaEntrega:0;}
+  function deliveryValueDb(){const s=$("checkoutDelivery");return s&&s.value==="retirada"?0:0;}
   function removeFromCartDb(id){cart=cart.filter(x=>x.id!==id);saveCartDb();}
   function changeQtyDb(id,delta){const it=cart.find(x=>x.id===id);if(!it)return;it.qty+=delta;if(it.qty<=0)cart=cart.filter(x=>x.id!==id);saveCartDb();}
   function filterSearchDb(term){
