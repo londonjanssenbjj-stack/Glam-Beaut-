@@ -258,7 +258,7 @@ variantForm.addEventListener('submit',async ev=>{
        if(variant.error)throw variant.error;
        if(item.quantity>0){const movement=await client.rpc('admin_adjust_inventory',{p_variant_id:variant.data.id,p_quantity:item.quantity,p_note:'Inventário inicial — cadastro rápido bijuteria'});if(movement.error)throw movement.error;}
        done++;
-     }catch(err){setMessage(quickMsg,'Salvos '+done+' de '+quickQueue.length+'. Interrompido no item '+item.name+': '+(err.message||'erro')+'. Revise o catálogo antes de tentar novamente para evitar duplicados.','error');await loadData();btn.disabled=false;return;}
+     }catch(err){if(done>0)quickQueue.splice(0,done);quickRender();setMessage(quickMsg,'Salvos '+done+' item(ns). Falha no item '+item.name+': '+(err.message||'erro')+'. Os itens já salvos foram retirados da fila; o item que falhou e os seguintes permanecem. Revise se o produto/variante do item com falha foi criado parcialmente antes de tentar novamente.','error');await loadData();btn.disabled=false;return;}
    }
    quickQueue.splice(0,quickQueue.length);quickRender();await loadData();setMessage(quickMsg,'Lista salva. Todos os itens criados inativos; revise preço e estoque antes de ativar.','ok');btn.disabled=false;
  });
