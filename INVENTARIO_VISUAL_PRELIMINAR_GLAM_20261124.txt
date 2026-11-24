@@ -1,0 +1,24 @@
+GLAM BEAUT — INVENTÁRIO VISUAL PRELIMINAR
+Data: 24/11/2026
+Fonte: 49 frames extraídos de 4 vídeos enviados anteriormente.
+
+ESCOPO
+- Identificação visual de grupos de produtos e peças.
+- Estimativas de quantidade em faixas, não contagem de estoque confirmada.
+- Preços não foram inferidos. Os preços já cadastrados no banco permanecem no catálogo-base.
+- Frames repetidos/ângulos diferentes foram tratados como aparições do mesmo conjunto, evitando soma duplicada.
+
+RESUMO VISUAL (estimativas amplas)
+1. Produtos de cabelo: frascos e conjuntos de tratamento, distribuídos nos vídeos 1 e 2. Estimativa visual combinada: aproximadamente 16–24 unidades, com confiança média/baixa por repetição de ângulos.
+2. Skincare/cosméticos/perfumaria: frascos, tubos, potes, caixas e combinações. Estimativa ampla: aproximadamente 25–40 itens; baixa a média confiança.
+3. Bolsas/carteiras: 3 peças no vídeo 1 (pink, carteira/necessaire clara, bolsa mostarda) e 3 peças distintas no vídeo 2 (clutch dourada, bolsa preta e bolsa laranja/marrom). Total visual preliminar: 6 peças distintas, confiança alta para identificação visual, mas não para estoque físico.
+4. Bijuterias/acessórios: conjuntos e expositores em vídeos 3 e 4. Estimativa ampla: dezenas de peças; sem contagem item a item devido à resolução, sobreposição e ângulos.
+
+LIMITAÇÕES IMPORTANTES
+- A quantidade mostrada no vídeo pode não ser o estoque real disponível (pode haver unidades fora do quadro ou reposição).
+- Itens em kits não devem ser contados como estoque avulso sem confirmar composição.
+- Não cadastrar estimativas como saldo de estoque no Supabase.
+- Fotos de referência podem mostrar o mesmo item repetido em cenas diferentes.
+
+PRÓXIMA ETAPA
+Usar este inventário como guia para montar catálogo de produtos/variantes, associar fotos de origem e depois confirmar fisicamente quantidades, SKUs, volumes, preços ausentes e composição de kits.
