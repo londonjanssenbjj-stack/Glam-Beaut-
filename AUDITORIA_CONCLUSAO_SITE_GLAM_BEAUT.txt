@@ -178,3 +178,24 @@ REVISÃO ESTÁTICA ADICIONAL — IDEMPOTÊNCIA/CONSISTÊNCIA WEBHOOK (24/11/2026
 - Webhook confere amount/currency e external_reference; no código, caso status refunded, atualiza payment/order, mas não repõe automaticamente estoque nem marca inventory_released_at. Caso canceled/failed, payment_status failed, sem liberação automática de estoque. Como create_customer_order reserva stock no momento do pedido, cancelamento/refund requer fluxo específico seguro para liberar estoque sem duplicação.
 - Reembolso parcial retorna 202 para revisão manual sem atualização persistida no estado, conforme código lido.
 - Esses pontos são riscos/pontos de validação estática, não bugs comprovados por execução. Não alterei função, tabela, policy, configuração ou secret.
+
+
+DECISAO DE ARQUITETURA PARA INTEGRAR CHECKOUT EXISTENTE — 24/11/2026
+A interface atual de checkout coleta nome, telefone, endereço, pagamento selecionado, entrega/retirada, presente, itens e valores, mas o checkout é local e não possui autenticação Supabase.
+O backend create_customer_order exige usuário autenticado e cria pedido/reserva estoque no banco. As Edge Functions de pagamento exigem token de usuário e pedido persistido.
+Não se deve integrar o checkout público diretamente à service-role nem relaxar RLS/RPC. A diferença entre checkout de visitante e endpoint autenticado é um bloqueio de arquitetura.
+Opções seguras a definir em implementação posterior:
+1) Fluxo de compra com conta/login Supabase antes de finalizar (reutiliza create_customer_order e Edge Functions atuais; exige UX mínima para autenticação).
+2) Criar backend específico de guest checkout com validações server-side, rate-limit/anti-abuso, cálculo de preço/entrega/cupom no servidor e permissões estreitas, somente após desenho técnico e testes de segurança; nunca conceder service role ao frontend.
+Recomendação de sequência: primeiro completar catálogo/variantes/estoque reais; depois decidir o fluxo de autenticação de cliente; em seguida integrar checkout existente de forma isolada e testar em sandbox. Preservar campos atuais do checkout e layout; adaptar apenas o necessário para autenticação/retorno/status.
+Checklist de requisitos para implementação:
+- A função de criação do pedido deve receber identificadores de variantes e quantidades, não nomes/preços/total confiáveis do navegador.
+- Banco/backend determina preço, subtotal, frete, descontos e total.
+- Reserva/baixa de estoque ocorre uma única vez na criação do pedido (RPC existente); pagamento não deve duplicar.
+- Checkout MP usa pedido persistido e idempotência.
+- Retorno de checkout não é prova de pagamento; status confirmado apenas por webhook validado.
+- Webhook deve ser idempotente e tratar falha parcial de gravação com fluxo consistente; não liberar estoque em duplicidade.
+- Cancelamento, falha, refund e partial refund precisam fluxo seguro e reconciliação; inventory_released_at deve proteger liberação única se esse mecanismo for usado.
+- Configuração de secrets apenas em backend; não registrar ou expor tokens.
+- UI atual, carrinho, entrega/retirada, presente e WhatsApp devem ser preservados, salvo mudanças estritamente necessárias e revisadas.
+Nenhuma implementação, alteração de código, esquema, função, RLS, policy, secret, pedido ou pagamento foi feita nesta decisão.
