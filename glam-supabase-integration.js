@@ -1,12 +1,9 @@
 /* GLAM BEAUT - SUPABASE INTEGRATION MODULE
- * Isolated integration scaffold. This file is NOT loaded by index.html yet.
- * Existing storefront and production main branch remain untouched.
+ * Isolated integration scaffold. Loaded by index.html on the checkout branch only.
+ * The storefront UI is not yet connected to auth/catalog/order functions.
+ * Existing storefront visual structure and production main branch remain untouched.
  *
- * Before wiring into the UI, provide:
- * window.GLAM_SUPABASE_CONFIG = {
- *   url: "https://YOUR_PROJECT.supabase.co",
- *   publishableKey: "YOUR_SUPABASE_PUBLISHABLE_KEY"
- * };
+ * Configuration is provided by glam-supabase-config.js with public values only.
  *
  * Never put Mercado Pago Access Token, webhook secret, or Supabase service-role
  * key in browser code.
