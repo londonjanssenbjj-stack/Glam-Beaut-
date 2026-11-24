@@ -58,10 +58,11 @@ RISCO/PLANO DE RECUPERAÇÃO
 
 PRÓXIMA AÇÃO EXATA
 1. Continuar revisão estática de segurança/consistência do admin-panel e checkout/vitrine, sem alterar produção.
-2. Revisar a migration draft de manager e documentar riscos; não aplicar/mergear.
+2. Migration draft de manager foi revisada em AUDITORIA_SEGURANCA_MIGRATION_MANAGER_DRAFT_20261124.txt; impacto amplo, não aplicar/mergear antes de matriz de testes e revisão de exposição de pedidos.
 3. Preparar checklist QA isolado e avaliar se há staging disponível.
 4. Depois de testes isolados, considerar implementação da RPC transacional. Não aplicar em produção automaticamente.
 5. Reavaliar catalogação de fotos; sem vínculo automático.
+6. Catálogo/associação de imagens reconciliado: 16 produtos no banco sem SKU e sem image_url; não associar frames a nomes genéricos.
 
 DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SÓ QUANDO INEVITÁVEL
 - Foto individual/confirmar identidade de item quando ambíguo.
