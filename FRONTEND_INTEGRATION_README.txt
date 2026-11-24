@@ -54,3 +54,11 @@ CHECKPOINT - CONTINUACAO DO FLUXO FRONTEND (SEM ALTERAR SITE)
   - parsePaymentReturn(search): classifica query de retorno em success/pending/failure/unknown. O retorno URL nao e fonte confiavel; getOrderStatus deve consultar backend.
 - Helpers foram exportados no objeto window.GlamSupabase.
 - Nao conectados ao index.html. Nenhum arquivo existente fora do modulo/readme foi alterado.
+
+CONTINUACAO - AJUSTE RETORNO MERCADO PAGO
+- Investigacao confirmou create-payment configura URLs com query payment=success/pending e order=<order_number>, nao UUID.
+- Order number gerado pelo backend segue GL-YYYYMMDDHH24MISS-6HEX.
+- order-status Edge Function v2 ACTIVE, verify_jwt=true, agora aceita UUID ou order_number (formato restrito), sempre filtra pelo customer_id autenticado. Mantem uso service role apenas no backend, sem expor token.
+- Frontend parsePaymentReturn atualizado para ler payment e order, verifyPaymentReturn consulta backend e ignora status de URL como prova.
+- getOrderStatus aceita UUID ou numero GL- validado, envia identificador apropriado.
+- Correcoes feitas apos inspecao para alinhar retorno real da Edge Function. Nenhuma mudanca de schema, RLS, main ou index.html.
