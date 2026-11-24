@@ -1,20 +1,27 @@
 -- Draft migration: add operational manager role without weakening existing RLS.
 -- Intended for review/test on an isolated Supabase branch before production application.
--- Admin policies are preserved; manager policies are additive.
+-- Admin policies are preserved. Manager permissions are additive and explicitly exclude DELETE.
 
 ALTER TABLE public.user_roles DROP CONSTRAINT user_roles_role_check;
 ALTER TABLE public.user_roles ADD CONSTRAINT user_roles_role_check
   CHECK (role = ANY (ARRAY['admin'::text, 'staff'::text, 'customer'::text, 'manager'::text]));
 
-CREATE POLICY "Managers can manage categories" ON public.categories FOR ALL
+-- Managers may create and update operational records, but cannot delete categories/products/variants.
+CREATE POLICY "Managers can insert categories" ON public.categories FOR INSERT
+WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
+CREATE POLICY "Managers can update categories" ON public.categories FOR UPDATE
 USING (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'))
 WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
 
-CREATE POLICY "Managers can manage products" ON public.products FOR ALL
+CREATE POLICY "Managers can insert products" ON public.products FOR INSERT
+WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
+CREATE POLICY "Managers can update products" ON public.products FOR UPDATE
 USING (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'))
 WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
 
-CREATE POLICY "Managers can manage product variants" ON public.product_variants FOR ALL
+CREATE POLICY "Managers can insert product variants" ON public.product_variants FOR INSERT
+WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
+CREATE POLICY "Managers can update product variants" ON public.product_variants FOR UPDATE
 USING (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'))
 WITH CHECK (EXISTS (SELECT 1 FROM public.user_roles r WHERE r.user_id = auth.uid() AND r.role = 'manager'));
 
@@ -55,18 +62,25 @@ $function$;
 CREATE OR REPLACE FUNCTION private.admin_update_order_status(p_order_id uuid, p_status text)
 RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path TO ''
 AS $function$
+DECLARE v_role text;
 BEGIN
-  IF auth.uid() IS NULL OR NOT EXISTS (
-    SELECT 1 FROM public.user_roles WHERE user_id = auth.uid() AND role IN ('admin','manager')
-  ) THEN RAISE EXCEPTION 'Acesso administrativo necessário' USING errcode = '42501'; END IF;
+  IF auth.uid() IS NULL THEN RAISE EXCEPTION 'Acesso administrativo necessário' USING errcode = '42501'; END IF;
+  SELECT role INTO v_role FROM public.user_roles WHERE user_id = auth.uid() AND role IN ('admin','manager') LIMIT 1;
+  IF v_role IS NULL THEN RAISE EXCEPTION 'Acesso administrativo necessário' USING errcode = '42501'; END IF;
+
   IF p_status NOT IN ('confirmed','processing','shipped','ready_for_pickup','completed','cancelled','refunded') THEN
     RAISE EXCEPTION 'Status de pedido inválido'; END IF;
+  -- Manager may only perform operational status changes. Cancel/refund remain Admin Master only.
+  IF v_role = 'manager' AND p_status IN ('cancelled','refunded') THEN
+    RAISE EXCEPTION 'Cancelamento e reembolso são restritos ao Admin Master' USING errcode = '42501';
+  END IF;
+
   UPDATE public.orders SET status = p_status, updated_at = now() WHERE id = p_order_id;
   IF NOT FOUND THEN RAISE EXCEPTION 'Pedido não encontrado'; END IF;
 END;
 $function$;
 
--- Assign the manager role to the confirmed operational account by email (no guessed UID).
+-- Assign manager role to the confirmed operational account by email (no guessed UID).
 INSERT INTO public.user_roles (user_id, role)
 SELECT id, 'manager' FROM auth.users WHERE email = 'odiselma.vital@hotmail.com'
 ON CONFLICT (user_id, role) DO NOTHING;
