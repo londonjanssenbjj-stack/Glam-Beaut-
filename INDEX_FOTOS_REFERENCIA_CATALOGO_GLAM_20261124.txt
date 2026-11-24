@@ -1,0 +1,44 @@
+GLAM BEAUT — ÍNDICE DAS FOTOS DE REFERÊNCIA DOS VÍDEOS
+Atualização: 24/11/2026
+
+O ZIP GLAM_BEAUT_FOTOS_REFERENCIA_VIDEOS.zip contém 31 quadros originais, recortados por cenas/timestamps para referência.
+IMPORTANTE: são frames de vídeos, não fotografias individuais de produto. Alguns quadros repetem a mesma mercadoria e exibem várias peças juntas.
+
+Arquivos:
+- V1_hidrate_hair.jpg
+- V1_keune_care.jpg
+- V1_leavein_cosmeticos.jpg
+- V1_cosmeticos_kit.jpg
+- V1_perfume_bandeja.jpg
+- V1_maquiagem_bandeja.jpg
+- V1_cosmeticos_bandeja2.jpg
+- V1_bolsas.jpg
+- V1_bolsa_caixa.jpg
+- V2_ouse_capilar.jpg
+- V2_hair_treatment.jpg
+- V2_keune_care.jpg
+- V2_cosmeticos_azul.jpg
+- V2_maquiagem.jpg
+- V2_bandeja_kit.jpg
+- V2_perfumaria.jpg
+- V2_clutch.jpg
+- V2_bolsas.jpg
+- V3_joias_colar.jpg
+- V3_joias_bandeja.jpg
+- V3_joias_expositor.jpg
+- V3_joias_dolena.jpg
+- V3_joias_painel.jpg
+- V3_joias_caixa.jpg
+- V3_joias_display.jpg
+- V3_joias_pendente.jpg
+- V4_bijuteria_expositor.jpg
+- V4_aneis_expositor.jpg
+- V4_gaveta_joias.jpg
+- V4_bijuteria_modelos.jpg
+- V4_joias_pecas.jpg
+
+Sugestão de fluxo para uso futuro:
+1. Foto estática individual de cada SKU, de frente, sem sobreposição.
+2. Registrar SKU/variante/volume/preço e quantidade física confirmada.
+3. Associar imagem ao SKU correto.
+4. Só então marcar produto/variante ativo no painel.
