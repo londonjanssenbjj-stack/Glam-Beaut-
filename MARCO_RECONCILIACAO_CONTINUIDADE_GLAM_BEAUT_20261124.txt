@@ -66,9 +66,9 @@ PRÓXIMA AÇÃO EXATA
 6. Catálogo/associação de imagens reconciliado: 16 produtos no banco sem SKU e sem image_url; não associar frames a nomes genéricos.
 
 DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SÓ QUANDO INEVITÁVEL
-- Foto individual/confirmar identidade de item quando ambíguo.
-- Contagem física por SKU.
-- Confirmação de preço/volume/variante.
+- Usuário confirmou: nomes/produtos correspondem às fotos, preços estão corretos e todos os produtos estão disponíveis.
+- Contagem física exata por produto/variante ainda necessária; 'disponível' não informa unidades.
+- SKU e variantes só precisam ser definidos quando fizer sentido para o produto.
 - Teste browser autenticado Admin Master se necessário.
 
 REGRA DE RETOMADA
@@ -101,3 +101,11 @@ REVISÃO ADICIONAL — RECUPERAÇÃO DE CHECKOUT (24/11)
 - Migração idempotente draft: bloco de criação do pedido agora captura falha do RPC autoritativo, remove a chave idempotente pendente sem resposta e relança erro, permitindo retry da mesma chave após falha. As alterações da chamada do pedido são revertidas pelo bloco de exceção. Esta mudança é apenas código branch; exige revisão SQL e teste concorrente antes de aplicar.
 - Verificações estáticas confirmaram SQL created_at e mapeamento frontend createdAt; o filtro Lançamentos usa esse timestamp. “Mais vendidos” permanece desativado com aviso, pois ainda não há histórico de vendas real.
 - Nenhum SQL aplicado ao Supabase e nenhum pagamento executado.
+
+
+CONFIRMAÇÕES DO USUÁRIO — 24/11/2026
+- Produtos correspondem às fotos: confirmado.
+- Preços: aprovados pelo usuário.
+- Disponibilidade de todos os produtos: confirmada.
+- Contagem física exata (unidades por item/variante): ainda não fornecida; não inventar saldo inicial.
+- Catálogo reconciliado em nível de identidade, foto e preço. Cadastro/ativação e estoque inicial dependem da implementação segura e teste.
