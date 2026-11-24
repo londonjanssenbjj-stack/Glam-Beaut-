@@ -231,18 +231,31 @@ variantForm.addEventListener('submit',async ev=>{
  });
  const quickForm=document.getElementById('quickJewelryForm');
  const quickMsg=document.getElementById('quickJewelryMessage');
- const quickQueue=[];
+ const QUICK_QUEUE_STORAGE_KEY='glam_admin_quick_jewelry_queue_v1';
+ const quickLoadQueue=()=>{
+   try{
+     const saved=JSON.parse(localStorage.getItem(QUICK_QUEUE_STORAGE_KEY)||'[]');
+     if(!Array.isArray(saved))return [];
+     return saved.filter(item=>item&&typeof item.name==='string').map(item=>({
+       name:item.name,catId:item.catId||'',catName:item.catName||'Joias / acessórios',
+       price:item.price==null?'':String(item.price),quantity:Number.isInteger(item.quantity)?item.quantity:0,
+       sku:item.sku||'',image:item.image||''
+     }));
+   }catch{return [];}
+ };
+ const quickQueue=quickLoadQueue();
+ const quickPersistQueue=()=>{try{localStorage.setItem(QUICK_QUEUE_STORAGE_KEY,JSON.stringify(quickQueue));}catch(e){setMessage(quickMsg,'Não foi possível guardar a fila local no navegador.','error');}};
  const quickRender=()=>{
    const wrap=document.getElementById('quickJewelryQueue');
    if(!quickQueue.length){wrap.textContent='Lista vazia. Adicione peças acima.';document.getElementById('quickJewelrySave').disabled=true;return;}
    const table=document.createElement('table');const head=document.createElement('thead');const hr=document.createElement('tr');
    ['Item','Categoria','Preço','Qtd.','SKU','Foto',''].forEach(t=>{const th=document.createElement('th');th.textContent=t;hr.appendChild(th);});head.appendChild(hr);table.appendChild(head);
-   const body=document.createElement('tbody');quickQueue.forEach((item,index)=>{const tr=document.createElement('tr');[item.name,item.categoryName,item.price===''?'Pendente':'R$ '+Number(item.price).toFixed(2).replace('.',','),item.quantity,item.sku||'Gerado',item.image?'Informada':'—'].forEach(val=>{const td=document.createElement('td');td.textContent=String(val);tr.appendChild(td);});const td=document.createElement('td');const del=document.createElement('button');del.type='button';del.textContent='Remover';del.addEventListener('click',()=>{quickQueue.splice(index,1);quickRender();});td.appendChild(del);tr.appendChild(td);body.appendChild(tr);});table.appendChild(body);wrap.replaceChildren(table);document.getElementById('quickJewelrySave').disabled=false;
+   const body=document.createElement('tbody');quickQueue.forEach((item,index)=>{const tr=document.createElement('tr');[item.name,item.categoryName,item.price===''?'Pendente':'R$ '+Number(item.price).toFixed(2).replace('.',','),item.quantity,item.sku||'Gerado',item.image?'Informada':'—'].forEach(val=>{const td=document.createElement('td');td.textContent=String(val);tr.appendChild(td);});const td=document.createElement('td');const del=document.createElement('button');del.type='button';del.textContent='Remover';del.addEventListener('click',()=>{quickQueue.splice(index,1);quickPersistQueue();quickRender();});td.appendChild(del);tr.appendChild(td);body.appendChild(tr);});table.appendChild(body);wrap.replaceChildren(table);document.getElementById('quickJewelrySave').disabled=false;
  };
  const quickFillCategories=()=>{const select=document.getElementById('quickJewelryCategory');select.replaceChildren();const first=document.createElement('option');first.value='';first.textContent='Joias / acessórios';select.appendChild(first);cachedCategories.forEach(cat=>{const op=document.createElement('option');op.value=cat.id;op.textContent=cat.name;select.appendChild(op);});};
- quickForm.addEventListener('submit',ev=>{ev.preventDefault();const name=document.getElementById('quickJewelryName').value.trim();const catId=document.getElementById('quickJewelryCategory').value;const catName=document.getElementById('quickJewelryCategory').selectedOptions[0]?.textContent||'Joias / acessórios';const price=document.getElementById('quickJewelryPrice').value.trim();const quantity=Number(document.getElementById('quickJewelryQty').value||0);const sku=document.getElementById('quickJewelrySku').value.trim();const image=document.getElementById('quickJewelryImage').value.trim();if(!name||!Number.isInteger(quantity)||quantity<0||(price!==''&&(!Number.isFinite(Number(price))||Number(price)<0))){setMessage(quickMsg,'Confira o nome, preço e quantidade.','error');return;}quickQueue.push({name,catId,catName,price,quantity,sku,image});quickForm.reset();document.getElementById('quickJewelryQty').value='0';quickRender();setMessage(quickMsg,'Item adicionado à lista local. Ainda não foi salvo no banco.','ok');});
+ quickForm.addEventListener('submit',ev=>{ev.preventDefault();const name=document.getElementById('quickJewelryName').value.trim();const catId=document.getElementById('quickJewelryCategory').value;const catName=document.getElementById('quickJewelryCategory').selectedOptions[0]?.textContent||'Joias / acessórios';const price=document.getElementById('quickJewelryPrice').value.trim();const quantity=Number(document.getElementById('quickJewelryQty').value||0);const sku=document.getElementById('quickJewelrySku').value.trim();const image=document.getElementById('quickJewelryImage').value.trim();if(!name||!Number.isInteger(quantity)||quantity<0||(price!==''&&(!Number.isFinite(Number(price))||Number(price)<0))){setMessage(quickMsg,'Confira o nome, preço e quantidade.','error');return;}quickQueue.push({name,catId,catName,price,quantity,sku,image});quickPersistQueue();quickForm.reset();document.getElementById('quickJewelryQty').value='0';quickRender();setMessage(quickMsg,'Item adicionado à lista local. Ainda não foi salvo no banco.','ok');});
  document.getElementById('quickJewelryClear').addEventListener('click',()=>{quickForm.reset();document.getElementById('quickJewelryQty').value='0';});
- document.getElementById('quickJewelryEmpty').addEventListener('click',()=>{quickQueue.splice(0,quickQueue.length);quickRender();setMessage(quickMsg,'Lista local esvaziada.','');});
+ document.getElementById('quickJewelryEmpty').addEventListener('click',()=>{quickQueue.splice(0,quickQueue.length);quickPersistQueue();quickRender();setMessage(quickMsg,'Lista local esvaziada.','');});
  document.getElementById('quickJewelrySave').addEventListener('click',async()=>{
    const btn=document.getElementById('quickJewelrySave');if(!quickQueue.length)return;btn.disabled=true;let done=0;setMessage(quickMsg,'Salvando '+quickQueue.length+' item(ns) em sequência…');
    for(const item of [...quickQueue]){
@@ -259,9 +272,9 @@ variantForm.addEventListener('submit',async ev=>{
        if(variant.error)throw variant.error;
        if(item.quantity>0){const movement=await client.rpc('admin_adjust_inventory',{p_variant_id:variant.data.id,p_quantity:item.quantity,p_note:'Inventário inicial — cadastro rápido bijuteria'});if(movement.error)throw movement.error;}
        done++;
-     }catch(err){if(done>0)quickQueue.splice(0,done);quickRender();setMessage(quickMsg,'Salvos '+done+' item(ns). Falha no item '+item.name+': '+(err.message||'erro')+'. Os itens já salvos foram retirados da fila; o item que falhou e os seguintes permanecem. Revise se o produto/variante do item com falha foi criado parcialmente antes de tentar novamente.','error');await loadData();btn.disabled=false;return;}
+     }catch(err){if(done>0)quickQueue.splice(0,done);quickPersistQueue();quickRender();setMessage(quickMsg,'Salvos '+done+' item(ns). Falha no item '+item.name+': '+(err.message||'erro')+'. Os itens já salvos foram retirados da fila; o item que falhou e os seguintes permanecem. Revise se o produto/variante do item com falha foi criado parcialmente antes de tentar novamente.','error');await loadData();btn.disabled=false;return;}
    }
-   quickQueue.splice(0,quickQueue.length);quickRender();await loadData();setMessage(quickMsg,'Lista salva. Todos os itens criados inativos; revise preço e estoque antes de ativar.','ok');btn.disabled=false;
+   quickQueue.splice(0,quickQueue.length);quickPersistQueue();quickRender();await loadData();setMessage(quickMsg,'Lista salva. Todos os itens criados inativos; revise preço e estoque antes de ativar.','ok');btn.disabled=false;
  });
 
  const formMessage=document.getElementById('productFormMessage');
