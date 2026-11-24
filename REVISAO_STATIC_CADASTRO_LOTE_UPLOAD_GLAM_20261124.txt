@@ -1,0 +1,58 @@
+GLAM BEAUT — REVISÃO ESTÁTICA DO CADASTRO EM LOTE E UPLOAD
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Arquivo revisado: admin-panel.html
+SHA revisado: 8ef70ffc639d397e300a6686f1977a3e9fd43bd7
+
+ESCOPO
+Revisão estática, sem executar o painel, sem autenticar, sem inserir/editar registros, sem upload, sem movimentação de estoque e sem tocar na main.
+
+CADASTRO RÁPIDO EM LOTE — COMPORTAMENTO CONFIRMADO NO CÓDIGO
+- Itens são primeiro acumulados em fila local.
+- Campos incluem nome, categoria, preço opcional, quantidade, SKU opcional e URL de imagem opcional.
+- Valida nome, quantidade inteira não negativa e preço opcional válido não negativo.
+- Ao salvar, itera sequencialmente.
+- Checa slug duplicado em products antes da inserção.
+- SKU informado verifica duplicidade em products.
+- Produto criado inativo; variante Unidade criada inativa.
+- Preço vazio é armazenado como 0 e descrição marca preço pendente.
+- Quantidade maior que zero é movimentada pela RPC admin_adjust_inventory; quantidade zero não dispara movimento.
+- Não faz escrita direta nas tabelas de saldo/movimento.
+- Em falha, retira da fila somente itens anteriores completos; o item que falhou e seguintes permanecem para revisão/retentativa, e a mensagem alerta sobre possível criação parcial.
+
+RISCOS/OBSERVAÇÕES ESTÁTICAS (NÃO CORRIGIDOS NESTA REVISÃO)
+1. FALHA PARCIAL DENTRO DE UM ITEM: se o insert de produto for bem-sucedido e o insert da variante ou RPC de estoque falhar, o produto pode ter sido criado parcialmente. O item permanece na fila; a retentativa pode ser bloqueada pelo slug duplicado. A mensagem alerta para verificar a criação parcial. Ideal futuro: processo transacional/backend ou fluxo de recuperação idempotente; não alterar sem desenho de segurança.
+2. SKU GERADO: o SKU automático é baseado em slug e sufixo temporal curto. SKU explícito é verificado contra products, mas o SKU automático não faz consulta prévia; variante recebe SKU com sufixo -U. Não há confirmação de unicidade global do SKU de variante neste trecho. Risco baixo de colisão, mas precisa validação do banco/constraint e tratamento de erro.
+3. PREÇO AUSENTE: preço vazio usa valor técnico 0, descrição marca pendente. O item deve permanecer inativo; não deve ser ativado para venda sem preço confirmado.
+4. QUANTIDADE INFORMADA: quantidade pode ser lançada como estoque por RPC. Portanto, no uso real, somente inserir quantidade fisicamente conferida; não usar quantidade observada em frame.
+5. IMAGEM EM LOTE: fila aceita URL, não upload de arquivo. Associação de imagem deve ser verificada visualmente; frames de vídeo não são automaticamente imagens SKU.
+6. SALVAMENTO SEQUENCIAL: operação não é atômica; falha intermediária pode exigir revisão manual no banco/painel antes da retentativa.
+
+UPLOAD / STORAGE — COMPORTAMENTO CONFIRMADO
+- Aceita JPG/JPEG, PNG e WebP, máximo 8 MB.
+- Requer usuário autenticado e consulta de user_roles confirmando role admin.
+- Path usa products/slug-timestamp.ext.
+- Upload usa upsert=false, evitando sobrescrever arquivo existente.
+- URL pública é preenchida no formulário e preview atualizado; mensagem orienta salvar produto para vincular.
+- Upload é feito antes do salvamento do cadastro; se usuário abandonar o formulário, pode ficar imagem órfã no bucket. Não há exclusão automática neste fluxo.
+- Erros são exibidos; input é reabilitado e limpo no finally.
+- Teste funcional real no navegador ainda pendente.
+
+PONTOS NÃO COMPROVADOS
+- Sintaxe/runtime JavaScript validada em navegador.
+- Resposta real do Storage e URL pública em sessão Admin Master.
+- Salvar produto com URL após upload.
+- CRUD de produto/variante.
+- RPC de estoque em ambiente controlado.
+- Constraints de unicidade de SKU, incluindo variante.
+- Responsividade, logout, bloqueio de usuário sem admin e mensagens de erro.
+
+RECOMENDAÇÕES DE CONTINUIDADE (SEM EXECUÇÃO)
+A. Antes de teste de lote: preferir quantidades 0 até o catálogo e contagem física serem confirmados.
+B. Não repetir lote após erro sem revisar produtos/variantes já criados no banco.
+C. Após upload, salvar o cadastro do produto; se abandonar, anotar possível arquivo órfão para limpeza administrativa segura futura.
+D. Para teste, usar item de teste identificado e ambiente isolado; não criar registros de teste em produção sem autorização.
+E. Próxima revisão técnica deve verificar constraints do schema e RPC, e propor correção idempotente para falha parcial sem enfraquecer RLS.
+
+RESULTADO
+Cadastro rápido e upload foram revisados estaticamente. Não foi realizada correção de código nesta etapa porque os riscos identificados exigem desenho/teste controlado. main, site público, Supabase, estoque e pagamentos permanecem inalterados.
