@@ -92,7 +92,6 @@ BEGIN
 END;
 $function$;
 
--- Assign manager role to the confirmed operational account by email (no guessed UID).
-INSERT INTO public.user_roles (user_id, role)
-SELECT id, 'manager' FROM auth.users WHERE email = 'odiselma.vital@hotmail.com'
-ON CONFLICT (user_id, role) DO NOTHING;
+-- Role assignment is intentionally excluded from this migration.
+-- Assign the manager role only after reviewed migration and explicit identity confirmation,
+-- using a separate controlled admin operation.
