@@ -169,3 +169,14 @@ CONTINUIDADE DE CATÁLOGO E FRAMES — 24/11/2026
 [!] Catalogação precisa de revisão humana antes de ativar qualquer item.
 [!] Upload de imagens no Supabase Storage não implementado. Não criar bucket/policy nem alterar Storage em produção sem aprovação e plano de segurança.
 [!] Nenhum produto inserido em produção e nenhuma imagem enviada para Storage.
+
+
+PAINEL ADMINISTRATIVO — AJUSTES IMPLEMENTADOS NA BRANCH — 24/11/2026
+[✓] Campo de URL de imagem ganhou pré-visualização da imagem no formulário; mantém URL atual e não envia arquivo.
+[✓] Cadastro de variantes agora permite edição de variantes existentes, mantendo SKU/preço override e vínculo ao produto.
+[✓] Listagem de variantes agora exibe ação Editar.
+[✓] Reset do formulário de variante limpa ID de edição e restaura rótulo do botão.
+[✓] Checagem estática confirma controles adicionados e mantém chamadas RPC de estoque e checagem de role.
+[!] Teste de navegador, login e operações não executado nesta sessão.
+[!] Upload direto de arquivo ainda não implementado; somente URL com preview. Não adiciona Storage nem muda policies.
+[!] Não aplicar no ambiente público/produção sem aprovação explícita e QA.
