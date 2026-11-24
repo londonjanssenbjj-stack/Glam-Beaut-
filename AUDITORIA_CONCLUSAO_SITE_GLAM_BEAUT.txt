@@ -124,3 +124,12 @@ REVISAO READ-ONLY DAS FUNCOES DE PEDIDO E ESTOQUE (24/11/2026)
 - A função order requer variante ativa; hoje product_variants tem 0 registros, portanto o checkout backend ainda não tem variantes reais disponíveis.
 - Essa leitura é importante para planejar integração: confirmar estados de pagamento, reprocessamento/idempotência, cancelamento e liberação de estoque usando o campo orders.inventory_released_at, sem criar um segundo mecanismo de baixa.
 - Nenhuma função, tabela, pedido, movimento, pagamento, permissão ou policy foi alterada nesta revisão.
+
+
+AUDITORIA READ-ONLY DE ESTRUTURA DE PAGAMENTO (24/11/2026)
+- Existem tabelas public.payments e public.payment_events.
+- payments possui: order_id, provider, provider_payment_id, preference_id, status, amount, currency, checkout_url, provider_order_id e timestamps.
+- payment_events possui: payment_id, provider, provider_event_id, event_type, signature_valid, payload, processed_at e created_at.
+- Esta estrutura indica componentes de registro de pagamentos/eventos, mas não comprova Edge Function/webhook Mercado Pago funcionando nem fluxo completo de pagamento.
+- Nenhuma tabela ou registro foi alterado; não houve pagamento/teste de webhook.
+- Próxima verificação deve revisar funções/Edge Functions e configurações existentes de forma read-only, confirmar deduplicação de eventos e tratamento de estados, antes de qualquer integração nova.
