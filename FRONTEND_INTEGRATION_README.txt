@@ -31,3 +31,11 @@ PROGRESSO ADICIONAL - 24/11/2026
 - index.html e main permanecem inalterados.
 - Nao foram criados usuarios, pedidos, produtos, variantes, estoque, bairros ou settings.
 - Consulta de status do pedido continua sem endpoint seguro; nao implementar leitura direta de orders sem validar policy/RLS.
+
+CHECKPOINT 24/11/2026 - VALIDACAO CLIENTE E CHECKOUT
+- Modulo agora inclui ensureCustomerRecords(user, metadata), garantindo profile e role customer apos auth quando ha sessao.
+- Inclui loadActiveCategories e loadActiveDeliveryRegions (somente registros ativos).
+- createCustomerOrder valida metodo, UUID de variant, quantidade integer 1..99 e campos obrigatorios de endereco antes de RPC.
+- O backend permanece autoridade de precos/estoque/regras.
+- Ainda nao foi ligado ao index.html. Nao executar fluxo checkout ate admin/catalogo/estoque/entrega configurados.
+- Consulta de status do pedido ainda pendente de endpoint seguro.
