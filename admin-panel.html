@@ -108,14 +108,17 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
  }
  const client=window.supabase.createClient(config.url,config.publishableKey);
  const showLogin=()=>{loginCard.classList.remove('hide');adminApp.classList.add('hide');headerState.textContent='Acesso restrito';};
- const showAdmin=(email)=>{loginCard.classList.add('hide');adminApp.classList.remove('hide');headerState.textContent='Admin autenticado';document.getElementById('signedInAs').textContent=email||'Sessão ativa';};
+ const showAdmin=(email,role)=>{loginCard.classList.add('hide');adminApp.classList.remove('hide');headerState.textContent=role==='admin'?'Admin Master autenticado':'Gerente autenticado';document.getElementById('signedInAs').textContent=(email||'Sessão ativa')+' · '+(role==='admin'?'Admin Master':'Gerente');};
  const requireAdmin=async(user)=>{
    const {data,error}=await client.from('user_roles').select('role').eq('user_id',user.id);
-   if(error)throw new Error('Não foi possível verificar o papel administrativo. Acesso não liberado.');
-   if(!Array.isArray(data)||!data.some(r=>r.role==='admin')){
+   if(error)throw new Error('Não foi possível verificar o papel de acesso. Acesso não liberado.');
+   const roleList=Array.isArray(data)?data.map(r=>r.role):[];
+   const role=roleList.includes('admin')?'admin':roleList.includes('manager')?'manager':null;
+   if(!role){
      await client.auth.signOut();
-     throw new Error('Esta conta não possui o papel admin. O painel permanece bloqueado.');
+     throw new Error('Esta conta não possui perfil autorizado. O painel permanece bloqueado.');
    }
+   return role;
  };
  const renderTable=(target,headers,rows)=>{
    const el=document.getElementById(target);
@@ -304,7 +307,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
  const checkSession=async()=>{
    const {data:{session}}=await client.auth.getSession();
    if(!session){showLogin();return;}
-   try{await requireAdmin(session.user);showAdmin(session.user.email);await loadData();}
+   try{const role=await requireAdmin(session.user);showAdmin(session.user.email,role);await loadData();}
    catch(err){showLogin();setMessage(message,err.message,'error');}
  };
  document.getElementById('loginForm').addEventListener('submit',async ev=>{
@@ -312,8 +315,8 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    try{
     const {data,error}=await client.auth.signInWithPassword({email:document.getElementById('email').value.trim(),password:document.getElementById('password').value});
     if(error)throw error;
-    await requireAdmin(data.user);
-    showAdmin(data.user.email);await loadData();setMessage(message,'Login efetuado.','ok');
+    const role=await requireAdmin(data.user);
+    showAdmin(data.user.email,role);await loadData();setMessage(message,'Login efetuado.','ok');
    }catch(err){setMessage(message,err.message||'Falha no login.','error');showLogin();}
    finally{button.disabled=false;}
  });
