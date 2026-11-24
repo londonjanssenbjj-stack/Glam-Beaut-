@@ -1,24 +1,24 @@
-GLAM BEAUT — INVENTÁRIO VISUAL PRELIMINAR
+GLAM BEAUT — INVENTÁRIO VISUAL REVISADO
 Data: 24/11/2026
-Fonte: 49 frames extraídos de 4 vídeos enviados anteriormente.
+Material inspecionado diretamente: arquivo ZIP com 49 frames de 4 vídeos.
 
-ESCOPO
-- Identificação visual de grupos de produtos e peças.
-- Estimativas de quantidade em faixas, não contagem de estoque confirmada.
-- Preços não foram inferidos. Os preços já cadastrados no banco permanecem no catálogo-base.
-- Frames repetidos/ângulos diferentes foram tratados como aparições do mesmo conjunto, evitando soma duplicada.
+CONCLUSÃO
+A revisão visual confirma que o material é útil para identificar grupos e peças, mas não permite afirmar estoque físico. As filmagens mostram muitos ângulos e repetições de uma mesma exibição. Por isso, não usei estimativas globais de estoque nem somei aparições repetidas.
 
-RESUMO VISUAL (estimativas amplas)
-1. Produtos de cabelo: frascos e conjuntos de tratamento, distribuídos nos vídeos 1 e 2. Estimativa visual combinada: aproximadamente 16–24 unidades, com confiança média/baixa por repetição de ângulos.
-2. Skincare/cosméticos/perfumaria: frascos, tubos, potes, caixas e combinações. Estimativa ampla: aproximadamente 25–40 itens; baixa a média confiança.
-3. Bolsas/carteiras: 3 peças no vídeo 1 (pink, carteira/necessaire clara, bolsa mostarda) e 3 peças distintas no vídeo 2 (clutch dourada, bolsa preta e bolsa laranja/marrom). Total visual preliminar: 6 peças distintas, confiança alta para identificação visual, mas não para estoque físico.
-4. Bijuterias/acessórios: conjuntos e expositores em vídeos 3 e 4. Estimativa ampla: dezenas de peças; sem contagem item a item devido à resolução, sobreposição e ângulos.
+IDENTIFICAÇÕES MAIS SEGURAS
+- Bolsas/carteiras: 6 peças distintas visíveis — rosa (vídeo 1 frame 15), clara em caixa (vídeo 1 frame 16), mostarda (vídeo 1 frame 17), clutch dourada (vídeo 2 frame 13), clutch clara/prateada (vídeo 2 frame 14), bolsa preta (vídeo 2 frame 15), bolsa caramelo/laranja (vídeo 2 frame 16). Observação: a revisão detalhada visual sugere 7 peças ao considerar todas as imagens isoladas; confirmar se alguma carteira/clutch é o mesmo item em outro vídeo.
+- Tratamento capilar: vários frascos, tubos, potes e conjuntos em vídeos 1 e 2. Os rótulos/volumes não estão suficientemente legíveis para SKU/variante confirmada.
+- Skincare/cosméticos/perfumaria: frascos, potes, caixas e bandejas; sem identificação confiável de marca/modelo em várias cenas.
+- Bijuterias: painéis e organizadores com colares, brincos, conjuntos e peças pequenas nos vídeos 3 e 4. Não é seguro contar item por item a partir dos frames atuais.
 
-LIMITAÇÕES IMPORTANTES
-- A quantidade mostrada no vídeo pode não ser o estoque real disponível (pode haver unidades fora do quadro ou reposição).
-- Itens em kits não devem ser contados como estoque avulso sem confirmar composição.
-- Não cadastrar estimativas como saldo de estoque no Supabase.
-- Fotos de referência podem mostrar o mesmo item repetido em cenas diferentes.
+REGRAS DE CONTAGEM
+- Frames que mostram o mesmo expositor/conjunto em ângulos diferentes foram tratados como repetição, não como novas unidades.
+- Itens de um kit não foram convertidos em unidades de estoque sem composição confirmada.
+- Contagem de peças visíveis em uma cena não equivale à quantidade em estoque.
+- Fotos, preços e quantidades devem ser confirmados antes de criar variantes ou movimentações de estoque.
 
-PRÓXIMA ETAPA
-Usar este inventário como guia para montar catálogo de produtos/variantes, associar fotos de origem e depois confirmar fisicamente quantidades, SKUs, volumes, preços ausentes e composição de kits.
+CSV DETALHADO
+O CSV associado contém a classificação por grupo, referência de vídeo/frame, descrição visual, nível de confiança, quantidade observável quando segura, e observações para evitar duplicidade.
+
+LIMITAÇÃO E PRÓXIMO PASSO
+Para consolidar quantidade por SKU e variantes, será necessário vídeo/foto mais próximo e estático dos rótulos e dos itens, ou uma conferência física. O catálogo pode ser preparado com descrições provisórias e preço apenas quando já existe no banco. Não ativar produtos nem lançar estoque com base nessa estimativa.
