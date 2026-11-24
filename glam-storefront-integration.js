@@ -89,7 +89,13 @@
     $("subtotal").textContent=moneyFmt(sub);$("delivery").textContent=fee===0 && cart.length && $("checkoutDelivery")?.value!=="retirada"?"Calculado no checkout":moneyFmt(fee);$("cartTotal").textContent=fee===0 && cart.length && $("checkoutDelivery")?.value!=="retirada"?"Subtotal + frete":"Total estimado: "+moneyFmt(total);
     if($("checkoutTotal"))$("checkoutTotal").textContent=moneyFmt(total);
   }
-  function saveCartDb(){localStorage.setItem("glam_cart",JSON.stringify(cart));updateCartDb();}
+  function saveCartDb(){
+    // Any cart edit invalidates the previous checkout request key; a payment retry
+    // without cart edits intentionally keeps the key for idempotent order reuse.
+    localStorage.removeItem("glam_checkout_request_key");
+    localStorage.setItem("glam_cart",JSON.stringify(cart));
+    updateCartDb();
+  }
   function deliveryValueDb(){const s=$("checkoutDelivery");return s&&s.value==="retirada"?0:0;}
   function removeFromCartDb(id){cart=cart.filter(x=>x.id!==id);saveCartDb();}
   function changeQtyDb(id,delta){const it=cart.find(x=>x.id===id);if(!it)return;it.qty+=delta;if(it.qty<=0)cart=cart.filter(x=>x.id!==id);saveCartDb();}
