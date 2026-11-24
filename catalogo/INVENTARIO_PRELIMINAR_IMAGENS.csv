@@ -1,0 +1,50 @@
+ref_imagem,categoria_preliminar,nome_provisorio,sku,preco_brl,variant_enabled,variant_name,quantidade,status,observacao
+glam_video1_frame01.jpg,Cosméticos,Cosmético individual (rótulo a identificar),,,,,,PENDENTE_VALIDACAO,Identificar marca e nome no rótulo
+glam_video1_frame02.jpg,Skincare,Produto skincare turquoise (identificar),,,,,,PENDENTE_VALIDACAO,Frame pode mostrar mais de um item
+glam_video1_frame03.jpg,Skincare,Skincare branco e pote (identificar),,,,,,PENDENTE_VALIDACAO,Separar itens se houver múltiplos
+glam_video1_frame04.jpg,Hair care,Hair care linha branca (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar cada SKU
+glam_video1_frame05.jpg,Hair care,Hair care frascos pink (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar cada SKU
+glam_video1_frame06.jpg,Hair care,Hair care frascos pink (identificar),,,,,,PENDENTE_VALIDACAO,Comparar com frame anterior para evitar duplicidade
+glam_video1_frame07.jpg,Perfumaria,Perfume/frasco vermelho (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar nome e volume
+glam_video1_frame08.jpg,Cosméticos,Cosméticos em bandeja (separar itens),,,,,,PENDENTE_VALIDACAO,Não cadastrar bandeja como um produto
+glam_video1_frame09.jpg,Maquiagem,Maquiagem em bandeja (separar itens),,,,,,PENDENTE_VALIDACAO,Não cadastrar bandeja como um produto
+glam_video1_frame10.jpg,Maquiagem,Maquiagem em expositor (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video1_frame11.jpg,Cosméticos,Cosméticos variados (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video1_frame12.jpg,Perfumaria,Perfume/cosmético embalagem (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca e volume
+glam_video1_frame13.jpg,Cosméticos,Bandeja de cosméticos (separar itens),,,,,,PENDENTE_VALIDACAO,Não cadastrar bandeja como um produto
+glam_video1_frame14.jpg,Maquiagem,Maquiagem em expositor (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video1_frame15.jpg,Bolsas,Bolsa rosa pequena,,,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video1_frame16.jpg,Bolsas,Bolsa de mão (identificar modelo),,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video1_frame17.jpg,Bolsas,Bolsa pequena dourada/marrom,,,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video2_frame01.jpg,Hair care,Hair care frascos rosa (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame02.jpg,Hair care,Hair care frascos brancos (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame03.jpg,Hair care,Hair care frascos rosa (identificar),,,,,,PENDENTE_VALIDACAO,Comparar com outros frames para duplicidade
+glam_video2_frame04.jpg,Hair care,Hair care frascos rosa (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame05.jpg,Hair care,Hair care frascos creme (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame06.jpg,Hair care,Hair care potes e frascos (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video2_frame07.jpg,Hair care,Hair care frascos variados (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video2_frame08.jpg,Hair care,Hair care frascos brancos (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame09.jpg,Perfumaria,Perfumes (identificar frascos),,,,,,PENDENTE_VALIDACAO,Confirmar nomes e volumes
+glam_video2_frame10.jpg,Perfumaria,Perfumes variados (identificar frascos),,,,,,PENDENTE_VALIDACAO,Confirmar nomes e volumes
+glam_video2_frame11.jpg,Hair care,Hair care potes pink (identificar),,,,,,PENDENTE_VALIDACAO,Confirmar marca/linha
+glam_video2_frame12.jpg,Hair care,Hair care frascos e pote pink (separar itens),,,,,,PENDENTE_VALIDACAO,Identificar produtos individuais
+glam_video2_frame13.jpg,Bolsas,Clutch dourada,,,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video2_frame14.jpg,Bolsas,Clutch dourada texturizada,,,,,,,PENDENTE_VALIDACAO,Confirmar se distinta do frame anterior
+glam_video2_frame15.jpg,Bolsas,Bolsa pequena marrom,,,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video2_frame16.jpg,Bolsas,Bolsa bege,,,,,,,PENDENTE_VALIDACAO,Confirmar modelo e quantidade
+glam_video3_frame01.jpg,Joias,Colar/expositor (identificar peças),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame02.jpg,Joias,Colares e peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame03.jpg,Joias,Caixa e peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame04.jpg,Joias,Bandeja de joias (separar itens),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame05.jpg,Joias,Painel de peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame06.jpg,Joias,Painel/expositor (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame07.jpg,Joias,Painel e peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame08.jpg,Joias,Peças em caixas (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video3_frame09.jpg,Joias,Colares em painel (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame01.jpg,Bijuterias,Bijuterias expositor de brincos (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame02.jpg,Bijuterias,Anéis em painel (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame03.jpg,Bijuterias,Anéis e peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame04.jpg,Bijuterias,Expositor preto (identificar peças),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame05.jpg,Bijuterias,Boxes/expositor (identificar peças),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame06.jpg,Bijuterias,Bandeja com peças (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
+glam_video4_frame07.jpg,Bijuterias,Peças sobre bandeja (identificar),,,,,,PENDENTE_VALIDACAO,Imagem agrupada; separar SKU
