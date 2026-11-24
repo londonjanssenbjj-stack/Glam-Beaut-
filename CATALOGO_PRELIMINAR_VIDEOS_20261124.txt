@@ -1,0 +1,87 @@
+GLAM BEAUT — CATÁLOGO PRELIMINAR IDENTIFICADO NOS VÍDEOS
+Data de referência: 24/11/2026
+Status: RASCUNHO — não cadastrado no banco nem publicado.
+
+CRITÉRIOS
+- Itens listados foram identificados visualmente nos 4 vídeos enviados.
+- Os vídeos mostram várias tomadas do mesmo item; a lista é agrupada por produto/coleção visual para evitar duplicidade inicial.
+- Nomes comerciais exatos, marca, variante, preço, SKU e quantidade devem ser confirmados pela gerente/Admin Master.
+- Valores e quantidades não foram inventados.
+- Imagens de referência são frames extraídos dos vídeos; podem conter mais de um item no mesmo quadro. Não são fotografias de catálogo recortadas.
+- Produtos devem permanecer INATIVOS até revisão do cadastro e confirmação do preço/estoque.
+
+CATÁLOGO — BELEZA E CUIDADOS
+B01 | Kit/linha HIDRATEI — produtos capilares com embalagem azul (vídeo 1, aprox. 0–25s) | Categoria: Cabelo | Foto referência: glam_video1_frame01.jpg / frame02
+B02 | Kit/linha HIDRATEI — kit com produto e acessório/mascara (vídeo 1, aprox. 10–20s) | Cabelo | Foto: glam_video1_frame02.jpg
+B03 | KEUNE CARE — conjunto de cuidados capilares, frascos claros (vídeo 1, aprox. 30–40s) | Cabelo | Foto: glam_video1_frame04.jpg
+B04 | WEPINK — Leave-in / produto capilar rosa, frasco e caixa (vídeo 1, aprox. 40–50s) | Cabelo | Foto: glam_video1_frame05.jpg
+B05 | Óleos capilares — trio de frascos pequenos (vídeo 1, aprox. 40–60s) | Cabelo | Foto: glam_video1_frame06.jpg
+B06 | WEPINK — Body Splash (caixa rosa identificada visualmente) (vídeo 1, aprox. 50–70s) | Perfumaria | Foto: glam_video1_frame07.jpg
+B07 | Perfume/colônia em caixa rosa com imagem de pessoa (vídeo 1, aprox. 60–80s) | Perfumaria | Foto: glam_video1_frame08.jpg
+B08 | PAYOT — produtos cosméticos em caixas pretas e frasco rosado (vídeo 1, aprox. 70–90s) | Beleza/maquiagem | Foto: glam_video1_frame09.jpg
+B09 | Kit de cosméticos em embalagem vermelha/rosa e caixa laranja (vídeo 1, aprox. 80–100s) | Beleza/maquiagem | Foto: glam_video1_frame10.jpg
+B10 | Maquiagem — conjunto de itens em bandeja (vídeo 1, aprox. 90–120s) | Maquiagem | Foto: glam_video1_frame11.jpg / frame12
+B11 | Maquiagem — conjunto de produtos variados em bandeja/cesto (vídeo 1, aprox. 100–130s) | Maquiagem | Foto: glam_video1_frame13.jpg
+B12 | Maquiagem — pincéis e cosméticos organizados (vídeo 1, aprox. 110–130s) | Maquiagem | Foto: glam_video1_frame14.jpg
+B13 | Maquiagem — paletas, pós e produtos em exposição (vídeo 1, aprox. 120–140s) | Maquiagem | Foto: glam_video1_frame15.jpg
+B14 | Maquiagem — batons, glosses e produtos rosa/laranja (vídeo 1, aprox. 130–150s) | Maquiagem | Foto: glam_video1_frame16.jpg
+B15 | Bolsas — bolsa preta com alça estampada (vídeo 1, aprox. 140–160s) | Bolsas/Acessórios | Foto: glam_video1_frame17.jpg
+B16 | Bolsas — bolsa azul com alças douradas (vídeo 1, aprox. 150–165s) | Bolsas/Acessórios | Foto: glam_video1_frame18.jpg
+B17 | Bolsas — bolsa rosa estruturada (vídeo 1, aprox. 160–175s) | Bolsas/Acessórios | Foto: glam_video1_frame19.jpg
+
+CATÁLOGO — COSMÉTICOS E BOLSAS (VÍDEO 2)
+B18 | Linha de shampoo/condicionador em frascos amarelo-claro e rosa (vídeo 2, aprox. 0–10s) | Cabelo | Foto: glam_video2_frame01.jpg
+B19 | Linha capilar em frascos dourado e creme (vídeo 2, aprox. 10–20s) | Cabelo | Foto: glam_video2_frame02.jpg
+B20 | KEUNE — produtos Care/Conditioner em frascos claros (vídeo 2, aprox. 20–50s) | Cabelo | Foto: glam_video2_frame03.jpg / frame05
+B21 | Máscara capilar rosa em pote e frasco (vídeo 2, aprox. 20–40s) | Cabelo | Foto: glam_video2_frame04.jpg
+B22 | Spray capilar azul com indicação “21” na embalagem (vídeo 2, aprox. 50–60s) | Cabelo | Foto: glam_video2_frame06.jpg
+B23 | Máscara capilar rosa e frasco azul (vídeo 2, aprox. 50–60s) | Cabelo | Foto: glam_video2_frame06.jpg
+B24 | Óleo/Elixir capilar dourado em frascos (vídeo 2, aprox. 60–70s) | Cabelo | Foto: glam_video2_frame07.jpg
+B25 | Produtos de beleza/perfumaria em embalagem e saco para presente (vídeo 2, aprox. 70–80s) | Beleza/Presentes | Foto: glam_video2_frame08.jpg
+B26 | Linha de cuidados capilares “elements” em frascos laranja (vídeo 2, aprox. 80–100s) | Cabelo | Foto: glam_video2_frame09.jpg / frame10
+B27 | Linha capilar em potes rosas (vídeo 2, aprox. 100–120s) | Cabelo | Foto: glam_video2_frame11.jpg / frame12
+B28 | Perfumes “LE MAISON” — caixas pretas (texto visual aparente; confirmar nome completo) (vídeo 2, aprox. 120–140s) | Perfumaria | Foto: glam_video2_frame14.jpg
+B29 | Clutch/bolsa de festa dourada texturizada (vídeo 2, aprox. 130–150s) | Bolsas | Foto: glam_video2_frame15.jpg
+B30 | Bolsa vermelha (vídeo 2, aprox. 140–160s) | Bolsas | Foto: glam_video2_frame16.jpg
+B31 | Bolsa preta com detalhe de lenço estampado na alça (vídeo 2, aprox. 150–165s) | Bolsas | Foto: glam_video2_frame17.jpg
+B32 | Bolsa caramelo estruturada com lenço estampado (vídeo 2, aprox. 155–169s) | Bolsas | Foto: glam_video2_frame18.jpg
+
+CATÁLOGO — JOIAS E ACESSÓRIOS (VÍDEOS 3 E 4)
+J01 | Colar com pingente delicado (visual dourado) | Joias/Colares | Foto: glam_video3_frame01.jpg
+J02 | Colar com detalhe de pedras claras (visual) | Joias/Colares | Foto: glam_video3_frame01.jpg
+J03 | Conjunto de colares em bustos de exposição | Joias/Conjuntos | Foto: glam_video3_frame01.jpg
+J04 | Braceletes/bangles decorados — conjunto exposto | Joias/Pulseiras | Foto: glam_video3_frame02.jpg
+J05 | Conjunto de joias em bandeja escura (sortimento; cadastrar individualmente após fotos mais próximas) | Joias | Foto: glam_video3_frame03.jpg
+J06 | Sortimento de brincos (diversos formatos e acabamentos; cada par deverá ter registro individual e SKU) | Joias/Brincos | Foto: glam_video3_frame04.jpg / video4_frame01
+J07 | Sortimento de anéis (diversos modelos e acabamentos; individualizar por modelo) | Joias/Anéis | Foto: glam_video4_frame02.jpg / frame03
+J08 | Anéis em compartimentos de estojo | Joias/Anéis | Foto: glam_video4_frame04.jpg
+J09 | Conjuntos de brincos e peças com pedras coloridas | Joias/Conjuntos | Foto: glam_video4_frame05.jpg
+J10 | Colares, correntes e pingentes em bandeja (individualizar cada peça) | Joias/Colares | Foto: glam_video3_frame05.jpg
+J11 | Colares e correntes douradas — sortimento | Joias/Colares | Foto: glam_video3_frame06.jpg
+J12 | Conjunto de colares e acessórios em display vermelho | Joias/Colares e Conjuntos | Foto: glam_video3_frame07.jpg
+J13 | Pulseiras, tornozeleiras e correntes (sortimento em embalagem) | Joias/Pulseiras | Foto: glam_video3_frame08.jpg / frame09
+J14 | Colares/correntes em display vermelho com etiquetas (sortimento; individualizar) | Joias/Colares | Foto: glam_video3_frame10.jpg
+J15 | Sortimento de peças douradas em display de joias preto | Joias | Foto: glam_video4_frame01.jpg / frame02
+J16 | Peças em estojo compartimentado (brincos, anéis e conjuntos; individualizar) | Joias | Foto: glam_video4_frame03.jpg / frame04
+J17 | Conjuntos de joias em cartelas e caixas (sortimento; individualizar por peça) | Joias | Foto: glam_video4_frame05.jpg
+
+PENDÊNCIAS DE CONFIRMAÇÃO PELA GERENTE/ADMIN MASTER
+- Nome comercial completo e marca de cada item.
+- Categoria final.
+- Variações (cor, tamanho, volume, modelo, kit/individual).
+- SKU/código interno.
+- Preço de venda e preço promocional, se houver.
+- Quantidade inicial real.
+- Estoque mínimo.
+- Confirmar quais itens mostrados juntos são kits e quais são produtos individuais.
+- Escolher frame/imagem principal de cada produto (frames de referência ainda podem mostrar vários produtos juntos).
+
+PRÓXIMA ETAPA TÉCNICA
+1. Revisar este catálogo provisório.
+2. Preparar registros de importação para o painel sem criar produtos ativos.
+3. Implementar/validar fluxo de imagens sem sobrescrever fotos já existentes.
+4. Preço e estoque serão preenchidos manualmente.
+5. Não cadastrar nada em produção até validação de produto/variante e aprovação explícita.
+
+OBSERVAÇÃO SOBRE A CONTAGEM
+A lista B01–B32 e J01–J17 representa grupos visuais/linhas provisórios, não 49 SKUs finais. Em displays de joias há muitas peças distintas; elas devem ser individualizadas por fotos/identificação próxima antes do cadastro para evitar erros de inventário.
