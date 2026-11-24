@@ -64,3 +64,17 @@ STATUS
 Webhook: validado por log HTTP 200 na v6.
 Checkout de ponta a ponta: pendente.
 Site conectado ao backend: pendente.
+
+
+CHECKPOINT 24/11/2026 - SCAFFOLD CARREGADO NA BRANCH (SEM CONECTAR UI)
+- Supabase JS v2 carregado via CDN em index.html na branch de integração.
+- glam-supabase-config.js criado com URL do projeto e publishable key (chave pública), sem secrets.
+- glam-supabase-integration.js carregado em index.html e exporta window.GlamSupabase.
+- Funções disponíveis: auth/signup/signin, catalog/category/regions, normalize cart, create_customer_order, create-payment, getOrderStatus.
+- Interface visual ainda usa dados locais e fluxo local; não está ligada ao backend.
+- index.html foi modificado exclusivamente com 3 inclusões de script e comentário de integração; nenhuma seção ou CSS removido/reprojetado.
+- main não foi alterada. Branch permanece 23 commits ahead; compare base confirma somente 7 arquivos novos/modificados da integração.
+- Projeto Supabase ACTIVE_HEALTHY. RLS permanece enabled nas 19 tabelas public verificadas.
+- Security advisor: 0 lints. Performance advisor: avisos INFO de unused indexes e WARN de múltiplas políticas permissivas; nenhuma mudança feita.
+- Status CI commit: sem status checks publicados; não equivale a teste executado.
+- Bootstrap admin, cadastro real de produtos/variantes/estoque, regiões de entrega e settings continuam bloqueios para checkout funcional.
