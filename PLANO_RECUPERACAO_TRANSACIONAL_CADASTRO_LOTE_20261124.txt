@@ -1,0 +1,42 @@
+GLAM BEAUT — PLANO DE RECUPERAÇÃO SEGURA PARA CADASTRO EM LOTE
+Data: 24/11/2026
+Auditoria read-only; nenhuma alteração aplicada.
+
+CONFIRMAÇÕES
+- Products possui UNIQUE em sku e slug.
+- Product variants possui UNIQUE em sku.
+- admin_adjust_inventory public é wrapper SQL para private.admin_adjust_inventory.
+- Função privada é SECURITY DEFINER, valida auth.uid() e role admin, rejeita quantity=0, impede saldo negativo e registra movimento. Ajuste de inventário ocorre na mesma função SQL (insert/update de inventory e insert de inventory_movements), atomicidade interna do ajuste.
+- Não foi testada a transação conjunta entre criação de produto, variante e chamada RPC (são três operações cliente separadas no painel).
+
+FALHA PARCIAL — PONTO DE RISCO
+O fluxo de lote no navegador faz:
+1. INSERT products.
+2. INSERT product_variants (Unidade).
+3. RPC admin_adjust_inventory se quantidade > 0.
+Cada chamada é independente. Se etapa 2 ou 3 falhar após etapa 1, o produto permanece. Se a variante foi criada e o RPC falhou, produto e variante permanecem. O frontend mantém item na fila e alerta sobre criação parcial, mas não possui idempotência/reconciliação automática. Reprocessar pode falhar na duplicidade e não necessariamente concluir a operação.
+
+PROPOSTA DE SOLUÇÃO (NÃO IMPLEMENTADA)
+Preferível: uma RPC transacional dedicada para criação em lote, autenticada e admin-only, que:
+- Recebe payload limitado e validado de item(s).
+- Usa slug/SKU com verificação de unicidade e constraints como proteção.
+- Cria produto e variante na mesma transação.
+- Opcionalmente cria movimentação de estoque inicial, se quantidade conferida for maior que 0, dentro da mesma transação.
+- Usa uma chave idempotente por item/solicitação para evitar duplicação ao repetir chamada após timeout.
+- Retorna status por item e identificadores, sem revelar detalhes sensíveis.
+- Falha de qualquer etapa dentro do item reverte tudo para aquele item.
+- Batch grande deve ter limite; considerar transação por item, não necessariamente por lote inteiro, para evitar uma única falha cancelar todos os itens.
+- Mantém RLS/policies existentes; SECURITY DEFINER somente com search_path vazio, validação auth.uid() e role admin, sem service-role no frontend.
+- Cliente só remove item da fila quando retorno confirma o item inteiro. Em falha/timeout, consulta/reconcilia pela chave idempotente antes de retentar.
+- Testar em ambiente de teste/staging com casos: falha antes do insert, falha após product insert, falha após variant insert, estoque zero, estoque positivo, duplicação de request, timeout e SKU duplicado.
+
+ALTERNATIVA TEMPORÁRIA
+Até a solução transacional:
+- Não usar cadastro em lote com quantidade positiva.
+- Evitar lote grande.
+- Após erro, não clicar novamente para salvar sem verificar product/variant/inventory primeiro.
+- Preferir cadastrar itens individualmente e revisar o estado após cada erro.
+- Manter tudo inativo até confirmação de dados e preço.
+
+DECISÃO
+Não implementar RPC nem migration automaticamente. Essa alteração envolve schema/backend e merece teste isolado. O plano está preparado como próximo trabalho técnico.
