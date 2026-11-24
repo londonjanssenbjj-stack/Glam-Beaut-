@@ -57,7 +57,8 @@ RISCO/PLANO DE RECUPERAÇÃO
 - Não usar migration draft do manager como base para esta RPC; revisão de permissões separada.
 
 PRÓXIMA AÇÃO EXATA
-1. Continuar revisão estática de segurança/consistência do admin-panel e checkout/vitrine, sem alterar produção.
+1. Correções mínimas aplicadas e verificadas no admin-panel.html (checkbox variante ativa e placeholder de categoria); runtime/browser ainda pendente. Detalhes em CORRECOES_MINIMAS_ADMIN_PANEL_20261124.txt.
+2. Continuar revisão estática de segurança/consistência do checkout/vitrine, sem alterar produção.
 2. Migration draft de manager foi revisada em AUDITORIA_SEGURANCA_MIGRATION_MANAGER_DRAFT_20261124.txt; impacto amplo, não aplicar/mergear antes de matriz de testes e revisão de exposição de pedidos.
 3. Checklist QA isolado foi preparado em CHECKLIST_QA_ISOLADO_GLAM_BEAUT_20261124.txt; não executado. Avaliar disponibilidade de staging.
 4. Depois de testes isolados, considerar implementação da RPC transacional. Não aplicar em produção automaticamente.
