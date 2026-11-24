@@ -39,3 +39,10 @@ CHECKPOINT 24/11/2026 - VALIDACAO CLIENTE E CHECKOUT
 - O backend permanece autoridade de precos/estoque/regras.
 - Ainda nao foi ligado ao index.html. Nao executar fluxo checkout ate admin/catalogo/estoque/entrega configurados.
 - Consulta de status do pedido ainda pendente de endpoint seguro.
+
+CHECKPOINT 24/11/2026 - ORDER STATUS SECURE ENDPOINT
+- Supabase Edge Function order-status deployed ACTIVE v1 with verify_jwt=true.
+- Endpoint validates token through auth.getUser(), validates UUID order_id, and uses service-role server-side only to query order constrained by customer_id=user.id. No secrets in frontend.
+- Returns order status, payment_status and safe payment summary; does not return checkout URL or sensitive address.
+- Frontend module getOrderStatus() now invokes order-status Edge Function; change committed on integration branch.
+- index.html/main untouched. No RLS/policy/table/schema changes made. No test orders created.
