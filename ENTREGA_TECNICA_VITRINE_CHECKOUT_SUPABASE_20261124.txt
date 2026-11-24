@@ -1,0 +1,61 @@
+GLAM BEAUT — ENTREGA TÉCNICA: VITRINE + CHECKOUT SUPABASE
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Status: implementação em branch; sem deploy; sem testes browser/sandbox.
+
+ARQUIVOS ADICIONADOS
+1. glam-storefront-integration.js
+- Conecta Supabase JS v2 com configuração pública.
+- Carrega catálogo via RPC storefront_catalog.
+- Renderiza produtos e variantes de dados do banco, preços server-backed e image_url.
+- Carrinho armazena variant_id e quantity; remove itens obsoletos que não correspondem ao catálogo carregado.
+- Não exibe quantidades exatas de inventário; catálogo RPC filtra variantes ativas, produtos ativos e quantity > 0.
+- Checkout exige sessão autenticada; inclui modal de entrar/criar conta.
+- Cria pedido via create_customer_order_idempotent.
+- Depois chama Edge Function existente create-payment.
+- Redireciona para checkout_url Mercado Pago.
+- Mantém request_key no localStorage em falhas/retries para reuso idempotente.
+- Estrutura campos de endereço para delivery; pickup não exige endereço.
+- Mensagens de erro visíveis ao usuário e botão bloqueado enquanto processa.
+
+2. supabase/migrations/20261124195000_storefront_catalog_idempotency.sql
+- Draft de RPC public.storefront_catalog: retorna somente produtos/variantes ativas e com inventory > 0; não retorna quantity exata.
+- Draft de private.customer_order_requests com request_key, customer_id, payload_hash, order_id e response.
+- Draft de public.create_customer_order_idempotent: idempotência por request_key, hash do payload, conflito quando payload diferente e reutilização da resposta existente; delega preço/estoque/ordem à RPC existente create_customer_order.
+- Execute para authenticated somente.
+- Não aplicada no Supabase.
+
+3. index.html
+- Carrega Supabase JS, glam-supabase-config.js e glam-storefront-integration.js.
+- Texto do checkout esclarece que frete/bairro são validados no servidor.
+
+REVISÃO STATIC
+- Arquivo integration: 13.044 chars no momento da revisão.
+- Checagem de delimitadores de JS (parênteses/colchetes/chaves, strings e templates) passou.
+- Isso NÃO equivale a parser/linter completo nem runtime/browser test.
+- Main index.html permaneceu SHA 2e3bafa0993755a2eaa66acf28ee64747853ed8a, sem alteração.
+- Branch index.html SHA 3109a9e41ecaf535b8bf1ac525bebc2b29d9e16.
+- Admin e outras funções não foram alteradas nesta etapa.
+
+DEPENDÊNCIAS/TESTES PENDENTES (BLOQUEIO REAL)
+- Aplicar migration no Supabase (impacta backend real; exige ambiente de staging ou janela autorizada).
+- Confirmar que a configuração de Auth permite signup e login com email/password, e se confirmação de email está ligada.
+- Produtos/variantes/inventory continuam vazios/inativos no banco, portanto catálogo deve renderizar vazio até cadastro real.
+- Browser test: não existe ferramenta de navegador disponível nesta sessão. Não foi simulado click, login, formulário ou navegação.
+- Sandbox Mercado Pago: não foi chamada create-payment e não foi criada sessão. Não confirmei que o access token configurado é test token. Não disparar pagamento em ambiente potencialmente real.
+- Testes exigidos antes de liberar:
+  * signup/login/logout e sessão persistente
+  * catálogo público sem expor inventory exact
+  * produtos/variantes sem estoque não aparecem
+  * filtros e busca
+  * carrinho com variantes e quantidades
+  * delivery/pickup, validação de endereço e bairros inválidos
+  * dupla submissão/replay request key não duplica pedido nem reserva
+  * pagamento sandbox pending/approved/rejected
+  * webhook signature valid/invalid, replay, duplicado, status atrasado
+  * cancelamento/refund libera reserva uma única vez
+  * mobile/responsive e mensagens de erro
+  * confirmar que total server-side prevalece sobre cliente.
+
+RESULTADO
+A integração frontend está preparada na branch, mas NÃO está operacional/publicada ainda. Ela depende da migration idempotency/catalog, Auth, cadastro de itens reais e teste em ambiente seguro. Nenhuma cobrança, order, reserva ou alteração de estoque foi criada nesta etapa.
