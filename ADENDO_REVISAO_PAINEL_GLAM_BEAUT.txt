@@ -1,0 +1,14 @@
+GLAM BEAUT — ADENDO DA REVISAO ESTATICA
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+
+CORRECOES PONTUAIS NO PAINEL (ISOLADAS)
+- Label da métrica foi ajustado de "Itens sem estoque / zero" para "Variantes sem estoque", porque o cálculo se baseia em variantes com saldo zero ou inexistente, não em produtos sem variantes.
+- Removido um token CSS inválido isolado na regra de botão; as demais declarações e estilos foram preservados.
+- Nenhuma funcionalidade, layout, cor, estrutura de dados, autenticação ou permissão foi redesenhada.
+
+VALIDAÇÃO
+- Revisão de texto e diff concluída.
+- Teste no navegador não foi executado; requer sessão administrativa segura.
+- Sem escrita no banco, criação de contas, alteração de RLS/policies/grants ou uso de checkout.
+- main e publicação não foram alteradas.
