@@ -1,0 +1,78 @@
+GLAM BEAUT — CHECKLIST DE VALIDACAO DO PAINEL E INTEGRACAO
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Status: PLANO DE QA — nenhuma operacao de escrita ou venda executada
+
+REGRA PERMANENTE
+Preservar o existente. Não refazer, redesenhar, apagar, alterar main, publicar, mexer em checkout ou enfraquecer segurança para contornar erros. Trabalhar isoladamente. Este checklist não autoriza mudanças no backend nem transações reais.
+
+1. VALIDACAO DE LOGIN (AINDA PENDENTE)
+[ ] Confirmar login com uma conta admin existente, após criação por processo seguro.
+[ ] Confirmar sessão persistente e logout.
+[ ] Confirmar que conta sem role admin não acessa painel atual.
+[ ] Confirmar que erro ao consultar user_roles bloqueia acesso.
+[ ] Nunca solicitar senha em chat, log ou commit.
+
+2. VALIDACAO DO PAINEL READ-ONLY
+[ ] Conferir leitura de produtos, categorias, variantes, estoque e movimentações.
+[ ] Conferir tabelas vazias e estado sem dados.
+[ ] Conferir falhas parciais das consultas e mensagens de erro.
+[ ] Conferir responsividade em desktop e mobile.
+[ ] Conferir que nenhum custo interno aparece no frontend público.
+[ ] Confirmar escape/uso seguro de dados exibidos como texto.
+
+3. CADASTRO DE PRODUTOS — PREREQUISITOS
+[ ] Confirmar fluxo de criação sem gravações parciais inconsistentes.
+[ ] Validar nome, slug, preço, categoria, SKU e URL da imagem.
+[ ] Confirmar produto começa inativo até revisão.
+[ ] Verificar se upload Storage está disponível e seguro; não alterar policies para viabilizar.
+[ ] Confirmar comportamento de produto sem variante versus produto com variantes.
+[ ] Evitar exclusão: usar inativação conforme decisão de preservação.
+
+4. VARIANTES
+[ ] Confirmar SKU único por variante quando informado.
+[ ] Confirmar preço override opcional.
+[ ] Confirmar variante ativa/inativa.
+[ ] Validar associação correta ao produto.
+[ ] Não criar variantes reais de catálogo nesta fase.
+
+5. ESTOQUE — CAMINHO EXISTENTE
+[ ] Conferir assinatura e funcionamento da RPC admin_adjust_inventory com usuário admin em ambiente controlado.
+[ ] Entrada positiva registra movimento entry.
+[ ] Ajuste negativo registra adjustment e bloqueia saldo negativo.
+[ ] Quantidade zero rejeitada.
+[ ] Confirmar saldo retornado após operação.
+[ ] Nunca escrever diretamente em inventory ou inventory_movements pela UI.
+[ ] Não realizar operação real de estoque sem autorização e item de teste confirmado.
+
+6. GERENTE OPERACIONAL — BLOQUEIO DOCUMENTADO
+[ ] E-mail gerente: odiselma.vital@hotmail.com (ponto).
+[ ] E-mail Admin Master 2: odiselma_vital@hotmail.com (underline).
+[ ] Não confundir as contas.
+[ ] Papel staff existente no CHECK não equivale a autorização operacional nas policies atuais.
+[ ] Antes de habilitar gerente, desenhar e revisar alteração mínima de backend e matriz de permissões.
+[ ] Exigir autorização explícita antes de modificar schema, policies, grants, funções ou roles.
+[ ] Não atribuir role staff/admin para testar acesso sem confirmar o mecanismo seguro.
+
+7. CHECKOUT E MERCADO PAGO
+[ ] Preservar checkout atual.
+[ ] Verificar sandbox antes de qualquer pagamento de teste.
+[ ] Confirmar create_customer_order e fluxo de webhook existente.
+[ ] Garantir que baixa/reserva de estoque não seja duplicada por webhook ou reprocessamento.
+[ ] Conferir cancelamento, reembolso e liberação de estoque conforme regras existentes.
+[ ] Não realizar pagamento real nem modificar configuração de integração.
+
+8. PR / GIT
+[ ] Revisar arquivos adicionados na branch.
+[ ] Confirmar diff sem deleções e sem mudanças em main.
+[ ] PR #3 permanece Draft.
+[ ] PR #2 visual permanece Draft, isolado.
+[ ] Não mergear ou publicar sem autorização expressa.
+
+9. CRITERIO DE PRONTO PARA REVISAO
+- Acesso autenticado comprovado e negado corretamente para usuários não autorizados.
+- Cadastro e variante testados apenas em ambiente de teste controlado.
+- Entrada/ajuste de estoque usando RPC existente.
+- Gerente somente após autorização backend segura.
+- Checkout preservado e testado exclusivamente sandbox.
+- Diff revisado, sem deleções, sem main/publicação.
