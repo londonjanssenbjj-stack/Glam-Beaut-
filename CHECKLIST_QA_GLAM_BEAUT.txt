@@ -199,3 +199,13 @@ AUDITORIA STORAGE SUPABASE — 24/11/2026 (SOMENTE LEITURA)
 - Próximo desenho seguro (ainda não aplicado): bucket privado; limites de tamanho e MIME; caminho por usuário/role; policies explícitas para leitura e escrita de Admin Master; evitar acesso público e não usar service-role no frontend. O acesso de exibição da vitrine deverá ser pensado separadamente (URLs assinadas ou outro fluxo seguro) após definir como imagens de produtos ativos serão exibidas.
 - A criação do bucket e policies é uma alteração de backend/segurança e permanece bloqueada até autorização explícita.
 - Login, CRUD, RPC estoque, catálogo público, gerente e Mercado Pago sandbox continuam dependendo de sessão real/ambiente de teste ou decisões/ações autorizadas.
+
+
+AUDITORIA ESTÁTICA CONTINUADA DO PAINEL — 24/11/2026
+- Revisão fresca do PR #3: 16 arquivos alterados; 0 deleções reportadas; PR permanece Draft/open/unmerged.
+- admin-panel.html: 65 IDs encontrados, todos únicos; nenhum getElementById sem referência correspondente.
+- Um script inline encontrado (22.225 caracteres de conteúdo em inspeção estática); syntax/runtime no navegador não foi executado.
+- Confirmados por busca estática: verificação de user_roles, função de escape para conteúdo e uso de RPC admin_adjust_inventory.
+- Nenhuma chamada .delete() encontrada no painel; não há controles de exclusão permanente.
+- Upload de arquivo não implementado; painel permanece com campo URL de imagem/preview.
+- Esses resultados são análise de fonte, não teste funcional/browser.
