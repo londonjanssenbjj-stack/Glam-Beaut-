@@ -67,9 +67,14 @@
     currentFilter=category;
     document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));if(button)button.classList.add("active");
     let list=catalog;
-    if(category==="novos")list=catalog.filter(p=>p.badgeType==="new");
-    else if(category==="best")list=catalog.filter(p=>p.badge==="MAIS VENDIDO");
-    else if(category==="presentes")list=catalog.filter(p=>p.category==="kits");
+    if(category==="novos"){
+      const cutoff=Date.now()-30*24*60*60*1000;
+      list=catalog.filter(p=>p.createdAt && Date.parse(p.createdAt)>=cutoff);
+    } else if(category==="best"){
+      // Sales ranking cannot be claimed without sales data; currently orders are not populated.
+      list=[];
+      showToast("Mais vendidos será exibido quando houver histórico real de vendas.");
+    } else if(category==="presentes")list=catalog.filter(p=>p.category==="kits");
     else if(category!=="todos")list=catalog.filter(p=>p.category===category);
     renderDbProducts(list);
   }
