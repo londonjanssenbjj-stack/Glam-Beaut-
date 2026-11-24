@@ -73,3 +73,7 @@ DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SÓ QUANDO INEVITÁVEL
 
 REGRA DE RETOMADA
 Quando o usuário disser “continue Glam Beaut”, reconfirmar estado da branch/PR, ler este marco, verificar arquivos atuais e continuar do próximo item. Não repetir etapas, não usar retries cegos no cadastro em lote, não alterar main, não aplicar migration, não publicar nem mergear.
+
+14. Integração frontend da vitrine/check-out preparada na branch: glam-storefront-integration.js + index.html carrega Supabase/config/script; catálogo via storefront_catalog; carrinho por variant_id; login/signup; create_customer_order_idempotent; create-payment existente; redirect Mercado Pago. Campos delivery estruturados, pickup sem endereço. Migration draft supabase/migrations/20261124195000_storefront_catalog_idempotency.sql. Relatório ENTREGA_TECNICA_VITRINE_CHECKOUT_SUPABASE_20261124.txt.
+15. Checagem estática delimitadores JS passou. Main index SHA preservado 2e3bafa0993755a2eaa66acf28ee64747853ed8a. Branch index SHA 3109a9e41ecaf535b8bf1ac525bebc2b29d9e16.
+16. Não está em produção: migration não aplicada, sem browser tool, sem sessão de Auth de teste, sem confirmação de token Mercado Pago sandbox. Browser e pagamento sandbox permanecem não testados; não afirmar operação final. Catálogo DB vazio/inativo; vitrine real renderizará vazio até cadastrarem produtos, variantes e estoque.
