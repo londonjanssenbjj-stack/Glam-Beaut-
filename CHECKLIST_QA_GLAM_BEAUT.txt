@@ -95,3 +95,19 @@ SEGUNDA IMPLEMENTACAO INCREMENTAL — 24/11/2026
 - A RPC existente foi inspecionada somente leitura: verifica auth.uid() e role admin; rejeita quantidade zero; bloqueia saldo negativo; grava movimento e retorna saldo.
 - Nenhuma variante ou movimento real foi criado; nenhuma gravação de teste foi executada.
 - Teste no navegador ainda pendente. CI/Actions não retornou execução/status para o commit revisado.
+
+
+REVISAO COMPLEMENTAR DE CODIGO — 24/11/2026
+- Releitura do JavaScript de admin-panel.html confirma: o painel exige role admin; erro na consulta user_roles bloqueia; contas sem admin são desautenticadas.
+- Formulário de variantes cadastra inativas; não existe, ainda, fluxo de editar/ativar variante na UI.
+- Cadastro de produto aceita URL de imagem, mas não tem upload de arquivos.
+- O painel consulta tabelas com SELECT e usa RPC existente para movimentos; a execução real ainda não foi testada.
+- Há dependência de teste manual em navegador/sessão para confirmar comportamento, mensagens, responsividade e persistência.
+- Não foi possível declarar QA funcional concluída: somente revisão estática do código foi feita nesta etapa.
+
+PENDÊNCIAS PARA O PRÓXIMO CICLO
+[ ] QA visual e funcional em navegador (sem criar dados reais antes de confirmar ambiente de teste).
+[ ] Revisar suporte de edição/ativação de variantes, sem expandir permissões.
+[ ] Reunir e extrair imagens de vídeos/fotos de produtos para inventário visual; confirmar nomes e quantidades com evidência.
+[ ] Conectar vitrine pública ao catálogo ativo, mantendo visual e fallback atual; revisar diffs antes de alterar.
+[ ] Implementar pedido e pagamento em sandbox após verificar create_customer_order e webhook, sem duplicar baixa de estoque.
