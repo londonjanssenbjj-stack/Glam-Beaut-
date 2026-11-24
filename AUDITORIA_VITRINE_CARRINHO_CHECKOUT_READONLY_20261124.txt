@@ -1,0 +1,48 @@
+GLAM BEAUT — AUDITORIA ESTÁTICA VITRINE / CARRINHO / CHECKOUT
+Data: 24/11/2026
+Arquivo: index.html da main
+SHA: 2e3bafa0993755a2eaa66acf28ee64747853ed8a
+Branch main e glam-product-stock-management-plan: SHA idêntico (verificado nesta sessão).
+Status: READ-ONLY. Sem execução de pedido, cobrança ou alteração.
+
+CONFIRMAÇÕES
+- Catálogo público é um array PRODUCTS hardcoded no index.html.
+- Product IDs são IDs estáticos (p1...); nome, descrição, preço, categoria e imagem são dados no frontend.
+- Não há consulta ao Supabase no fluxo de catálogo da página.
+- A imagem dos produtos está vazia em várias entradas (render usa placeholder "G" quando image não existe).
+- Carrinho usa localStorage (glam_cart).
+- Quantidades no carrinho são incrementadas/decrementadas no cliente sem consulta de estoque.
+- subtotal, entrega e total calculados pelo JavaScript no browser.
+- Entrega local ou retirada selecionada no formulário; taxa definida pela CONFIG estática.
+- Checkout coleta nome, WhatsApp, endereço, forma de pagamento (Pix, Cartão, Dinheiro), entrega e campos opcionais de presente.
+- finishOrder cria um ID GLAM timestamp, grava o pedido somente em localStorage (glam_last_order) e abre WhatsApp com resumo do pedido, se número de loja configurado.
+- Não cria registro de order/order_items no Supabase.
+- Não cria sessão de checkout Mercado Pago nem link de pagamento.
+- Seleção “Pix/Cartão/Dinheiro” no frontend é apenas texto e não processa pagamento.
+- Não há webhook, confirmação de pagamento, validação de estoque, reserva de estoque, cálculo de preço no servidor, nem proteção contra alteração do total pelo cliente no fluxo mostrado.
+- Após finishOrder, cart é esvaziado localmente.
+- Solicitação de agendamento de serviço também é localStorage + WhatsApp; não cria agendamento no banco.
+- Cadastro de aniversariante/perfil também é localStorage; não há backend/conta para cliente nesse fluxo.
+- Há um pedido local e um agendamento local de último registro, não histórico persistente compartilhado.
+
+RISCO / STATUS FUNCIONAL
+A página atual funciona como protótipo de catálogo/carrinho/solicitação via WhatsApp, não como e-commerce de pagamento online. O checkout não é pagamento real; não deve ser apresentado como integração Mercado Pago concluída.
+O cliente pode manipular itens/quantidade/preço em localStorage e no JavaScript, e o sistema não valida saldo. Para operação comercial real, o servidor deve validar catálogo, preço, variante e disponibilidade, criar pedido e só depois encaminhar pagamento com integração Mercado Pago segura.
+
+RECOMENDAÇÃO — PRÓXIMO DESENHO (SEM IMPLEMENTAR)
+1. Fonte de catálogo: Supabase products/categories/product_variants/inventory, com somente itens ativos e variantes disponíveis.
+2. Carrinho deve guardar variant_id e quantity, não confiar em preço/nome local.
+3. Endpoint/RPC/Edge Function backend para criar pedido: validar cliente, itens, preço atual, quantidade disponível, entrega e total; revalidar stock sob concorrência.
+4. Registrar orders/order_items e reservar/baixar estoque com fluxo transacional apropriado e status pending.
+5. Mercado Pago: token privado apenas backend/Edge Function; frontend usa checkout/link/token público conforme documentação oficial; jamais expor access token ou webhook secret.
+6. Webhook valida assinatura/origem e atualiza status; pagamento aprovado gera movimento de estoque de venda, cancelamento/reembolso segue fluxo de autorização.
+7. WhatsApp pode continuar como canal de atendimento/aviso, mas não substitui persistência do pedido nem checkout.
+8. Ambiente sandbox para testes de pagamento; nenhum teste real.
+
+NÃO EXECUTADO
+- Nenhum pedido submetido.
+- Nenhum WhatsApp aberto/enviado.
+- Nenhuma cobrança ou sessão Mercado Pago.
+- Nenhuma gravação de order/order_items.
+- Nenhuma alteração na main ou branch de trabalho.
+- Nenhum deploy ou merge.
