@@ -45,3 +45,8 @@ AUDITORIA DE CONTINUIDADE FINAL — 24/11/2026
 - Painel tem formulários e controle de erro, mas navegador/persistência não testados.
 - Testes seguros de login, gravação, RPC, sandbox MP e webhook ainda bloqueados por ambiente gratuito isolado não confirmado.
 - Custo zero, main e publicação permanecem intocados.
+
+
+ATUALIZAÇÃO DA REVISÃO DE SEGURANÇA — 24/11/2026
+- Na migração draft, corrigido o bloqueio de reabertura de pedidos cancelled/refunded por gerente: o status terminal atual é consultado com lock antes de atualizar.
+- Nenhuma mudança foi aplicada em produção. Migração continua bloqueada para QA e revisão da matriz completa de transições.
