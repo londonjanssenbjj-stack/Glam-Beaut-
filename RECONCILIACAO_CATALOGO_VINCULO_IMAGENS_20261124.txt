@@ -1,0 +1,43 @@
+GLAM BEAUT — RECONCILIAÇÃO DO CATÁLOGO E VÍNCULO DE IMAGENS
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Supabase consultado somente leitura.
+
+1. ESTADO ATUAL REAL DOS 16 PRODUTOS
+Consulta direta ao banco confirmou:
+- 16 produtos existentes.
+- Todos com is_active=false.
+- Todos com SKU null.
+- Todos com image_url null.
+- 0 variantes, 0 inventário, 0 movimentações (estado consultado anteriormente nesta sessão).
+- Os nomes são genéricos ou de serviços/kits (ex.: Acessório Glam, Bolsa Glam, Experiência Glam — Kit Misto, Glam Absolut Repair, Glam CPR SOS etc.).
+- Os preços existentes são valores armazenados no banco; não foram modificados.
+
+2. IMAGENS
+- Bucket glam-product-images está criado e permite leitura pública; escrita/admin limitada por policies.
+- Upload de arquivo pelo painel está implementado, mas não testado em navegador autenticado.
+- A URL é preenchida no formulário e deve ser salva ao salvar o produto.
+- O pacote de 49 frames existe como material de referência conforme documentação anterior, mas os bytes do pacote não foram re-inspecionados nesta retomada. Não presumir acesso local ao ZIP.
+- Nenhuma das 16 linhas de produtos possui image_url. Portanto, ainda não existe associação persistida de imagens no catálogo.
+- Frames de vídeo são multi-produto/repetidos; não podem ser mapeados automaticamente a um produto genérico sem identificação.
+
+3. CONCLUSÃO DA ASSOCIAÇÃO
+Não vincular frame a nenhum dos 16 produtos existentes neste momento. Os nomes genéricos não correspondem com segurança aos identificadores visuais descritos nos vídeos. Vincular imagens erradas prejudicaria a vitrine e catálogo.
+
+4. PENDÊNCIAS SEGURAS E PRÓXIMA SEQUÊNCIA
+- Continuar organizando imagens por vídeo/frame e preparar a classificação por produto/modelo, sem atribuir SKU.
+- Criar um mapa de associação candidato somente quando houver correspondência visual identificável e sem ambiguidade; marcar como "candidato", não como confirmado.
+- Priorizar foto individual de produto para vitrine; frames multi-produto podem servir apenas como referência.
+- Upload e vínculo no Storage requerem teste real autenticado no Admin Master; não executado.
+- Dados físicos (quantidade), SKU, variante, volume e preço novo requerem evidência/confirmacão.
+- Depois de resolver a RPC transacional e seu teste isolado, preparar a importação segura do catálogo real.
+
+5. CONTRADIÇÃO DOCUMENTAL CORRIGIDA
+O documento CATALOGO_CONSOLIDADO_GLAM_BEAUT_20261124.txt contém trecho antigo dizendo "upload ... não está implementado nesta etapa", mas seu adendo de status posterior afirma corretamente que o upload no painel está implementado. O estado atual é: upload implementado, teste real pendente. O documento de reconciliação prevalece.
+
+6. PROTEÇÃO
+- Nenhum produto foi alterado.
+- Nenhuma URL de imagem foi gravada.
+- Nenhum upload foi feito.
+- Nenhum preço, variante, SKU ou estoque alterado.
+- Main, site público, checkout, pagamento, policies e deploy não foram alterados.
