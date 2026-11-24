@@ -138,6 +138,40 @@
     return data || [];
   }
 
+  function getVariantPrice(product, variant) {
+    if (!product || !variant) throw new Error("Produto/variante inválidos.");
+    const override = variant.price_override;
+    const base = product.price;
+    const chosen = override !== null && override !== undefined ? override : base;
+    const price = Number(chosen);
+    if (!Number.isFinite(price) || price < 0) throw new Error("Preço da variante inválido.");
+    return price;
+  }
+
+  function normalizeCartItems(items) {
+    if (!Array.isArray(items)) throw new Error("Carrinho inválido.");
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    const map = new Map();
+    for (const item of items) {
+      if (!uuidPattern.test(String(item.variant_id || ""))) throw new Error("Variante inválida no carrinho.");
+      const qty = Number(item.quantity);
+      if (!Number.isInteger(qty) || qty < 1 || qty > 99) throw new Error("Quantidade inválida.");
+      map.set(item.variant_id, (map.get(item.variant_id) || 0) + qty);
+    }
+    return Array.from(map, ([variant_id, quantity]) => ({ variant_id, quantity }));
+  }
+
+  function parsePaymentReturn(search = window.location.search) {
+    const params = new URLSearchParams(search);
+    const status = (params.get("status") || params.get("collection_status") || "").toLowerCase();
+    const orderId = params.get("order_id") || params.get("external_reference") || "";
+    const normalized = status === "approved" ? "success"
+      : ["pending", "in_process", "in_process"].includes(status) ? "pending"
+      : ["rejected", "cancelled", "canceled"].includes(status) ? "failure"
+      : "unknown";
+    return { status: normalized, orderId };
+  }
+
   async function createCustomerOrder({ items, deliveryMethod, shippingAddress, couponCode }) {
     const sb = await getClient();
     const session = await getSession();
@@ -147,7 +181,7 @@
       throw new Error("Escolha entrega ou retirada.");
     }
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    const normalizedItems = items.map(item => {
+    const normalizedItems = normalizeCartItems(items).map(item => {
       const quantity = Number(item.quantity);
       if (!uuidPattern.test(String(item.variant_id || ""))) {
         throw new Error("Uma variante do carrinho possui identificador inválido.");
@@ -211,6 +245,9 @@
     signOut,
     ensureCustomerRecords,
     loadActiveCatalog,
+    getVariantPrice: getVariantPrice,
+    normalizeCartItems,
+    parsePaymentReturn,
     loadActiveCategories,
     loadActiveDeliveryRegions,
     createCustomerOrder,
