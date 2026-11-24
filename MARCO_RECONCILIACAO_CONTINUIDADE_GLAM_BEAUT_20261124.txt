@@ -117,3 +117,11 @@ ATUALIZAÇÃO — ESTOQUE PROVISÓRIO AUTORIZADO PELO USUÁRIO (24/11/2026)
 - Quantidades são editáveis e NÃO são contagem física confirmada.
 - Antes de venda/produção, estoque precisa ser lançado/validado no banco e conferido fisicamente.
 - Não aplicar migrations, não pagar, não mergear ou publicar sem autorização.
+
+
+CORREÇÃO DE CONTAGEM — 24/11/2026
+- Corrigido o registro que indicava 1 unidade por cada um dos 16 produtos (total 16). Essa estimativa não deve ser utilizada.
+- Contagem visual recuperada dos vídeos: 12 unidades identificadas em 9 tipos de item, detalhadas em catalogo/INVENTARIO_VISUAL_VIDEOS_20261124.csv.
+- Os itens de vídeo não foram vinculados automaticamente aos 16 produtos genéricos do banco; faltam correspondências individuais de SKU.
+- A planilha de reconciliação deixa quantidade inicial em branco para os 16 produtos até o mapeamento seguro.
+- Esta contagem visual é parcial e não substitui contagem física.
