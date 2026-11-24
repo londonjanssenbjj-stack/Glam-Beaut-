@@ -160,3 +160,12 @@ REVISAO READ-ONLY DO FRONTEND PARA PAGAMENTOS (24/11/2026)
 - Busca por supabase, rpc( e auth. no index.html: nenhuma ocorrência encontrada.
 - Conclusão limitada à página index.html: não há chamadas de backend Supabase/payment visíveis no arquivo inspecionado; portanto, não se confirma que a vitrine pública esteja conectada ao checkout, ao status ou ao backend de pedidos.
 - Próxima tarefa de implementação: mapear fluxo do carrinho/checkout atual, preservar o UX existente e projetar a ligação em branch isolada; antes de gravar order, resolver requisito de login (create_customer_order exige auth.uid), integração de estoque e retornos de pagamento. Sem implementação/deploy nesta auditoria.
+
+
+MAPEAMENTO DO CHECKOUT PUBLICO (LEITURA ESTATICA) — 24/11/2026
+- Checkout atual no index.html permanece local: finishOrder(event) gera identificador GLAM- baseado em timestamp, monta dados a partir do carrinho local, grava glam_last_order no localStorage e abre WhatsApp se CONFIG.whatsappLoja estiver configurado.
+- O checkout não chama create_customer_order, não chama create-payment, não usa order-status, não chama Supabase/RPC/Auth; portanto não é checkout transacional com estoque ou pagamento online.
+- O formulário tem nome, telefone, endereço, forma de pagamento textual, entrega local/retirada e opção presente. Valores são calculados pelo frontend local.
+- Os dados no localStorage e mensagem WhatsApp não equivalem a pedido persistido no banco; o aviso atual descreve “registrado neste dispositivo”.
+- Não alterar este fluxo para checkout real até resolver arquitetura de autenticação (create_customer_order exige auth.uid), política de entrega/retirada, catálogo/variantes reais, fluxo de estoque e validação do checkout MP.
+- Etapa futura recomendada: preservar interface atual e adicionar integração progressiva por branch, com controles de fallback seguros e testes no ambiente apropriado; nunca confiar no preço/total/cart vindo do frontend.
