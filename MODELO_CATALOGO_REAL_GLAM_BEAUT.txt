@@ -1,0 +1,53 @@
+GLAM BEAUT — MODELO PARA CATALOGAR PRODUTOS REAIS
+Objetivo: preparar inventário baseado em vídeos/fotos originais. Não cadastrar dados estimados.
+Branch: glam-product-stock-management-plan
+Status: modelo vazio; nenhum produto confirmado.
+
+REGRAS
+- Usar fotos/vídeos originais enviados pelo responsável.
+- Se o frame não estiver legível, buscar imagem oficial do mesmo produto e confirmar correspondência.
+- Não substituir embalagem ou identidade por foto genérica.
+- Quantidade só pode ser anotada quando visível ou confirmada pelo responsável.
+- Preço de venda deve ser confirmado; não inventar.
+- Produto deve permanecer inativo até revisão final.
+- Não criar variantes, ativar produto ou lançar estoque com base em inferências.
+- Preservar itens existentes no banco, sem excluir.
+
+MODELO DE REGISTRO (duplicar para cada produto)
+Produto nº:
+Nome comercial exatamente como embalagem:
+Marca:
+Categoria:
+Tipo: (produto único / variante / kit)
+Modelo / volume / peso / tamanho:
+Cor / aroma / sabor (se aplicável):
+Quantidade física confirmada:
+Preço de venda confirmado:
+Preço anterior / promoção (se confirmado):
+SKU do produto (se existente):
+SKU da variante (se existente):
+Descrição (dados confirmados):
+Foto do produto (arquivo/foto/video e frame):
+Imagem oficial correspondente (se usada):
+Fonte da confirmação:
+Notas / divergências:
+Status revisão: (pendente / confirmado)
+Status cadastro: (não cadastrado / cadastrado inativo / revisado)
+
+PLANILHA DE INVENTÁRIO — COLUNAS
+Nº | Nome exato | Marca | Categoria | Variante | Quantidade confirmada | Preço | SKU | Foto/arquivo | Revisado por | Observações
+
+CHECK ANTES DO CADASTRO
+[ ] Nome e embalagem confirmados
+[ ] Marca confirmada
+[ ] Categoria confirmada
+[ ] Variante (tamanho/cor/volume) confirmada
+[ ] Quantidade física confirmada
+[ ] Preço confirmado
+[ ] Imagem identificada corretamente
+[ ] SKU conferido (se existir)
+[ ] Cadastro revisado
+[ ] Mantido inativo até liberação
+
+IMPORTANTE
+Este arquivo é apenas modelo de coleta. Não representa catálogo real nem autoriza inserções, ativação ou movimentos no Supabase.
