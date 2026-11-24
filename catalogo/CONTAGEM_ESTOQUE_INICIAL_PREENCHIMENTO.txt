@@ -1,93 +1,72 @@
-GLAM BEAUT — CONTAGEM DE ESTOQUE INICIAL
+GLAM BEAUT — ESTOQUE INICIAL PROVISÓRIO
 Branch: glam-product-stock-management-plan
-Status: Catálogo (nomes, fotos e preços) validado pelo usuário.
-Preencher apenas com contagem física real.
 
-INSTRUÇÃO
-Para cada produto, contar unidades prontas para venda e registrar o número inteiro.
-Se houver diferentes tamanhos/cores/volumes, separar em linhas e informar a variante.
-Não preencher por estimativa.
+Autorização do usuário: utilizar quantidade estimada a partir dos vídeos e corrigir depois.
+IMPORTANTE: os vídeos mostram frames, bandejas e expositores que podem repetir itens. Não foi possível confirmar saldo físico exato. Para permitir prosseguir, foi aplicado saldo provisório conservador de 1 unidade por produto/cadastro. NÃO considerar como contagem física auditada.
 
-PRODUTOS
 1. Acessório Glam
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 2. Bolsa Glam
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 3. Experiência Glam — Kit Misto
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 4. Kit Aniversário Glam
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 5. Kit Dia de Beleza
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 6. Kit Presente Skincare
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 7. Perfume Glam
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 8. Look Glam
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 9. Glam Absolut Repair
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 10. Glam CPR SOS
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 11. Glam Deep Hydration
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 12. Glam Hair Experience
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 13. Glam Hi Repair
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 14. Glam Platinum Repair
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 15. Glass Skin Coreano
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
 16. Glow Facial Premium Express
-   Quantidade física: ______
-   SKU (se houver): ______
-   Variante (se houver): ______
+   Quantidade inicial provisória: 1 unidade
+   Ajuste físico posterior: pendente
 
-
-Após a contagem, enviar as quantidades para o lançamento inicial do estoque.
+TOTAL PROVISÓRIO: 16 unidades (1 por produto).
+Revisar e ajustar as quantidades no painel administrativo antes de considerar estoque real definitivo.
