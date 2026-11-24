@@ -1,0 +1,23 @@
+FINALIZAÇÃO — CATÁLOGO SIMPLES E PRÓXIMA FASE DE PAGAMENTO
+Data: 24/11/2026
+Branch de desenvolvimento: glam-product-stock-management-plan
+
+DECISÕES DO USUÁRIO CONFIRMADAS
+- Estoque simplificado por produto: quantidade disponível.
+- Variantes são opcionais e criadas manualmente quando necessárias.
+- Sem módulo de movimentações/controle de estoque complexo.
+- Fotos de produto associadas pelo nome/identificação.
+- Próxima fase: credenciais e testes do Mercado Pago Sandbox.
+
+EXECUTADO NESTA ETAPA
+- Revisado o código da vitrine, painel admin e migration draft.
+- Confirmada dependência atual de variant_id, inventory e RPCs do pedido/checkout, exigindo alteração coordenada.
+- Inspecionada árvore de arquivos do branch: não há imagens de produtos; apenas logo Glam Beaut. Não foram associadas fotos inexistentes.
+- Criados roteiro de simplificação e roteiro de Mercado Pago Sandbox.
+- Alterações permanecem no branch de desenvolvimento, sem merge, deploy, migração, gravação no Supabase, ativação de produtos ou pagamento.
+
+PENDÊNCIA DE IMPLEMENTAÇÃO TÉCNICA
+A alteração do modelo de estoque ainda não foi aplicada ao código porque a arquitetura de pedidos existente depende de variantes e estoque por variante. Fazer apenas uma remoção visual quebraria checkout e validação. A implementação segura requer migration draft e revisão dos RPCs create_customer_order/storefront_catalog/admin, seguida de testes em ambiente de desenvolvimento.
+
+STATUS HONESTO
+A etapa foi organizada e documentada, mas não é correto declarar catálogo simples e Mercado Pago Sandbox concluídos/operacionais. Os dois aguardam implementação e validação técnica.
