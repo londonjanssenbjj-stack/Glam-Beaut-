@@ -81,7 +81,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    </form>
   </div>
 \n  <div class="grid">
-   <div class="card"><h2>Produtos</h2><div id="productsTable" class="table-wrap">Carregando…</div></div>
+   <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Produtos</h2><button type="button" id="newProductBtn">+ Novo produto</button></div><div id="productsTable" class="table-wrap">Carregando…</div></div>
    <div class="card"><h2>Categorias</h2><div id="categoriesTable" class="table-wrap">Carregando…</div></div>
   </div>
   <div class="card"><h2>Variantes e estoque por item</h2><div id="variantsTable" class="table-wrap">Carregando…</div></div>
@@ -197,7 +197,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    finally{button.disabled=false;}
  };
  productForm.addEventListener('submit',saveProduct);
- document.getElementById('newProductBtn').addEventListener('click',()=>{resetProductForm();document.getElementById('productEditorCard').scrollIntoView({behavior:'smooth',block:'start');});
+ document.getElementById('newProductBtn').addEventListener('click',()=>{resetProductForm();document.getElementById('productEditorCard').scrollIntoView({behavior:'smooth',block:'start'});});
  document.getElementById('cancelProductEdit').addEventListener('click',resetProductForm);
  const loadData=async()=>{
    appMessage.textContent='Carregando dados de leitura…';
