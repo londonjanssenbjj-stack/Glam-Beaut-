@@ -1,0 +1,17 @@
+product_id,nome,categoria,preco_brl,sku_proposto,descricao_variante_pendente,quantidade_confirmada,status_cadastro,ativar
+93d60c4c-aba6-49dd-b0ce-2c1f67369fc6,Acessório Glam,Acessórios,59.90,GB-ACC-001,Modelo/cor a confirmar,,PENDENTE_CONFERENCIA,FALSE
+b307a2a5-5bd8-46b0-88b9-9fcd36ef76fc,Bolsa Glam,Bolsas,219.90,GB-BAG-001,Modelo/cor a confirmar,,PENDENTE_CONFERENCIA,FALSE
+702aef42-2afc-44de-abf7-2c2ee1d9b0f4,Experiência Glam — Kit Misto,Kits,299.90,GB-KIT-001,Composição do kit a confirmar,,PENDENTE_CONFERENCIA,FALSE
+18afca9e-c679-4648-9c92-752962290c0d,Kit Aniversário Glam,Kits,199.90,GB-KIT-002,Composição do kit a confirmar,,PENDENTE_CONFERENCIA,FALSE
+36dd0de0-6d92-4eed-9c2c-a153c9fc67ba,Kit Dia de Beleza,Kits,349.90,GB-KIT-003,Composição do kit a confirmar,,PENDENTE_CONFERENCIA,FALSE
+5b8a6112-2628-461d-abcd-58a63a486bce,Kit Presente Skincare,Kits,159.90,GB-KIT-004,Composição do kit a confirmar,,PENDENTE_CONFERENCIA,FALSE
+6a36017b-e160-413e-bf19-4546ae169162,Perfume Glam,Perfumaria,189.90,GB-PER-001,Fragrância/volume a confirmar,,PENDENTE_CONFERENCIA,FALSE
+01a7747e-afd6-4a11-a757-ab341eab74a5,Look Glam,Roupas,169.90,GB-ROU-001,Tamanho/cor a confirmar,,PENDENTE_CONFERENCIA,FALSE
+29cb5b2f-c04d-455f-8f1c-8714b7996538,Glam Absolut Repair,Skincare,159.99,GB-SKI-001,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+7f30aefb-d4b8-4747-9d6f-4c23e4e30c84,Glam CPR SOS,Skincare,265.00,GB-SKI-002,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+87402c2f-8d1c-416b-b6ef-6f7d4bdeb44d,Glam Deep Hydration,Skincare,140.90,GB-SKI-003,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+8b504ca1-e24f-4d5f-9235-d36ab8780fc0,Glam Hair Experience,Skincare,285.99,GB-SKI-004,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+5ef6c8f2-a1a4-42a4-93c2-ed0e2114d900,Glam Hi Repair,Skincare,179.99,GB-SKI-005,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+361bbbbf-a058-4ff0-b770-690ba07a37c7,Glam Platinum Repair,Skincare,275.90,GB-SKI-006,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+69c2864f-1493-4cee-9724-5e60e427c189,Glass Skin Coreano,Skincare,130.00,GB-SKI-007,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
+b8983d0f-0270-4640-94ca-0d5bf6fa6887,Glow Facial Premium Express,Skincare,145.00,GB-SKI-008,Volume/variante a confirmar,,PENDENTE_CONFERENCIA,FALSE
