@@ -1,0 +1,61 @@
+GLAM BEAUT — AUDITORIA CONSOLIDADA E PLANO DE FECHAMENTO
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Escopo: revisão estática do código e resultados fornecidos pelo usuário. Não é teste de navegador nem execução transacional.
+
+1. CONFIRMADO PELOS RESULTADOS DO SUPABASE
+- 16 produtos existentes.
+- Nenhuma variante cadastrada (variant_count = 0).
+- SKU de variantes ainda inexistente.
+- Produtos inativos.
+- Produtos sem imagem vinculada.
+- Tabela inventory tem variant_id, quantity (default 0) e updated_at.
+- Tabela inventory_movements tem 6 colunas; a captura confirma variant_id, movement_type, quantity, note e created_at. A 6ª coluna não está visível, portanto não inferida.
+- Inventário não pode ser preenchido corretamente antes de criar variantes.
+
+2. REVISÃO ESTÁTICA ADMIN
+- Login exige autenticação Supabase e papel admin ou manager na tabela user_roles.
+- Produtos novos são criados inativos.
+- Variantes novas são criadas inativas.
+- Estoque é movimentado via RPC admin_adjust_inventory; não é editado diretamente.
+- Upload de imagem valida JPEG/PNG/WebP e limite de 8 MB; valida sessão e papel admin antes do upload.
+- O cadastro rápido cria produto, variante e, quando quantidade > 0, movimentação em chamadas sequenciais. Uma falha pode deixar cadastro parcial. Não repetir o lote sem conferência.
+
+3. REVISÃO ESTÁTICA DA VITRINE/CARRINHO/CHECKOUT
+- Vitrine busca catálogo pela RPC storefront_catalog.
+- Cartão e sacola usam identificador de variante.
+- Checkout exige sessão autenticada, cria pedido pela RPC create_customer_order_idempotent e solicita link de pagamento à Edge Function create-payment.
+- Entrega ainda não calcula frete real localmente; mostra aviso de cálculo no checkout.
+- “Mais vendidos” não apresenta ranking falso enquanto não houver dados reais.
+- Código usa escapeHTML para texto dinâmico em componentes renderizados.
+- A revisão foi estática; não houve teste de navegador, pedido real ou pagamento.
+
+4. PONTOS QUE PRECISAM DE TESTE OPERACIONAL
+A. Login administrativo com perfil autorizado e perfil não autorizado.
+B. Upload autenticado e confirmação de URL/visualização da imagem.
+C. Criar uma variante piloto inativa e verificar SKU.
+D. Registrar entrada inicial apenas com contagem física confirmada e validar saldo/movimento.
+E. Vitrine: produto aparece somente quando condições de publicação/variante forem atendidas.
+F. Sacola: quantidade, remover item, subtotal.
+G. Checkout: retirada e entrega, campos de endereço, criação de pedido.
+H. Mercado Pago: validar ambiente de teste/sandbox antes de qualquer pagamento real.
+I. Revisar policies/RLS, Storage e RPCs sem remover ou afrouxar controles.
+
+5. ORDEM RECOMENDADA PARA TERMINAR
+1) Consolidar e revisar a auditoria read-only do banco (já executada pelo usuário).
+2) Resolver variantes/SKUs dos 16 produtos com dados conferidos.
+3) Confirmar imagens reais e vinculá-las aos produtos.
+4) Fazer contagem física real e registrar estoque inicial por variante.
+5) Testar fluxo administrativo e vitrine em ambiente de teste.
+6) Testar checkout em sandbox do Mercado Pago.
+7) Corrigir problemas encontrados.
+8) Revisar branch/PR e apresentar lista objetiva de itens que ainda dependem de ação do usuário.
+9) Só então solicitar autorização explícita para merge/deploy/produção.
+
+6. LIMITES E PROTEÇÃO
+- Nenhuma escrita no Supabase foi realizada nesta auditoria.
+- Nenhuma variante ou movimento foi criado.
+- Nenhum produto foi ativado.
+- Nenhuma migration foi aplicada.
+- Nenhum pagamento real foi realizado.
+- Main/produção e RLS não foram alterados.
