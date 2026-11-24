@@ -1,0 +1,99 @@
+GLAM BEAUT — AUDITORIA DE CONCLUSAO DO SITE
+Data: 24/11/2026
+Auditoria feita por leitura de index.html da main e do painel na branch de desenvolvimento.
+Não houve alteração da main, publicação, checkout, banco ou segurança.
+
+RESUMO
+O site visual existe e tem uma estrutura de loja demonstrativa: navegação, busca, categorias/filtros, catálogo estático, sacola local, modal de checkout, serviços, solicitação de agendamento, perfil/aniversário e envio de pedidos/agendamentos via WhatsApp (quando o número é configurado). A operação ainda não é uma loja online concluída com catálogo/estoque/checkout real.
+
+ESTADO DO SITE PUBLICADO (index.html da main — somente inspeção)
+- Catálogo: array PRODUCTS está codificado no HTML/JavaScript; itens demonstrativos, imagens vazias.
+- Busca/filtros: operam sobre o array local demonstrativo.
+- Sacola: armazenamento local no navegador (localStorage), não sincronizado com backend.
+- Checkout: coleta informações e registra um pedido local (glam_last_order); não cria pedido no banco.
+- Pagamento: opções são texto de seleção (Pix, Cartão, Dinheiro); não há integração Mercado Pago no arquivo inspecionado.
+- Estoque: o cliente pode alterar quantidade na sacola sem validar estoque real.
+- Serviços: catálogo de serviços e solicitações de agendamento são armazenados localmente e podem enviar mensagem pelo WhatsApp, se configurado.
+- Perfil/aniversário: salvo localmente no navegador (glam_profile); não há conta autenticada ou sincronização.
+- Imagens: produtos de demonstração sem imagens; placeholders visuais.
+- Admin: painel separado está em branch de desenvolvimento, não publicado nem conectado ao index público.
+
+IMPLEMENTADO NA BRANCH DE ADMIN (AINDA NÃO TESTADO NO NAVEGADOR)
+- Login Supabase e bloqueio baseado em role admin.
+- Leitura de produtos/categorias/variantes/estoque/movimentações.
+- Cadastro/edição de produtos e categorias.
+- Cadastro de variantes inativas.
+- Entrada/ajuste de estoque por RPC admin_adjust_inventory.
+- Sem exclusão permanente.
+- Sem upload de imagem.
+- Sem ativação/edição de variantes em formulário dedicado.
+- Nenhum teste autenticado ou gravação controlada executado.
+
+O QUE FALTA PARA CONCLUIR — ORDEM RECOMENDADA
+FASE 1 — QA E ESTABILIZAÇÃO DO ADMIN
+1. Validar sintaxe e carregar painel no navegador.
+2. Testar login Admin Master e bloqueio de não-admin.
+3. Testar CRUD de produto/categoria/variante e RPC de estoque com item de teste e controle.
+4. Revisar erros, responsividade, estados sem dados, carregamento e logout.
+5. Corrigir somente falhas comprovadas.
+
+FASE 2 — CATÁLOGO REAL
+6. Conectar o storefront a Supabase para ler produtos/categorias ativos.
+7. Exibir apenas itens elegíveis para venda; respeitar produto/variante e estoque.
+8. Manter a aparência existente e fallback controlado enquanto catálogo não estiver preparado.
+9. Implementar seleção de variantes e preços, quando aplicável.
+10. Validar busca, categorias, destaques, kits, responsividade e imagens.
+
+FASE 3 — IMAGENS
+11. Definir processo seguro de imagem (URL no primeiro estágio ou Storage se já houver infraestrutura/policy aprovada).
+12. Prever validação de tipo/tamanho e mensagem de erro; não alterar policies para contornar.
+13. Inserir fotos reais dos produtos após catálogo confirmado.
+
+FASE 4 — PEDIDOS E PAGAMENTO
+14. Revisar fluxo de pedido e tabela/estrutura de orders existente.
+15. Criar pedido real no backend, com validação server-side de preço, item, disponibilidade e entrega.
+16. Integrar Mercado Pago em sandbox, com secrets somente no servidor.
+17. Implementar retorno de pagamento e webhook com idempotência.
+18. Confirmar que estoque é descontado/reservado apenas no caminho transacional previsto, sem duplicidade.
+19. Testar Pix/cartão em sandbox, cancelamento, falha, reprocessamento e confirmação.
+20. Não permitir que o frontend seja fonte de preço ou total confiável.
+
+FASE 5 — ENTREGA, CLIENTES E SERVIÇOS
+21. Configurar entrega local e retirada; revisar taxa fixa atual e regra de frete.
+22. Persistir solicitações de agendamento em backend ou definir WhatsApp como fluxo final deliberado.
+23. Persistir perfil/aniversário somente se o recurso for aprovado e com tratamento de dados adequado; não depender apenas do localStorage.
+24. Definir política de privacidade, consentimento e retenção para dados de clientes.
+25. Revisar experiência de cliente: confirmação, status e comunicação do pedido.
+
+FASE 6 — CONTEÚDO E SEO
+26. Substituir itens demonstrativos por catálogo real, preços, descrições e fotos.
+27. Confirmar links de Instagram, WhatsApp, endereço, horários e contatos.
+28. Verificar title, description, favicon, imagens sociais e indexação.
+29. Revisar textos e links quebrados.
+
+FASE 7 — HOMOLOGAÇÃO E PUBLICAÇÃO
+30. Testar Chrome desktop e mobile, navegadores móveis e acessibilidade básica.
+31. Executar testes de compra completos em sandbox.
+32. Revisar logs, erros, segurança e configuração de ambiente.
+33. Revisar PRs/diffs; confirmar zero deleções inesperadas e main intacta.
+34. Obter autorização explícita para merge/publicação; não publicar automaticamente.
+
+DEFINIÇÃO DE SITE CONCLUÍDO
+- Catálogo real conectado, produtos aprovados e imagens.
+- Admin funcional testado com autenticação e permissões.
+- Variantes e estoque operacionais.
+- Checkout integrado com Mercado Pago (sandbox testado e depois configuração de produção).
+- Pedido persistido e ciclo de pagamento/webhook sem duplicação.
+- Entrega/retirada corretamente calculadas.
+- Serviços/agendamentos e aniversário com comportamento claramente definido.
+- Privacidade, SEO, links, responsividade e QA.
+- Revisão final aprovada; publicação autorizada.
+
+BLOQUEIOS ATUAIS
+- Catálogo de Supabase não conectado ao storefront.
+- Checkout no index.html é demonstrativo/local, não Mercado Pago.
+- Pedido não é persistido no backend.
+- Estoque não controla a sacola da loja pública.
+- Painel admin ainda sem teste de navegador.
+- Imagens reais/upload pendentes.
+- Gerente Operacional ainda sem acesso limitado seguro.
