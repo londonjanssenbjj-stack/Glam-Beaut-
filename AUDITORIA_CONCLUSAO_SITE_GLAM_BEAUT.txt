@@ -133,3 +133,22 @@ AUDITORIA READ-ONLY DE ESTRUTURA DE PAGAMENTO (24/11/2026)
 - Esta estrutura indica componentes de registro de pagamentos/eventos, mas não comprova Edge Function/webhook Mercado Pago funcionando nem fluxo completo de pagamento.
 - Nenhuma tabela ou registro foi alterado; não houve pagamento/teste de webhook.
 - Próxima verificação deve revisar funções/Edge Functions e configurações existentes de forma read-only, confirmar deduplicação de eventos e tratamento de estados, antes de qualquer integração nova.
+
+
+AUDITORIA READ-ONLY DE EDGE FUNCTIONS DE PAGAMENTO — 24/11/2026
+Edge Functions ativas encontradas:
+- create-payment (verify_jwt=true; versão 4)
+- order-status (verify_jwt=true; versão 3)
+- mercadopago-webhook (verify_jwt=false; versão 6, esperado para webhook público com validação de assinatura no código)
+Código lido sem deploy/alteração:
+1) create-payment: exige APP_ORIGIN e compara Origin, POST, autentica token com auth.getUser, usa chave de serviço apenas no backend, verifica pedido do próprio usuário, pending, total válido, busca linhas do pedido e envia Order API ao MP com X-Idempotency-Key baseada no order UUID; persiste payment com upsert order_id único. Requer env vars MP e Supabase/URL/webhook.
+2) order-status: exige POST e bearer token, valida usuário, restringe consulta pelo customer_id, retorna order e status payment. CORS está configurado para '*'; anotado como ponto para revisão de configuração/origem, sem alteração.
+3) mercadopago-webhook: valida HMAC assinatura x-signature/request-id/data.id; consulta a order no MP, confere external_reference, total e moeda BRL, classifica estados, grava payments, payment_events com chave unique provider+event_id, atualiza order payment_status e status. Não foi chamada/testada.
+PONTOS PENDENTES/DE RISCO A VALIDAR (não conclusões de bug sem teste):
+- Confirmar formato/API Mercado Pago Orders e campo checkout_url contra conta e sandbox; não houve chamada externa.
+- Confirmar CORS de order-status com o domínio real; wildcard atual foi observado e não alterado.
+- Confirmar cenário de reenvio de webhook, eventos fora de ordem, cancelamento/refund, parcial refund e conciliação; fluxo parcial refund atualmente responde 202 manual review sem persistir atualização.
+- Confirmar comportamento de estorno e liberação/reentrada de estoque: pedido reserva/baixa estoque ao ser criado; webhook altera status, mas o código lido não faz reentrada/liberação automática de estoque em refunded/cancelled. Não inventar nem implementar sem definir fluxo seguro e confirmar inventory_released_at.
+- Verificar se checkout frontend realmente chama create-payment e order-status; Edge Functions ativas não comprovam frontend integrado.
+- Conferir configuração de secrets/URLs em ambiente sem expor valores. Nenhum secret foi lido.
+STATUS: auditoria estática apenas. Não deploy, não pagamento, não alteração de Edge Functions, schema, policies, secrets ou frontend.
