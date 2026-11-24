@@ -81,10 +81,20 @@ begin
     raise exception 'Itens do pedido inválidos';
   end if;
 
-  -- Hash of canonical request: sorted variant IDs, delivery, address and normalized coupon.
+  -- Reject duplicate variant IDs before canonical hashing, matching the authoritative RPC.
+  if exists (
+    select 1
+    from jsonb_array_elements(p_items) x
+    group by x.value->>'variant_id'
+    having count(*) > 1
+  ) then
+    raise exception 'A sacola contém variações duplicadas';
+  end if;
+
+  -- Canonical request hash: order by variant UUID and quantity, and normalize coupon.
   select encode(extensions.digest(
     jsonb_build_object(
-      'items', (select coalesce(jsonb_agg(x.value order by x.value->>'variant_id'), '[]'::jsonb)
+      'items', (select coalesce(jsonb_agg(x.value order by x.value->>'variant_id', x.value->>'quantity'), '[]'::jsonb)
                 from jsonb_array_elements(p_items) x),
       'delivery_method', p_delivery_method,
       'shipping_address', coalesce(p_shipping_address, '{}'::jsonb),
