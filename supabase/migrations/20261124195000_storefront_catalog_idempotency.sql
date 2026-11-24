@@ -140,16 +140,26 @@ begin
   end if;
 
   -- Existing order RPC is the authoritative transactional validator/reserver.
-  v_response := public.create_customer_order(
-    p_items, p_delivery_method, p_shipping_address, p_coupon_code
-  );
+  -- If order creation fails, roll back that sub-block and remove the pending
+  -- idempotency row so the same request key can safely retry.
+  begin
+    v_response := public.create_customer_order(
+      p_items, p_delivery_method, p_shipping_address, p_coupon_code
+    );
 
-  update private.customer_order_requests
-  set order_id = (v_response->>'order_id')::uuid,
-      response = v_response
-  where request_key = p_request_key;
+    update private.customer_order_requests
+    set order_id = (v_response->>'order_id')::uuid,
+        response = v_response
+    where request_key = p_request_key;
 
-  return v_response;
+    return v_response;
+  exception when others then
+    delete from private.customer_order_requests
+    where request_key = p_request_key
+      and customer_id = v_user
+      and response is null;
+    raise;
+  end;
 end;
 $$;
 
