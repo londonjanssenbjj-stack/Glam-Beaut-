@@ -1,0 +1,65 @@
+GLAM BEAUT — PROPOSTA DE SKU E VARIANTES PARA O CATÁLOGO EXISTENTE
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Status: PLANEJAMENTO — NÃO APLICADO AO SUPABASE
+
+OBJETIVO
+Preparar códigos internos consistentes para os 16 registros já existentes, sem criar/alterar produtos, variantes, imagens, preços ou estoque no banco.
+
+REGRA DE SKU
+- Código interno proposto: GB-[GRUPO]-[NÚMERO].
+- O código é estável e único; não incorpora preço ou quantidade.
+- Uma variante "Padrão" / "Unidade" é a estrutura inicial proposta apenas quando o item realmente for vendido como unidade única sem opções.
+- Kits, bolsas, roupas, perfumes e acessórios podem precisar de variantes reais (tamanho, cor, fragrância ou composição). Não presumir atributos não confirmados.
+- Quantidade inicial: PENDENTE DE CONTAGEM FÍSICA. A disponibilidade geral declarada não substitui a contagem por SKU.
+- Produtos devem permanecer inativos até concluir SKU/variante, imagem e saldo inicial, e validar checkout.
+
+MAPEAMENTO PROPOSTO
+1. Acessório Glam — GB-ACC-001 — Variante a definir — quantidade pendente
+2. Bolsa Glam — GB-BAG-001 — Variante a definir (modelo/cor, se aplicável) — quantidade pendente
+3. Experiência Glam — Kit Misto — GB-KIT-001 — composição do kit a confirmar — quantidade pendente
+4. Kit Aniversário Glam — GB-KIT-002 — composição do kit a confirmar — quantidade pendente
+5. Kit Dia de Beleza — GB-KIT-003 — composição do kit a confirmar — quantidade pendente
+6. Kit Presente Skincare — GB-KIT-004 — composição do kit a confirmar — quantidade pendente
+7. Perfume Glam — GB-PER-001 — fragrância/volume a confirmar — quantidade pendente
+8. Look Glam — GB-ROU-001 — tamanho/cor a confirmar — quantidade pendente
+9. Glam Absolut Repair — GB-SKI-001 — volume/variante a confirmar — quantidade pendente
+10. Glam CPR SOS — GB-SKI-002 — volume/variante a confirmar — quantidade pendente
+11. Glam Deep Hydration — GB-SKI-003 — volume/variante a confirmar — quantidade pendente
+12. Glam Hair Experience — GB-SKI-004 — volume/variante a confirmar — quantidade pendente
+13. Glam Hi Repair — GB-SKI-005 — volume/variante a confirmar — quantidade pendente
+14. Glam Platinum Repair — GB-SKI-006 — volume/variante a confirmar — quantidade pendente
+15. Glass Skin Coreano — GB-SKI-007 — volume/variante a confirmar — quantidade pendente
+16. Glow Facial Premium Express — GB-SKI-008 — volume/variante a confirmar — quantidade pendente
+
+PRODUTOS OBSERVADOS NOS VÍDEOS
+Não vincular automaticamente estes itens aos 16 registros acima. O vídeo mostra tipos de produto, mas a correspondência de SKU e o total físico não foram auditados:
+- Hidrate! S.H.R.P. Shampoo 250 ml — 1 visual
+- Hidrate! Conditioner 200 ml — 1 visual
+- Glam 12 em 1 Leave-in 240 ml — 2 visuais
+- Salem Hi Repair frascos — 2 visuais
+- Salem Hi Repair tubo — 1 visual
+- Ouse/Maxiline Shampoo — 1 visual
+- Ouse/Maxiline Finalizador spray — 1 visual
+- Ouse/Maxiline Máscaras — 2 visuais
+- Keune Care Color Brillianz Conditioner — 1 visual
+Total: 12 unidades visualmente identificadas em 9 tipos. Não representa inventário completo.
+
+PRÓXIMA EXECUÇÃO SEGURA
+1. Revisar a ficha SKU/variante proposta e confirmar que códigos internos podem ser usados.
+2. Conferir cada SKU/variante com foto do item físico.
+3. Contar unidades físicas por SKU.
+4. Cadastrar variantes no painel Admin (inativas).
+5. Registrar saldo inicial somente pela RPC de estoque.
+6. Associar foto ao produto e conferir preview.
+7. Revisar item, preço e estoque.
+8. Ativar produto/variante só após conferência.
+9. Testar a vitrine e carrinho em navegador.
+10. Não realizar pagamento real; checkout somente em sandbox após os bloqueios técnicos.
+
+LIMITES
+- Nenhuma alteração no banco Supabase.
+- Nenhuma migração aplicada.
+- Nenhuma mudança na main.
+- Nenhuma ativação ou publicação.
+- Nenhum pagamento executado.
