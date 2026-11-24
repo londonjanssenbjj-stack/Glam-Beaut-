@@ -1,0 +1,56 @@
+GLAM BEAUT — AUDITORIA DE SKU, CADASTRO EM LOTE E UPLOAD (READ-ONLY)
+Data: 24/11/2026
+Branch auditada: glam-product-stock-management-plan
+PR: #3 (Draft, aberto, não merged)
+admin-panel.html SHA: 8ef70ffc639d397e300a6686f1977a3e9fd43bd7
+Supabase consultado em modo somente leitura.
+
+1) CONSTRAINTS E ÍNDICES NO BANCO — CONFIRMADOS
+Products:
+- products_sku_key: UNIQUE(sku)
+- products_slug_key: UNIQUE(slug)
+- products_pkey: UNIQUE(id)
+Product variants:
+- product_variants_sku_key: UNIQUE(sku)
+- product_variants_pkey: UNIQUE(id)
+- variants_product_idx: index em product_id
+As constraints UNIQUE do banco atuam como proteção final para colisões. O SKU automático gerado no cadastro em lote ainda pode ter colisão teórica, mas inserção duplicada será recusada pela constraint; a aplicação deve tratar o erro. O SKU da variante acrescenta '-U' ao SKU do produto e também é protegido por UNIQUE na tabela de variantes.
+
+2) CADASTRO EM LOTE — REVISÃO MAIS DETALHADA
+- A fila é local no navegador, sem salvar antes de clicar em “Salvar lista”.
+- Nome e quantidade inteira não negativa são obrigatórios; preço é opcional, se preenchido deve ser numérico e não negativo.
+- SKU manual é verificado contra tabela products; SKU gerado automático é baseado no nome slug e sufixo timestamp curto.
+- Produto é inserido inativo, seguido da variante Unidade inativa.
+- Quantidade >0 chama admin_adjust_inventory. Não existe escrita direta do saldo.
+- Duplicidade de slug é verificada antes do insert; constraints UNIQUE protegem em concorrência.
+- A lista é salva sequencialmente, não numa única transação.
+
+RISCO PRINCIPAL CONFIRMADO:
+Se insert de produto funcionar, mas insert de variante ou RPC de estoque falhar, o produto pode ficar criado parcialmente. O item permanece na fila. Uma tentativa de reprocessar o item tende a ser bloqueada pelo slug já existente. O código orienta revisão, mas não oferece recuperação automática/idempotente. Não corrigido; requer solução transacional segura (por exemplo, backend/RPC transacional) e desenho para idempotência.
+
+3) UPLOAD — REVISÃO DETALHADA
+- Verifica MIME permitido (image/jpeg, image/png, image/webp) e limite 8 MB.
+- Verifica nome do produto (ou ID do produto editado), usuário autenticado e role admin.
+- Cria path products/<slug>-<timestamp>.<ext>.
+- Upload usa upsert:false; portanto, não sobrescreve objeto existente.
+- Após sucesso, preenche URL pública e pré-visualização; usuário deve salvar produto para persistir o vínculo.
+- Se o cadastro for abandonado após upload, o arquivo pode ficar órfão.
+- Input é reabilitado e limpo no finally; mensagem de erro é exibida.
+- Há variável btn obtida no código do upload mas não utilizada (observação de limpeza, não é bug funcional comprovado).
+- Validar MIME do cliente não é substituto para validação do lado servidor. O bucket também limita MIME e tamanho. Nenhum teste de upload real foi executado nesta auditoria.
+
+4) TESTES NÃO EXECUTADOS
+- Não foi aberto o painel no navegador nem executado login.
+- Não foram criados produtos, variantes, movimentos ou arquivos de imagem.
+- Não foi feito teste de erro parcial, concorrência, upload, logout, responsividade ou checkout.
+- Não foram alterados dados, schema, policies, Storage, checkout, main ou deploy.
+
+5) DECISÃO
+Não aplicar correção neste momento. O risco de cadastro parcial é real e a correção adequada exige solução transacional/idempotente; evitar uma correção superficial no frontend.
+O catálogo está vazio de variantes e estoque conforme consulta anterior (16 produtos, 6 categorias, 0 variantes, 0 inventory, 0 movimentos).
+
+6) PRÓXIMA AÇÃO
+- Especificar a solução segura de cadastro transacional/idempotente para lote e recuperação de falha parcial.
+- Revisar produto/variante/estoque e imagem associada antes de implementar.
+- Separar teste em staging ou operação explicitamente autorizada.
+- Manter main intacta, PR Draft, sem merge ou deploy.
