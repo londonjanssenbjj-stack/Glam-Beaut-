@@ -131,3 +131,9 @@ VERIFICACAO ESTATICA DE CONFIGURACAO FRONTEND (24/11/2026)
 - Formulário de variante ainda não oferece edição/ativação; upload de imagens não está implementado.
 - Checkout público permanece local (localStorage/WhatsApp), não integrado ao backend de pedidos e pagamento.
 - Próximas ações sem dependência de novos dados: revisão manual do diff, verificar erros de JS em navegador sem login e sem gravações; revisar responsividade do painel. Operações de login e gravação exigem conta admin autorizada e ambiente seguro.
+
+
+REVISÃO DE PERMISSÕES DO GERENTE — 24/11/2026 (DRAFT, SEM APLICAÇÃO)- Identificada lacuna na versão inicial: gerente precisava de SELECT explícito para consultar registros inativos durante a gestão. Migração draft adiciona policies SELECT para categories, products e product_variants.- Policies de escrita agora são INSERT e UPDATE separadas, não FOR ALL; gerente não recebe DELETE por essas policies.- RPC de estoque draft usa inicialização com saldo zero seguida de UPDATE delta condicionado a saldo >= 0, retornando erro quando insuficiente/variante inexistente; mantém registro de movimento. Não foi executada.- RPC de status draft bloqueia cancelamento/refund para manager, deixando esses status Admin Master-only.- Produção permanece sem mudança. RLS/policies/functions/grants não foram aplicados.- Revisão é estática e não comprova comportamento runtime. Sem ambiente Supabase branch gratuito confirmado, QA integrado permanece pendente.
+
+REGRA DE CUSTO ZERO
+- Proibido criar Supabase branch ou recurso com custo/recorrência.- Não ativar trial, upgrade, serviço pago, crédito pago, API paga ou hospedagem paga.- Buscar somente alternativas free; se uma etapa exigir custo, não executar e documentar bloqueio.
