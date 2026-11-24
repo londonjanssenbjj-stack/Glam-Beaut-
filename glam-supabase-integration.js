@@ -116,6 +116,28 @@
     })).filter(product => product.product_variants.length > 0);
   }
 
+  async function loadActiveCategories() {
+    const sb = await getClient();
+    const { data, error } = await sb
+      .from("categories")
+      .select("id,name,slug,sort_order")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function loadActiveDeliveryRegions() {
+    const sb = await getClient();
+    const { data, error } = await sb
+      .from("delivery_regions")
+      .select("id,name,neighborhoods,fee,free_from")
+      .eq("is_active", true)
+      .order("name", { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }
+
   async function createCustomerOrder({ items, deliveryMethod, shippingAddress, couponCode }) {
     const sb = await getClient();
     const session = await getSession();
@@ -167,6 +189,8 @@
     signOut,
     ensureCustomerRecords,
     loadActiveCatalog,
+    loadActiveCategories,
+    loadActiveDeliveryRegions,
     createCustomerOrder,
     startMercadoPagoCheckout,
     getOrderStatus
