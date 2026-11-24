@@ -1,0 +1,40 @@
+GLAM BEAUT — FINALIZAÇÃO DA SIMPLIFICAÇÃO DO CATÁLOGO
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Status: proposta implementada em documentação de desenvolvimento; não aplicada à produção.
+
+DECISÕES FIXADAS PELO RESPONSÁVEL
+1. Cadastro simples: cada produto tem uma quantidade disponível informada manualmente.
+2. Variantes são opcionais e serão criadas pelo responsável apenas quando fizer sentido (ex.: cor, tamanho, volume).
+3. Remover o conceito de estoque complexo: sem entradas/saídas, histórico de movimentações, ajustes por movimentação ou fluxo de ERP.
+4. A quantidade disponível pode ser apresentada ao cliente de forma simples (ex.: “Disponível: 4 unidades”), sem expor relatórios internos.
+5. Usar as fotos existentes e associá-las pelo nome/identificação do produto, sem inventar correspondências.
+6. Após o cadastro simplificado e associação de imagens, iniciar configuração e testes do Mercado Pago Sandbox.
+
+PONTO TÉCNICO DE ATENÇÃO
+A implementação atual do checkout usa variant_id, tabela inventory e RPC create_customer_order. Portanto, não basta esconder a tela de movimentações: catálogo, admin, validação transacional do pedido e checkout precisam ser alterados juntos para suportar produto sem variante. A migração e os RPCs estão em rascunho e não foram executados.
+
+PRÓXIMA IMPLEMENTAÇÃO (DEV)
+- Campo quantity_available simples no produto (ou equivalente seguro, após conferir o esquema existente).
+- Cadastro/edição do produto com campo Quantidade disponível.
+- Variantes opcionais, sem obrigatoriedade de uma variante “Unidade”.
+- Vitrine exibe produtos com quantidade positiva e, opcionalmente, o saldo público simplificado.
+- Pedido verifica e reserva/decrementa quantidade atomicamente no backend, somente após fluxo de pagamento confirmado conforme arquitetura final; não confiar em decremento client-side.
+- Remover da interface admin os cartões “Registrar entrada ou ajuste de estoque” e “Movimentações recentes”, e a seção “Variantes e estoque por item” como módulo obrigatório. Manter criação de variantes como função opcional.
+- Manter produtos inativos até revisão manual.
+- Validar RLS, permissões e concorrência antes de qualquer aplicação real.
+
+FOTOS
+A inspeção do tree do branch identificou apenas a imagem da logo (Logo-Glam-Beaut.png.jpeg), sem arquivos de fotos de produtos. Assim, nenhuma associação de foto de produto foi inventada ou feita nesta etapa. As fotos devem ser adicionadas ao repositório/Storage para vinculação por identificação.
+
+MERCADO PAGO — SANDBOX
+- Criar/usar credenciais de TESTE (Public Key e Access Token de teste) no painel Mercado Pago Developers.
+- Não enviar tokens secretos em chat, não commitá-los e não colocá-los em HTML/JavaScript público.
+- O Access Token deve ficar somente como secret da Edge Function create-payment no Supabase.
+- A Public Key pode ser usada no frontend somente se a implementação exigir; o checkout atual usa URL de checkout hospedado retornada pela função.
+- Confirmar que a função create-payment opera em modo teste e que URLs/webhook apontam para ambiente de teste.
+- Criar comprador de teste e executar compra de ponta a ponta: autenticação, pedido, criação de preferência/checkout, redirecionamento, pagamento aprovado/pendente/recusado, retorno e webhook.
+- Não realizar pagamentos reais e não publicar/ativar catálogo durante os testes.
+
+CRITÉRIO DE CONCLUSÃO
+A simplificação de UX está aprovada como escopo, mas a implementação permanece bloqueada até atualização coordenada de banco/RPC/admin/vitrine/checkout. Não afirmar que estoque simples ou pagamento Sandbox já estão operacionais.
