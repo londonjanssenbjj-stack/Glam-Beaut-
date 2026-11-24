@@ -71,18 +71,24 @@ $function$;
 CREATE OR REPLACE FUNCTION private.admin_update_order_status(p_order_id uuid, p_status text)
 RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path TO ''
 AS $function$
-DECLARE v_role text;
+DECLARE v_role text; v_current_status text;
 BEGIN
   IF auth.uid() IS NULL THEN RAISE EXCEPTION 'Acesso administrativo necessário' USING errcode = '42501'; END IF;
   SELECT role INTO v_role FROM public.user_roles WHERE user_id = auth.uid() AND role IN ('admin','manager') LIMIT 1;
   IF v_role IS NULL THEN RAISE EXCEPTION 'Acesso administrativo necessário' USING errcode = '42501'; END IF;
   IF p_status NOT IN ('confirmed','processing','shipped','ready_for_pickup','completed','cancelled','refunded') THEN
     RAISE EXCEPTION 'Status de pedido inválido'; END IF;
-  IF v_role = 'manager' AND p_status IN ('cancelled','refunded') THEN
-    RAISE EXCEPTION 'Cancelamento e reembolso são restritos ao Admin Master' USING errcode = '42501';
+  SELECT status INTO v_current_status FROM public.orders WHERE id = p_order_id FOR UPDATE;
+  IF v_current_status IS NULL THEN RAISE EXCEPTION 'Pedido não encontrado'; END IF;
+  IF v_role = 'manager' THEN
+    IF p_status IN ('cancelled','refunded') THEN
+      RAISE EXCEPTION 'Cancelamento e reembolso são restritos ao Admin Master' USING errcode = '42501';
+    END IF;
+    IF v_current_status IN ('cancelled','refunded') THEN
+      RAISE EXCEPTION 'Pedidos cancelados ou reembolsados não podem ser reabertos pelo gerente' USING errcode = '42501';
+    END IF;
   END IF;
   UPDATE public.orders SET status = p_status, updated_at = now() WHERE id = p_order_id;
-  IF NOT FOUND THEN RAISE EXCEPTION 'Pedido não encontrado'; END IF;
 END;
 $function$;
 
