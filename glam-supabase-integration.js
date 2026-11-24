@@ -193,9 +193,14 @@
     const sb = await getClient();
     const session = await getSession();
     if (!session) throw new Error("Faça login para consultar o pedido.");
-    // Deliberately no direct-table query here: order visibility should be
-    // provided by a verified, RLS-protected endpoint/RPC before integration.
-    throw new Error("Consulta de status precisa do endpoint seguro definido para o schema de pedidos.");
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidPattern.test(String(orderId || ""))) throw new Error("Identificador de pedido inválido.");
+    const { data, error } = await sb.functions.invoke("order-status", {
+      body: { order_id: orderId }
+    });
+    if (error) throw error;
+    if (!data || !data.order) throw new Error("Resposta de status inválida.");
+    return data;
   }
 
   window.GlamSupabase = Object.freeze({
