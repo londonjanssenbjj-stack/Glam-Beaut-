@@ -152,3 +152,11 @@ PONTOS PENDENTES/DE RISCO A VALIDAR (não conclusões de bug sem teste):
 - Verificar se checkout frontend realmente chama create-payment e order-status; Edge Functions ativas não comprovam frontend integrado.
 - Conferir configuração de secrets/URLs em ambiente sem expor valores. Nenhum secret foi lido.
 STATUS: auditoria estática apenas. Não deploy, não pagamento, não alteração de Edge Functions, schema, policies, secrets ou frontend.
+
+
+REVISAO READ-ONLY DO FRONTEND PARA PAGAMENTOS (24/11/2026)
+- index.html na branch isolada foi consultado integralmente (50.646 caracteres).
+- Busca textual por create-payment, order-status, mercadopago, create_customer_order, payment_status, checkout_url e payment_events: nenhuma ocorrência encontrada.
+- Busca por supabase, rpc( e auth. no index.html: nenhuma ocorrência encontrada.
+- Conclusão limitada à página index.html: não há chamadas de backend Supabase/payment visíveis no arquivo inspecionado; portanto, não se confirma que a vitrine pública esteja conectada ao checkout, ao status ou ao backend de pedidos.
+- Próxima tarefa de implementação: mapear fluxo do carrinho/checkout atual, preservar o UX existente e projetar a ligação em branch isolada; antes de gravar order, resolver requisito de login (create_customer_order exige auth.uid), integração de estoque e retornos de pagamento. Sem implementação/deploy nesta auditoria.
