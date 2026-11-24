@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glam Beaut | Administração</title>
+<style>
+:root{--bg:#fbf8f8;--surface:#fff;--ink:#352a2d;--muted:#786b6e;--gold:#b18a49;--line:#eadde0;--rose:#f8e9eb;--bad:#9d3947;--ok:#367653}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{background:var(--surface);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.04em;font-size:20px}.brand span{color:var(--gold)}
+main{max-width:1150px;margin:auto;padding:24px}
+h1{font-size:26px;margin:0 0 8px}h2{font-size:18px;margin:0 0 12px}
+p{color:var(--muted);line-height:1.5;margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.metric small{display:block;color:var(--muted)}.metric strong{display:block;font-size:25px;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:13px;font-weight:600;margin:10px 0 6px}
+input{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font-size:15px}
+button{border:1px solid var(--line);background:#fff;color:var(--ink;border);padding:10px 14px;border-radius:9px;cursor:pointer}
+button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.status{padding:7px 10px;border-radius:20px;background:#fff8ef;border:1px solid #e8d4b4;color:#775a31;font-size:12px}
+.msg{margin:10px 0;color:var(--muted);font-size:14px}.msg.error{color:var(--bad)}.msg.ok{color:var(--ok)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted)}
+.table-wrap{overflow:auto}
+.hide{display:none!important}
+@media(max-width:760px){main{padding:15px}.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{padding:14px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">GLAM <span>BEAUT</span> | Administração</div>
+ <div id="headerState" class="status">Acesso restrito</div>
+</header>
+<main>
+ <section id="loginCard" class="card">
+  <h1>Entrar no painel</h1>
+  <p>Área administrativa protegida. O acesso depende de autenticação e do papel admin já atribuído no banco.</p>
+  <form id="loginForm">
+   <label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required>
+   <label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required>
+   <button class="primary" type="submit" style="margin-top:12px">Entrar</button>
+  </form>
+  <div id="loginMessage" class="msg" role="status"></div>
+ </section>
+ <section id="adminApp" class="hide">
+  <div class="card">
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+    <div><h1>Visão geral</h1><p>Consulta administrativa — versão somente leitura.</p></div>
+    <div><span id="signedInAs" class="status"></span> <button id="logoutBtn">Sair</button></div>
+   </div>
+  </div>
+  <div class="metrics">
+   <div class="metric"><small>Produtos</small><strong id="productCount">—</strong></div>
+   <div class="metric"><small>Ativos</small><strong id="activeCount">—</strong></div>
+   <div class="metric"><small>Variantes</small><strong id="variantCount">—</strong></div>
+   <div class="metric"><small>Itens sem estoque / zero</small><strong id="zeroCount">—</strong></div>
+  </div>
+  <div class="grid">
+   <div class="card"><h2>Produtos e variantes</h2><div id="productsTable" class="table-wrap">Carregando…</div></div>
+   <div class="card"><h2>Categorias</h2><div id="categoriesTable" class="table-wrap">Carregando…</div></div>
+  </div>
+  <div class="card"><h2>Movimentações recentes</h2><div id="movementsTable" class="table-wrap">Carregando…</div></div>
+  <div id="appMessage" class="msg" role="status"></div>
+ </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="glam-supabase-config.js"></script>
+<script>
+(() => {
+ const config=window.GLAM_SUPABASE_CONFIG;
+ const message=document.getElementById('loginMessage');
+ const appMessage=document.getElementById('appMessage');
+ const loginCard=document.getElementById('loginCard');
+ const adminApp=document.getElementById('adminApp');
+ const headerState=document.getElementById('headerState');
+ const setMessage=(el,text,kind='')=>{el.textContent=text;el.className='msg '+kind};
+ const escapeHTML=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ if(!config||!config.url||!config.publishableKey||!window.supabase){
+   setMessage(message,'Configuração pública do Supabase não foi carregada.','error');
+   document.querySelector('#loginForm button').disabled=true;return;
+ }
+ const client=window.supabase.createClient(config.url,config.publishableKey);
+ const showLogin=()=>{loginCard.classList.remove('hide');adminApp.classList.add('hide');headerState.textContent='Acesso restrito';};
+ const showAdmin=(email)=>{loginCard.classList.add('hide');adminApp.classList.remove('hide');headerState.textContent='Admin autenticado';document.getElementById('signedInAs').textContent=email||'Sessão ativa';};
+ const requireAdmin=async(user)=>{
+   const {data,error}=await client.from('user_roles').select('role').eq('user_id',user.id);
+   if(error)throw new Error('Não foi possível verificar o papel administrativo. Acesso não liberado.');
+   if(!Array.isArray(data)||!data.some(r=>r.role==='admin')){
+     await client.auth.signOut();
+     throw new Error('Esta conta não possui o papel admin. O painel permanece bloqueado.');
+   }
+ };
+ const renderTable=(target,headers,rows)=>{
+   const el=document.getElementById(target);
+   if(!rows.length){el.textContent='Nenhum registro encontrado.';return;}
+   const table=document.createElement('table');
+   const thead=document.createElement('thead'),tr=document.createElement('tr');
+   headers.forEach(h=>{const th=document.createElement('th');th.textContent=h;tr.appendChild(th)});
+   thead.appendChild(tr);table.appendChild(thead);
+   const tbody=document.createElement('tbody');
+   rows.forEach(row=>{const r=document.createElement('tr');row.forEach(v=>{const td=document.createElement('td');td.textContent=String(v??'—');r.appendChild(td)});tbody.appendChild(r)});
+   table.appendChild(tbody);el.replaceChildren(table);
+ };
+ const loadData=async()=>{
+   appMessage.textContent='Carregando dados de leitura…';
+   const [p,c,v,i,m]=await Promise.all([
+    client.from('products').select('id,name,sku,price,is_active,is_featured,category_id').order('name'),
+    client.from('categories').select('id,name,is_active,sort_order').order('sort_order'),
+    client.from('product_variants').select('id,product_id,name,sku,price_override,is_active').order('name'),
+    client.from('inventory').select('variant_id,quantity'),
+    client.from('inventory_movements').select('variant_id,movement_type,quantity,note,created_at').order('created_at',{ascending:false}).limit(20)
+   ]);
+   const errors=[p,c,v,i,m].filter(x=>x.error);
+   if(errors.length){setMessage(appMessage,'Falha ao carregar algumas consultas. Nenhuma permissão foi contornada. Verifique a mensagem/console e as policies existentes.','error');return;}
+   const products=p.data||[],categories=c.data||[],variants=v.data||[],stock=i.data||[],movements=m.data||[];
+   const pMap=new Map(products.map(x=>[x.id,x.name]));
+   const vMap=new Map(variants.map(x=>[x.id,x]));
+   const sMap=new Map(stock.map(x=>[x.variant_id,x.quantity]));
+   document.getElementById('productCount').textContent=products.length;
+   document.getElementById('activeCount').textContent=products.filter(x=>x.is_active).length;
+   document.getElementById('variantCount').textContent=variants.length;
+   document.getElementById('zeroCount').textContent=variants.filter(x=>(sMap.get(x.id)||0)<=0).length;
+   const productRows=products.map(x=>[x.name,x.sku||'—','R$ '+Number(x.price||0).toFixed(2).replace('.',','),x.is_active?'Ativo':'Inativo',x.is_featured?'Destaque':'—']);
+   renderTable('productsTable',['Produto','SKU','Preço','Status','Destaque'],productRows);
+   renderTable('categoriesTable',['Categoria','Status'],categories.map(x=>[x.name,x.is_active?'Ativa':'Inativa']));
+   renderTable('movementsTable',['Produto / variante','Tipo','Quantidade','Nota','Data'],movements.map(x=>{
+    const variant=vMap.get(x.variant_id);
+    return [variant?(pMap.get(variant.product_id)||'Produto')+' / '+variant.name:'ID variante '+x.variant_id,x.movement_type,x.quantity,x.note||'—',x.created_at?new Date(x.created_at).toLocaleString('pt-BR'):'—'];
+   }));
+   setMessage(appMessage,'Consultas concluídas em modo somente leitura.','ok');
+ };
+ const checkSession=async()=>{
+   const {data:{session}}=await client.auth.getSession();
+   if(!session){showLogin();return;}
+   try{await requireAdmin(session.user);showAdmin(session.user.email);await loadData();}
+   catch(err){showLogin();setMessage(message,err.message,'error');}
+ };
+ document.getElementById('loginForm').addEventListener('submit',async ev=>{
+   ev.preventDefault();const button=ev.currentTarget.querySelector('button');button.disabled=true;setMessage(message,'Autenticando…');
+   try{
+    const {data,error}=await client.auth.signInWithPassword({email:document.getElementById('email').value.trim(),password:document.getElementById('password').value});
+    if(error)throw error;
+    await requireAdmin(data.user);
+    showAdmin(data.user.email);await loadData();setMessage(message,'Login efetuado.','ok');
+   }catch(err){setMessage(message,err.message||'Falha no login.','error');showLogin();}
+   finally{button.disabled=false;}
+ });
+ document.getElementById('logoutBtn').addEventListener('click',async()=>{
+   await client.auth.signOut();showLogin();setMessage(message,'Sessão encerrada.','ok');
+ });
+ client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')showLogin();});
+ checkSession();
+})();
+</script>
+</body>
+</html>
