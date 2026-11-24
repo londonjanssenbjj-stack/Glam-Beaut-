@@ -1,0 +1,65 @@
+GLAM BEAUT - IMPLEMENTACAO CHECKOUT (NOTAS TECNICAS)
+Branch: glam-supabase-checkout-integration
+Atualizado: 24/11/2026
+
+IMPORTANTE: estas notas foram levantadas a partir do index.html da branch e do Supabase. Nenhuma mudanca foi feita na main ou no site publicado.
+
+FRONTEND ATUAL
+- HTML unico, JS inline.
+- Cart items atuais: {id: "p1"...p16, qty}
+- PRODUCTS array hardcoded, IDs p1-p16 (nao sao UUIDs de products/variants).
+- addToCart(id) procura no array PRODUCTS; incrementa qty.
+- cartSubtotal usa PRODUCTS[id].price.
+- finishOrder atualmente salva glam_last_order no localStorage e monta mensagem WhatsApp; nao cria pedido no Supabase.
+- checkout tem Nome, WhatsApp, Endereco textual, Pagamento (Pix/Cartao/Dinheiro), Entrega (local/retirada), campos de presente.
+- CONFIG.taxaEntrega hardcoded 15.00; WhatsApp da loja vazio.
+
+BACKEND / API
+- Supabase project ref: hxheluremudcdhtopdlv.
+- create-payment v4 ACTIVE, verify_jwt=true.
+- mercadopago-webhook v6 ACTIVE, verify_jwt=false.
+- RPC public.create_customer_order(p_items jsonb, p_delivery_method text, p_shipping_address jsonb, p_coupon_code text) exige auth.
+- RPC espera items como lista com variant_id UUID e quantity (nao id p1/p2).
+- delivery_method deve ser 'delivery' ou 'pickup'.
+- delivery exige objeto de endereco com recipient_name, phone, postal_code, street, number e neighborhood.
+- Pickup exige store_settings pickup_enabled=true.
+- Delivery exige store_settings delivery_enabled=true e bairro presente em delivery_regions ativa.
+- A RPC calcula preco/frete/desconto no servidor, valida estoque e reserva inventario.
+- Resposta RPC inclui order_id e order_number, total e demais valores.
+- create-payment recebe JSON {order_id: UUID}, valida usuario, pedido pendente, total e itens, chama Mercado Pago /v1/orders, salva payments e retorna checkout_url.
+- Frontend deve usar supabase.auth.getSession() e Authorization Bearer access_token via supabase.functions.invoke('create-payment',{body:{order_id}}). Supabase client deve usar somente publishable/anon key; service_role e tokens MP nunca podem aparecer no HTML.
+- Webhook verifica HMAC, busca order no Mercado Pago, confere external_reference, total e BRL; grava payments/payment_events e atualiza orders.
+- Webhook simulador 123456 confirmado por log HTTP 200, deployment v6; a order ficticia e ignorada sem alterar banco.
+
+BANCO ATUAL
+- products: 16 linhas, 0 ativos.
+- product_variants: 0 linhas.
+- inventory: 0 linhas.
+- delivery_regions: 0 regioes ativas.
+- store_settings: 0 linhas.
+- auth.users: 0.
+- user_roles: 0 atribuicoes (0 admins).
+- categories: 6.
+- coupons: 0.
+- orders/payments/payment_events: 0.
+
+SEQUENCIA DE IMPLEMENTACAO RECOMENDADA
+1. Bootstrap do primeiro administrador: usar fluxo seguro do Supabase Auth; criar profile e role admin; nao inserir senha diretamente no SQL nem criar usuario ficticio.
+2. Inicializar store_settings e configurar explicitamente WhatsApp, pickup/delivery e demais parametros.
+3. Configurar delivery_regions somente com bairros/taxas confirmados pela proprietaria.
+4. Criar variantes reais (UUID) e inventario. Ativar produtos apenas apos revisar cadastro, imagem, preco e SKU.
+5. Integrar Supabase SDK no frontend com publishable key, autenticar cliente e criar/atualizar profiles.
+6. Catalogo: consultar products ativos; relacionar product_variants ativos; UI precisa manter variant_id e qty no carrinho. Estoque nao pode ser consultado diretamente por cliente; usar RPC/edge endpoint seguro se for mostrar disponibilidade.
+7. Checkout: coletar endereco estruturado; mapear entrega para delivery ou retirada para pickup; remover forma pagamento local (Pix/cartao/dinheiro) se Checkout Mercado Pago for obrigatorio, ou separar pagamento na retirada como fluxo offline.
+8. Chamar RPC create_customer_order; capturar order_id retornado.
+9. Invocar create-payment autenticado e redirecionar para checkout_url.
+10. Retornos success/pending/failure devem consultar estado do pedido no backend, nao confiar no parametro URL.
+11. Testar Sandbox com usuario real de teste, verificar order/purchase, webhook e estado no banco.
+12. Fazer deploy apenas apos revisao; manter main intacta ate checkout testado.
+
+DECISOES QUE NAO DEVEM SER INVENTADAS
+- Nome/telefone WhatsApp oficial da loja.
+- Bairros de entrega, taxas e valores para frete gratis.
+- Precos/variantes/SKU/estoque real.
+- Dados de admin e credenciais.
+- Forma de pagamento aceita presencialmente.
