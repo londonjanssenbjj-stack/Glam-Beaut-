@@ -219,3 +219,10 @@ PROTEÇÃO ADICIONAL DA MIGRAÇÃO GERENTE — 24/11/2026
 
 
 CADASTRO RAPIDO EM LOTE — BIJUTERIAS E ACESSORIOS (IMPLEMENTADO NA BRANCH)- Formulário novo permite adicionar itens a uma fila local com nome/modelo, categoria, preço opcional, quantidade, SKU opcional e URL de imagem.- Fila permite remover itens antes do salvamento e gravar sequencialmente.- Produtos e variantes são criados inativos; estoque informado (se maior que zero) é lançado pela RPC existente admin_adjust_inventory, não por escrita direta em tabelas de saldo.- Preço em branco: produto recebe valor técnico 0 e descrição marcada como pendente de confirmação; nunca tratar como grátis nem ativar venda antes de corrigir preço.- SKU é informado ou gerado no cliente; verificar duplicidade e revisar antes de venda.- O salvamento em lote pode ter resultado parcial se um item falhar após produto/variante criada. A mensagem indica quantos itens completos foram salvos; revisar catálogo antes de repetir para evitar duplicados.- Implementado no commit 5c15e1d784b0f3834469f3134cc48ccd07008725, branch glam-product-stock-management-plan.- Revisão estática confirmou seção e handlers presentes; syntax/runtime/browser e gravações não foram testados. PR #3 permanece draft; main/publicação/segurança não alteradas.
+
+
+CORREÇÃO DE RETENTATIVA DO CADASTRO RÁPIDO EM LOTE — 24/11/2026
+- Em falha parcial, a fila agora remove os itens que já foram concluídos, mantendo o item que falhou e os seguintes para revisão/retentativa.
+- Mensagem informa quantidade salva e nome do item que falhou, e alerta para revisar possível criação parcial de produto/variante antes de tentar novamente.
+- Commit: 33f3001b7cb8f39d4b275eb4e580a83006ed1781.
+- Revisão estática do handler confirmou o novo comportamento; ainda não foi testado em execução real/browser. Nenhum dado real foi gravado nesta correção.
