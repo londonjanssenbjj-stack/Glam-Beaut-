@@ -48,6 +48,34 @@
     return data.session || null;
   }
 
+  async function ensureCustomerRecords(user, metadata = {}) {
+    if (!user || !user.id) throw new Error("Usuário autenticado não encontrado.");
+    const sb = await getClient();
+    const { data: existingProfile, error: profileReadError } = await sb
+      .from("profiles").select("id").eq("id", user.id).maybeSingle();
+    if (profileReadError) throw profileReadError;
+    if (!existingProfile) {
+      const { error: profileInsertError } = await sb.from("profiles").insert({
+        id: user.id,
+        full_name: metadata.full_name || user.user_metadata?.full_name || "",
+        phone: metadata.phone || user.user_metadata?.phone || null,
+        email: user.email || null
+      });
+      if (profileInsertError) throw profileInsertError;
+    }
+    const { data: roleRow, error: roleReadError } = await sb
+      .from("user_roles").select("user_id").eq("user_id", user.id).eq("role", "customer").maybeSingle();
+    if (roleReadError) throw roleReadError;
+    if (!roleRow) {
+      const { error: roleInsertError } = await sb.from("user_roles").insert({
+        user_id: user.id,
+        role: "customer"
+      });
+      if (roleInsertError) throw roleInsertError;
+    }
+    return true;
+  }
+
   async function signUp({ email, password, name, phone }) {
     const sb = await getClient();
     const { data, error } = await sb.auth.signUp({
@@ -56,6 +84,7 @@
       options: { data: { full_name: name || "", phone: phone || "" } }
     });
     if (error) throw error;
+    if (data.user && data.session) await ensureCustomerRecords(data.user, { full_name: name, phone });
     return data;
   }
 
@@ -63,6 +92,7 @@
     const sb = await getClient();
     const { data, error } = await sb.auth.signInWithPassword({ email, password });
     if (error) throw error;
+    if (data.user) await ensureCustomerRecords(data.user);
     return data;
   }
 
@@ -135,6 +165,7 @@
     signUp,
     signIn,
     signOut,
+    ensureCustomerRecords,
     loadActiveCatalog,
     createCustomerOrder,
     startMercadoPagoCheckout,
