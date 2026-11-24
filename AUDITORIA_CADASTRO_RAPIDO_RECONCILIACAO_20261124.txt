@@ -1,0 +1,19 @@
+GLAM BEAUT — AUDITORIA DO CADASTRO RAPIDO E RECONCILIACAO
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Escopo: revisão estática de admin-panel.html; sem execução de cadastro.
+
+ACHADOS
+1. O cadastro rápido cria produto, variante "Unidade" e movimentação de estoque em chamadas separadas. Não é uma transação.
+2. Produtos e variantes são criados inativos, o que é uma salvaguarda útil contra publicação incompleta.
+3. Se falhar depois de criar produto/variante, o banco pode ficar com um registro parcial. A fila retém item e itens seguintes, mas a reconciliação é manual: nova tentativa detecta slug existente e impede duplicação; não retoma automaticamente o estágio pendente.
+4. SKU gerado automaticamente usa slug + trecho do timestamp. Não substitui conferência de unicidade/identidade real.
+5. Quantidade inicial é opcional e se maior que zero movimentada pela RPC admin_adjust_inventory; quantidade 0 deixa sem registro de saldo. Para catálogo real, evitar salvar quantidade não confirmada.
+6. Upload de imagem exige produto com nome ou ID e posterior salvar do formulário para persistir vínculo; upload/runtime ainda não testado.
+7. Nenhuma operação foi executada nesta revisão. Nenhum produto, variante, estoque, imagem ou status foi alterado no Supabase.
+
+RECOMENDAÇÕES
+- Antes de usar cadastro rápido em lote, testar com um item real de baixo risco em ambiente de teste.
+- Para confiabilidade, a evolução deve ser uma etapa explícita de reconciliação: verificar por slug/SKU se produto ou variante já existe, mostrar IDs existentes e permitir retomar sem criar novamente. Não automatizar retry de itens com estágio desconhecido.
+- Manter registros inativos até confirmação de nome, preço, imagem e quantidade física.
+- Depois de cadastro e upload, validar listagem do painel e storefront, checkout, criação de pedido, webhook, baixa de estoque e restauração idempotente por cancelamento/refund.
