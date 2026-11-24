@@ -1,0 +1,48 @@
+GLAM BEAUT — COMPLEMENTO DE FINALIZAÇÃO DO CATÁLOGO
+Atualização: 24/11/2026
+Branch: glam-product-stock-management-plan
+
+TRABALHO EXECUTADO
+- Reabertura e inspeção dos quadros extraídos dos quatro vídeos.
+- Criação de um pacote de 31 quadros de referência separados por cena/categoria, com nomes descritivos.
+- Fotos são frames reais, sem geração artificial de embalagens.
+- Separação visual por cosméticos/capilar, maquiagem/perfumaria, bolsas/acessórios e bijuterias.
+
+ESTOQUE E QUANTIDADES
+- Os vídeos são filmagens de apresentação e panorâmicas, com cenas repetidas.
+- Não há base segura para declarar contagem total de estoque por SKU.
+- Quantidades mostradas em cenas podem ser anotadas como “visível no frame”, mas não equivalem ao saldo físico.
+- Para joias e bijuterias em painéis, a contagem individual por modelo não pode ser confirmada devido a resolução, sobreposição e movimento.
+- Nenhuma quantidade física foi inserida como saldo confirmado. Nenhuma variante foi inventada.
+
+PREÇOS
+- Mantidos apenas os preços já existentes no catálogo/base.
+- Preços ausentes permanecem vazios para inserção posterior.
+- Nenhum preço foi estimado.
+
+VOLUMES / VARIANTES
+- Nomes e volumes só são preenchidos quando legíveis e atribuíveis com segurança.
+- Variantes ou volumes ambíguos permanecem “a confirmar”.
+
+FOTOS
+- Pacote GLAM_BEAUT_FOTOS_REFERENCIA_VIDEOS.zip contém 31 quadros originais.
+- Cada foto tem nome de referência por cena, mas muitos frames são exposições de múltiplos produtos.
+- Ainda não são fotos individuais de SKU em fundo limpo, nem estão associadas automaticamente ao produto no painel.
+
+UPLOAD
+- Não foi possível fazer upload de imagens para Supabase Storage ou associá-las ao cadastro, porque não há ferramenta de upload binário/Storage disponível neste ambiente.
+- Auditoria anterior encontrou buckets vazios. Não foi criado bucket nem alterada política.
+- As imagens foram preparadas em pacote ZIP para uso manual futuro; nenhum acesso ou política foi relaxado.
+
+REGRAS DE PRESERVAÇÃO
+- Main não foi alterada.
+- Site publicado não foi alterado.
+- Nenhuma migração aplicada.
+- Nenhuma escrita de catálogo no banco de produção.
+- Segurança/RLS não foi modificada.
+- PR permanece não mesclado.
+
+PRÓXIMA ETAPA NECESSÁRIA PARA FECHAMENTO REAL
+1. Conferência física, SKU por SKU, com fotografia estática frontal e contagem de unidades.
+2. Confirmar preços, volumes e variantes ausentes.
+3. Upload das fotos individuais em Storage usando caminho de SKU e vínculo no banco.
