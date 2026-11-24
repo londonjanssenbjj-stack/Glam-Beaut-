@@ -1,0 +1,77 @@
+GLAM BEAUT — MARCO DE RETOMADA E RECONCILIAÇÃO
+Data: 24/11/2026
+Branch de referência: glam-product-stock-management-plan
+PR: #3 — Draft, aberto, sem merge
+
+ESTE DOCUMENTO É O MARCO ATUAL DE CONTINUIDADE.
+Em caso de divergência com trechos antigos de outros documentos, prevalecem os fatos e estados consolidados abaixo e os adendos mais recentes de 24/11/2026. Documentos antigos são mantidos como histórico, não como instruções atuais.
+
+PRESERVAÇÃO
+- main não alterada.
+- index.html da branch de trabalho permanece idêntico à main segundo a verificação SHA registrada.
+- PR #3 segue Draft, aberto e não merged.
+- Sem publicação/deploy, pagamentos reais, recursos pagos ou deleções.
+- Não alterar RLS/policies, funções, grants, roles, checkout, ou site público sem autorização explícita.
+- Custo zero como requisito.
+
+PAINEL E STORAGE — ESTADO CORRETO MAIS RECENTE
+- admin-panel.html inclui cadastro/edição de produtos e categorias.
+- Cadastro de variantes com edição e ativação/desativação.
+- Movimentação de estoque usando exclusivamente RPC admin_adjust_inventory.
+- Cadastro rápido em lote de bijuterias/acessórios, com fila local e retentativa protegida contra duplicação após falha parcial.
+- Upload de imagem no formulário: JPG/JPEG, PNG, WebP, limite 8 MB; verifica sessão e role admin; envia para Storage e preenche URL pública.
+- Bucket glam-product-images existe, leitura pública, 8 MB, MIME JPEG/PNG/WebP.
+- Policies registradas: leitura pública somente no bucket; escrita/alteração/exclusão autenticadas limitadas a role admin.
+- Nenhum segredo privado/service_role exposto no frontend conforme revisão estática.
+- Upload funcional real no navegador e confirmação de vínculo/salvamento ainda pendentes.
+
+DADOS ATUAIS DO BANCO — ÚLTIMA CONSULTA READ-ONLY REGISTRADA
+- Produtos: 16
+- Categorias: 6
+- Variantes: 0
+- Registros de inventory: 0
+- Movimentações: 0
+Não houve gravação real de teste nem estoque físico confirmado.
+
+PACOTE DE REFERÊNCIA VISUAL
+- ZIP: GLAM_BEAUT_FOTOS_49_REFERENCIAS.zip
+- 49 frames: vídeo 1 = 17; vídeo 2 = 16; vídeo 3 = 9; vídeo 4 = 7.
+- Frames são referências de vídeo, podem conter repetições, panorâmicas ou vários produtos. Não são fotos finais individuais de SKU.
+- O ZIP/manifesto foi verificado no ambiente de trabalho e os índices foram atualizados; não presumir que o ZIP esteja commitado no repositório.
+- Não associar automaticamente frames a produtos nem contar aparições como estoque.
+
+CATÁLOGO
+- Catálogo consolidado e preliminar existentes na branch, incluindo CSVs.
+- Produtos identificados visualmente são provisórios quando rótulos/volumes/variantes não estão legíveis.
+- Preços somente quando já confirmados; não estimar.
+- Quantidades visíveis em frames não equivalem a estoque físico.
+- Não criar variantes, ativar produtos ou movimentar estoque com base em suposições.
+
+PENDÊNCIAS TÉCNICAS QUE PODEM SER EXECUTADAS SEM O USUÁRIO
+1. Revisar estaticamente o cadastro rápido em lote, validações, tratamento de falha parcial e riscos de duplicação.
+2. Revisar formulários de produto/categoria/variante e consistência de estados inativos.
+3. Revisar fluxo de upload: validações, path, resposta de erro, preenchimento URL e associação no formulário.
+4. Revisar diffs e documentação para inconsistências; reconciliar status sem apagar histórico.
+5. Preparar checklist de teste de navegador, sem executar gravações de produção.
+6. Revisar a arquitetura de integração futura da vitrine/checkout e Mercado Pago sem alterar checkout nem credenciais.
+
+DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SOMENTE QUANDO NECESSÁRIO
+- Fotos individuais ou confirmação visual quando a identidade de produto/SKU não puder ser determinada.
+- Contagem física por SKU/variante.
+- Confirmação de preço, volume, variante ou SKU ausente/ambíguo.
+- Teste autenticado de upload e salvamento de produto no navegador, quando a sessão Admin Master estiver disponível.
+
+PENDÊNCIAS MAIORES
+- QA funcional no navegador (runtime, responsividade, sessão/logout, bloqueios).
+- CRUD e RPC em teste controlado.
+- Upload real de imagem e confirmação de URL vinculada.
+- Catálogo real revisado e inventário físico.
+- Revisão de segurança completa da migração draft do gerente; não aplicar.
+- Conectar vitrine pública ao catálogo real, mantendo design e fallback e revisando diffs.
+- Checkout transacional e Mercado Pago sandbox/webhook/cancelamento/refund ainda não validados.
+
+PRÓXIMA AÇÃO EXATA
+Continuar pela revisão estática técnica do cadastro rápido em lote e do fluxo de upload/associação de imagens em admin-panel.html. Corrigir apenas defeitos comprovados e documentar. Manter todas as operações de banco, produção e segurança sem execução. Não alterar main nem publicar/mergear.
+
+REGRA PARA RETOMAR
+Quando o usuário disser “continue Glam Beaut”, ler este marco e consultar o estado atual do PR #3/branch antes de agir. Reconfirmar o commit/head e verificar se o que está descrito ainda é verdadeiro. Não recomeçar, não repetir etapas e não solicitar tarefas manuais que possam ser realizadas tecnicamente.
