@@ -72,3 +72,13 @@ CHECKPOINT FINAL DESTA SESSAO - 24/11/2026
 - O modulo foi mantido isolado. index.html ainda nao carrega o modulo.
 - Proxima etapa de integracao visual ainda bloqueada por dados/operacao reais: nenhum admin, produtos ativos/variantes/inventario/regioes/settings ausentes. Evitar pedido real ou falso.
 - Teste Sandbox end-to-end precisa conta autenticada de teste e configuracao comercial valida; nao simular sucesso de pagamento.
+
+
+CHECKPOINT 24/11/2026 - CARREGAMENTO DO SDK E CONFIG PUBLICA (BRANCH DE INTEGRACAO)
+- Arquivo glam-supabase-config.js criado com URL do projeto e publishable key publica.
+- index.html da branch de integracao agora inclui Supabase JS v2 via CDN, config publica e modulo glam-supabase-integration.js, com scripts defer.
+- Esta inclusao apenas carrega o scaffold e expõe window.GlamSupabase; ainda nao conectou os controles da loja, catalogo, carrinho ou checkout à UI.
+- main continua intocada e o site publicado permanece inalterado.
+- RLS, schemas, tabelas, politicas, RPCs e secrets nao foram modificados.
+- Antes da conexao funcional da UI, seguem bloqueios: usuarios/admin ainda inexistentes, catalogo ativo/variantes/estoque vazio, delivery_regions e store_settings sem configuração comercial.
+- Config JS usa apenas chave publishable; nenhum segredo privado foi colocado no frontend.
