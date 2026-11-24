@@ -63,3 +63,12 @@ DECISOES QUE NAO DEVEM SER INVENTADAS
 - Precos/variantes/SKU/estoque real.
 - Dados de admin e credenciais.
 - Forma de pagamento aceita presencialmente.
+
+
+CHECKPOINT 24/11/2026 - SCAFFOLD CARREGADO NA BRANCH
+- Supabase SDK v2, config pública e módulo isolado foram incluídos no index.html da branch glam-supabase-checkout-integration.
+- Os scripts usam defer e mantêm a ordem SDK -> config -> módulo.
+- O módulo agora está carregado, mas a UI não invoca suas funções; o catálogo e o checkout permanecem no fluxo local.
+- O arquivo config usa publishable key pública, não service_role ou segredo Mercado Pago.
+- Nenhuma alteração na main, RLS, schema, políticas, imagens, CSS ou conteúdo visual; o index.html da branch recebeu apenas inclusões de scripts/comentário.
+- Não há usuário/admin, produtos ativos, variantes, inventário, delivery_regions nem store_settings; não é seguro iniciar pedido real.
