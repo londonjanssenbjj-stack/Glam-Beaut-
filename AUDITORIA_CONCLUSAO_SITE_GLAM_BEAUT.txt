@@ -169,3 +169,12 @@ MAPEAMENTO DO CHECKOUT PUBLICO (LEITURA ESTATICA) — 24/11/2026
 - Os dados no localStorage e mensagem WhatsApp não equivalem a pedido persistido no banco; o aviso atual descreve “registrado neste dispositivo”.
 - Não alterar este fluxo para checkout real até resolver arquitetura de autenticação (create_customer_order exige auth.uid), política de entrega/retirada, catálogo/variantes reais, fluxo de estoque e validação do checkout MP.
 - Etapa futura recomendada: preservar interface atual e adicionar integração progressiva por branch, com controles de fallback seguros e testes no ambiente apropriado; nunca confiar no preço/total/cart vindo do frontend.
+
+
+REVISÃO ESTÁTICA ADICIONAL — IDEMPOTÊNCIA/CONSISTÊNCIA WEBHOOK (24/11/2026)
+- create-payment usa X-Idempotency-Key com order.id; se já há payment pendente e provider_order_id/checkout_url, retorna checkout existente. payments.order_id tem índice único, provider_order_id também tem índice único parcial, provider_payment_id unique.
+- mercadopago-webhook grava/upsert payment, depois upsert payment_events, e em seguida atualiza orders. Estas são operações sequenciais separadas, não uma transação única; se uma etapa intermediária falhar, pode haver estado parcialmente persistido. Não executar correções sem desenho idempotente/transacional e teste isolado.
+- payment_events tem unique provider+provider_event_id, que é mecanismo para deduplicação. O webhook cria eventId a partir de body.id ou fallback construído; confirmar idempotência e o identificador oficial em testes/sandbox.
+- Webhook confere amount/currency e external_reference; no código, caso status refunded, atualiza payment/order, mas não repõe automaticamente estoque nem marca inventory_released_at. Caso canceled/failed, payment_status failed, sem liberação automática de estoque. Como create_customer_order reserva stock no momento do pedido, cancelamento/refund requer fluxo específico seguro para liberar estoque sem duplicação.
+- Reembolso parcial retorna 202 para revisão manual sem atualização persistida no estado, conforme código lido.
+- Esses pontos são riscos/pontos de validação estática, não bugs comprovados por execução. Não alterei função, tabela, policy, configuração ou secret.
