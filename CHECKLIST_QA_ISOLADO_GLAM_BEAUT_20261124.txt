@@ -1,0 +1,83 @@
+GLAM BEAUT — CHECKLIST QA ISOLADO (PREPARADO, NÃO EXECUTADO)
+Data: 24/11/2026
+Objetivo: orientar testes de runtime em ambiente isolado, sem tocar dados reais.
+
+A. ACESSO
+[ ] Sem sessão, admin-panel não expõe painel.
+[ ] Usuário autenticado sem role admin é bloqueado.
+[ ] Admin Master entra e vê dashboard.
+[ ] Logout encerra sessão e esconde painel.
+[ ] Refresh não expõe estado privilegiado.
+
+B. PRODUTOS
+[ ] Criar produto em teste com dados identificados como QA e inativo.
+[ ] Editar produto existente de teste; validar slug e SKU duplicado.
+[ ] Nome inválido/slug vazio é rejeitado.
+[ ] Preço negativo rejeitado.
+[ ] Preço anterior menor que preço atual rejeitado.
+[ ] Categoria inválida/não selecionada é tratada.
+[ ] Upload com MIME inválido, tamanho >8MB e upload permitido.
+[ ] Upload após abandono do formulário não gera limpeza automática; verificar bucket.
+[ ] URL de imagem salva no produto; preview falha não bloqueia cadastro sem explicação.
+[ ] Produto permanece inativo por padrão na criação.
+
+C. VARIANTES
+[ ] SKU duplicado bloqueado.
+[ ] Preço override negativo bloqueado.
+[ ] Variante criada inativa.
+[ ] Editar variante sem alterar produto incorreto.
+[ ] Produto selecionado correto.
+
+D. INVENTÁRIO
+[ ] Quantidade 0 rejeitada para movimento.
+[ ] Quantidade positiva cria entrada e saldo esperado.
+[ ] Quantidade negativa permitida somente quando saldo suficiente.
+[ ] Saldo não pode ficar negativo.
+[ ] Movimento registra note e tipo corretamente.
+[ ] Falha não gera movimento sem saldo consistente.
+
+E. CADASTRO RÁPIDO EM LOTE
+[ ] Item inválido não entra na fila.
+[ ] SKU manual duplicado bloqueado.
+[ ] SKU gerado collision handling/constraint error adequado.
+[ ] Quantidade positiva somente após contagem física confirmada.
+[ ] Simular falha após product insert (somente ambiente de teste) e verificar partial state.
+[ ] Reconciliar item parcialmente criado antes de retry.
+[ ] Confirmar que itens completos são removidos da fila e item falho permanece.
+[ ] Testar várias entradas e limites de fila.
+
+F. CATEGORIAS
+[ ] Categoria criada inativa.
+[ ] Nome duplicado/slug duplicado tratado.
+[ ] Editar categoria e atualizar dropdowns.
+
+G. RESPONSIVIDADE/ACESSIBILIDADE
+[ ] Desktop, tablet, mobile.
+[ ] Formulários legíveis, sem overflow.
+[ ] Mensagens status e erro acessíveis.
+[ ] Campos obrigatórios e navegação por teclado.
+[ ] Scroll e foco após editar.
+
+H. SEGURANÇA
+[ ] RLS/policies não contornadas.
+[ ] Nenhuma service_role no frontend.
+[ ] RPC admin-only.
+[ ] Usuário sem role não grava.
+[ ] Manager migration draft não aplicada durante QA.
+[ ] Verificar console/network por erro, secrets, URLs e payloads.
+
+I. VITRINE/CHECKOUT (TESTE APENAS DEPOIS)
+[ ] Produtos inativos não aparecem.
+[ ] Imagens e preços vêm do produto correto.
+[ ] Variante selecionada controla preço/SKU/stock.
+[ ] Carrinho não aceita estoque insuficiente.
+[ ] Checkout usa sandbox e não cria cobrança real.
+[ ] Webhook e status de pedido testados com sandbox.
+[ ] Cancelamento/reembolso seguem permissões Admin Master.
+
+REGRAS
+- Usar staging/branch isolada com dados sintéticos.
+- Não usar produtos de clientes reais nem dados pessoais.
+- Não executar teste de pagamento real.
+- Não executar operações de produção para QA.
+- Não considerar checklist concluído até haver evidência de execução.
