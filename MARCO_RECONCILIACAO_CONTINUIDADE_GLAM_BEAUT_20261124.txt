@@ -109,3 +109,11 @@ CONFIRMAÇÕES DO USUÁRIO — 24/11/2026
 - Disponibilidade de todos os produtos: confirmada.
 - Contagem física exata (unidades por item/variante): ainda não fornecida; não inventar saldo inicial.
 - Catálogo reconciliado em nível de identidade, foto e preço. Cadastro/ativação e estoque inicial dependem da implementação segura e teste.
+
+
+ATUALIZAÇÃO — ESTOQUE PROVISÓRIO AUTORIZADO PELO USUÁRIO (24/11/2026)
+- Usuário confirmou catálogo (foto, preço e disponibilidade) e autorizou usar quantidades estimadas a partir dos vídeos, com correção posterior.
+- Como os frames repetem bandejas/expositores e não permitem contagem confiável por SKU, adotado saldo conservador provisório de 1 unidade por cada um dos 16 produtos (total 16), somente para planilha/registro de preparação.
+- Quantidades são editáveis e NÃO são contagem física confirmada.
+- Antes de venda/produção, estoque precisa ser lançado/validado no banco e conferido fisicamente.
+- Não aplicar migrations, não pagar, não mergear ou publicar sem autorização.
