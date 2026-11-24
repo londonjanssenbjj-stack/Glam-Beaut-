@@ -2,7 +2,7 @@ GLAM BEAUT — RELATÓRIO DE FINALIZAÇÃO / CONTINUIDADE
 Data: 24/11/2026
 Branch de trabalho: glam-product-stock-management-plan
 PR: #3 — Draft, aberto, não merged
-Regra permanente: preservar o que existe; não refazer/redesenhar/apagar; não alterar main; não enfraquecer segurança; custo zero.
+Regra permanente: preservar o existente; não refazer/redesenhar/apagar; não alterar main; não enfraquecer segurança; custo zero.
 
 CONFIRMADO EM TESTE MANUAL (CAPTURAS DO USUÁRIO)
 [✓] Painel admin-panel.html aberto localmente no Chrome.
@@ -11,9 +11,9 @@ CONFIRMADO EM TESTE MANUAL (CAPTURAS DO USUÁRIO)
 [✓] Dashboard e listas de produtos/categorias renderizados.
 [✓] Dashboard exibiu 16 produtos, 0 ativos, 0 variantes e 0 variantes sem estoque.
 [✓] Listagem de categorias e formulários de produtos, categorias, variantes e movimentação de estoque renderizados.
-[✓] Capturas mostram ausência de variantes e movimentações/estoque no estado atual.
+[✓] Capturas mostram ausência de variantes e movimentações/estoque no estado consultado.
 
-VERIFICAÇÃO READ-ONLY DO BANCO (24/11/2026)
+VERIFICAÇÃO READ-ONLY DO BANCO (consulta anterior)
 - products: 16
 - categories: 6
 - product_variants: 0
@@ -23,38 +23,46 @@ Nenhuma gravação de teste ou transação de estoque foi feita.
 
 PRESERVAÇÃO / GIT
 [✓] PR #3 permanece Draft, aberto e sem merge.
-[✓] PR reporta 16 arquivos adicionados e 0 deleções.
-[✓] index.html na branch e main possuem o mesmo SHA: 2e3bafa0993755a2eaa66acf28ee64747853ed8a.
+[✓] PR atualizado: 28 arquivos, 2218 adições e 0 deleções (snapshot consultado).
+[✓] index.html na branch e main possui SHA igual em verificação anterior: 2e3bafa0993755a2eaa66acf28ee64747853ed8a.
 [✓] Nenhum deploy/publicação foi feito.
 [✓] Nenhum pagamento real executado.
 [✓] Nenhum recurso pago criado.
-[✓] Nenhuma alteração em RLS, policies, grants, roles, schema, funções ou chaves de produção.
-[✓] Nenhum bucket/policy Storage criado.
+[✓] Site público index.html preservado.
 
-IMPLEMENTADO NA BRANCH, COM TESTE FUNCIONAL PARCIAL
+IMPLEMENTADO NA BRANCH
 - Painel administrativo separado com autenticação Supabase e bloqueio por role.
 - Dashboard e consultas.
 - Cadastro/edição de produtos e categorias; novos registros inativos.
 - Cadastro/edição e ativação/desativação de variantes; novas variantes inativas.
 - Entrada/ajuste de estoque por RPC admin_adjust_inventory; UI não faz escrita direta nas tabelas de saldo/movimentação.
 - Preview de imagem por URL.
+- Upload direto de arquivo de imagem para Supabase Storage: JPG, PNG, WebP, limite 8 MB; verificação de sessão e role admin; URL pública preenchida no formulário.
 - Sem exclusão permanente.
-Nota: formulários renderizados e login confirmado, mas CRUD e RPC ainda não testados com gravações de prova.
+Nota: login e renderização do painel confirmados por captura. CRUD, upload e RPC ainda precisam de teste controlado de gravação.
 
-PENDÊNCIAS QUE NÃO PODEM SER CONCLUÍDAS SEM INSUMOS/DECISÃO OU TESTE CONTROLADO
-1. Catalogar e cadastrar os produtos reais: nomes exatos, imagens, SKU, preços, variantes e quantidades precisam de confirmação. A lista dos vídeos é preliminar; não inventar estoque ou dados comerciais.
-2. Upload de imagens: requer desenho de Storage (bucket/policies) e revisão de segurança; não criar sem autorização explícita de alteração de backend.
+STORAGE E SEGURANÇA — ATUALIZAÇÃO
+- Bucket glam-product-images criado e verificado.
+- Bucket público para leitura, com limite 8 MB e tipos JPEG/PNG/WebP.
+- Policies verificadas: leitura pública limitada ao bucket; gravação/alteração/exclusão exige authenticated e role admin em user_roles.
+- Nenhuma service_role exposta no frontend.
+- Teste real de upload e vínculo de foto a produto ainda pendentes.
+
+PENDÊNCIAS
+1. Catalogar produtos reais: nomes exatos, imagens individuais, SKU, preços, variantes e quantidades precisam de confirmação. Não inventar estoque ou dados comerciais.
+2. Testar upload autenticado no navegador, salvar URL e confirmar imagem associada ao produto.
 3. Gerente operacional: migração está em draft e não pronta; não aplicar. Precisa revisão completa de policies/RLS/grants, matriz de transições de pedidos, escopo de colunas, transação/rollback e teste isolado. Não atribuir role de forma improvisada.
 4. Loja pública: index.html permanece demonstrativa/local; não está conectada ao catálogo real do Supabase.
 5. Checkout/pedidos: checkout atual é localStorage/WhatsApp; integração backend pendente.
 6. Mercado Pago: sandbox, webhook idempotente/transacional, cancelamentos e reembolsos não testados. Nenhum pagamento real.
 7. Testes de browser adicionais: responsividade/mobile, console/runtime, logout/sessão, bloqueio de contas não-admin e CRUD/RPC de prova ainda não validados.
-8. CI: nenhum status de CI/build confirmado.
+8. CI/build: nenhum status confirmado para o head revisado.
 
 DECISÃO DE SEGURANÇA
 Não executar alterações de produção para contornar bloqueios. Não expor service_role ou tokens Mercado Pago no frontend. Não duplicar baixa de estoque em webhook. Não publicar/mergear o PR sem revisão explícita.
 
-ESTADO FINAL DESTA RODADA
+ESTADO ATUAL
 Login Admin Master e visualização de dados reais confirmados.
-O painel de administração está acessível localmente para continuar QA.
-O site público, catálogo real, armazenamento de imagens, gerente operacional, checkout e pagamentos NÃO estão concluídos; estão bloqueados por validação, insumos ou alterações de backend que precisam de autorização.
+O painel está acessível localmente para QA.
+Storage e upload estão implementados, mas upload real ainda não foi confirmado.
+Catálogo real, gerente operacional, checkout e pagamentos NÃO estão concluídos; dependem de validação, insumos e testes.
