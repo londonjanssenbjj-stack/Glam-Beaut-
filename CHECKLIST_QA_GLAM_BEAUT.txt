@@ -209,3 +209,10 @@ AUDITORIA ESTÁTICA CONTINUADA DO PAINEL — 24/11/2026
 - Nenhuma chamada .delete() encontrada no painel; não há controles de exclusão permanente.
 - Upload de arquivo não implementado; painel permanece com campo URL de imagem/preview.
 - Esses resultados são análise de fonte, não teste funcional/browser.
+
+
+PROTEÇÃO ADICIONAL DA MIGRAÇÃO GERENTE — 24/11/2026
+- Removida da migração draft a atribuição automática de role manager por e-mail.
+- A role deverá ser atribuída separadamente, em operação controlada, após revisão da identidade e autorização explícita.
+- Migração continua NÃO pronta para aplicação: precisa revisar permissões/grants das wrappers RPC, cobertura de RLS e policies, matriz completa de transições de pedido, escopo das colunas que gerente pode alterar, transação/rollback e teste isolado.
+- Correção commitada somente na branch draft; nenhuma alteração aplicada ao banco de produção.
