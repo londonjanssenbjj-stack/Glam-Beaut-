@@ -54,7 +54,12 @@ Deno.serve(async (req: Request) => {
       headers: { Authorization: `Bearer ${mpToken}` },
     });
     const mpOrder = await mpResponse.json();
-    if (!mpResponse.ok) return json(502, { error: "Não foi possível consultar a order no Mercado Pago." });
+    if (!mpResponse.ok) {
+      // O simulador de webhooks envia IDs fictícios; responder 200 sem alterar dados
+      // evita retries para eventos de teste sem Order real. Nenhum status de pagamento é aceito.
+      if (mpResponse.status === 404) return json(200, { received: true, ignored: true, reason: "order_not_found_test_or_unknown" });
+      return json(502, { error: "Não foi possível consultar a order no Mercado Pago." });
+    }
 
     const orderId = mpOrder.external_reference;
     if (typeof orderId !== "string" || String(mpOrder.id) !== dataId) return json(400, { error: "Order sem referência externa válida." });
