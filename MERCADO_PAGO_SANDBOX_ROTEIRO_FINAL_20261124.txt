@@ -1,0 +1,33 @@
+GLAM BEAUT — ROTEIRO FINAL MERCADO PAGO TESTE (SANDBOX)
+Branch: glam-product-stock-management-plan
+Status: roteiro de configuração, sem credenciais reais gravadas.
+
+1. NO MERCADO PAGO DEVELOPERS
+- Entrar no painel de desenvolvedores.
+- Selecionar/criar aplicação da Glam Beaut.
+- Abrir credenciais de teste (Sandbox).
+- Copiar Public Key de TESTE e Access Token de TESTE.
+- Nunca usar credenciais de produção nesta fase.
+
+2. SEGREDOS NO SUPABASE
+- Supabase > Edge Functions > Secrets (ou configuração de secrets da função).
+- Configurar Access Token de teste no secret que a função create-payment espera (ver código atual da função antes de definir nome).
+- Não inserir token no arquivo glam-supabase-config.js, HTML, JS do navegador, Git, screenshots ou conversa.
+- Se houver Public Key no frontend, ela é somente a de teste e não é segredo.
+
+3. CHECKLIST DE TESTE (SÓ SANDBOX)
+[ ] Verificar configuração de ambiente da Edge Function create-payment.
+[ ] Verificar URL de retorno e webhook.
+[ ] Criar conta compradora de teste seguindo as instruções oficiais do Mercado Pago.
+[ ] Checkout com Pix/cartão conforme métodos habilitados no Sandbox.
+[ ] Simular resultado aprovado.
+[ ] Simular resultado pendente.
+[ ] Simular resultado recusado.
+[ ] Confirmar webhook recebido e autenticado.
+[ ] Confirmar estado do pedido no Supabase após webhook.
+[ ] Confirmar idempotência (repetição do mesmo request não duplica pedido/cobrança).
+[ ] Confirmar que carrinho e saldo não são alterados prematuramente.
+[ ] Confirmar que nenhuma credencial de produção foi usada.
+
+IMPORTANTE
+Este roteiro não configura nem valida as credenciais. A implementação atual deve ser revisada para identificar os nomes de secrets exigidos e o formato do webhook antes de inserir valores. Não executar pagamentos reais.
