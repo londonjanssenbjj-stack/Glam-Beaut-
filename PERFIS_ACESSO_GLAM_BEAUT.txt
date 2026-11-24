@@ -103,3 +103,10 @@ AUDITORIA DE COMPATIBILIDADE DO PAPEL GERENTE (READ-ONLY | 24/11/2026)
 - O perfil Gerente Operacional com e-mail odiselma.vital@hotmail.com ainda não tem suporte backend de autorização comprovado.
 - Para implementar gerente com permissões limitadas, será necessária uma alteração mínima e planejada no backend (roles/policies ou RPCs), com análise de segurança e aprovação explícita antes de aplicar. Não executar alteração agora.
 - Não foi criada conta, não foi atribuído role, e nenhuma tabela, policy, função, grant ou chave foi alterada nesta auditoria.
+
+
+ATUALIZACAO DE STATUS DE IMPLEMENTACAO (24/11/2026)
+- O cadastro/edição de produtos foi iniciado no painel isolado; novas inserções são forçadas a inativo.
+- A autorização continua exclusivamente role admin, conforme RLS existente.
+- Gerente: e-mail confirmado com ponto: odiselma.vital@hotmail.com. Conta ainda não criada nem autorizada.
+- Variantes e estoque permanecem sem CRUD; serão implementados apenas após confirmar fluxo transacional/RPC existente.
