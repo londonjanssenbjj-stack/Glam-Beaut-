@@ -6,23 +6,22 @@ CONFIRMADO PELO USUÁRIO
 - Produtos correspondem às fotos.
 - Preços corretos conforme desejado.
 - Todos os produtos disponíveis.
-- Usuário autorizou quantidades provisórias estimadas dos vídeos, com ajuste posterior.
 
-CATÁLOGO
-- 16 produtos validados em identidade, foto e preço.
-
-ESTOQUE INICIAL PROVISÓRIO (NÃO AUDITADO)- Aplicado 1 unidade provisória por produto/cadastro, total 16 unidades.
-- Escolha conservadora por não ser possível confirmar contagem física exata nos vídeos e evitar somar repetição de frames/expositores.
-- Quantidades editáveis; usuário poderá corrigir posteriormente.
-- Não declarar como contagem física real.
+CORREÇÃO DO ESTOQUE PROVISÓRIO
+- O registro anterior de 1 unidade para cada um dos 16 produtos (total 16) foi uma suposição incorreta e foi removido.
+- Quantidade identificada visualmente nos vídeos: 12 unidades em 9 tipos de item (lista em catalogo/INVENTARIO_VISUAL_VIDEOS_20261124.csv).
+- Essas 12 unidades são apenas itens que foram identificados nos vídeos; não constituem estoque completo nem contagem física auditada.
+- Os 16 registros do catálogo existente permanecem sem quantidade inicial atribuída, pois não foram mapeados individualmente com segurança para os produtos dos vídeos.
+- Quantidades são editáveis e serão ajustadas após conferência/mapeamento.
 
 PENDÊNCIAS TÉCNICAS
-1. Cadastro/ativação do catálogo no banco com variante padrão quando não houver escolha real.
-2. Lançamento seguro de estoque inicial (quando autorizado), mantendo marcação provisória/documentação.
-3. Revisão de segurança e consistência checkout/webhook.
-4. Testes em navegador real: vitrine, login, sacola, entrega/retirada, pedido, Mercado Pago Sandbox, webhook e estoque.
-5. Corrigir falhas de runtime.
-6. Revisar PR e pedir autorização antes de merge/deploy.
+1. Mapeamento SKU e variantes, quando aplicável.
+2. Cadastro/ativação do catálogo no banco com variante padrão quando não houver escolha real.
+3. Lançamento seguro de estoque inicial após mapear produtos identificados, sem inventar saldo.
+4. Revisão de segurança e consistência checkout/webhook.
+5. Testes em navegador real: vitrine, login, sacola, entrega/retirada, pedido, Mercado Pago Sandbox, webhook e estoque.
+6. Corrigir falhas de runtime.
+7. Revisar PR e pedir autorização antes de merge/deploy.
 
 LIMITES
 - Nenhuma migration aplicada.
