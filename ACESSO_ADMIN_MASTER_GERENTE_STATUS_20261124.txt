@@ -1,0 +1,39 @@
+GLAM BEAUT — STATUS FINAL DA CONFIGURAÇÃO DE ACESSOS
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+PR: #3 (draft, unmerged)
+
+CONTAS CONFIRMADAS NO AUTH
+- londonjanssenbjj@gmail.com — Admin Master — role admin confirmado.
+- odiselma_vital@hotmail.com — Admin Master — role admin confirmado.
+- odiselma.vital@hotmail.com — Gerente — Auth confirmado; role ainda NÃO atribuído no banco de produção.
+
+O QUE FOI FEITO NA BRANCH ISOLADA
+- Migração draft: amplia CHECK da tabela user_roles para aceitar manager.
+- Policies manager aditivas para gestão de categorias, produtos e variantes; leitura de estoque, movimentações e pedidos/order items.
+- RPC de ajuste de estoque: autorização admin ou manager, preservando validação de quantidade zero, saldo negativo e registro de movimentação.
+- RPC de atualização de status do pedido: autorização admin ou manager; lista de status validada.
+- Migração atribui manager ao endereço confirmado por SELECT em auth.users, sem UID inventado.
+- admin-panel.html: valida role admin/manager; exibe identificação de Admin Master ou Gerente.
+- Preservação: nenhuma alteração à main, nenhum merge, nenhuma publicação.
+
+LIMITES E SEGURANÇA
+- A migração está somente na branch Git. NÃO foi aplicada ao Supabase de produção.
+- Não foram alteradas policies, schema, roles ou funções de produção nesta etapa.
+- O gerente ainda não foi autorizado em produção.
+- Não foi possível executar teste real de navegador com login e ações autenticadas.
+- A migração deve ser revisada e testada em ambiente isolado antes de qualquer aplicação ao projeto de produção.
+- Não executar o merge do PR sem aprovação explícita.
+- A tela atual não é um painel de gestão de usuários; as funções de usuários, permissões, integrações e configurações críticas permanecem fora do painel operacional.
+- Nenhum teste de venda, pagamento ou webhook foi executado.
+
+MATRIZ OPERACIONAL PREVISTA
+Admin Master (2): administração completa da loja e controles críticos.
+Gerente (1): operação de produtos, categorias, variantes, leitura de pedidos, movimentações e ajustes de estoque; sem administração de usuários/roles, segredos, integrações críticas ou exclusão permanente.
+
+STATUS
+Admin Master 1: CONFIGURADO E VERIFICADO no user_roles.
+Admin Master 2: CONFIGURADO E VERIFICADO no user_roles.
+Gerente: MIGRAÇÃO PREPARADA NA BRANCH; não aplicado em produção.
+Painel: código role-aware atualizado na branch; sem QA funcional.
+PR #3: draft, unmerged.
