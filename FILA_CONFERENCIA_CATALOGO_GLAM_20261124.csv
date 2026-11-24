@@ -1,0 +1,50 @@
+ID;Grupo;Tarefa de revisão;Quantidade observada confirmada;Quantidade física confirmada;Preço confirmado;Status;Próxima ação
+VID1-01;Capilar;Identificar kit Hidratei embalagem azul; ; ; ;Revisar;Foto frontal do rótulo
+VID1-02;Capilar;Verificar se é distinto do VID1-01; ; ; ;Revisar;Comparar embalagem e composição
+VID1-03;Capilar;Confirmar spray Hidratei nome/volume; ; ; ;Revisar;Foto frontal
+VID1-04;Capilar;Separar itens Keune em SKUs; ; ; ;Revisar;Foto frontal de cada frasco
+VID1-05;Capilar;Wepink leave-in confirmar volume; ; ; ;Revisar;Foto frontal
+VID1-06;Capilar;Óleos individualizar; ; ; ;Revisar;Foto de cada óleo
+VID1-07;Perfumaria;Wepink body splash confirmar fragrância/volume; ; ; ;Revisar;Foto frontal
+VID1-08;Perfumaria;Perfume caixa rosa identificar; ; ; ;Revisar;Foto frontal
+VID1-09;Maquiagem;Payot individualizar; ; ; ;Revisar;Foto individual de cada item
+VID1-10;Maquiagem;Kit caixa laranja/rosa confirmar composição; ; ; ;Revisar;Foto dos itens fora da caixa
+VID1-11;Maquiagem;Bandeja individualizar; ; ; ;Revisar;Contar unidades por modelo
+VID1-12;Maquiagem;Bandeja individualizar; ; ; ;Revisar;Contar unidades por modelo
+VID1-13;Maquiagem;Bandeja individualizar; ; ; ;Revisar;Contar unidades por modelo
+VID1-14;Maquiagem;Pincéis separar kits e unidades; ; ; ;Revisar;Foto e contagem
+VID1-15;Maquiagem;Paletas e pós individualizar; ; ; ;Revisar;Foto frontal e contagem
+VID1-16;Maquiagem;Batons/gloss individualizar; ; ; ;Revisar;Foto frontal e contagem
+VID1-17;Bolsas;Bolsa preta alça estampada confirmar modelo; ; ; ;Revisar;Foto frontal e etiqueta
+VID2-01;Capilar;Linha frascos amarelo/rosa individualizar; ; ; ;Revisar;Foto frontal
+VID2-02;Capilar;Linha frascos dourado/creme individualizar; ; ; ;Revisar;Foto frontal
+VID2-03;Capilar;Keune Care identificar itens e volumes; ; ; ;Revisar;Foto frontal
+VID2-04;Capilar;Máscara pote rosa confirmar marca/volume; ; ; ;Revisar;Foto frontal
+VID2-05;Capilar;Keune frascos claros identificar nome/volume e duplicidade; ; ; ;Revisar;Foto frontal
+VID2-06;Capilar;Spray azul número 21 identificar; ; ; ;Revisar;Foto frontal
+VID2-07;Capilar;Óleo/elixir individualizar; ; ; ;Revisar;Foto de cada frasco
+VID2-08;Presentes;Embalagem/sacola identificar produto; ; ; ;Revisar;Foto produto desembalado
+VID2-09;Capilar;Elements individualizar; ; ; ;Revisar;Foto frontal
+VID2-10;Capilar;Elements individualizar; ; ; ;Revisar;Foto frontal
+VID2-11;Capilar;Potes rosa identificar tamanho/variante; ; ; ;Revisar;Foto frontal e volume
+VID2-12;Capilar;Potes rosa identificar tamanho/variante; ; ; ;Revisar;Foto frontal e volume
+VID2-13;Beleza;Sortimento individualizar; ; ; ;Revisar;Foto frontal de cada SKU
+VID2-14;Perfumaria;LE MAISON identificar fragrâncias; ; ; ;Revisar;Foto de cada caixa
+VID2-15;Bolsas;Clutch dourada texturizada; ; ; ;Revisar;Foto frontal e etiqueta
+VID2-16;Bolsas;Bolsa vermelha; ; ; ;Revisar;Foto frontal e etiqueta
+VID3-01;Bijuterias;Colares/conjuntos bustos individualizar; ; ; ;Revisar;Contagem por modelo e foto
+VID3-02;Bijuterias;Braceletes/bangles individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-03;Bijuterias;Bandeja sortimento individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-04;Bijuterias;Brincos contar pares por modelo; ; ; ;Revisar;Contagem por modelo
+VID3-05;Bijuterias;Colares/correntes/pingentes individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-06;Bijuterias;Colares dourados individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-07;Bijuterias;Display vermelho individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-08;Bijuterias;Pulseiras/tornozeleiras/correntes individualizar; ; ; ;Revisar;Contagem por modelo
+VID3-09;Bijuterias;Pulseiras/tornozeleiras/correntes individualizar; ; ; ;Revisar;Contagem por modelo
+VID4-01;Bijuterias;Display preto individualizar; ; ; ;Revisar;Contagem por modelo
+VID4-02;Bijuterias;Display preto verificar repetição de VID4-01; ; ; ;Revisar;Comparar ângulo e peças
+VID4-03;Bijuterias;Estojo compartimentado individualizar; ; ; ;Revisar;Contagem por compartimento
+VID4-04;Bijuterias;Estojo verificar repetição de VID4-03; ; ; ;Revisar;Comparar ângulo e peças
+VID4-05;Bijuterias;Cartelas/caixas individualizar conjuntos; ; ; ;Revisar;Contagem por modelo
+VID4-06;Bijuterias;Cartelas/caixas verificar repetição de VID4-05; ; ; ;Revisar;Comparar peças e ângulo
+VID4-07;Bijuterias;Cartelas/caixas individualizar; ; ; ;Revisar;Contagem por modelo
