@@ -1,0 +1,128 @@
+GLAM BEAUT — AUDITORIA TÉCNICA: PRODUTOS, ADMIN E ESTOQUE
+Data: 24/11/2026
+Branch isolada: glam-product-stock-management-plan
+Base: main
+Status: READ-ONLY / DOCUMENTAÇÃO. Nenhuma alteração no banco, frontend, checkout ou main.
+
+REGRA PERMANENTE
+Preservar o que existe. Não refazer, redesenhar, apagar, alterar main, publicar ou modificar segurança para contornar erros. Trabalhar de forma incremental e isolada. Não interromper por etapas desnecessárias; avançar até o limite seguro e documentar bloqueios reais.
+
+1. INSPEÇÃO DO FRONTEND
+- main index.html: catálogo demonstrativo em HTML/JS, sem painel administrativo identificado.
+- Branch de integração: contém scaffold Supabase (SDK/config/módulo), porém UI continua sem catálogo real conectado e sem autenticação operacional.
+- Há badge no catálogo indicando que produtos demonstrativos são configurados no código.
+- Não foi encontrado painel de gestão de produtos/estoque na inspeção.
+- A melhoria visual do banner permanece isolada na branch glam-hero-visual-only e PR #2 em rascunho. Não publicar.
+
+2. SUPABASE — ESTRUTURA CONFIRMADA
+Tabela categories:
+- id UUID
+- name text
+- slug text unique
+- sort_order integer
+- is_active boolean
+- created_at timestamp
+
+Tabela products:
+- id UUID
+- category_id UUID nullable
+- name text
+- slug text unique
+- description text nullable
+- price numeric (>= 0)
+- compare_at_price numeric nullable (constraint: >= price)
+- sku text nullable unique
+- image_url text nullable
+- is_active boolean (default false)
+- is_featured boolean (default false)
+- created_at, updated_at
+
+Tabela product_variants:
+- id UUID
+- product_id UUID (FK products)
+- name text
+- sku text nullable unique
+- price_override numeric nullable (>=0)
+- is_active boolean
+- created_at
+
+Tabela inventory:
+- variant_id UUID (PK/FK)
+- quantity integer default 0 (CHECK quantity >= 0)
+- updated_at
+
+Tabela inventory_movements:
+- id UUID
+- variant_id UUID
+- movement_type text CHECK: entry, sale, adjustment, return
+- quantity integer (CHECK nonzero)
+- note text nullable
+- created_at
+
+3. RPC SEGURA DE ESTOQUE EXISTENTE
+- public.admin_adjust_inventory(p_variant_id uuid, p_quantity integer, p_note text) existe.
+- A função interna private.admin_adjust_inventory valida auth.uid() e exige role='admin' em user_roles.
+- Quantidade 0 é rejeitada.
+- Atualização do estoque impede saldo negativo.
+- Movimentação registrada automaticamente:
+  - quantidade positiva => movement_type 'entry'
+  - quantidade negativa => movement_type 'adjustment'
+- A função retorna novo saldo.
+- Permissões EXECUTE já existem para authenticated. A função valida o papel admin internamente.
+- O painel deverá chamar a RPC para entradas e ajustes. Não deverá escrever diretamente em inventory ou inventory_movements.
+- Não foi feita alteração dessa função nem de grants/policies.
+
+4. POLÍTICAS RLS EXISTENTES — MANTIDAS
+- categories: admin manage; leitura pública apenas de categorias ativas.
+- products: admin manage; leitura pública apenas de produtos ativos.
+- product_variants: admin manage/read; leitura pública apenas de variantes ativas de produtos ativos.
+- inventory: admin SELECT; nenhuma leitura/escrita direta de clientes.
+- inventory_movements: admin SELECT; sem acesso direto de clientes.
+- user_roles: usuário lê apenas seus próprios papéis.
+- profiles: admin pode ler todos; usuário pode ler/atualizar o próprio perfil.
+- O acesso de admin é determinado por user_roles e auth.uid().
+- Nenhuma policy, RLS, grant, role, chave ou função de segurança foi modificada.
+
+5. SITUAÇÃO DOS REGISTROS (AUDITORIA)
+- products: 16 cadastrados, 0 ativos.
+- product_variants: 0.
+- inventory: 0 linhas.
+- categories: 6 existentes, todas inativas.
+- Nenhum produto/variante/quantidade foi criado, ativado ou alterado nesta auditoria.
+- Os produtos existentes são cadastrados como serviços, kits e itens demonstrativos. Devem ser conferidos antes de ativar ou usar para venda; não assumir que todos são estoque físico.
+- Não foi criado usuário administrador durante esta etapa.
+
+6. CAPACIDADES ADMINISTRATIVAS ENCONTRADAS
+- Admin pode gerenciar categorias, produtos e variantes por policies RLS existentes.
+- RPC admin_adjust_inventory já oferece caminho de ajuste/entrada protegido por verificação admin.
+- Admin consegue consultar inventário e movimentações via policies existentes.
+- Não identificamos RPC específica de bootstrap/atribuição inicial de administrador.
+- Não foi encontrada necessidade de alterar segurança para construir a interface de gestão.
+
+7. BLOQUEIOS / PRÉ-REQUISITOS ANTES DE TESTE OPERACIONAL
+- Conta Auth de administrador deve existir e possuir papel admin em user_roles (procedimento seguro de bootstrap ainda não auditado/definido).
+- Para cadastrar um produto com estoque, a UI precisa criar produto, variante(s), e inicializar saldo usando RPC protegida. Confirmar fluxo de falha parcial: criação de produto/variante não deve deixar registros incompletos. Preferir transação/RPC segura existente ou fluxo que permita recuperação segura.
+- Imagem de produto: campo image_url existe; upload/Storage não foi confirmado. Primeira versão pode aceitar URL, mas sem inventar nem alterar Storage policies.
+- Produto existente precisa ser conferido antes de ativar.
+- Catálogo público deve carregar do Supabase e filtrar ativos, sem alterar layout geral.
+- Checkout e baixa de estoque devem continuar usando create_customer_order existente e fluxo Mercado Pago. Não duplicar baixa em pagamento/webhook.
+- Teste real de venda ainda não permitido/necessário. Usar sandbox depois de configuração.
+
+8. PRÓXIMO DESENVOLVIMENTO SEGURO
+1. Preparar um painel administrativo separado (novo arquivo, sem alterar index.html) com autenticação Supabase.
+2. Exigir sessão e confirmar role admin através de user_roles. Se não for admin, negar painel e encerrar sessão/mostrar acesso negado.
+3. Implementar lista de produtos e categorias, leitura de variantes e estoque, usando policies existentes.
+4. Formulário de cadastro/edição de produto e variante, respeitando validações de slug, SKU, preços, category_id.
+5. Entrada e ajuste de estoque somente pela RPC admin_adjust_inventory.
+6. Histórico de movimentações read-only.
+7. Nenhuma ação de excluir: usar inativação, mantendo registros e referências.
+8. Não colocar preço de custo em frontend público; não criar campo de custo sem schema existente.
+9. Sem teste de gravação real até confirmar administrador e ambiente.
+10. Revisar cada commit e manter feature branch sem merge/publicação.
+
+9. CHECKPOINT
+- Branch glam-product-stock-management-plan está baseada em main.
+- Foi criado somente o arquivo GESTAO_PRODUTOS_ESTOQUE_PLANO.txt no primeiro commit.
+- Este documento de auditoria é um segundo arquivo, somente texto.
+- main e o site publicado não foram alterados.
+- Supabase foi consultado em modo somente leitura.
