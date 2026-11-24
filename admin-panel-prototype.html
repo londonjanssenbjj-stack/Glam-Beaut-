@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glam Beaut | Painel Administrativo — Protótipo</title>
+<style>
+:root{--rose:#f8e9eb;--rose2:#f1d4d9;--ink:#352a2d;--gold:#b18a49;--muted:#786b6e;--white:#fff;--line:#eadde0;--bg:#fbf8f8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-size:22px;font-weight:700;letter-spacing:.05em}.brand span{color:var(--gold)}
+.state{font-size:12px;border:1px solid #dfcba8;color:#8b682f;background:#fffaf2;padding:7px 10px;border-radius:20px}
+.shell{max-width:1200px;margin:auto;padding:26px}
+.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:27px;margin:0 0 7px}p{margin:0;color:var(--muted);line-height:1.5}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;color:var(--ink);cursor:pointer}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric{border:1px solid var(--line);background:#fff;border-radius:13px;padding:15px}
+.metric .label{font-size:12px;color:var(--muted)}.metric .value{font-size:26px;font-weight:700;margin-top:8px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+h2{font-size:18px;margin:0 0 14px}
+label{font-size:13px;font-weight:600;display:block;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;color:var(--ink}
+)
+button.primary{background:var(--ink);color:white;border:0;padding:11px 15px;border-radius:10px;margin-top:12px;cursor:pointer}
+button.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);padding:10px 14px;border-radius:10px}
+button[disabled]{opacity:.5;cursor:not-allowed}
+.notice{background:#fff9ef;border:1px solid #ecd8b8;border-radius:12px;padding:13px;color:#765728;font-size:13px;line-height:1.5;margin:16px 0}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:24px;text-align:center;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}
+.hidden{display:none}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}
+@media(max-width:520px){.shell{padding:15px}.top{padding:14px 16px}.grid{grid-template-columns:1fr 1fr}.metric .value{font-size:21px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">GLAM <span>BEAUT</span> <small style="font-size:12px;color:#8b7b7d;font-weight:400">| Gestão</small></div>
+  <div class="state">Protótipo isolado · Sem conexão ao banco</div>
+</header>
+<main class="shell">
+  <div class="intro">
+    <div><h1>Painel de gestão</h1><p>Produtos, variantes, estoque e movimentações em um único lugar.</p></div>
+    <button class="secondary" disabled>Entrar como administrador · conexão pendente</button>
+  </div>
+  <div class="notice"><strong>Protótipo de interface.</strong> Nenhuma ação grava dados. A conexão Supabase/Auth e a validação do papel administrador ainda não estão ligadas. Este painel não altera nem contorna as políticas de segurança existentes.</div>
+  <nav class="tabs" aria-label="Seções do painel">
+    <button class="tab active" data-target="resumo">Resumo</button>
+    <button class="tab" data-target="produtos">Produtos</button>
+    <button class="tab" data-target="categorias">Categorias</button>
+    <button class="tab" data-target="estoque">Estoque</button>
+    <button class="tab" data-target="movimentacoes">Movimentações</button>
+  </nav>
+  <section id="resumo" class="section">
+    <div class="grid">
+      <div class="metric"><div class="label">Produtos cadastrados</div><div class="value">—</div></div>
+      <div class="metric"><div class="label">Ativos no site</div><div class="value">—</div></div>
+      <div class="metric"><div class="label">Estoque baixo</div><div class="value">—</div></div>
+      <div class="metric"><div class="label">Esgotados</div><div class="value">—</div></div>
+    </div>
+    <div class="panel"><h2>Atalhos</h2><button class="primary" disabled>+ Cadastrar produto</button> <button class="secondary" disabled>Registrar entrada</button></div>
+    <div class="panel"><h2>Visão geral</h2><div class="empty">Os dados aparecerão após autenticação administrativa e conexão segura.</div></div>
+  </section>
+  <section id="produtos" class="section hidden">
+    <div class="panel"><div class="intro"><div><h2>Produtos</h2><p>Cadastro individual e disponibilidade para venda.</p></div><button class="primary" disabled>+ Novo produto</button></div>
+      <div class="empty">Nenhum produto carregado no protótipo. Não há dados de demonstração inventados.</div>
+    </div>
+    <div class="panel"><h2>Formulário — estrutura prevista</h2><div class="layout">
+      <div><label>Nome do produto</label><input disabled placeholder="Nome comercial"><label>Categoria</label><select disabled><option>Selecionar categoria</option></select><label>SKU</label><input disabled placeholder="Código interno"><label>Preço de venda</label><input disabled placeholder="R$ 0,00" type="text"></div>
+      <div><label>Descrição</label><textarea disabled rows="4" placeholder="Descrição do produto"></textarea><label>Imagem (URL)</label><input disabled placeholder="Link da imagem"><label>Preço promocional / anterior</label><input disabled placeholder="Opcional"><label>Status</label><select disabled><option>Inativo até conferência</option></select></div>
+    </div><button class="primary" disabled>Salvar produto (desativado no protótipo)</button></div>
+  </section>
+  <section id="categorias" class="section hidden">
+    <div class="panel"><div class="intro"><div><h2>Categorias</h2><p>Organização do catálogo público.</p></div><button class="primary" disabled>+ Nova categoria</button></div><div class="empty">Categorias existentes serão carregadas em modo autenticado. Nenhuma alteração habilitada.</div></div>
+  </section>
+  <section id="estoque" class="section hidden">
+    <div class="panel"><h2>Estoque por produto/variante</h2><p>Saldo não será editado diretamente. Entradas e ajustes utilizarão a RPC administrativa existente, que valida papel de admin e impede saldo negativo.</p><div class="empty" style="margin-top:15px">Saldo de estoque indisponível no protótipo.</div></div>
+    <div class="panel"><h2>Registrar entrada ou ajuste</h2><div class="layout"><div><label>Produto / variante</label><select disabled><option>Selecione item</option></select><label>Quantidade (positiva para entrada, negativa para ajuste)</label><input disabled type="number" placeholder="Ex.: 5 ou -1"></div><div><label>Motivo / observação</label><textarea disabled rows="3" placeholder="Compra, avaria, inventário..."></textarea><button class="primary" disabled>Registrar movimento</button></div></div></div>
+  </section>
+  <section id="movimentacoes" class="section hidden">
+    <div class="panel"><h2>Histórico de movimentações</h2><p>Registro de entradas, vendas, ajustes e devoluções. O histórico não será apagado pelo painel.</p><div class="empty" style="margin-top:15px">Histórico disponível após conexão autenticada.</div></div>
+  </section>
+</main>
+<script>
+document.querySelectorAll(".tab").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(s=>s.classList.add("hidden"));
+    button.classList.add("active");
+    const section=document.getElementById(button.dataset.target);
+    if(section)section.classList.remove("hidden");
+  });
+});
+</script>
+</body>
+</html>
