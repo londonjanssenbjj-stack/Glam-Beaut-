@@ -1,0 +1,39 @@
+GLAM BEAUT — VERIFICAÇÃO READ-ONLY DO SUPABASE (24/11/2026)
+Projeto: glam-beaut-prod
+Ref: hxheluremudcdhtopdlv
+Região: sa-east-1
+Status consultado: ACTIVE_HEALTHY
+Branch de trabalho: glam-product-stock-management-plan
+PR #3 Draft / aberto / não merged
+
+ESCOPO
+Somente leitura. Nenhuma gravação, migration, policy, grant, role, bucket ou transação executada.
+
+CONTAGENS CONSULTADAS
+- products: 16
+- categories: 6
+- product_variants: 0
+- inventory: 0
+- inventory_movements: 0
+
+BUCKET STORAGE CONSULTADO
+- ID: glam-product-images
+- public: true
+- limite: 8.388.608 bytes (8 MiB)
+- MIME: image/jpeg, image/png, image/webp
+
+POLICIES STORAGE.OBJECTS CONSULTADAS
+- Admin upload Glam product images: INSERT, role authenticated, WITH CHECK restringe bucket_id glam-product-images e exige user_roles.user_id=auth.uid() com role admin.
+- Admin update Glam product images: UPDATE, authenticated, USING e WITH CHECK restringem bucket e exigem role admin.
+- Admin delete Glam product images: DELETE, authenticated, USING restringe bucket e exige role admin.
+- Public read Glam product images: SELECT para anon e authenticated, USING bucket_id glam-product-images.
+A consulta read-only retornou as condições acima. Nenhuma policy foi alterada.
+
+CONCLUSÃO
+O banco atual confirma o estado de catálogo vazio de variantes/estoque e o bucket público de leitura com policies separadas de escrita para admin. Upload funcional e vínculo no formulário continuam sem teste real de navegador. O upload público de leitura significa que imagens no bucket podem ser acessadas por URL pública; não colocar arquivos privados nesse bucket.
+
+PRÓXIMOS PASSOS
+- Continuar revisão estática/QA do painel e registrar defeitos comprovados.
+- Teste autenticado de upload somente com Admin Master, no navegador, quando a sessão estiver disponível.
+- Não cadastrar produtos/variantes ou movimentar estoque de produção sem confirmação e autorização.
+- Não alterar main, publicar ou mergear PR.
