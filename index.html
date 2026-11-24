@@ -193,6 +193,45 @@
       font-weight:800;
       color:#111;
     }
+    .hero-highlight{
+      color:#C49A26;
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:400;
+      letter-spacing:-.07em;
+    }
+    .hero-art{
+      background:radial-gradient(ellipse at 58% 56%,#fff5f8 0%,#f8dce9 55%,#efcbdc 100%);
+      isolation:isolate;
+    }
+    .hero-art:after{content:none}
+    .hero-display{position:relative;width:min(100%,560px);height:390px;z-index:2}
+    .hero-gold-arc{position:absolute;inset:8% 5% 7% 8%;border:1px solid rgba(196,154,38,.8);border-radius:50%;transform:rotate(-22deg)}
+    .beauty-tray{position:absolute;bottom:6%;left:13%;width:78%;height:70px;border-radius:50%;background:linear-gradient(180deg,#fff,#e9d7d5 55%,#c89c51 57%,#f6dfac 68%,#fff 85%);box-shadow:0 22px 24px rgba(94,47,59,.16);transform:perspective(300px) rotateX(15deg)}
+    .beauty-towel{position:absolute;right:2%;bottom:15%;width:23%;height:120px;border-radius:30px;background:repeating-linear-gradient(135deg,#fff 0 6px,#f1e7e8 7px 10px);transform:rotate(15deg);box-shadow:0 10px 24px rgba(50,20,30,.1)}
+    .beauty-leaf{position:absolute;width:105px;height:42px;background:linear-gradient(130deg,#53734c,#8ca574);border-radius:100% 0 100% 0;transform-origin:left center;z-index:1}
+    .leaf-one{bottom:23%;left:18%;transform:rotate(-26deg)}
+    .leaf-two{bottom:20%;left:22%;transform:rotate(24deg) scale(.8)}
+    .beauty-product{position:absolute;z-index:3;filter:drop-shadow(0 14px 12px rgba(72,31,45,.16))}
+    .serum{left:25%;bottom:18%;width:100px;height:210px}
+    .serum-cap{position:absolute;top:0;left:34px;width:32px;height:35px;background:linear-gradient(90deg,#b57c27,#f4d18a,#bd842b);border-radius:6px 6px 2px 2px}
+    .serum-neck{position:absolute;top:32px;left:26px;width:48px;height:24px;background:#e7b9ac;border:2px solid #d6a08d}
+    .serum-body{position:absolute;top:52px;width:100px;height:155px;border-radius:25px 25px 22px 22px;background:linear-gradient(90deg,#e7a68f,#f8d6c9 42%,#d9927e);border:1px solid rgba(255,255,255,.55)}
+    .serum-body span{display:block;text-align:center;margin-top:72px;color:#9d6338;font-family:Georgia,serif;font-size:24px}
+    .cream{left:43%;bottom:17%;width:130px;height:150px}
+    .cream-lid{height:25px;width:130px;border-radius:14px;background:linear-gradient(#f7dfb0,#c79748,#f5dba4);border:2px solid #d2a354}
+    .cream-body{height:115px;border-radius:16px 16px 24px 24px;background:linear-gradient(90deg,#f5d4c8,#fff1e9,#eab8a7);border:1px solid #e5b7a4}
+    .tube{left:59%;bottom:18%;width:100px;height:235px}
+    .tube-body{height:210px;background:linear-gradient(90deg,#c77f90,#f5c9d3,#db9eae);clip-path:polygon(10% 0,90% 0,100% 100%,0 100%);border-radius:12px}
+    .tube-cap{height:26px;width:72px;margin:auto;background:linear-gradient(90deg,#b98732,#eac77e,#b98732);border-radius:4px}
+    .perfume{right:13%;bottom:17%;width:112px;height:165px}
+    .perfume-cap{width:55px;height:38px;margin:auto;background:linear-gradient(90deg,#d9c7b1,#fff,#bca58b);border-radius:10px 10px 6px 6px}
+    .perfume-body{height:120px;border-radius:18px 18px 26px 26px;background:linear-gradient(90deg,#df9a72,#fbd5b7,#d98d67);border:2px solid rgba(255,255,255,.65)}
+    .beauty-flower{position:absolute;right:21%;bottom:12%;width:85px;height:85px;border-radius:50%;background:radial-gradient(circle at 50% 55%,#d49b42 0 9%,transparent 10%),radial-gradient(ellipse at 50% 0%,#e65a9a 0 28%,transparent 30%),radial-gradient(ellipse at 0% 50%,#ed8fbd 0 28%,transparent 30%),radial-gradient(ellipse at 100% 50%,#ed8fbd 0 28%,transparent 30%),radial-gradient(ellipse at 50% 100%,#d65b9b 0 28%,transparent 30%);z-index:4}
+    @media(max-width:759px){
+      .hero-display{height:300px;transform:scale(.86);transform-origin:center center}
+      .hero-art{min-height:260px}
+    }
 
     .btn{
       border:1px solid var(--black);
@@ -611,7 +650,7 @@
 
   <header>
     <nav class="nav">
-      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;"></a>
+      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 72px; width: auto; object-fit: contain; vertical-align: middle;"></a>
 
       <div class="nav-actions">
         <button class="icon-btn" aria-label="Buscar" onclick="openSearch()">⌕</button>
@@ -721,15 +760,34 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <div class="eyebrow">Glam Beleza Estética e Bem-estar</div>
-        <h1>sinta-se linda hoje.</h1>
+        <h1>sinta-se <span class="hero-highlight">linda</span> hoje.</h1>
         <p>Beleza, autocuidado e experiências pensadas para você. Descubra nossos produtos, presentes e serviços em Corumbá.</p>
         <div style="display:flex;gap:9px;flex-wrap:wrap">
           <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">Comprar agora</button>
           <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView()">Agendar serviço</button>
         </div>
       </div>
-      <div class="hero-art" aria-label="Imagem ilustrativa Glam">
-        <div class="hero-orb"></div>
+      <div class="hero-art" aria-label="Composição decorativa de produtos de beleza">
+        <div class="hero-gold-arc"></div>
+        <div class="hero-display">
+          <div class="beauty-leaf leaf-one"></div>
+          <div class="beauty-leaf leaf-two"></div>
+          <div class="beauty-towel"></div>
+          <div class="beauty-tray"></div>
+          <div class="beauty-product serum">
+            <div class="serum-cap"></div><div class="serum-neck"></div><div class="serum-body"><span>G</span></div>
+          </div>
+          <div class="beauty-product cream">
+            <div class="cream-lid"></div><div class="cream-body"></div>
+          </div>
+          <div class="beauty-product tube">
+            <div class="tube-body"></div><div class="tube-cap"></div>
+          </div>
+          <div class="beauty-product perfume">
+            <div class="perfume-cap"></div><div class="perfume-body"></div>
+          </div>
+          <div class="beauty-flower"></div>
+        </div>
       </div>
     </div>
   </section>
