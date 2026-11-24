@@ -60,6 +60,24 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    <div class="metric"><small>Variantes</small><strong id="variantCount">—</strong></div>
    <div class="metric"><small>Variantes sem estoque</small><strong id="zeroCount">—</strong></div>
   </div>
+  <div class="card" id="quickJewelryCard">
+   <h2>Cadastro rápido — bijuterias e acessórios</h2>
+   <p>Adicione várias peças em uma lista e salve em sequência. Produtos e variantes ficam inativos. Preço vazio fica pendente (R$ 0,00) e a quantidade informada é registrada via movimentação de estoque.</p>
+   <form id="quickJewelryForm">
+    <div class="grid">
+     <div><label for="quickJewelryName">Nome / modelo *</label><input id="quickJewelryName" required maxlength="160" placeholder="Ex.: Brinco argola dourada"></div>
+     <div><label for="quickJewelryCategory">Categoria</label><select id="quickJewelryCategory"><option value="">Joias / acessórios</option></select></div>
+     <div><label for="quickJewelryPrice">Preço (deixe vazio se desconhecido)</label><input id="quickJewelryPrice" type="number" min="0" step="0.01"></div>
+     <div><label for="quickJewelryQty">Quantidade física confirmada</label><input id="quickJewelryQty" type="number" min="0" step="1" value="0"></div>
+     <div><label for="quickJewelrySku">SKU opcional</label><input id="quickJewelrySku" maxlength="80"></div>
+     <div><label for="quickJewelryImage">URL da foto opcional</label><input id="quickJewelryImage" type="url" placeholder="https://"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary" type="submit">Adicionar à lista</button><button type="button" id="quickJewelryClear">Limpar campos</button></div>
+   </form>
+   <div id="quickJewelryQueue" class="table-wrap" style="margin-top:12px"></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary" type="button" id="quickJewelrySave" disabled>Salvar lista no catálogo</button><button type="button" id="quickJewelryEmpty">Esvaziar lista</button></div>
+   <div id="quickJewelryMessage" class="msg" role="status"></div>
+  </div>
     <div class="card" id="productEditorCard">
    <h2 id="productEditorTitle">Cadastro de produto</h2>
    <p>Produtos novos são criados inativos para revisão. Não há exclusão neste painel.</p>
@@ -210,6 +228,41 @@ variantForm.addEventListener('submit',async ev=>{
    catch(err){setMessage(stockMessage,err.message||'Falha no estoque. Nenhum contorno de segurança foi realizado.','error');}
    finally{button.disabled=false;}
  });
+ const quickForm=document.getElementById('quickJewelryForm');
+ const quickMsg=document.getElementById('quickJewelryMessage');
+ const quickQueue=[];
+ const quickRender=()=>{
+   const wrap=document.getElementById('quickJewelryQueue');
+   if(!quickQueue.length){wrap.textContent='Lista vazia. Adicione peças acima.';document.getElementById('quickJewelrySave').disabled=true;return;}
+   const table=document.createElement('table');const head=document.createElement('thead');const hr=document.createElement('tr');
+   ['Item','Categoria','Preço','Qtd.','SKU','Foto',''].forEach(t=>{const th=document.createElement('th');th.textContent=t;hr.appendChild(th);});head.appendChild(hr);table.appendChild(head);
+   const body=document.createElement('tbody');quickQueue.forEach((item,index)=>{const tr=document.createElement('tr');[item.name,item.categoryName,item.price===''?'Pendente':'R$ '+Number(item.price).toFixed(2).replace('.',','),item.quantity,item.sku||'Gerado',item.image?'Informada':'—'].forEach(val=>{const td=document.createElement('td');td.textContent=String(val);tr.appendChild(td);});const td=document.createElement('td');const del=document.createElement('button');del.type='button';del.textContent='Remover';del.addEventListener('click',()=>{quickQueue.splice(index,1);quickRender();});td.appendChild(del);tr.appendChild(td);body.appendChild(tr);});table.appendChild(body);wrap.replaceChildren(table);document.getElementById('quickJewelrySave').disabled=false;
+ };
+ const quickFillCategories=()=>{const select=document.getElementById('quickJewelryCategory');select.replaceChildren();const first=document.createElement('option');first.value='';first.textContent='Joias / acessórios';select.appendChild(first);cachedCategories.forEach(cat=>{const op=document.createElement('option');op.value=cat.id;op.textContent=cat.name;select.appendChild(op);});};
+ quickForm.addEventListener('submit',ev=>{ev.preventDefault();const name=document.getElementById('quickJewelryName').value.trim();const catId=document.getElementById('quickJewelryCategory').value;const catName=document.getElementById('quickJewelryCategory').selectedOptions[0]?.textContent||'Joias / acessórios';const price=document.getElementById('quickJewelryPrice').value.trim();const quantity=Number(document.getElementById('quickJewelryQty').value||0);const sku=document.getElementById('quickJewelrySku').value.trim();const image=document.getElementById('quickJewelryImage').value.trim();if(!name||!Number.isInteger(quantity)||quantity<0||(price!==''&&(!Number.isFinite(Number(price))||Number(price)<0))){setMessage(quickMsg,'Confira o nome, preço e quantidade.','error');return;}quickQueue.push({name,catId,catName,price,quantity,sku,image});quickForm.reset();document.getElementById('quickJewelryQty').value='0';quickRender();setMessage(quickMsg,'Item adicionado à lista local. Ainda não foi salvo no banco.','ok');});
+ document.getElementById('quickJewelryClear').addEventListener('click',()=>{quickForm.reset();document.getElementById('quickJewelryQty').value='0';});
+ document.getElementById('quickJewelryEmpty').addEventListener('click',()=>{quickQueue.splice(0,quickQueue.length);quickRender();setMessage(quickMsg,'Lista local esvaziada.','');});
+ document.getElementById('quickJewelrySave').addEventListener('click',async()=>{
+   const btn=document.getElementById('quickJewelrySave');if(!quickQueue.length)return;btn.disabled=true;let done=0;setMessage(quickMsg,'Salvando '+quickQueue.length+' item(ns) em sequência…');
+   for(const item of [...quickQueue]){
+     try{
+       const slug=slugify(item.name);if(!slug)throw new Error('Nome inválido para '+item.name);
+       const existing=await client.from('products').select('id').eq('slug',slug);if(existing.error)throw existing.error;if(existing.data?.length)throw new Error('Já existe produto com nome semelhante: '+item.name);
+       let sku=item.sku||('GB-BIJ-'+slug.toUpperCase().replace(/-/g,'').slice(0,22)+'-'+Date.now().toString().slice(-5));
+       if(item.sku){const dup=await client.from('products').select('id').eq('sku',sku);if(dup.error)throw dup.error;if(dup.data?.length)throw new Error('SKU já existe: '+sku);}
+       const pendingPrice=item.price===''?0:Number(item.price);
+       const desc=item.price===''?'Preço não informado — pendente de confirmação. Cadastro rápido de bijuteria.':'Cadastro rápido de bijuteria.';
+       const product=await client.from('products').insert({name:item.name,slug,category_id:item.catId||null,description:desc,image_url:item.image||null,sku,price:pendingPrice,is_active:false,is_featured:false,updated_at:new Date().toISOString()}).select('id').single();
+       if(product.error)throw product.error;
+       const variant=await client.from('product_variants').insert({product_id:product.data.id,name:'Unidade',sku:sku+'-U',price_override:null,is_active:false}).select('id').single();
+       if(variant.error)throw variant.error;
+       if(item.quantity>0){const movement=await client.rpc('admin_adjust_inventory',{p_variant_id:variant.data.id,p_quantity:item.quantity,p_note:'Inventário inicial — cadastro rápido bijuteria'});if(movement.error)throw movement.error;}
+       done++;
+     }catch(err){setMessage(quickMsg,'Salvos '+done+' de '+quickQueue.length+'. Interrompido no item '+item.name+': '+(err.message||'erro')+'. Revise o catálogo antes de tentar novamente para evitar duplicados.','error');await loadData();btn.disabled=false;return;}
+   }
+   quickQueue.splice(0,quickQueue.length);quickRender();await loadData();setMessage(quickMsg,'Lista salva. Todos os itens criados inativos; revise preço e estoque antes de ativar.','ok');btn.disabled=false;
+ });
+
  const formMessage=document.getElementById('productFormMessage');
  const categorySelect=document.getElementById('productCategory');
  const productForm=document.getElementById('productEditorForm');
@@ -313,7 +366,7 @@ const resetProductForm=()=>{
    const errors=[p,c,v,i,m].filter(x=>x.error);
    if(errors.length){setMessage(appMessage,'Falha ao carregar algumas consultas. Nenhuma permissão foi contornada. Verifique as policies existentes.','error');return;}
    const products=p.data||[],categories=c.data||[],variants=v.data||[],stock=i.data||[],movements=m.data||[];
-   cachedCategories=categories;cachedProducts=products;window.__glamVariants=variants;refreshSelectors();
+   cachedCategories=categories;cachedProducts=products;window.__glamVariants=variants;refreshSelectors();quickFillCategories();quickRender();
    window.__glamVariantCountByProduct=new Map();
    variants.forEach(variant=>window.__glamVariantCountByProduct.set(variant.product_id,(window.__glamVariantCountByProduct.get(variant.product_id)||0)+1));
    const pMap=new Map(products.map(x=>[x.id,x.name]));
