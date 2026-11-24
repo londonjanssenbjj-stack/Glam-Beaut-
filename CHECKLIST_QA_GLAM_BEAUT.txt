@@ -13,7 +13,7 @@ Preservar o existente. Não refazer, redesenhar, apagar, alterar main, publicar,
 [ ] Confirmar que erro ao consultar user_roles bloqueia acesso.
 [ ] Nunca solicitar senha em chat, log ou commit.
 
-2. VALIDACAO DO PAINEL READ-ONLY
+2. VALIDACAO DO PAINEL ADMINISTRATIVO (LEITURA + FORMULARIOS DE GRAVACAO IMPLEMENTADOS, TESTES PENDENTES)
 [ ] Conferir leitura de produtos, categorias, variantes, estoque e movimentações.
 [ ] Conferir tabelas vazias e estado sem dados.
 [ ] Conferir falhas parciais das consultas e mensagens de erro.
@@ -119,3 +119,15 @@ VERIFICACAO ESTATICA DE CONFIGURACAO FRONTEND (24/11/2026)
 - glam-supabase-config.js contém somente URL do projeto e publishable key, com comentário explícito proibindo secrets privados; publishable key é credencial pública destinada ao frontend.
 - A busca por “service_role” no config encontrou apenas o comentário de proibição; não encontrou credencial.
 - Resultado é revisão estática, não substitui auditoria runtime/browser nem configuração de secrets do servidor.
+
+
+8. REVISÃO ESTÁTICA DE CONTINUIDADE — 24/11/2026
+- A branch index.html permanece idêntica ao index.html da main (SHA consultado igual).
+- Admin-panel header label foi corrigido para descrever gestão de produtos/categorias/variantes/estoque; alteração de texto apenas.
+- Revisão estática do frontend/config não encontrou tokens privados de Supabase ou Mercado Pago; configuração contém publishable key pública. Revisão estática não substitui runtime QA.
+- PR #3 segue Draft/open/merge=false; head atual a44b16806678fd333ba84aedc496071bf1e03a5e.
+- Workflow runs associados ao head atual: nenhum. Portanto não há CI para reportar.
+- Testes browser/login/gravações/RPC/checkout/webhook continuam NÃO EXECUTADOS.
+- Formulário de variante ainda não oferece edição/ativação; upload de imagens não está implementado.
+- Checkout público permanece local (localStorage/WhatsApp), não integrado ao backend de pedidos e pagamento.
+- Próximas ações sem dependência de novos dados: revisão manual do diff, verificar erros de JS em navegador sem login e sem gravações; revisar responsividade do painel. Operações de login e gravação exigem conta admin autorizada e ambiente seguro.
