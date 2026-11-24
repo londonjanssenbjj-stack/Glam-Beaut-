@@ -82,7 +82,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
   </div>
 \n  <div class="grid">
    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2>Produtos</h2><button type="button" id="newProductBtn">+ Novo produto</button></div><div id="productsTable" class="table-wrap">Carregando…</div></div>
-   <div class="card"><h2>Categorias</h2><div id="categoriesTable" class="table-wrap">Carregando…</div></div>
+   <div class="card" id="categoryEditorCard"><h2 id="categoryEditorTitle">Categorias</h2><form id="categoryEditorForm"><input id="editCategoryId" type="hidden"><label for="categoryName">Nome da categoria *</label><input id="categoryName" required maxlength="100"><label for="categorySort">Ordem de exibição</label><input id="categorySort" type="number" step="1" value="0"><label><input id="categoryActive" type="checkbox" style="width:auto"> Categoria ativa</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="primary" type="submit" id="saveCategoryBtn">Salvar categoria</button><button type="button" id="cancelCategoryEdit">Limpar</button></div><div id="categoryFormMessage" class="msg" role="status"></div></form></div><div class="card"><h2>Categorias</h2><div id="categoriesTable" class="table-wrap">Carregando…</div></div>
   </div>
   <div class="card"><h2>Variantes e estoque por item</h2><div id="variantsTable" class="table-wrap">Carregando…</div></div>
   <div class="card"><h2>Movimentações recentes</h2><div id="movementsTable" class="table-wrap">Carregando…</div></div>
@@ -127,6 +127,41 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    rows.forEach(row=>{const r=document.createElement('tr');row.forEach(v=>{const td=document.createElement('td');td.textContent=String(v??'—');r.appendChild(td)});tbody.appendChild(r)});
    table.appendChild(tbody);el.replaceChildren(table);
  };
+ const categoryForm=document.getElementById('categoryEditorForm');
+ const categoryMessage=document.getElementById('categoryFormMessage');
+ const resetCategoryForm=()=>{categoryForm.reset();document.getElementById('editCategoryId').value='';document.getElementById('categorySort').value='0';document.getElementById('categoryEditorTitle').textContent='Categorias';document.getElementById('saveCategoryBtn').textContent='Salvar categoria';setMessage(categoryMessage,'');};
+ const fillCategoryForm=(category)=>{resetCategoryForm();document.getElementById('editCategoryId').value=category.id;document.getElementById('categoryName').value=category.name||'';document.getElementById('categorySort').value=category.sort_order??0;document.getElementById('categoryActive').checked=!!category.is_active;document.getElementById('categoryEditorTitle').textContent='Editar categoria';document.getElementById('saveCategoryBtn').textContent='Salvar alterações';document.getElementById('categoryEditorCard').scrollIntoView({behavior:'smooth',block:'start'});};
+ const renderCategoryRows=(categories)=>{
+   const el=document.getElementById('categoriesTable');
+   if(!categories.length){el.textContent='Nenhuma categoria encontrada.';return;}
+   const table=document.createElement('table');const head=document.createElement('thead');const hrow=document.createElement('tr');
+   ['Categoria','Ordem','Status','Ação'].forEach(label=>{const th=document.createElement('th');th.textContent=label;hrow.appendChild(th);});
+   head.appendChild(hrow);table.appendChild(head);const body=document.createElement('tbody');
+   categories.forEach(category=>{const tr=document.createElement('tr');[category.name,category.sort_order??0,category.is_active?'Ativa':'Inativa'].forEach(value=>{const td=document.createElement('td');td.textContent=String(value);tr.appendChild(td);});const td=document.createElement('td');const btn=document.createElement('button');btn.type='button';btn.textContent='Editar';btn.addEventListener('click',()=>fillCategoryForm(category));td.appendChild(btn);tr.appendChild(td);body.appendChild(tr);});
+   table.appendChild(body);el.replaceChildren(table);
+ };
+ const saveCategory=async(event)=>{
+   event.preventDefault();const button=document.getElementById('saveCategoryBtn');button.disabled=true;setMessage(categoryMessage,'Validando e salvando…');
+   const categoryId=document.getElementById('editCategoryId').value;
+   const name=document.getElementById('categoryName').value.trim();
+   const slug=slugify(name);const sortOrder=Number(document.getElementById('categorySort').value);
+   if(!name||!slug||!Number.isInteger(sortOrder)){setMessage(categoryMessage,'Informe um nome e uma ordem inteira válida.','error');button.disabled=false;return;}
+   const payload={name,slug,sort_order:sortOrder,is_active:document.getElementById('categoryActive').checked};
+   try{
+     const duplicate=await client.from('categories').select('id').eq('slug',slug);
+     if(duplicate.error)throw duplicate.error;
+     if((duplicate.data||[]).some(row=>row.id!==categoryId))throw new Error('Este slug já existe em outra categoria.');
+     let result;
+     if(categoryId)result=await client.from('categories').update(payload).eq('id',categoryId).select('id').single();
+     else {payload.is_active=false;result=await client.from('categories').insert(payload).select('id').single();}
+     if(result.error)throw result.error;
+     setMessage(categoryMessage,categoryId?'Categoria atualizada.':'Categoria criada inativa. Revise antes de ativar.','ok');
+     await loadData();if(!categoryId)resetCategoryForm();
+   }catch(err){setMessage(categoryMessage,err.message||'Falha ao salvar categoria.','error');}
+   finally{button.disabled=false;}
+ };
+ categoryForm.addEventListener('submit',saveCategory);
+ document.getElementById('cancelCategoryEdit').addEventListener('click',resetCategoryForm);
  const formMessage=document.getElementById('productFormMessage');
  const categorySelect=document.getElementById('productCategory');
  const productForm=document.getElementById('productEditorForm');
@@ -223,7 +258,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    document.getElementById('zeroCount').textContent=variants.filter(x=>(sMap.get(x.id)||0)<=0).length;
    renderProductRows(products);
    renderTable('variantsTable',['Produto','Variante','SKU','Preço variante','Estoque','Status'],variants.map(v=>[pMap.get(v.product_id)||'—',v.name,v.sku||'—',v.price_override===null?'Preço do produto':'R$ '+Number(v.price_override).toFixed(2).replace('.',','),sMap.get(v.id)??0,v.is_active?'Ativa':'Inativa']));
-   renderTable('categoriesTable',['Categoria','Status'],categories.map(x=>[x.name,x.is_active?'Ativa':'Inativa']));
+   renderCategoryRows(categories);
    renderTable('movementsTable',['Produto / variante','Tipo','Quantidade','Nota','Data'],movements.map(x=>{
     const variant=vMap.get(x.variant_id);
     return [variant?(pMap.get(variant.product_id)||'Produto')+' / '+variant.name:'ID variante '+x.variant_id,x.movement_type,x.quantity,x.note||'—',x.created_at?new Date(x.created_at).toLocaleString('pt-BR'):'—'];
