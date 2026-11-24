@@ -223,6 +223,22 @@
     return checkoutUrl;
   }
 
+  async function verifyPaymentReturn(search = window.location.search) {
+    const returned = parsePaymentReturn(search);
+    if (!returned.orderId) return { status: "unknown", verified: false, reason: "missing_order_id" };
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9]{3}-[89ab][0-9]{3}-[0-9a-f]{12}$/i;
+    if (!uuidPattern.test(returned.orderId)) return { status: "unknown", verified: false, reason: "invalid_order_id" };
+    const serverData = await getOrderStatus(returned.orderId);
+    const order = serverData.order || {};
+    const payment = serverData.payment || {};
+    const orderStatus = String(order.payment_status || payment.status || "").toLowerCase();
+    const verifiedStatus = orderStatus === "approved" || orderStatus === "paid" ? "success"
+      : ["pending", "in_process", "processing"].includes(orderStatus) ? "pending"
+      : ["rejected", "cancelled", "canceled", "failed"].includes(orderStatus) ? "failure"
+      : "unknown";
+    return { status: verifiedStatus, verified: true, order: order, payment: payment };
+  }
+
   async function getOrderStatus(orderId) {
     const sb = await getClient();
     const session = await getSession();
@@ -248,6 +264,7 @@
     getVariantPrice: getVariantPrice,
     normalizeCartItems,
     parsePaymentReturn,
+    verifyPaymentReturn,
     loadActiveCategories,
     loadActiveDeliveryRegions,
     createCustomerOrder,
