@@ -1,0 +1,53 @@
+GLAM BEAUT — ETAPA ADMIN/CATÁLOGO: REVISÃO E CORREÇÃO PONTUAL
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Escopo: inspeção estática de admin-panel.html e glam-storefront-integration.js; correção de erro de renderização em fila.
+Não executado: navegador, runtime, consultas de escrita Supabase, upload Storage, pagamento, deploy.
+
+CORREÇÃO APLICADA
+admin-panel.html:
+- A renderização da fila de cadastro rápido referenciava item.categoryName, mas a fila persiste catName.
+- Corrigido para item.catName, evitando coluna Categoria vazia/undefined na visualização do rascunho.
+- Commit: a8c09b6b5323cdb5d896eca9af1aab751ea1fd23
+
+INSPEÇÃO ESTÁTICA — PAINEL
+- Autenticação Supabase por email/senha.
+- Papel admin/manager conferido antes de liberar painel.
+- Upload restrito ao admin; formatos JPEG/PNG/WebP e limite 8MB.
+- Produto novo é criado inativo.
+- Variante nova é criada inativa.
+- Movimentação de estoque via RPC admin_adjust_inventory, não por edição direta de saldo.
+- Cadastro rápido cria produto/variante inativos e permite movimento inicial.
+- Lote é sequencial, não transacional. Falha parcial pode deixar produto ou variante criado; revisar banco antes de repetir.
+- Imagens: upload gera URL pública; vínculo ocorre ao salvar produto.
+- Os controles existentes permitem editar status, portanto ativação exige disciplina e revisão.
+
+INSPEÇÃO ESTÁTICA — VITRINE/CARRINHO
+- Vitrine lê catálogo pela RPC storefront_catalog.
+- Carrinho armazena variante e quantidade localmente.
+- Checkout usa create_customer_order_idempotent com chave de solicitação armazenada localmente.
+- Pagamento solicita create-payment e redireciona para checkout_url.
+- Filtros por categoria/presentes, busca e carrinho estão presentes.
+- O frete ainda aparece como “Calculado no checkout”; o valor local é zero apenas como placeholder, não como cotação real.
+- A quantidade em carrinho não é validada contra estoque em tempo real na interface; validação final deve permanecer no servidor/RPC.
+- “Mais vendidos” não apresenta dados fictícios: mostra aviso até haver histórico de vendas.
+
+PENDÊNCIAS DE SEGURANÇA/QUALIDADE ANTES DE ATIVAR
+1. Testar carregamento e filtros em navegador.
+2. Testar variantes com IDs reais e confirmar o mapeamento de variante no carrinho.
+3. Confirmar política de leitura do catálogo e RPCs.
+4. Testar criação de variante, upload Storage e movimento de estoque com usuário admin autorizado.
+5. Testar upload e atualização de produto com foto.
+6. Testar falha parcial no cadastro em lote e reconciliar.
+7. Confirmar cálculo e cobrança de entrega; não mostrar frete zero como valor final.
+8. Validar retorno e assinatura do webhook em Sandbox.
+9. Confirmar ordem idempotente e comportamento em tentativas/repetições.
+10. Não ativar catálogo antes de cadastro completo (SKU/variante/foto/quantidade conferidos).
+
+ESTADO DE SEGURANÇA
+- Branch de desenvolvimento somente.
+- Main não alterada.
+- Supabase não recebeu alterações.
+- Sem migração aplicada.
+- Sem pagamento real.
+- Sem publicação.
