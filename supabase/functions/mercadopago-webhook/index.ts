@@ -17,7 +17,8 @@ async function verifySignature(signature: string, requestId: string, dataId: str
     return [key, value.join("=")];
   }));
   if (!fields.ts || !fields.v1 || !requestId || !dataId) return false;
-  const manifest = `id:${dataId};request-id:${requestId};ts:${fields.ts};`;
+  // Mercado Pago exige data.id em lowercase no manifest HMAC, mesmo quando o ID enviado na URL/body é maiúsculo.
+  const manifest = `id:${dataId.toLowerCase()};request-id:${requestId};ts:${fields.ts};`
   const key = await crypto.subtle.importKey(
     "raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"],
   );
