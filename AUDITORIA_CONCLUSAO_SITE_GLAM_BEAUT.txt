@@ -97,3 +97,19 @@ BLOQUEIOS ATUAIS
 - Painel admin ainda sem teste de navegador.
 - Imagens reais/upload pendentes.
 - Gerente Operacional ainda sem acesso limitado seguro.
+
+
+ATUALIZACAO DE AUDITORIA READ-ONLY — SUPABASE (24/11/2026)
+Consulta atual de contagens:
+- products: 16
+- categories: 6
+- product_variants: 0
+- inventory: 0
+- inventory_movements: 0
+Inspeção de produto/categoria:
+- Todos os 16 produtos estão inativos.
+- Todos os produtos retornaram SKU vazio e image_url vazio.
+- Nomes e preços atuais são demonstrativos e não devem ser tratados como catálogo confirmado.
+- Categorias encontradas incluem Skincare, Kits, Perfumaria, Bolsas, Acessórios e Roupas.
+- Nenhum registro foi alterado; consulta somente leitura.
+Próxima ação: utilizar vídeos/fotos originais para catalogação, validar nome, marca, variantes, preço e quantidade com evidência antes de cadastrar qualquer estoque real.
