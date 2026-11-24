@@ -1,0 +1,127 @@
+GLAM BEAUT — ESPECIFICAÇÃO TÉCNICA (DRAFT) PARA RPC TRANSACIONAL DE CADASTRO
+Data: 24/11/2026
+Status: PROPOSTA PARA REVISÃO — NÃO APLICADA
+Branch: glam-product-stock-management-plan
+Supabase: glam-beaut-prod
+
+OBJETIVO
+Eliminar a criação parcial no cadastro rápido: produto, variante Unidade e estoque inicial devem ser criados em uma única transação de banco. A chamada deve ser idempotente para que um timeout e uma repetição não causem duplicatas nem movimentos duplicados.
+
+ESTADO ATUAL CONFIRMADO
+- products.id: gen_random_uuid()
+- products.is_active: default false
+- products.is_featured: default false
+- product_variants.id: gen_random_uuid()
+- product_variants.is_active: default true (o painel envia false explicitamente no lote)
+- inventory.quantity: default 0
+- inventory.updated_at: now()
+- inventory_movements.id: gen_random_uuid()
+- inventory_movements.created_at: now()
+- UNIQUE products.sku
+- UNIQUE products.slug
+- UNIQUE product_variants.sku
+- inventory.variant_id: chave primária, FK de variant
+- inventory_movements.variant_id: FK de variant
+- RPC admin_adjust_inventory já valida admin e é transacional internamente, mas não torna transacionais as inserções prévias de produto e variante.
+
+PROPOSTA DE API
+private.create_product_batch_item(
+  p_request_key uuid,
+  p_name text,
+  p_slug text,
+  p_category_id uuid,
+  p_description text,
+  p_price numeric,
+  p_compare_at_price numeric,
+  p_product_sku text,
+  p_variant_sku text,
+  p_image_url text,
+  p_initial_quantity integer
+)
+RETORNO: product_id, variant_id, final_quantity, replayed boolean
+
+TABELA DE IDEMPOTÊNCIA (PROPOSTA)
+Tabela privada, por exemplo private.product_batch_requests:
+- request_key uuid PRIMARY KEY
+- product_id uuid NOT NULL
+- variant_id uuid NOT NULL
+- created_by uuid NOT NULL
+- created_at timestamptz NOT NULL DEFAULT now()
+- request_hash text NOT NULL
+- resultado/final_quantity opcional se necessário
+A tabela deve ser acessível somente via função, sem policies públicas, e sem grants de leitura/escrita para anon/authenticated. Definir grants mínimos da função.
+
+REGRAS TRANSACIONAIS
+1. Exigir auth.uid() e role admin. Não conceder manager até que o fluxo seja revisto.
+2. Validar campos, preço >=0, quantidade >=0, tamanho do texto e categoria válida.
+3. p_request_key identifica a intenção de criação; a chave é criada no cliente antes da primeira chamada e reutilizada em retries.
+4. Bloquear a chave com INSERT/ON CONFLICT ou advisory lock; definir comportamento de concorrência rigorosamente.
+5. Se request_key já existe:
+   - Comparar request_hash do payload. Se payload for diferente, retornar erro de conflito.
+   - Se payload igual, retornar product_id/variant_id/final_quantity existentes e replayed=true. Nunca repetir movimentação de estoque.
+6. Se novo:
+   - INSERT products com is_active=false e is_featured=false.
+   - INSERT product_variants com name='Unidade', is_active=false e SKU variante conforme regra acordada.
+   - Se p_initial_quantity >0, INSERT inventory com quantidade inicial e INSERT inventory_movements com movement_type='entry', quantidade positiva e nota de origem claramente identificada. Tudo na mesma transação.
+   - Se quantidade = 0, criar inventory com 0 (ou manter ausência de linha — decisão de UX; atualmente zero no painel não dispara RPC). Definir consistência antes da implementação.
+   - INSERT da chave idempotente com IDs, request_hash e created_by.
+   - RETURN IDs e resultado.
+7. Qualquer erro em qualquer etapa reverte product, variant, inventory, movement e idempotency record, por atomicidade do PostgreSQL.
+8. Não ativar produto nem variante.
+9. Não aceitar quantidade negativa no cadastro inicial.
+10. Não expor erro interno detalhado ao cliente; registrar informação técnica de forma segura.
+
+BATCH
+- A UI pode chamar a RPC por item com uma request_key única persistente no item da fila.
+- Recomenda-se transação por item, não por lote inteiro: item anterior concluído permanece, item falho reverte, seguintes aguardam. UI reporta resultado item a item.
+- A request_key deve ser armazenada no estado da fila e preservada ao reabrir/recarregar (localStorage ou mecanismo existente, avaliar privacidade e compatibilidade); não gerar outra chave em retry.
+- Em timeout, chamar novamente com mesma request_key e payload; RPC retorna o resultado anterior sem duplicar.
+- Se não for possível persistir a request_key com segurança, o frontend deve oferecer consulta/reconciliação em vez de retry cego.
+
+SEGURANÇA / RLS
+- Não modificar policies atuais.
+- Não usar service_role no frontend.
+- Função SECURITY DEFINER, SET search_path = ''.
+- Validação auth.uid() e role admin dentro da função.
+- Revoke execute de PUBLIC e anon; grant execute somente authenticated, com validação interna admin.
+- Tabela idempotência no schema private; sem acesso direto para cliente.
+- Considerar constraints e FK atuais; manter UNIQUE em products.sku, products.slug, product_variants.sku.
+- Não usar a migration draft do manager como base de permissões para esta RPC.
+- Revisar SECURITY DEFINER, owner e grants; teste por anon, authenticated non-admin e admin.
+
+TESTES OBRIGATÓRIOS EM BRANCH/AMBIENTE ISOLADO
+1. Item válido, quantidade 0: cria produto/variante e sem movimento; resultado consistente.
+2. Item válido, quantidade positiva: cria product, variant, inventory e um movement, tudo consistente.
+3. Slug duplicado com request_key nova: erro sem registros adicionais.
+4. SKU produto duplicado: erro sem registros adicionais.
+5. SKU variante duplicado: erro sem registros adicionais.
+6. Categoria inválida: erro sem registros adicionais.
+7. Quantidade negativa: erro sem registros adicionais.
+8. Payload diferente usando mesma request_key: conflito e nenhum efeito.
+9. Retry com mesma request_key/payload: mesmos IDs; nenhum novo movimento.
+10. Duas chamadas concorrentes com mesma request_key: apenas um item criado.
+11. Duas chamadas concorrentes com slug/SKU iguais e chaves diferentes: uma falha de constraint, sem dados parciais.
+12. Não-admin: 42501 / acesso negado.
+13. Usuário sem sessão: acesso negado.
+14. Forçar falha após insert product/variant em teste: rollback completo confirmado.
+15. Reconciliar timeout de cliente: retry retorna IDs existentes sem duplicar.
+16. Limite de tamanho de lote/entrada e validação de JSON.
+
+DECISÕES PENDENTES ANTES DE CODIFICAR
+- Se o SKU de produto deve ser obrigatório ou gerado.
+- Formato definitivo de SKU variante.
+- Se inventory row zero será sempre criada para item sem quantidade ou só quando quantidade > 0.
+- Como armazenar request_key no cliente de forma resiliente sem alterar UX.
+- Limites máximos de batch e campos.
+- Revisar constraints de preço, categoria e slug existentes.
+
+NÃO EXECUTADO
+- Nenhuma migration.
+- Nenhuma RPC criada.
+- Nenhuma tabela de idempotência criada.
+- Nenhum dado de produto/variante/estoque movimentado.
+- Nenhuma policy, grant, role ou RLS alterada.
+- Nenhum deploy, merge ou publicação.
+
+PRÓXIMA FASE
+Revisar associação de fotos e catálogo visual; depois apresentar proposta de implementação RPC com SQL completo para revisão antes de aplicar. Priorizar uma solução pequena, reversível, testável e sem impacto no site público.
