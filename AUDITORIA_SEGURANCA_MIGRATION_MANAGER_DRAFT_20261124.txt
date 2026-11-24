@@ -1,0 +1,47 @@
+GLAM BEAUT — REVIEW DE SEGURANÇA DA MIGRATION DRAFT DE MANAGER
+Data: 24/11/2026
+Arquivo: supabase/migrations/20261124130000_manager_operational_permissions.sql
+Status: análise estática; migration NÃO aplicada.
+
+RESUMO
+A migration amplia o modelo de permissões de admin-only para incluir manager em várias operações. É um draft do PR, mas tem impacto amplo. Não deve ser aplicada ou mergeada antes de revisão dedicada e teste de autorização.
+
+ALTERAÇÃO DE CONSTRAINT
+- Remove user_roles_role_check e recria permitindo manager, junto com admin/staff/customer.
+- Não verifiquei se há constraint adicional ou dependência em outros ambientes. DROP/ADD pode falhar se constraint name divergir; revisar em staging.
+
+POLICIES MANAGER ADITIVAS
+- SELECT em categories, products e product_variants (inclui registros inativos).
+- INSERT/UPDATE em categories, products e product_variants.
+- SELECT em inventory, inventory_movements, orders e order_items.
+- Sem DELETE para manager conforme draft.
+As políticas dependem de user_roles.role='manager'. Elas são permissões operacionais amplas; RLS não substitui revisão de exposição de dados.
+
+FUNÇÕES SECURITY DEFINER
+- admin_adjust_inventory privada é substituída para permitir roles admin e manager, com validação, quantity != 0, proteção de saldo negativo e registro de movimento.
+- admin_update_order_status privada permite manager alterar estados, mas proíbe cancelled/refunded e não permite reabrir pedidos cancelados/refunded. Admin mantém controle completo.
+- As funções definem search_path vazio; revisar owner, grants e chamadas públicas no contexto de segurança completo antes de aplicação.
+
+RISCO / DECISÃO
+1. Migration altera permissões e políticas em várias tabelas; impacto maior do que cadastro de produtos.
+2. Managers teriam leitura ampla de pedidos e itens de pedidos, potencialmente incluindo dados de clientes. Verificar coluna/row exposure, views e requisitos de negócio.
+3. Manager passa a ajustar inventário via função, o que é operação financeira/comercial e deve ter controles e auditoria.
+4. Manager pode inserir/editar produtos, categorias e variantes, sem deletar; mas mudanças de preços, ativação e descrição precisam ser limitadas/definidas.
+5. A migration draft não foi aplicada e não deve ser merged antes de testes de RLS com usuários admin, manager, staff, customer e anon, além de revisão do mínimo privilégio.
+
+TESTES REQUERIDOS ANTES DE APLICAR
+- Matriz CRUD/RLS por role em todas as tabelas tocadas.
+- Confirmar que manager não consegue acessar dados pessoais de clientes além do estritamente necessário.
+- Confirmar manager não consegue cancelar/reembolsar ou reabrir pedidos.
+- Confirmar manager não consegue deletar.
+- Confirmar admin continua com poderes atuais.
+- Testar RPC com sessão anon, authenticated sem role, manager e admin.
+- Confirmar grants/execute e owner das funções.
+- Testar efeitos de concorrência e logs de auditoria.
+- Revisar política de exposição de dados de orders/order_items e quaisquer views.
+
+PROTEÇÃO
+- Nenhuma migration foi aplicada.
+- Nenhuma role manager foi atribuída.
+- Nenhuma policy, grant ou função alterada no Supabase.
+- Nenhum merge/deploy.
