@@ -1,72 +1,23 @@
-GLAM BEAUT — ESTOQUE INICIAL PROVISÓRIO
+GLAM BEAUT — CONTAGEM VISUAL PRELIMINAR DE PRODUTOS
+Data: 24/11/2026
 Branch: glam-product-stock-management-plan
 
-Autorização do usuário: utilizar quantidade estimada a partir dos vídeos e corrigir depois.
-IMPORTANTE: os vídeos mostram frames, bandejas e expositores que podem repetir itens. Não foi possível confirmar saldo físico exato. Para permitir prosseguir, foi aplicado saldo provisório conservador de 1 unidade por produto/cadastro. NÃO considerar como contagem física auditada.
+CORREÇÃO IMPORTANTE
+O registro anterior de “1 unidade por produto/cadastro (16 unidades)” estava incorreto e foi removido. Não usar essa estimativa.
 
-1. Acessório Glam
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
+ITENS IDENTIFICADOS NOS VÍDEOS
+- Hidrate! S.H.R.P. Shampoo 250 ml: 1
+- Hidrate! Conditioner 200 ml: 1
+- Glam 12 em 1 Leave-in 240 ml: 2
+- Salem Hi Repair — frascos: 2
+- Salem Hi Repair — tubo: 1
+- Ouse/Maxiline — shampoo: 1
+- Ouse/Maxiline — finalizador spray: 1
+- Ouse/Maxiline — máscaras: 2
+- Keune Care Color Brillianz Conditioner: 1
 
-2. Bolsa Glam
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
+TOTAL VISUAL IDENTIFICADO: 12 unidades, em 9 linhas de identificação.
 
-3. Experiência Glam — Kit Misto
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
+ESTE TOTAL NÃO REPRESENTA O ESTOQUE COMPLETO DA LOJA. São apenas itens identificados nos vídeos. Os 16 produtos genéricos do catálogo atual NÃO foram vinculados automaticamente a essas marcas/itens, pois falta correspondência individual segura.
 
-4. Kit Aniversário Glam
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-5. Kit Dia de Beleza
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-6. Kit Presente Skincare
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-7. Perfume Glam
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-8. Look Glam
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-9. Glam Absolut Repair
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-10. Glam CPR SOS
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-11. Glam Deep Hydration
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-12. Glam Hair Experience
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-13. Glam Hi Repair
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-14. Glam Platinum Repair
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-15. Glass Skin Coreano
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-16. Glow Facial Premium Express
-   Quantidade inicial provisória: 1 unidade
-   Ajuste físico posterior: pendente
-
-TOTAL PROVISÓRIO: 16 unidades (1 por produto).
-Revisar e ajustar as quantidades no painel administrativo antes de considerar estoque real definitivo.
+CONTAGEM FÍSICA / MAPEAMENTO SKU: pendentes para os produtos não identificados ou sem vínculo. Quantidades podem ser editadas depois.
