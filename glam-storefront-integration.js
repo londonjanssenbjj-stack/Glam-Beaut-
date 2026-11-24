@@ -40,7 +40,18 @@
   }
   async function loadCatalog(){
     const {data,error}=await db.rpc("storefront_catalog");
-    if(error){console.error("Catalog RPC failed",error);showToast("Não foi possível carregar o catálogo do banco.");return;}
+    if(error){
+      console.error("Catalog RPC failed",error);
+      // Never leave legacy static products visible when the authoritative DB catalog fails.
+      catalog=[];
+      cart=[];
+      localStorage.setItem("glam_cart",JSON.stringify(cart));
+      renderDbProducts();
+      updateCartDb();
+      $("catalogCount").textContent="Catálogo indisponível";
+      showToast("Não foi possível carregar o catálogo oficial. Tente novamente mais tarde.");
+      return;
+    }
     catalog=(Array.isArray(data)?data:[]).map(r=>({
       id:r.variant_id, productId:r.product_id, name:r.product_name,
       variant:r.variant_name, price:Number(r.price), category:r.category_slug||"todos",
@@ -60,7 +71,7 @@
       const im=p.image?'<img src="'+escapeHTML(p.image)+'" alt="'+escapeHTML(p.name)+'" loading="lazy">':'<div class="placeholder">G</div>';
       const title=p.variant&&p.variant!=="Padrão"?p.name+" — "+p.variant:p.name;
       return '<article class="card"><div class="product-image">'+(p.badge?'<span class="badge kit">'+escapeHTML(p.badge)+'</span>':'')+im+'</div><h3>'+escapeHTML(title)+'</h3><div class="meta">'+escapeHTML(p.description)+'</div><div class="price">'+moneyFmt(p.price)+'</div><button class="btn outline" onclick="addToCartDb(\''+p.id+'\')">Adicionar à Sacola</button></article>';
-    }).join(""):'<div style="grid-column:1/-1;padding:30px 0;color:#666;font-size:13px">Nenhum produto disponível no momento.</div>';
+    }).join(""):'<div style="grid-column:1/-1;padding:30px 0;color:#666;font-size:13px">Nenhum produto publicado com variantes e estoque disponível. O catálogo está em preparação.</div>';
     $("catalogCount").textContent=list.length+" "+(list.length===1?"produto disponível":"produtos disponíveis");
   }
   function filterDb(category,button){
