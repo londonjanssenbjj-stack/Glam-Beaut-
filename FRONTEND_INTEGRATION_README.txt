@@ -62,3 +62,13 @@ CONTINUACAO - AJUSTE RETORNO MERCADO PAGO
 - Frontend parsePaymentReturn atualizado para ler payment e order, verifyPaymentReturn consulta backend e ignora status de URL como prova.
 - getOrderStatus aceita UUID ou numero GL- validado, envia identificador apropriado.
 - Correcoes feitas apos inspecao para alinhar retorno real da Edge Function. Nenhuma mudanca de schema, RLS, main ou index.html.
+
+CHECKPOINT FINAL DESTA SESSAO - 24/11/2026
+- Lista de Edge Functions verificada: create-payment ACTIVE v4 verify_jwt=true; mercadopago-webhook ACTIVE v6 verify_jwt=false; order-status ACTIVE v2 verify_jwt=true.
+- Confirmado create-payment retorna checkout_url e URLs success/pending usam payment= e order_number (GL-...).
+- order-status v2 recebe order_id UUID ou order_number GL-..., valida usuario via Auth, restringe consulta por customer_id, e usa service role somente server-side.
+- Frontend verifyPaymentReturn consulta backend para confirmar, sem confiar no querystring.
+- normalizeCartItems agregador recebeu limite adicional de 99 por variante após agregacao.
+- O modulo foi mantido isolado. index.html ainda nao carrega o modulo.
+- Proxima etapa de integracao visual ainda bloqueada por dados/operacao reais: nenhum admin, produtos ativos/variantes/inventario/regioes/settings ausentes. Evitar pedido real ou falso.
+- Teste Sandbox end-to-end precisa conta autenticada de teste e configuracao comercial valida; nao simular sucesso de pagamento.
