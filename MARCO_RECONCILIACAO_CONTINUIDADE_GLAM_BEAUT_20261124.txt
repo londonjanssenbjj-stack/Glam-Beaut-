@@ -77,3 +77,12 @@ Quando o usuário disser “continue Glam Beaut”, reconfirmar estado da branch
 14. Integração frontend da vitrine/check-out preparada na branch: glam-storefront-integration.js + index.html carrega Supabase/config/script; catálogo via storefront_catalog; carrinho por variant_id; login/signup; create_customer_order_idempotent; create-payment existente; redirect Mercado Pago. Campos delivery estruturados, pickup sem endereço. Migration draft supabase/migrations/20261124195000_storefront_catalog_idempotency.sql. Relatório ENTREGA_TECNICA_VITRINE_CHECKOUT_SUPABASE_20261124.txt.
 15. Checagem estática delimitadores JS passou. Main index SHA preservado 2e3bafa0993755a2eaa66acf28ee64747853ed8a. Branch index SHA 3109a9e41ecaf535b8bf1ac525bebc2b29d9e16.
 16. Não está em produção: migration não aplicada, sem browser tool, sem sessão de Auth de teste, sem confirmação de token Mercado Pago sandbox. Browser e pagamento sandbox permanecem não testados; não afirmar operação final. Catálogo DB vazio/inativo; vitrine real renderizará vazio até cadastrarem produtos, variantes e estoque.
+
+
+ATUALIZAÇÃO DE CONTINUIDADE — 24/11/2026 (REVISÃO POSTERIOR)
+- Corrigida informação divergente: contagem READ-ONLY atual confirmou 16 produtos, 6 categorias, 0 variantes, 0 linhas de inventário e 0 movimentos. Os 16 produtos estão inativos e sem SKU/imagem associada.
+- Criado catalogo/RECONCILIACAO_PRODUTOS_EXISTENTES.csv com os 16 product_id e nomes/categorias/preços atuais (valores existentes tratados como preliminares), campos de validação e estoque físico em branco; nada foi alterado no Supabase.
+- glam-storefront-integration.js: ao alterar carrinho, invalida chave de checkout anterior; filtro “Lançamentos” usa created_at (30 dias); “Mais vendidos” não inventa ranking e mostra aviso enquanto não há vendas.
+- Migração draft: storefront_catalog inclui created_at para filtro; categorias padrão incluídas; hash de idempotência ordena variante/quantidade e rejeita variantes repetidas.
+- Todas as alterações permanecem na branch glam-product-stock-management-plan. Nenhuma migração aplicada, deploy, merge ou compra teste.
+- Ainda pendente: associar imagens reais, confirmar nome/sku/preço, variantes e contagem física; revisar e testar em navegador; validar comportamento pagamento e webhook em ambiente de teste antes de qualquer produção.
