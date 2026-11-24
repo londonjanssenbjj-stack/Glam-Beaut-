@@ -45,7 +45,7 @@
       id:r.variant_id, productId:r.product_id, name:r.product_name,
       variant:r.variant_name, price:Number(r.price), category:r.category_slug||"todos",
       description:r.description||"", image:r.image_url||"", badge:r.is_featured?"DESTAQUE":"",
-      badgeType:r.is_featured?"kit":"", available:true
+      badgeType:r.is_featured?"kit":"", available:true, createdAt:r.created_at||null
     }));
     window.GLAM_CATALOG=catalog;
     const validIds=new Set(catalog.map(p=>p.id));
