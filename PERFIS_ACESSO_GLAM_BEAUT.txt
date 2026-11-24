@@ -61,7 +61,7 @@ Exclusão permanente | Controle restrito | Não permitido
 ESTADO ATUAL DA IMPLEMENTAÇÃO
 - O esquema user_roles existente tem user_id UUID, role text, created_at.
 - A auditoria anterior não encontrou usuários/roles registrados.
-- O painel admin-panel.html atualmente exige role 'admin' e está somente leitura.
+- O painel admin-panel.html atualmente exige role 'admin'; operações de escrita foram adicionadas na branch de desenvolvimento, ainda sem teste real.
 - A configuração pública glam-supabase-config.js foi adicionada a esta branch isolada para resolver a dependência do painel, usando somente URL e publishable key.
 - Ainda não existe painel operacional de gerente.
 - O papel gerente não foi implementado/atribuído. Implementá-lo na UI sem a autorização equivalente no backend não seria seguro.
@@ -109,4 +109,12 @@ ATUALIZACAO DE STATUS DE IMPLEMENTACAO (24/11/2026)
 - O cadastro/edição de produtos foi iniciado no painel isolado; novas inserções são forçadas a inativo.
 - A autorização continua exclusivamente role admin, conforme RLS existente.
 - Gerente: e-mail confirmado com ponto: odiselma.vital@hotmail.com. Conta ainda não criada nem autorizada.
-- Variantes e estoque permanecem sem CRUD; serão implementados apenas após confirmar fluxo transacional/RPC existente.
+- Variantes são cadastradas inativas; entradas/ajustes de estoque usam a RPC admin_adjust_inventory existente. Ainda falta edição/ativação de variantes e validação em navegador.
+
+
+CORREÇÃO DE REGISTRO DE EMAILS E STATUS (24/11/2026)- Administrador Master 1: londonjanssenbjj@gmail.com
+- Administrador Master 2: odiselma_vital@hotmail.com (underscore _)- Gerente Operacional: odiselma.vital@hotmail.com (ponto .)
+- Os identificadores são distintos. Não substituir, não trocar nem inferir que são a mesma conta.
+- Ainda não foram criadas contas nem atribuídos papéis.
+- Código atual da branch contém cadastro/edição de produtos e categorias, cadastro de variantes inativas e registro de movimentações de estoque via RPC. Funcionalidade ainda não testada em navegador/sessão autenticada.
+- Nenhuma alteração de auth, role, RLS, policy, grant ou segurança feita nesta correção documental.
