@@ -180,3 +180,12 @@ PAINEL ADMINISTRATIVO — AJUSTES IMPLEMENTADOS NA BRANCH — 24/11/2026
 [!] Teste de navegador, login e operações não executado nesta sessão.
 [!] Upload direto de arquivo ainda não implementado; somente URL com preview. Não adiciona Storage nem muda policies.
 [!] Não aplicar no ambiente público/produção sem aprovação explícita e QA.
+
+
+ATUALIZAÇÃO CONTÍNUA DO PAINEL — 24/11/2026
+- [✓] Variante existente pode ser editada.
+- [✓] Controle de status ativo/inativo incluído no formulário de variante.
+- [✓] Edição carrega o status atual e salva o status junto aos campos da variante.
+- [✓] Limpar formulário retorna o controle de ativação ao padrão inativo.
+- [!] Alteração validada por leitura estática do código e commit na branch; teste em navegador e persistência no Supabase ainda não executados.
+- [!] Não habilitar variante para venda sem revisar produto, preço e estoque.
