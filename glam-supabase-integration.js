@@ -156,7 +156,9 @@
       if (!uuidPattern.test(String(item.variant_id || ""))) throw new Error("Variante inválida no carrinho.");
       const qty = Number(item.quantity);
       if (!Number.isInteger(qty) || qty < 1 || qty > 99) throw new Error("Quantidade inválida.");
-      map.set(item.variant_id, (map.get(item.variant_id) || 0) + qty);
+      const combined = (map.get(item.variant_id) || 0) + qty;
+      if (combined > 99) throw new Error("Limite de quantidade por variante excedido.");
+      map.set(item.variant_id, combined);
     }
     return Array.from(map, ([variant_id, quantity]) => ({ variant_id, quantity }));
   }
