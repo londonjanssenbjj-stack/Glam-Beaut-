@@ -1,0 +1,10 @@
+GLAM BEAUT — FILA DE CONFERÊNCIA DO CATÁLOGO
+Objetivo: transformar os 49 registros preliminares de vídeo em cadastro real sem inventar estoque.
+- Quantidade observada: só preencher quando uma unidade/peça puder ser contada sem duplicidade.
+- Quantidade física confirmada: preencher após conferência da mercadoria.
+- Preço: preencher apenas com preço confirmado (etiqueta/nota/usuário).
+- Não ativar produtos antes de revisar descrição, foto, variante, preço e estoque.
+- Bijuterias: contar por modelo e pares (brincos), não por peça solta em expositores.
+- Produtos capilares: SKU individual por tipo e volume (shampoo, condicionador, máscara, leave-in etc.).
+- Bolsas: identificar por modelo/cor; conferir repetição entre vídeos.
+- O catálogo não altera banco, painel, main, preços ou estoque.
