@@ -1,77 +1,73 @@
 GLAM BEAUT — MARCO DE RETOMADA E RECONCILIAÇÃO
-Data: 24/11/2026
-Branch de referência: glam-product-stock-management-plan
-PR: #3 — Draft, aberto, sem merge
+Data: 24/11/2026 (revisão de continuidade)
+Branch: glam-product-stock-management-plan
+PR #3: Draft, aberto, sem merge
 
-ESTE DOCUMENTO É O MARCO ATUAL DE CONTINUIDADE.
-Em caso de divergência com trechos antigos de outros documentos, prevalecem os fatos e estados consolidados abaixo e os adendos mais recentes de 24/11/2026. Documentos antigos são mantidos como histórico, não como instruções atuais.
+DOCUMENTO CENTRAL DE CONTINUIDADE.
+Quando documentos anteriores divergirem, prevalece este marco e as auditorias mais recentes de 24/11. Documentos históricos permanecem como histórico.
 
 PRESERVAÇÃO
 - main não alterada.
-- index.html da branch de trabalho permanece idêntico à main segundo a verificação SHA registrada.
-- PR #3 segue Draft, aberto e não merged.
-- Sem publicação/deploy, pagamentos reais, recursos pagos ou deleções.
-- Não alterar RLS/policies, funções, grants, roles, checkout, ou site público sem autorização explícita.
-- Custo zero como requisito.
+- index.html da branch e main foram conferidos com SHA idêntico na retomada.
+- PR #3 Draft, aberto, não merged.
+- Não publicar/deploy/mergear.
+- Não alterar policies RLS, grants, roles, checkout, pagamentos, ou site público sem autorização.
+- Custo zero é requisito.
 
-PAINEL E STORAGE — ESTADO CORRETO MAIS RECENTE
-- admin-panel.html inclui cadastro/edição de produtos e categorias.
-- Cadastro de variantes com edição e ativação/desativação.
-- Movimentação de estoque usando exclusivamente RPC admin_adjust_inventory.
-- Cadastro rápido em lote de bijuterias/acessórios, com fila local e retentativa protegida contra duplicação após falha parcial.
-- Upload de imagem no formulário: JPG/JPEG, PNG, WebP, limite 8 MB; verifica sessão e role admin; envia para Storage e preenche URL pública.
-- Bucket glam-product-images existe, leitura pública, 8 MB, MIME JPEG/PNG/WebP.
-- Policies registradas: leitura pública somente no bucket; escrita/alteração/exclusão autenticadas limitadas a role admin.
-- Nenhum segredo privado/service_role exposto no frontend conforme revisão estática.
-- Upload funcional real no navegador e confirmação de vínculo/salvamento ainda pendentes.
+PAINEL E STORAGE
+- admin-panel.html contém cadastro/edição de produtos/categorias/variantes.
+- Cadastro rápido em lote: fila local e salvamento sequencial; NÃO é transacional nem idempotente. Falha parcial pode deixar produto/variante criado. Não retentar sem reconciliação.
+- Produtos e variantes no cadastro rápido ficam inativos.
+- Estoque movimentado exclusivamente via RPC admin_adjust_inventory, que valida admin e impede saldo negativo.
+- Upload de imagem JPG/JPEG, PNG e WebP, até 8 MB, sessão e role admin; upload preenche URL pública e requer salvar formulário para persistir o vínculo.
+- Bucket glam-product-images: leitura pública, limite 8 MB, MIME JPEG/PNG/WebP.
+- Policies de Storage conferidas: leitura pública no bucket; INSERT/UPDATE/DELETE restritos a authenticated com role admin.
+- Upload no navegador, salvamento do vínculo e runtime não testados.
+- Nenhum segredo service_role observado no frontend durante revisão estática.
 
-DADOS ATUAIS DO BANCO — ÚLTIMA CONSULTA READ-ONLY REGISTRADA
-- Produtos: 16
-- Categorias: 6
-- Variantes: 0
-- Registros de inventory: 0
-- Movimentações: 0
-Não houve gravação real de teste nem estoque físico confirmado.
+BANCO — CONSULTA READ-ONLY REGISTRADA
+- 16 produtos, 6 categorias.
+- 0 variantes, 0 registros inventory, 0 movimentos.
+- Produtos consultados estão inativos, sem SKU e sem image_url.
+- Preços existentes foram lidos, não alterados.
+- Constraints UNIQUE confirmadas: products.sku, products.slug, product_variants.sku.
+- RPC admin_adjust_inventory (privada) valida sessão/admin; rejeita quantidade 0, protege saldo negativo e registra movimento na mesma execução SQL.
+- Inserção de produto, variante e movimento no cadastro em lote são chamadas separadas.
 
-PACOTE DE REFERÊNCIA VISUAL
-- ZIP: GLAM_BEAUT_FOTOS_49_REFERENCIAS.zip
-- 49 frames: vídeo 1 = 17; vídeo 2 = 16; vídeo 3 = 9; vídeo 4 = 7.
-- Frames são referências de vídeo, podem conter repetições, panorâmicas ou vários produtos. Não são fotos finais individuais de SKU.
-- O ZIP/manifesto foi verificado no ambiente de trabalho e os índices foram atualizados; não presumir que o ZIP esteja commitado no repositório.
-- Não associar automaticamente frames a produtos nem contar aparições como estoque.
+CATÁLOGO / IMAGENS
+- ZIP de referência: GLAM_BEAUT_FOTOS_49_REFERENCIAS.zip (documentado como 49 frames: V1=17, V2=16, V3=9, V4=7).
+- ZIP não foi re-inspecionado localmente nesta retomada; não assumir que está disponível no workspace ou commitado.
+- Frames de vídeo não são fotos individuais SKU, podem ser repetidos/multi-produto.
+- Nenhuma associação de imagem aos 16 produtos existentes é segura neste momento; os nomes do catálogo são genéricos e image_url está null para todos.
+- Não inferir quantidade de estoque de frames nem inventar SKU, volume, variante ou preço.
+- Upload está implementado, mas não testado em navegador autenticado.
 
-CATÁLOGO
-- Catálogo consolidado e preliminar existentes na branch, incluindo CSVs.
-- Produtos identificados visualmente são provisórios quando rótulos/volumes/variantes não estão legíveis.
-- Preços somente quando já confirmados; não estimar.
-- Quantidades visíveis em frames não equivalem a estoque físico.
-- Não criar variantes, ativar produtos ou movimentar estoque com base em suposições.
+AUDITORIAS/DOCUMENTOS ADICIONADOS NA BRANCH
+- AUDITORIA_SKU_LOTE_UPLOAD_READONLY_20261124.txt
+- VERIFICACAO_READONLY_SUPABASE_STORAGE_CATALOGO_20261124.txt
+- REVISAO_STATIC_CADASTRO_LOTE_UPLOAD_GLAM_20261124.txt
+- PLANO_RECUPERACAO_TRANSACIONAL_CADASTRO_LOTE_20261124.txt
+- SPEC_DRAFT_RPC_TRANSACIONAL_CADASTRO_LOTE_GLAM_20261124.txt (especificação, não aplicada)
+- RECONCILIACAO_CATALOGO_VINCULO_IMAGENS_20261124.txt
 
-PENDÊNCIAS TÉCNICAS QUE PODEM SER EXECUTADAS SEM O USUÁRIO
-1. Revisar estaticamente o cadastro rápido em lote, validações, tratamento de falha parcial e riscos de duplicação.
-2. Revisar formulários de produto/categoria/variante e consistência de estados inativos.
-3. Revisar fluxo de upload: validações, path, resposta de erro, preenchimento URL e associação no formulário.
-4. Revisar diffs e documentação para inconsistências; reconciliar status sem apagar histórico.
-5. Preparar checklist de teste de navegador, sem executar gravações de produção.
-6. Revisar a arquitetura de integração futura da vitrine/checkout e Mercado Pago sem alterar checkout nem credenciais.
-
-DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SOMENTE QUANDO NECESSÁRIO
-- Fotos individuais ou confirmação visual quando a identidade de produto/SKU não puder ser determinada.
-- Contagem física por SKU/variante.
-- Confirmação de preço, volume, variante ou SKU ausente/ambíguo.
-- Teste autenticado de upload e salvamento de produto no navegador, quando a sessão Admin Master estiver disponível.
-
-PENDÊNCIAS MAIORES
-- QA funcional no navegador (runtime, responsividade, sessão/logout, bloqueios).
-- CRUD e RPC em teste controlado.
-- Upload real de imagem e confirmação de URL vinculada.
-- Catálogo real revisado e inventário físico.
-- Revisão de segurança completa da migração draft do gerente; não aplicar.
-- Conectar vitrine pública ao catálogo real, mantendo design e fallback e revisando diffs.
-- Checkout transacional e Mercado Pago sandbox/webhook/cancelamento/refund ainda não validados.
+RISCO/PLANO DE RECUPERAÇÃO
+- Falha parcial de cadastro lote é risco confirmado.
+- Plano proposto: RPC transacional por item, admin-only, idempotente, com chave request e hash do payload; produto, variante e estoque inicial/movimento devem ser atômicos. Repetição da mesma chave/payload retorna IDs existentes sem duplicar movimento. Payload divergente com mesma chave deve ser conflito.
+- Especificação não foi implementada. Nenhuma migration ou RPC nova aplicada.
+- Não usar migration draft do manager como base para esta RPC; revisão de permissões separada.
 
 PRÓXIMA AÇÃO EXATA
-Continuar pela revisão estática técnica do cadastro rápido em lote e do fluxo de upload/associação de imagens em admin-panel.html. Corrigir apenas defeitos comprovados e documentar. Manter todas as operações de banco, produção e segurança sem execução. Não alterar main nem publicar/mergear.
+1. Continuar revisão estática de segurança/consistência do admin-panel e checkout/vitrine, sem alterar produção.
+2. Revisar a migration draft de manager e documentar riscos; não aplicar/mergear.
+3. Preparar checklist QA isolado e avaliar se há staging disponível.
+4. Depois de testes isolados, considerar implementação da RPC transacional. Não aplicar em produção automaticamente.
+5. Reavaliar catalogação de fotos; sem vínculo automático.
 
-REGRA PARA RETOMAR
-Quando o usuário disser “continue Glam Beaut”, ler este marco e consultar o estado atual do PR #3/branch antes de agir. Reconfirmar o commit/head e verificar se o que está descrito ainda é verdadeiro. Não recomeçar, não repetir etapas e não solicitar tarefas manuais que possam ser realizadas tecnicamente.
+DEPENDÊNCIAS DO USUÁRIO — SOLICITAR SÓ QUANDO INEVITÁVEL
+- Foto individual/confirmar identidade de item quando ambíguo.
+- Contagem física por SKU.
+- Confirmação de preço/volume/variante.
+- Teste browser autenticado Admin Master se necessário.
+
+REGRA DE RETOMADA
+Quando o usuário disser “continue Glam Beaut”, reconfirmar estado da branch/PR, ler este marco, verificar arquivos atuais e continuar do próximo item. Não repetir etapas, não usar retries cegos no cadastro em lote, não alterar main, não aplicar migration, não publicar nem mergear.
