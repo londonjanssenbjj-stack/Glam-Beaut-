@@ -1,0 +1,60 @@
+GLAM BEAUT — REVISÃO DO FLUXO DE CRIAÇÃO DE PEDIDOS EXISTENTE
+24/11/2026 — read-only
+Supabase Glam Beaut project. Sem alterações.
+
+DESCOBERTA
+Já existe uma RPC:
+- private.create_customer_order(p_items jsonb, p_delivery_method text, p_shipping_address jsonb, p_coupon_code text) RETURNS jsonb
+- SECURITY DEFINER, search_path vazio, EXECUTE concedido authenticated; valida auth.uid().
+- Wrapper public.create_customer_order com execute authenticated.
+
+O QUE ELA JÁ FAZ
+- Limita itens entre 1 e 30, quantidade 1..100, delivery/pickup.
+- Exige pickup/delivery habilitado.
+- Valida campos de endereço e região de entrega.
+- Bloqueia variantes duplicadas no payload.
+- Busca produto e variante ativos e trava as linhas (FOR UPDATE OF pv,p).
+- Calcula preço no banco usando price_override ou product.price; ignora preço fornecido pelo frontend.
+- Reduz inventory quantity na criação do pedido (reservando/deduzindo imediatamente) com condição quantity >= pedido.
+- Se não há saldo, a função levanta erro.
+- Registra inventory_movements com movement_type='sale' e note='Reserva de estoque do pedido'.
+- Calcula subtotal e frete no servidor; valida cupom e uso individual.
+- Insere orders e order_items; atualiza uso de cupom.
+- Tudo dentro de uma função PostgreSQL, portanto as operações da função são atômicas (rollback se falha).
+
+TRIGGER DE LIBERAÇÃO
+Existe trigger AFTER UPDATE OF status,payment_status em orders:
+- Quando status vai para cancelled/refunded ou payment_status para failed/refunded, e inventory_released_at ainda null, executa release_order_inventory_on_terminal_status.
+- O trigger restaura as quantidades dos order_items em inventory e grava movimentos return.
+- Atualiza inventory_released_at.
+- A condição de marcação evita liberar mais de uma vez por pedido.
+- Trigger foi inspecionado, função release também foi inspecionada.
+
+PONTO DE RISCO CRÍTICO — IDEMPOTÊNCIA DA CRIAÇÃO DO PEDIDO
+A RPC create_customer_order não recebe idempotency key, não faz lookup por request key e não há proteção contra replay de chamada.
+Se cliente clicar duas vezes, houver retry do browser ou timeout após commit, duas orders podem ser criadas e o estoque reservado/deduzido duas vezes. Isso deve ser corrigido antes de conectar o checkout público.
+
+PONTO DE RISCO — SEM ESTOQUE INICIAL
+Inventory row ausente causa falha para compra; não há estoque presumido. É adequado, mas o cadastro de variantes e contagem física precisa estar completo.
+
+PONTO DE RISCO — MOVIMENTOS
+A movimentação usa 'sale' no momento da reserva e note descreve reserva. O vocabulário confunde reserva com venda final. A lógica atual é coerente como reserva/dedução antecipada, porém o tipo deveria ser documentado/normalizado (ex. reserve) ou manter sale e explicar que o estoque já foi debitado na criação. Evitar duplicar baixa no webhook de pagamento.
+
+PONTO DE RISCO — STATUS/ESTOQUE
+A trigger libera estoque quando order status cancelled/refunded OU payment_status failed/refunded. Verificar estados de order/payment e evitar que um pedido paid seja posteriormente marcado failed por evento atrasado. O webhook contém proteção para não downgrade de paid, mas refunded libera estoque; refunds parciais precisam fluxo manual.
+
+PENDÊNCIAS
+1. Idempotência de create_customer_order (request_key + payload hash; retorno do pedido existente em retry).
+2. Fluxo de guest checkout (orders.customer_id NOT NULL e RPC exige Auth; o checkout público atual não cria login).
+3. Ligação frontend catálogo/carrinho ao Supabase: carregar products/categories/variants/inventory ativos; carrinho por variant_id.
+4. Conectar RPC no checkout da branch e remover valores/preços confiados do browser.
+5. Não baixar estoque novamente no webhook; reserva atual já reduz estoque.
+6. Testes: retries, duplo clique, concorrência, cancelamento, paid, failed, refunded, coupon, entrega/pickup, stock.
+7. Confirmar que migrations, policies, triggers e RPCs estão alinhadas com branch e main; estado de migrations read-only observado.
+
+NÃO EXECUTADO
+- Nenhum pedido de teste foi criado.
+- Nenhuma chamada RPC de checkout foi executada.
+- Nenhuma reserva/baixa/restauração de estoque.
+- Nenhum pagamento real ou sandbox.
+- Nenhuma alteração SQL, Edge Function, HTML ou RLS.
