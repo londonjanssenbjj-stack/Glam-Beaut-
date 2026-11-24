@@ -1,0 +1,93 @@
+GLAM BEAUT — CONTAGEM DE ESTOQUE INICIAL
+Branch: glam-product-stock-management-plan
+Status: Catálogo (nomes, fotos e preços) validado pelo usuário.
+Preencher apenas com contagem física real.
+
+INSTRUÇÃO
+Para cada produto, contar unidades prontas para venda e registrar o número inteiro.
+Se houver diferentes tamanhos/cores/volumes, separar em linhas e informar a variante.
+Não preencher por estimativa.
+
+PRODUTOS
+1. Acessório Glam
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+2. Bolsa Glam
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+3. Experiência Glam — Kit Misto
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+4. Kit Aniversário Glam
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+5. Kit Dia de Beleza
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+6. Kit Presente Skincare
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+7. Perfume Glam
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+8. Look Glam
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+9. Glam Absolut Repair
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+10. Glam CPR SOS
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+11. Glam Deep Hydration
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+12. Glam Hair Experience
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+13. Glam Hi Repair
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+14. Glam Platinum Repair
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+15. Glass Skin Coreano
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+16. Glow Facial Premium Express
+   Quantidade física: ______
+   SKU (se houver): ______
+   Variante (se houver): ______
+
+
+Após a contagem, enviar as quantidades para o lançamento inicial do estoque.
