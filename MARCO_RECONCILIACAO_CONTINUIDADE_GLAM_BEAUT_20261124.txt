@@ -94,3 +94,10 @@ CONTINUAÇÃO — CADASTRO ADMINISTRATIVO (24/11)
 - A fila persistida não torna operações de banco transacionais/idempotentes. Após falha parcial, revisar o item/slug/variante/movimentação no banco antes de qualquer nova tentativa.
 - Criada AUDITORIA_CADASTRO_RAPIDO_RECONCILIACAO_20261124.txt com riscos e recomendações de reconciliação.
 - Atualização estática verificada: helper, persistência em add/remove e restauração inicial. Testes em navegador não executados.
+
+
+REVISÃO ADICIONAL — RECUPERAÇÃO DE CHECKOUT (24/11)
+- Cadastro rápido admin-panel: explicação na UI atualizada para informar que rascunho é local ao navegador e orientar reconciliação antes de retry após falha parcial.
+- Migração idempotente draft: bloco de criação do pedido agora captura falha do RPC autoritativo, remove a chave idempotente pendente sem resposta e relança erro, permitindo retry da mesma chave após falha. As alterações da chamada do pedido são revertidas pelo bloco de exceção. Esta mudança é apenas código branch; exige revisão SQL e teste concorrente antes de aplicar.
+- Verificações estáticas confirmaram SQL created_at e mapeamento frontend createdAt; o filtro Lançamentos usa esse timestamp. “Mais vendidos” permanece desativado com aviso, pois ainda não há histórico de vendas real.
+- Nenhum SQL aplicado ao Supabase e nenhum pagamento executado.
