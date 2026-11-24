@@ -1,0 +1,33 @@
+GLAM BEAUT — ÍNDICE DO PACOTE ATUAL DE FRAMES
+Atualização: 24/11/2026
+Branch: glam-product-stock-management-plan
+
+PACOTE VERIFICADO
+GLAM_BEAUT_FOTOS_49_REFERENCIAS.zip
+
+Conteúdo confirmado pela listagem do ZIP:
+- Vídeo 1: frames 01–17 (17 arquivos)
+- Vídeo 2: frames 01–16 (16 arquivos)
+- Vídeo 3: frames 01–09 (9 arquivos)
+- Vídeo 4: frames 01–07 (7 arquivos)
+TOTAL: 49 frames JPG
+
+NOMES DOS ARQUIVOS
+Todos os arquivos estão na pasta fotos/ dentro do ZIP:
+glam_video1_frame01.jpg a glam_video1_frame17.jpg
+glam_video2_frame01.jpg a glam_video2_frame16.jpg
+glam_video3_frame01.jpg a glam_video3_frame09.jpg
+glam_video4_frame01.jpg a glam_video4_frame07.jpg
+manifest_fotos.csv
+
+STATUS E USO
+- São frames de vídeo usados como referência de catalogação, não fotos finais individuais de cada SKU.
+- Não somar aparições repetidas como estoque físico.
+- Fotos multi-produto não devem ser vinculadas automaticamente a SKUs.
+- Supabase Storage bucket glam-product-images está criado (leitura pública; 8 MB; JPEG/PNG/WebP).
+- Upload direto no painel Admin implementado com verificação de sessão e role admin; falta teste autenticado de upload e salvamento do vínculo no produto.
+- Não inserir preços, volumes, variantes ou quantidades sem evidência suficiente.
+- Catálogo permanece em branch isolada; não alterar main, não publicar nem ativar produtos sem revisão.
+
+PRÓXIMO PASSO OPERACIONAL
+O usuário só será solicitado a confirmar dados quando a imagem/vídeo não permitir identificação segura ou quando for necessária contagem física real. Demais organização e implementação seguem com o assistente.
