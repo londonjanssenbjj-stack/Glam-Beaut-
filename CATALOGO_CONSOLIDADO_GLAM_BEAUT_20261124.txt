@@ -1,29 +1,37 @@
 GLAM BEAUT — CATÁLOGO CONSOLIDADO DE TRABALHO
 Atualização: 24/11/2026
 Branch: glam-product-stock-management-plan
-Este consolidado combina os 16 produtos existentes na base com identificações detalhadas extraídas dos vídeos.
 
-RESUMO
-- 16 registros existentes na base: seus preços foram preservados como encontrados, sem afirmar que estão revisados ou atuais.
-- 11 identificações detalhadas de produtos capilares em vídeo, incluindo possíveis aparições repetidas.
-- 3 grupos visuais provisórios de bijuterias, bolsas e cosméticos/perfumaria que ainda exigem individualização.
-- Não há preços novos inferidos.
-- Quantidade “vista” é apenas evidência visual, não estoque físico confirmado.
-- SKU, estoque físico confirmado e fotos de catálogo ficam pendentes.
-- Produtos não devem ser ativados nem importados para produção por este arquivo.
+STATUS DA REVISÃO DOS VÍDEOS
+Foram localizados e analisados 4 vídeos de 24/11/2026 (aprox. 66 a 175 segundos cada) e extraídos quadros para inspeção de rótulos. OCR/inspeção visual identificou rótulos adicionais, mas a resolução e o movimento não permitem confirmar todas as variantes, volumes ou quantidades físicas.
 
-REGISTROS DA BASE
-Os 16 produtos existentes e seus preços estão incluídos no CSV com IDs DB-001 a DB-016. Categorias, descrições e imagens precisam ser revisadas, sem alterar os registros existentes no banco.
+IDENTIFICAÇÕES VISUAIS ADICIONADAS (VID-015 a VID-020)
+- Keune Care Color Brillianz Shampoo — volume e estoque total pendentes.
+- Keune Care Color Brillianz Conditioner — volume e estoque total pendentes; possível repetição em cenas.
+- Wella Blondorplex — subproduto/variante e volume pendentes.
+- Omega Complex — marca/linha, tipo e volume precisam confirmação.
+- Shower Dream — Espuma de Banho — marca e volume precisam confirmação.
+- Cortex Nutritivo Repair — marca, variante e volume precisam confirmação.
 
-IDENTIFICAÇÕES DOS VÍDEOS
-IDs VID-001 a VID-011: itens capilares com nome/linha/volume quando legíveis.
-IDs VID-012 a VID-014: grupos de displays que precisam ser separados em itens individuais antes do cadastro.
+QUANTIDADES
+O CSV registra aparições visuais quando é possível observar uma unidade ou mais de uma, mas NÃO transforma isso em saldo de estoque. Em vídeos de apresentação, a câmera pode repetir o mesmo produto, não mostrar todo o estoque e ocultar itens. Para contagem física confiável, é necessária uma tomada estática, frontal, de cada prateleira ou grupo, ou confirmação escrita do responsável.
 
-REGRAS
+FOTOS
+Frames foram extraídos dos vídeos em alta resolução para análise. Eles podem servir como referência visual e futura foto provisória, porém ainda não foram enviados ao Storage nem associados ao cadastro do produto no painel. O processo de upload não está implementado nesta etapa.
+
+REGISTROS EXISTENTES
+Os 16 produtos da base e preços já existentes permanecem no CSV. Nenhum preço novo foi inferido. Preços, categorias, composição, imagens e estoque ainda devem ser revisados quando não estiverem confirmados.
+
+GRUPOS PARA INDIVIDUALIZAÇÃO
+- Bijuterias: separar cada modelo/variante; não atribuir contagem de exposição como estoque.
+- Bolsas, clutches e carteiras: identificar cada modelo e contar unidades sem somar tomadas repetidas.
+- Cosméticos e perfumaria em bandejas/expositores: individualizar marca, produto, volume e unidades por SKU.
+
+REGRAS DE SEGURANÇA E ESCOPO
 1. Não somar aparições repetidas entre frames ou vídeos.
-2. Não usar contagem de aparições como estoque.
+2. Quantidade vista = observação visual; estoque físico confirmado = somente contagem confiável/confirmada.
 3. Preço somente quando confirmado por etiqueta, nota ou informação do usuário.
-4. SKU próprio para cada produto e variante comercializável.
-5. Produtos em displays de joias e bandejas de maquiagem precisam ser individualizados.
-6. Não importar para o Supabase, não ativar e não alterar a main.
-7. Usar este arquivo como lista de conferência e preparação; validar item por item.
+4. SKU próprio por produto/variante comercializável.
+5. Não importar catálogo para Supabase, não ativar produtos e não alterar a main.
+6. Não publicar imagens. Frames extraídos são material de revisão, ainda não upload de catálogo.
+7. Esta revisão não altera site, segurança, políticas RLS, autenticação, pagamentos ou produção.
