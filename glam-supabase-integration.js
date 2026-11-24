@@ -165,9 +165,9 @@
     const params = new URLSearchParams(search);
     const status = (params.get("payment") || params.get("status") || params.get("collection_status") || "").toLowerCase();
     const orderId = params.get("order_id") || params.get("order") || params.get("external_reference") || "";
-    const normalized = status === "approved" ? "success"
-      : ["pending", "in_process", "in_process"].includes(status) ? "pending"
-      : ["rejected", "cancelled", "canceled"].includes(status) ? "failure"
+    const normalized = ["success", "approved"].includes(status) ? "success"
+      : ["pending", "in_process", "processing"].includes(status) ? "pending"
+      : ["failure", "failed", "rejected", "cancelled", "canceled", "refunded"].includes(status) ? "failure"
       : "unknown";
     return { status: normalized, orderId };
   }
@@ -246,8 +246,9 @@
     const session = await getSession();
     if (!session) throw new Error("Faça login para consultar o pedido.");
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidPattern.test(String(orderId || ""))) throw new Error("Identificador de pedido inválido.");
-    const isUuid = uuidPattern.test(String(orderId));
+    const isUuid = uuidPattern.test(String(orderId || ""));
+    const isOrderNumber = /^GL-\\d{14}-[A-F0-9]{6}$/i.test(String(orderId || ""));
+    if (!isUuid && !isOrderNumber) throw new Error("Identificador de pedido inválido.");
     const { data, error } = await sb.functions.invoke("order-status", {
       body: isUuid ? { order_id: orderId } : { order_number: orderId }
     });
