@@ -76,3 +76,14 @@ Preservar o existente. Não refazer, redesenhar, apagar, alterar main, publicar,
 - Gerente somente após autorização backend segura.
 - Checkout preservado e testado exclusivamente sandbox.
 - Diff revisado, sem deleções, sem main/publicação.
+
+IMPLEMENTACAO INCREMENTAL — 24/11/2026
+- admin-panel.html agora possui formulário de cadastro/edição de produtos e categorias, em branch isolada.
+- Produto novo é salvo inativo por padrão; categoria nova também começa inativa.
+- Não há ação de exclusão permanente.
+- Validações do formulário incluem campos obrigatórios, preço não negativo, preço anterior não inferior ao atual, slug e SKU duplicados.
+- Categoria: nome, slug, ordem de exibição e status; slug duplicado é verificado antes de salvar.
+- A edição usa as policies admin existentes; sem mudança de RLS/policies/grants.
+- Testes de navegador, teste autenticado e gravações de prova no Supabase ainda NÃO foram executados.
+- Variantes e estoque ainda não têm formulário de gravação. Estoque seguirá exclusivamente a RPC admin_adjust_inventory após validar seu fluxo.
+- Não considerar a funcionalidade validada em produção até o teste manual seguro.
