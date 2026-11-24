@@ -5,6 +5,11 @@
   if(!cfg||!window.supabase){console.warn("Glam backend integration not loaded");return;}
   const db=window.supabase.createClient(cfg.url,cfg.publishableKey);
   window.GLAM_DB=db;
+  // Prevent legacy static catalog cards from flashing before the DB catalog loads.
+  const loadingStyle=document.createElement("style");
+  loadingStyle.textContent=".glam-db-loading #productGrid{visibility:hidden}.glam-db-loading #catalogCount::after{content:' Carregando catálogo…'}";
+  document.head.appendChild(loadingStyle);
+  document.body.classList.add("glam-db-loading");
   let catalog=[],authSession=null,submitting=false;
   const $=id=>document.getElementById(id);
   const moneyFmt=v=>Number(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
@@ -49,6 +54,7 @@
       renderDbProducts();
       updateCartDb();
       $("catalogCount").textContent="Catálogo indisponível";
+      document.body.classList.remove("glam-db-loading");
       showToast("Não foi possível carregar o catálogo oficial. Tente novamente mais tarde.");
       return;
     }
@@ -64,6 +70,7 @@
     localStorage.setItem("glam_cart",JSON.stringify(cart));
     renderDbProducts();
     updateCartDb();
+    document.body.classList.remove("glam-db-loading");
   }
   function renderDbProducts(list=catalog){
     const grid=$("productGrid");if(!grid)return;
