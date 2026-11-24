@@ -1,0 +1,79 @@
+GLAM BEAUT — PERFIS E RESPONSABILIDADES DE ACESSO
+Decisão operacional | 24/11/2026
+Branch isolada: glam-product-stock-management-plan
+Status: DEFINIÇÃO / DOCUMENTAÇÃO — NÃO ALTERA AUTH, RLS OU PERMISSÕES
+
+REGRA DE PRESERVAÇÃO
+- Preservar o que já existe.
+- Não refazer, redesenhar, apagar, alterar main ou publicar.
+- Não alterar segurança, RLS, policies, grants, funções, tokens ou integrações para contornar erros.
+- Esta definição não cria usuários nem atribui papéis no Supabase.
+
+ESTRUTURA APROVADA COMO PROPOSTA
+3 contas iniciais:
+1. Administrador Master — titular da loja.
+2. Administrador Master — esposa do titular.
+3. Gerente Operacional — acumula Vendas + Estoque + Marketing.
+
+ADMINISTRADOR MASTER (2 CONTAS INDIVIDUAIS)
+Permissões operacionais previstas:
+- Visão geral e relatórios completos.
+- Produtos, categorias, variantes, preços e promoções.
+- Estoque, entradas, ajustes e movimentações.
+- Vendas, pedidos e acompanhamento.
+- Gerenciar usuários e perfis.
+- Configurações e integrações críticas.
+- Acesso completo administrativo.
+Cada administrador terá seu próprio login. Não compartilhar credenciais.
+
+GERENTE OPERACIONAL (1 CONTA)
+Acumula as responsabilidades de:
+- Vendas: atendimento, registrar/acompanhar vendas e pedidos.
+- Estoque: consultar saldos, registrar entradas e movimentações/ajustes conforme fluxo autorizado.
+- Marketing: conteúdo, fotos, descrições, destaques e apresentação de produtos.
+- Produtos: cadastrar e editar produtos dentro das permissões concedidas.
+- Relatórios operacionais: visualizar dados necessários ao trabalho.
+
+LIMITES DO GERENTE
+- Não cria, promove ou remove administradores.
+- Não altera permissões nem papéis de usuários.
+- Não acessa configurações críticas, segredos, tokens ou credenciais de integração.
+- Não exclui permanentemente registros; preferir inativação e preservar histórico.
+- Ações de estoque devem usar os fluxos/RPCs existentes que validam autorização; nunca editar saldo diretamente para contornar bloqueios.
+- Acesso a preço/custo interno só será concedido se houver necessidade e schema/controles apropriados; custo não pode ser exposto no site público.
+
+MATRIZ DE ACESSO (ALVO FUTURO)
+Área | Administrador Master (2) | Gerente Operacional
+Dashboard | Completo | Operacional
+Produtos | Completo | Cadastro/edição operacional
+Categorias | Completo | Operacional conforme necessidade
+Preços e promoções | Completo | Permitido no limite definido
+Variantes | Completo | Operacional
+Estoque | Completo | Entrada/consulta/ajuste autorizado
+Movimentações | Completo | Consulta e registro operacional
+Vendas e pedidos | Completo | Operacional
+Marketing/conteúdo | Completo | Completo operacional
+Usuários e papéis | Completo | Sem acesso administrativo
+Configurações críticas | Completo | Sem acesso
+Integrações e credenciais | Completo | Sem acesso
+Exclusão permanente | Controle restrito | Não permitido
+
+ESTADO ATUAL DA IMPLEMENTAÇÃO
+- O esquema user_roles existente tem user_id UUID, role text, created_at.
+- A auditoria anterior não encontrou usuários/roles registrados.
+- O painel admin-panel.html atualmente exige role 'admin' e está somente leitura.
+- A configuração pública glam-supabase-config.js foi adicionada a esta branch isolada para resolver a dependência do painel, usando somente URL e publishable key.
+- Ainda não existe painel operacional de gerente.
+- O papel gerente não foi implementado/atribuído. Implementá-lo na UI sem a autorização equivalente no backend não seria seguro.
+- A estrutura atual de policies não será enfraquecida para acomodar o gerente.
+- Os dois administradores deverão ser contas Auth distintas, cada uma com role admin, criadas/atribuídas por processo seguro.
+- A conta gerente será criada após definição/validação de seu identificador de login e implementação segura de permissões backend. Não solicitar senha em chat.
+
+PRÓXIMOS PASSOS SEGUROS
+1. Criar as duas contas administrativas individualmente por processo seguro; usuários escolhem suas próprias senhas.
+2. Confirmar identidade/UID de cada conta antes de atribuir role admin.
+3. Validar painel de consulta com uma conta admin, sem contornar policies.
+4. Projetar permissões do gerente e identificar se o backend existente suporta esse papel. Se não suportar, documentar bloqueio e propor alteração mínima para aprovação, sem aplicar mudanças de segurança automaticamente.
+5. Desenvolver recursos de escrita em etapas isoladas e com validação.
+6. Manter PR draft, sem merge ou publicação até aprovação explícita.
+
