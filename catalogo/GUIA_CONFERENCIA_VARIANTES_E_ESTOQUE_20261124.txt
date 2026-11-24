@@ -1,0 +1,21 @@
+GLAM BEAUT — GUIA DE CONFERÊNCIA DA PLANILHA DE VARIANTES
+Arquivo: catalogo/PLANILHA_PREPARACAO_CADASTRO_VARIANTES_16_PRODUTOS.csv
+
+Objetivo
+Organizar a próxima etapa de cadastro sem criar estoque fictício nem ativar produto.
+
+Procedimento
+1. Conferir cada produto e identificar a unidade vendida (unidade, kit, tamanho, volume, cor, modelo).
+2. Confirmar se o SKU proposto representa o item correto. SKUs deste arquivo são propostas, não códigos de etiqueta já existentes.
+3. Preencher quantidade apenas com contagem física confirmada.
+4. Quando o produto possuir opções (tamanho, cor, volume, fragrância), definir variantes separadas. Não cadastrar variante genérica se isso misturar itens diferentes.
+5. Conferir foto e descrição vinculadas ao produto.
+6. Registrar observações de kit: conteúdo completo, quantidades de cada componente e se o kit deve reservar componentes ou possuir estoque próprio. A implementação atual contabiliza saldo por variante do produto/kit e não faz reserva automática de componentes.
+7. Manter ativação FALSE enquanto cadastro, preço, imagem, variante e estoque não forem revisados.
+8. Após concluir a reconciliação, fazer um teste de cadastro controlado no ambiente autorizado e revisar saldo/movimentação antes de cadastrar o restante.
+
+Importante
+- A contagem estimada dos vídeos (12 unidades em 9 tipos) é parcial e não representa o inventário total.
+- Não atribua essas 12 unidades automaticamente aos 16 produtos existentes.
+- Nenhuma escrita foi realizada no Supabase nesta etapa.
+- Nenhum produto foi ativado, nenhuma migração foi aplicada, nenhum pagamento ou publicação foi executado.
