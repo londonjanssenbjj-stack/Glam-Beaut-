@@ -1,50 +1,50 @@
 id;nome_provisorio;categoria;marca_visivel;variante;preco;sku;estoque_inicial;estoque_minimo;imagem_referencia;status;confirmacao
-VID1-01;Kit HIDRATEI Macez Leve Brilho (embalagem azul);Cabelo;Hidratei;Kit conforme embalagem; ; ; ; ;glam_video1_frame01.jpg;Inativo;Confirmar nome/volume/kit
-VID1-02;Kit HIDRATEI (embalagem azul com acessorio);Cabelo;Hidratei;Kit conforme embalagem; ; ; ; ;glam_video1_frame02.jpg;Inativo;Confirmar se distinto do VID1-01
-VID1-03;Produto capilar HIDRATEI frasco spray;Cabelo;Hidratei;Frasco azul; ; ; ; ;glam_video1_frame03.jpg;Inativo;Confirmar nome/volume
-VID1-04;KEUNE CARE produtos capilares;Cabelo;Keune;Frascos; ; ; ; ;glam_video1_frame04.jpg;Inativo;Individualizar shampoo/condicionador
-VID1-05;WEPINK Leave-in;Cabelo;WePink;Frasco rosa; ; ; ; ;glam_video1_frame05.jpg;Inativo;Confirmar volume
-VID1-06;Óleos capilares;Cabelo;A confirmar;Frascos pequenos; ; ; ; ;glam_video1_frame06.jpg;Inativo;Identificar cada óleo
-VID1-07;WEPINK Body Splash;Perfumaria;WePink;Caixa rosa; ; ; ; ;glam_video1_frame07.jpg;Inativo;Confirmar fragrância/volume
-VID1-08;Perfume/colônia em caixa rosa;Perfumaria;A confirmar;Frasco; ; ; ; ;glam_video1_frame08.jpg;Inativo;Nome não legível com segurança
-VID1-09;PAYOT cosméticos e maquiagem;Maquiagem/Beleza;Payot;Produtos diversos; ; ; ; ;glam_video1_frame09.jpg;Inativo;Separar itens por produto
-VID1-10;Kit cosméticos caixa laranja/rosa;Maquiagem/Beleza;A confirmar;Kit; ; ; ; ;glam_video1_frame10.jpg;Inativo;Confirmar itens e composição
-VID1-11;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;glam_video1_frame11.jpg;Inativo;Individualizar
-VID1-12;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;glam_video1_frame12.jpg;Inativo;Individualizar
-VID1-13;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;glam_video1_frame13.jpg;Inativo;Individualizar
-VID1-14;Pincéis e cosméticos;Maquiagem;A confirmar;Pincéis e itens; ; ; ; ;glam_video1_frame14.jpg;Inativo;Separar kits e unidades
-VID1-15;Paletas/pós de maquiagem;Maquiagem;A confirmar;Itens; ; ; ; ;glam_video1_frame15.jpg;Inativo;Individualizar
-VID1-16;Batons/gloss e maquiagem;Maquiagem;A confirmar;Itens; ; ; ; ;glam_video1_frame16.jpg;Inativo;Individualizar
-VID1-17;Bolsa preta com alça estampada;Bolsas;A confirmar;Preta; ; ; ; ;glam_video1_frame17.jpg;Inativo;Confirmar marca/modelo
-VID2-01;Linha capilar frascos amarelo/rosa;Cabelo;A confirmar;Produtos individuais; ; ; ; ;glam_video2_frame01.jpg;Inativo;Identificar cada item
-VID2-02;Linha capilar frascos dourado/creme;Cabelo;A confirmar;Produtos individuais; ; ; ; ;glam_video2_frame02.jpg;Inativo;Identificar cada item
-VID2-03;KEUNE Care/Conditioner;Cabelo;Keune;Frascos; ; ; ; ;glam_video2_frame03.jpg;Inativo;Confirmar quais itens e volumes
-VID2-04;Máscara capilar em pote rosa;Cabelo;A confirmar;Pote; ; ; ; ;glam_video2_frame04.jpg;Inativo;Confirmar marca/volume
-VID2-05;Linha KEUNE em frascos claros;Cabelo;Keune;Produtos individuais; ; ; ; ;glam_video2_frame05.jpg;Inativo;Confirmar nome e volume
-VID2-06;Spray capilar azul (número 21 visível);Cabelo;A confirmar;Frasco azul; ; ; ; ;glam_video2_frame06.jpg;Inativo;Nome não confirmado
-VID2-07;Óleo/elixir capilar;Cabelo;A confirmar;Frascos dourados; ; ; ; ;glam_video2_frame07.jpg;Inativo;Individualizar
-VID2-08;Produto de beleza/perfumaria para presente;Beleza/Presentes;A confirmar;Embalagem/sacola; ; ; ; ;glam_video2_frame08.jpg;Inativo;Identificar produto
-VID2-09;Linha capilar Elements frascos laranja;Cabelo;A confirmar;Frascos; ; ; ; ;glam_video2_frame09.jpg;Inativo;Confirmar marca e itens
-VID2-10;Linha capilar Elements;Cabelo;A confirmar;Produtos; ; ; ; ;glam_video2_frame10.jpg;Inativo;Confirmar marca e itens
-VID2-11;Potes rosa de tratamento capilar;Cabelo;A confirmar;Potes; ; ; ; ;glam_video2_frame11.jpg;Inativo;Identificar cada tamanho
-VID2-12;Potes rosa de tratamento capilar;Cabelo;A confirmar;Potes; ; ; ; ;glam_video2_frame12.jpg;Inativo;Identificar cada tamanho
-VID2-13;Produtos capilares/perfumaria;Beleza;A confirmar;Sortimento; ; ; ; ;glam_video2_frame13.jpg;Inativo;Confirmar produtos
-VID2-14;Perfumes em caixas escuras (LE MAISON texto aparente);Perfumaria;A confirmar;Caixas; ; ; ; ;glam_video2_frame14.jpg;Inativo;Confirmar nome/fragrâncias
-VID2-15;Clutch dourada texturizada;Bolsas/Acessórios;A confirmar;Dourada; ; ; ; ;glam_video2_frame15.jpg;Inativo;Confirmar modelo
-VID2-16;Bolsa vermelha;Bolsas;A confirmar;Vermelha; ; ; ; ;glam_video2_frame16.jpg;Inativo;Confirmar modelo
-VID3-01;Colares e conjuntos em bustos;Joias/Colares;A confirmar;Variados; ; ; ; ;glam_video3_frame01.jpg;Inativo;Individualizar modelos
-VID3-02;Braceletes/bangles decorados;Joias/Pulseiras;A confirmar;Sortimento; ; ; ; ;glam_video3_frame02.jpg;Inativo;Individualizar
-VID3-03;Sortimento de joias em bandeja;Joias;A confirmar;Peças individuais; ; ; ; ;glam_video3_frame03.jpg;Inativo;Individualizar
-VID3-04;Sortimento de brincos;Joias/Brincos;A confirmar;Pares individuais; ; ; ; ;glam_video3_frame04.jpg;Inativo;Individualizar pares
-VID3-05;Colares/correntes e pingentes;Joias/Colares;A confirmar;Sortimento; ; ; ; ;glam_video3_frame05.jpg;Inativo;Individualizar
-VID3-06;Colares e correntes douradas;Joias/Colares;A confirmar;Sortimento; ; ; ; ;glam_video3_frame06.jpg;Inativo;Individualizar
-VID3-07;Conjuntos e acessórios em display vermelho;Joias;A confirmar;Sortimento; ; ; ; ;glam_video3_frame07.jpg;Inativo;Individualizar
-VID3-08;Pulseiras/tornozeleiras/correntes;Joias;A confirmar;Sortimento; ; ; ; ;glam_video3_frame08.jpg;Inativo;Individualizar
-VID3-09;Pulseiras/tornozeleiras/correntes;Joias;A confirmar;Sortimento; ; ; ; ;glam_video3_frame09.jpg;Inativo;Individualizar
-VID4-01;Sortimento de joias em display preto;Joias;A confirmar;Peças; ; ; ; ;glam_video4_frame01.jpg;Inativo;Individualizar
-VID4-02;Sortimento de joias em display preto;Joias;A confirmar;Peças; ; ; ; ;glam_video4_frame02.jpg;Inativo;Individualizar
-VID4-03;Estojo compartimentado de joias;Joias;A confirmar;Peças; ; ; ; ;glam_video4_frame03.jpg;Inativo;Individualizar
-VID4-04;Estojo compartimentado de joias;Joias;A confirmar;Peças; ; ; ; ;glam_video4_frame04.jpg;Inativo;Individualizar
-VID4-05;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;glam_video4_frame05.jpg;Inativo;Individualizar
-VID4-06;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;glam_video4_frame06.jpg;Inativo;Individualizar
-VID4-07;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;glam_video4_frame07.jpg;Inativo;Individualizar
+VID1-01;Kit HIDRATEI Macez Leve Brilho (embalagem azul);Cabelo;Hidratei;Kit conforme embalagem; ; ; ; ;frames/glam_video1_frame01.jpg;Inativo;Confirmar nome/volume/kit
+VID1-02;Kit HIDRATEI (embalagem azul com acessorio);Cabelo;Hidratei;Kit conforme embalagem; ; ; ; ;frames/glam_video1_frame02.jpg;Inativo;Confirmar se distinto do VID1-01
+VID1-03;Produto capilar HIDRATEI frasco spray;Cabelo;Hidratei;Frasco azul; ; ; ; ;frames/glam_video1_frame03.jpg;Inativo;Confirmar nome/volume
+VID1-04;KEUNE CARE produtos capilares;Cabelo;Keune;Frascos; ; ; ; ;frames/glam_video1_frame04.jpg;Inativo;Individualizar shampoo/condicionador
+VID1-05;WEPINK Leave-in;Cabelo;WePink;Frasco rosa; ; ; ; ;frames/glam_video1_frame05.jpg;Inativo;Confirmar volume
+VID1-06;Óleos capilares;Cabelo;A confirmar;Frascos pequenos; ; ; ; ;frames/glam_video1_frame06.jpg;Inativo;Identificar cada óleo
+VID1-07;WEPINK Body Splash;Perfumaria;WePink;Caixa rosa; ; ; ; ;frames/glam_video1_frame07.jpg;Inativo;Confirmar fragrância/volume
+VID1-08;Perfume/colônia em caixa rosa;Perfumaria;A confirmar;Frasco; ; ; ; ;frames/glam_video1_frame08.jpg;Inativo;Nome não legível com segurança
+VID1-09;PAYOT cosméticos e maquiagem;Maquiagem/Beleza;Payot;Produtos diversos; ; ; ; ;frames/glam_video1_frame09.jpg;Inativo;Separar itens por produto
+VID1-10;Kit cosméticos caixa laranja/rosa;Maquiagem/Beleza;A confirmar;Kit; ; ; ; ;frames/glam_video1_frame10.jpg;Inativo;Confirmar itens e composição
+VID1-11;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;frames/glam_video1_frame11.jpg;Inativo;Individualizar
+VID1-12;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;frames/glam_video1_frame12.jpg;Inativo;Individualizar
+VID1-13;Maquiagem sortimento em bandeja;Maquiagem;A confirmar;Itens individuais; ; ; ; ;frames/glam_video1_frame13.jpg;Inativo;Individualizar
+VID1-14;Pincéis e cosméticos;Maquiagem;A confirmar;Pincéis e itens; ; ; ; ;frames/glam_video1_frame14.jpg;Inativo;Separar kits e unidades
+VID1-15;Paletas/pós de maquiagem;Maquiagem;A confirmar;Itens; ; ; ; ;frames/glam_video1_frame15.jpg;Inativo;Individualizar
+VID1-16;Batons/gloss e maquiagem;Maquiagem;A confirmar;Itens; ; ; ; ;frames/glam_video1_frame16.jpg;Inativo;Individualizar
+VID1-17;Bolsa preta com alça estampada;Bolsas;A confirmar;Preta; ; ; ; ;frames/glam_video1_frame17.jpg;Inativo;Confirmar marca/modelo
+VID2-01;Linha capilar frascos amarelo/rosa;Cabelo;A confirmar;Produtos individuais; ; ; ; ;frames/glam_video2_frame01.jpg;Inativo;Identificar cada item
+VID2-02;Linha capilar frascos dourado/creme;Cabelo;A confirmar;Produtos individuais; ; ; ; ;frames/glam_video2_frame02.jpg;Inativo;Identificar cada item
+VID2-03;KEUNE Care/Conditioner;Cabelo;Keune;Frascos; ; ; ; ;frames/glam_video2_frame03.jpg;Inativo;Confirmar quais itens e volumes
+VID2-04;Máscara capilar em pote rosa;Cabelo;A confirmar;Pote; ; ; ; ;frames/glam_video2_frame04.jpg;Inativo;Confirmar marca/volume
+VID2-05;Linha KEUNE em frascos claros;Cabelo;Keune;Produtos individuais; ; ; ; ;frames/glam_video2_frame05.jpg;Inativo;Confirmar nome e volume
+VID2-06;Spray capilar azul (número 21 visível);Cabelo;A confirmar;Frasco azul; ; ; ; ;frames/glam_video2_frame06.jpg;Inativo;Nome não confirmado
+VID2-07;Óleo/elixir capilar;Cabelo;A confirmar;Frascos dourados; ; ; ; ;frames/glam_video2_frame07.jpg;Inativo;Individualizar
+VID2-08;Produto de beleza/perfumaria para presente;Beleza/Presentes;A confirmar;Embalagem/sacola; ; ; ; ;frames/glam_video2_frame08.jpg;Inativo;Identificar produto
+VID2-09;Linha capilar Elements frascos laranja;Cabelo;A confirmar;Frascos; ; ; ; ;frames/glam_video2_frame09.jpg;Inativo;Confirmar marca e itens
+VID2-10;Linha capilar Elements;Cabelo;A confirmar;Produtos; ; ; ; ;frames/glam_video2_frame10.jpg;Inativo;Confirmar marca e itens
+VID2-11;Potes rosa de tratamento capilar;Cabelo;A confirmar;Potes; ; ; ; ;frames/glam_video2_frame11.jpg;Inativo;Identificar cada tamanho
+VID2-12;Potes rosa de tratamento capilar;Cabelo;A confirmar;Potes; ; ; ; ;frames/glam_video2_frame12.jpg;Inativo;Identificar cada tamanho
+VID2-13;Produtos capilares/perfumaria;Beleza;A confirmar;Sortimento; ; ; ; ;frames/glam_video2_frame13.jpg;Inativo;Confirmar produtos
+VID2-14;Perfumes em caixas escuras (LE MAISON texto aparente);Perfumaria;A confirmar;Caixas; ; ; ; ;frames/glam_video2_frame14.jpg;Inativo;Confirmar nome/fragrâncias
+VID2-15;Clutch dourada texturizada;Bolsas/Acessórios;A confirmar;Dourada; ; ; ; ;frames/glam_video2_frame15.jpg;Inativo;Confirmar modelo
+VID2-16;Bolsa vermelha;Bolsas;A confirmar;Vermelha; ; ; ; ;frames/glam_video2_frame16.jpg;Inativo;Confirmar modelo
+VID3-01;Colares e conjuntos em bustos;Joias/Colares;A confirmar;Variados; ; ; ; ;frames/glam_video3_frame01.jpg;Inativo;Individualizar modelos
+VID3-02;Braceletes/bangles decorados;Joias/Pulseiras;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame02.jpg;Inativo;Individualizar
+VID3-03;Sortimento de joias em bandeja;Joias;A confirmar;Peças individuais; ; ; ; ;frames/glam_video3_frame03.jpg;Inativo;Individualizar
+VID3-04;Sortimento de brincos;Joias/Brincos;A confirmar;Pares individuais; ; ; ; ;frames/glam_video3_frame04.jpg;Inativo;Individualizar pares
+VID3-05;Colares/correntes e pingentes;Joias/Colares;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame05.jpg;Inativo;Individualizar
+VID3-06;Colares e correntes douradas;Joias/Colares;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame06.jpg;Inativo;Individualizar
+VID3-07;Conjuntos e acessórios em display vermelho;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame07.jpg;Inativo;Individualizar
+VID3-08;Pulseiras/tornozeleiras/correntes;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame08.jpg;Inativo;Individualizar
+VID3-09;Pulseiras/tornozeleiras/correntes;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video3_frame09.jpg;Inativo;Individualizar
+VID4-01;Sortimento de joias em display preto;Joias;A confirmar;Peças; ; ; ; ;frames/glam_video4_frame01.jpg;Inativo;Individualizar
+VID4-02;Sortimento de joias em display preto;Joias;A confirmar;Peças; ; ; ; ;frames/glam_video4_frame02.jpg;Inativo;Individualizar
+VID4-03;Estojo compartimentado de joias;Joias;A confirmar;Peças; ; ; ; ;frames/glam_video4_frame03.jpg;Inativo;Individualizar
+VID4-04;Estojo compartimentado de joias;Joias;A confirmar;Peças; ; ; ; ;frames/glam_video4_frame04.jpg;Inativo;Individualizar
+VID4-05;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video4_frame05.jpg;Inativo;Individualizar
+VID4-06;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video4_frame06.jpg;Inativo;Individualizar
+VID4-07;Conjuntos de joias em cartelas/caixas;Joias;A confirmar;Sortimento; ; ; ; ;frames/glam_video4_frame07.jpg;Inativo;Individualizar
