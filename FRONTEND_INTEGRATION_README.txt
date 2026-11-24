@@ -46,3 +46,11 @@ CHECKPOINT 24/11/2026 - ORDER STATUS SECURE ENDPOINT
 - Returns order status, payment_status and safe payment summary; does not return checkout URL or sensitive address.
 - Frontend module getOrderStatus() now invokes order-status Edge Function; change committed on integration branch.
 - index.html/main untouched. No RLS/policy/table/schema changes made. No test orders created.
+
+CHECKPOINT - CONTINUACAO DO FLUXO FRONTEND (SEM ALTERAR SITE)
+- Helpers adicionais no glam-supabase-integration.js:
+  - getVariantPrice(product, variant): calcula preco exibido considerando price_override, fallback no preco base. Apenas UI; RPC recalcula no servidor.
+  - normalizeCartItems(items): valida UUID/quantidade e agrega itens repetidos pela variante.
+  - parsePaymentReturn(search): classifica query de retorno em success/pending/failure/unknown. O retorno URL nao e fonte confiavel; getOrderStatus deve consultar backend.
+- Helpers foram exportados no objeto window.GlamSupabase.
+- Nao conectados ao index.html. Nenhum arquivo existente fora do modulo/readme foi alterado.
