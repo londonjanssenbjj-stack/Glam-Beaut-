@@ -1,0 +1,94 @@
+GLAM BEAUT — ARQUITETURA PROPOSTA DO CHECKOUT REAL (REV 1)
+24/11/2026 — Draft de arquitetura, sem aplicação/deploy
+Projeto Supabase: hxheluremudcdhtopdlv
+PR #3: draft, branch glam-product-stock-management-plan
+
+1. DESCOBERTA IMPORTANTE: EDGE FUNCTIONS JÁ ESTÃO ATIVAS
+Durante esta etapa foi descoberto que já existem três Edge Functions ativas no projeto:
+- create-payment (JWT obrigatório; versão 4)
+- mercadopago-webhook (JWT desabilitado; versão 6)
+- order-status (JWT obrigatório; versão 3)
+Elas já implementam uma parte da integração Mercado Pago Orders API. Portanto, não criar funções duplicadas nem assumir que integração está ausente.
+
+2. FLUXO REAL DE create-payment (VERIFICADO NO CÓDIGO)
+- exige Origin igual a APP_ORIGIN e HTTPS em site/webhook URLs.
+- autentica token com Supabase Auth getUser.
+- recebe order_id, procura order pertencente ao customer_id autenticado.
+- só permite order pendente e payment_status pendente.
+- verifica total > 0.
+- reaproveita checkout_url de payment pendente com provider_order_id.
+- cria Mercado Pago Order usando token servidor, external_reference = orders.id e X-Idempotency-Key = order.id.
+- salva payments com provider_order_id, checkout_url, amount e status pending.
+- devolve checkout_url.
+OBS: não testei a função por chamada HTTP; análise estática.
+
+3. FLUXO REAL DE WEBHOOK (VERIFICADO)
+- endpoint público sem JWT, como esperado para webhook.
+- valida x-signature HMAC e x-request-id.
+- busca order no MP por data.id.
+- exige external_reference = id de pedido local.
+- valida currency BRL e total contra orders.total.
+- status processed/accredited -> paid; refunded -> refunded; failed/canceled -> failed; outros estados -> pending.
+- cria/atualiza payments e grava payment_events.
+- atualiza orders.payment_status e status.
+OBS: também não testado por evento real/simulador.
+
+4. FLUXO REAL DE order-status (VERIFICADO)
+- exige token Supabase e getUser.
+- aceita order_id UUID ou order_number no formato GL-14 dígitos-6 hex.
+- consulta orders pelo customer_id autenticado, não retorna pedido de outro cliente.
+- consulta payments e retorna estado.
+- CORS é *; como JWT é requerido, não é por si só uma exposição de pedidos anônimos.
+
+5. ACHADOS CRÍTICOS / RISCOS
+A. Catálogo público não está conectado ao banco
+O index.html ainda contém PRODUCTS estático, IDs p1 etc. Não consulta produtos, variantes, nem inventário Supabase.
+
+B. Criar pedido local não cria order no banco
+Checkout atual salva pedido localmente e abre WhatsApp. Não existe fluxo no index para criar orders/order_items. Portanto create-payment não pode ser chamado pelo checkout atual: não existe order_id legítimo e customer_id exige usuário autenticado.
+
+C. Autenticação do comprador ausente
+O checkout da vitrine não pede login e não há integração de cliente Auth no fluxo atual. orders.customer_id é NOT NULL. Decisão de produto/arquitetura pendente: checkout com conta/login ou checkout de convidado com identificação segura. Para loja pequena, guest checkout é melhor UX, mas exige arquitetura segura para rastrear pedidos (ex. email/phone e token de acesso por pedido), sem tornar orders.customer_id público ou aceitar IDs arbitrários.
+
+D. Estoque não é validado nem baixado no fluxo de checkout
+A RPC de ajuste de estoque existe, mas não há reserva/baixa por pedido. O webhook atual atualiza pagamento e pedido, mas não grava inventory_movements nem atualiza inventory. A aprovação do pagamento, portanto, não está vinculada à baixa de estoque. O pedido deve definir fluxo de reserva e baixa: reserva na criação, decremento definitivo quando pagamento confirmado, expiração/cancelamento com liberação; implementar atomicamente com locking. Evitar decremento duplicado por webhook.
+
+E. WEBHOOK ATUAL NÃO É TRANSACIONAL
+Writes em payments, payment_events e orders são sequenciais via REST, não uma única transação. Falha entre writes pode deixar inconsistência. Recomenda RPC privada de aplicação de evento/payment state ou processamento via tabela de eventos idempotente; event id/unique constraint e lock de pedido.
+
+F. CONCORRÊNCIA / IDEMPOTÊNCIA
+create-payment usa idempotency key = order UUID, mas não há proteção de concorrência visível ao gravar payments; precisa verificar UNIQUE payments.order_id. Webhook upsert provider,provider_event_id pressupõe unique constraint. Reconciliar se o evento de pagamento chega antes da gravação inicial payments.
+G. VALIDAÇÃO DE ORDER STATUS
+Não há inventário nem total re-calculado no servidor no checkout público. Pagamento usa total da orders row, mas criação dessa row ainda precisa ser confiável e server-side.
+H. CORS / origin
+create-payment valida Origin exata. Recomendação de deploy: manter allowlist específica, não aceitar wildcard; testar origin em browser e preflight. Webhook não precisa CORS.
+
+6. RECOMENDAÇÃO DE ARQUITETURA (NOVO CHECKOUT)
+- Vitrine: lê produtos/categorias/variantes ativas; preço não é confiável do browser.
+- Carrinho client: apenas variant_id/product_id e quantidade.
+- create-order endpoint/RPC: valida produtos/variantes ativos, reconsulta preço, calcula subtotal, desconto/cupom, taxa de entrega a partir de delivery_regions/config server-side; exige quantidade inteira positiva; bloqueia sem estoque; locks/reservas e grava orders + order_items numa transação.
+- Pedido: status pending/awaiting_payment; payment_status pending. customer_id requer decisão sobre Auth/guest.
+- create-payment Edge Function existente: manter e reutilizar após order_id criado e seguro; não duplicar.
+- Checkout URL: redirect cliente ao MP; nunca token MP no frontend.
+- Webhook: assinatura; consulta order real MP; valida external_reference, amount, currency e status; processa evento idempotente. Aplicar estado, evento, pagamento e movimentação de estoque transacionalmente. Em caso de duplicidade, nenhum movimento adicional.
+- order-status existente: reutilizar após Auth/customer_id; guest checkout precisa endpoint com token secreto por pedido, nunca ID aberto.
+- Cancelamento/expiração: endpoint protegido, liberar reserva uma única vez. Status terminal não pode ser reaberto por webhook atrasado.
+- Sandbox: testar todas etapas sem cobrança real.
+
+7. SEQUÊNCIA DE IMPLEMENTAÇÃO (SEM INTERRUPÇÕES MANUAIS, MAS COM PORTÕES DE SEGURANÇA)
+Fase 1 — Verificar schema/constraints/policies, migration history e funções existentes.
+Fase 2 — Preparar RPC create_order (transacional) + idempotency + reserva de estoque em migration draft. Não aplicar no prod.
+Fase 3 — Preparar atualização webhook (transacional, event idempotent e stock commit).
+Fase 4 — Implementar integração frontend somente na branch; catálogo DB-backed, carrinho variant_id, create-order, create-payment e redirects.
+Fase 5 — Implementar fluxo guest/identity decidido tecnicamente e validar token.
+Fase 6 — Testes isolados: concorrência, replay webhook, payment pending/approved/failed/refunded, estoque, idempotency, valores alterados no client.
+Fase 7 — Teste browser sandbox. Sem deploy ou merge sem autorização explícita.
+
+8. PROTEÇÃO
+- Nenhuma Edge Function foi alterada ou deployada.
+- Nenhuma migration foi aplicada.
+- Nenhum pedido criado.
+- Nenhum pagamento/sessão Mercado Pago criado.
+- Nenhuma baixa/reserva de estoque.
+- main e site público não alterados.
+- Nenhuma policy/RLS/grant alterada.
