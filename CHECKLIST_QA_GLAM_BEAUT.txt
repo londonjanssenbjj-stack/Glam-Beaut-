@@ -159,3 +159,13 @@ REVISÃO TÉCNICA DA MIGRAÇÃO GERENTE — 24/11/2026 (DRAFT)
 - A função faz SELECT do status atual com FOR UPDATE antes da atualização para evitar condição concorrente básica.
 - Correção é somente estática/draft; não foi aplicada ao Supabase.
 - Ainda requer matriz de transições de status completa, validação de nomes de constraints/policies, grants, RLS, transações e testes antes de aplicação. Não considerar a migração pronta.
+
+
+CONTINUIDADE DE CATÁLOGO E FRAMES — 24/11/2026
+[✓] 4 vídeos anexados; frames extraídos para pacote ZIP de referência.[✓] Contagem de frames no pacote: vídeo 1 = 17; vídeo 2 = 16; vídeo 3 = 9; vídeo 4 = 7; total = 49.
+[✓] Lista CSV preliminar adicionada à branch; preços/SKUs/quantidades iniciais permanecem em branco.
+[✓] Caminhos das imagens no CSV ajustados para pasta frames/.
+[!] Frames são referências de vídeo, muitos mostram múltiplos produtos; não são imagens finais individuais para cada SKU.
+[!] Catalogação precisa de revisão humana antes de ativar qualquer item.
+[!] Upload de imagens no Supabase Storage não implementado. Não criar bucket/policy nem alterar Storage em produção sem aprovação e plano de segurança.
+[!] Nenhum produto inserido em produção e nenhuma imagem enviada para Storage.
