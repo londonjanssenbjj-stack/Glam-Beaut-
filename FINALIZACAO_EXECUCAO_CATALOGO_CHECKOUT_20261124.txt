@@ -1,0 +1,57 @@
+GLAM BEAUT — EXECUÇÃO DE FINALIZAÇÃO: CATÁLOGO, ESTOQUE, IMAGENS E CHECKOUT
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+Regra: avançar com tudo que pode ser validado/alterado no desenvolvimento sem tocar produção.
+
+RESULTADOS DA CONFERÊNCIA AUTOMATIZADA DO CSV DE PREPARAÇÃO
+- Produtos analisados: 16
+- SKUs propostos preenchidos: 16 (ainda não são confirmados nem aplicados)
+- Variantes/composição confirmadas: 0 de 16
+- Quantidades físicas confirmadas: 0 de 16
+- Produtos marcados para ativação: 0 de 16 (todos FALSE)
+
+1) VARIANTES
+Status: BLOQUEADO POR INFORMAÇÃO REAL DO PRODUTO.
+Não criar variantes inventadas. Os 16 produtos existentes seguem sem variantes ativas. A estrutura de variante deverá refletir venda real: tamanho/cor, volume, fragrância, composição de kit ou unidade, conforme o item.
+
+2) SKU
+Status: PROPOSTA PRONTA; APLICAÇÃO NÃO AUTORIZADA/VALIDADA NA PRODUÇÃO.
+Todos os 16 produtos têm um SKU proposto no CSV. Antes de gravar, verificar unicidade global e confirmar que o código identifica o produto/variante correto. Os SKUs são rascunhos, não códigos confirmados.
+
+3) ESTOQUE REAL
+Status: BLOQUEADO POR CONTAGEM FÍSICA.
+Os vídeos/frame references não permitem contagem confiável por SKU. Não converter contagens visuais parciais em estoque real. Inventário inicial permanece vazio para os 16 itens.
+
+4) FOTOS
+Status: MATERIAL DE REFERÊNCIA EXISTE; VÍNCULO DEFINITIVO PENDENTE.
+O pacote de frames é material de referência, não fotos individuais identificadas por SKU. Não associar fotos por suposição. Uploads para o Storage e vínculos definitivos dependem da seleção de imagem correta por produto.
+
+5) CHECKOUT — TESTE CONTROLADO
+Status: REVISÃO ESTÁTICA POSSÍVEL; TESTE OPERACIONAL PENDENTE.
+Teste de ponta a ponta exige ambiente de teste, sessão de usuário, catálogo com variante/estoque de teste, confirmação de entrega, criação do pedido e retorno da integração. Não usar cliente real, cartão real, Pix real, nem pedido de produção. A revisão estática não será apresentada como teste operacional.
+
+6) MERCADO PAGO — SANDBOX
+Status: TESTE DEPENDENTE DE CONFIGURAÇÃO SEGURA.
+A validação deve ocorrer com credenciais de teste e compradores/vendedores de teste, URL de retorno e webhook de teste. Não inserir tokens secretos em HTML/JS ou Git. Não executar pagamentos reais, não configurar produção e não alterar a Edge Function de produção sem autorização explícita e confirmação de ambiente.
+
+ALTERAÇÕES DE SEGURANÇA JÁ FEITAS NO CÓDIGO (BRANCH)
+- Catálogo não mostra produtos estáticos antigos como se estivessem disponíveis quando a RPC do catálogo falha.
+- A vitrine oculta a grade durante o carregamento inicial da fonte de dados.
+- Commits: a063cf6 e 0f28590.
+
+PRÓXIMA EXECUÇÃO SEM DEPENDÊNCIA DO USUÁRIO
+- Revisar integração e fluxos do checkout por código.
+- Fazer testes estáticos automatizados sobre estados, validação, estoque, idempotência e exposição de segredo.
+- Preparar o roteiro de teste Sandbox e os valores de configuração necessários sem expor credenciais.
+- Corrigir defeitos encontrados na branch.
+- Manter todos os produtos inativos até variante, SKU, imagem e estoque físico estarem confirmados.
+
+DEPENDÊNCIAS EXTERNAS QUE NÃO PODEM SER INVENTADAS OU SIMULADAS COMO CONCLUÍDAS
+- Confirmar fisicamente variantes, modelos, volumes, tamanhos e composição.
+- Contar unidades reais por variante/SKU.
+- Escolher e identificar a foto correspondente a cada item.
+- Disponibilizar/configurar credenciais e contas de teste do Mercado Pago.
+- Executar uma sessão de navegador e confirmar o resultado visual/operacional real.
+
+PROTEÇÃO
+Nenhuma gravação no Supabase de produção, migração aplicada, produto ativado, saldo real lançado, pagamento real, deploy, merge ou alteração de RLS foi realizada nesta execução.
