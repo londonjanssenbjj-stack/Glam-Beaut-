@@ -1,0 +1,29 @@
+GLAM BEAUT — ORIENTAÇÃO PARA IMPORTAÇÃO DO CATÁLOGO
+A partir dos vídeos enviados, foi criada uma lista preliminar para revisão. Os vídeos/frame indicam produtos e conjuntos, mas muitos itens pequenos (especialmente maquiagem e joias) precisam ser individualizados antes de se tornarem SKUs.
+
+REGRAS DE CADASTRO
+1. Não inventar preços, marcas, quantidades, códigos ou detalhes não legíveis.
+2. Produto novo deve ser salvo inativo.
+3. Preço, SKU, saldo inicial e estoque mínimo permanecem vazios para preenchimento manual.
+4. Cada variante comercializável deve possuir SKU próprio.
+5. Displays de joias e bandejas de maquiagem não são SKUs coletivos: individualizar cada peça vendida separadamente.
+6. Kits só devem ser cadastrados como kits quando a composição de venda estiver confirmada.
+7. Imagens em vídeo são referências. Para a foto principal de produto, escolher frame mais nítido e, se necessário, fazer recorte manual sem alterar o produto.
+8. A mesma foto de frame não deve ser automaticamente aplicada a todos os produtos que aparecem nele.
+9. Não cadastrar os produtos no Supabase produção sem aprovação expressa.
+10. Upload e storage de imagens no Supabase ainda não estão implementados; essa etapa precisa ser feita e testada em branch antes da produção.
+
+CATEGORIAS PRELIMINARES
+- Cabelo
+- Perfumaria
+- Maquiagem
+- Beleza / cuidados
+- Bolsas
+- Joias / colares
+- Joias / brincos
+- Joias / anéis
+- Joias / pulseiras
+- Joias / conjuntos
+
+ARQUIVO CSV
+CATALOGO_PRELIMINAR_IMPORTACAO.csv — IDs temporários e referência visual. Não representa cadastro final ou estoque físico.
