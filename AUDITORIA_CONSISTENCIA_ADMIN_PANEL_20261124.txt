@@ -1,0 +1,64 @@
+GLAM BEAUT — AUDITORIA ESTÁTICA DE CONSISTÊNCIA DO ADMIN PANEL
+Data: 24/11/2026
+Arquivo: admin-panel.html (PR #3)
+Status: somente leitura; nenhuma correção aplicada.
+Branch: glam-product-stock-management-plan
+
+ESCOPO
+Revisão de trechos do painel: login/roles, forms, produtos, categorias, variantes, estoque, lote e upload. Não executado em navegador.
+
+PONTOS POSITIVOS
+- Painel usa Supabase Auth; sessão revalidada e papel consultado em user_roles.
+- requireAdmin aceita admin/manager; acesso negado para outros papéis.
+- Storage policies no banco são a proteção efetiva; painel também faz check admin no cliente.
+- Inserts de produto e categoria novos iniciam inativos.
+- Saldo não é editado diretamente; ajuste via RPC admin_adjust_inventory.
+- Formas de exibição usam textContent em tabelas; não vi interpolação HTML de dados do catálogo nas linhas revisadas.
+- Não identificada service_role key no config; somente publishable key.
+
+BUG/INCONSISTÊNCIA COMPROVADA
+1) EDIÇÃO DE VARIANTE NÃO PREENCHE CHECKBOX DE ATIVAÇÃO
+fillVariantForm(variant) popula produto, nome, SKU e preço, mas não atribui document.getElementById('variantActive').checked = !!variant.is_active.
+Como a edição reseta o formulário e o checkbox fica desmarcado, salvar uma variante que estava ativa pode desativá-la involuntariamente. Corrigir adicionando prefill do estado is_active. Prioridade alta (integridade de estado, mas ainda não testada no browser).
+
+2) CADASTRO RÁPIDO — RISCO DE FALHA PARCIAL (JÁ DOCUMENTADO)
+Produto, variante e movimento são chamadas separadas. Item pode ficar parcialmente criado e retry pode gerar bloqueio por slug. Requer RPC transacional/idempotente.
+
+3) CATEGORIA PADRÃO DO LOTE É VISUALMENTE AMBIGUA
+Option inicial tem value vazio e label “Joias / acessórios”, mas não seleciona uma categoria real. Usuário pode entender que uma categoria foi escolhida e, ao salvar, category_id fica null. Ajustar rótulo para “Sem categoria (opcional)” ou exigir categoria explícita, conforme decisão UX.
+
+4) EDIÇÃO DE VARIANTE PERMITE TROCAR product_id
+O formulário de edição popula select do produto e saveVariant envia product_id. Isso permite mover variante para outro produto. Pode ser legítimo, mas não há confirmação específica ou alerta sobre transferência. Recomenda confirmação e cuidado com variante/inventory associado.
+
+5) MOVIMENTO DE ESTOQUE: NOTA OPCIONAL
+A nota é opcional para movimentos, inclusive saída/ajuste negativo. Para rastreabilidade comercial, exigir motivo em ajustes negativos e movimentos manuais seria preferível. Não alterar RPC sem revisar contrato e usos.
+
+6) UPLOAD: ARQUIVO PODE FICAR ÓRFÃO
+Upload executa antes de salvar produto; abandono deixa arquivo no bucket. Não há cleanup. Já documentado.
+
+7) IMAGEM NO FORMULÁRIO
+Upload exige nome do produto (ou productId) e role admin; cliente valida MIME/8MiB e usa upsert=false. Falta teste browser real. URL pública é atribuída ao campo, mas vínculo depende de salvar o cadastro.
+
+8) PERMISSÕES
+Painel autoriza manager e admin, conforme migration draft no PR. Manager consegue acessar formulários que permitem ativar produto/variante e editar preços/estoque. A migration aumenta escopo. Não aplicar até matriz de roles e política de mínimo privilégio aprovada.
+
+9) ERROS/UX
+As consultas loadData usam Promise.all e falha em qualquer query interrompe o refresh. Mensagem é genérica, sem indicar qual componente falhou; não é bug de segurança, mas dificulta diagnóstico.
+A ação de logout não desabilita botão e ignora erro retornado pelo signOut; estado UI pode ficar confuso se logout falhar. Recomenda tratar retorno e manter UI de sessão até confirmação.
+Não foi avaliado runtime/browser.
+
+RECOMENDAÇÕES ORDENADAS
+P0: Corrigir fillVariantForm para refletir is_active antes de salvar.
+P1: Resolver RPC transacional e idempotência do cadastro em lote.
+P1: Clarificar categoria inicial no lote.
+P1: Definir limite/permissões do manager; decidir se ativação de produto/variante e edição de preço são admin-only.
+P2: Confirmação para trocar produto da variante; exigir motivo para ajustes negativos.
+P2: Melhorar diagnóstico de loadData e feedback do logout.
+P2: Política de limpeza de imagens órfãs.
+
+NÃO EXECUTADO
+- Nenhuma alteração no HTML/JS.
+- Nenhum teste em navegador.
+- Nenhum login/upload/save.
+- Nenhum cadastro, variante, estoque ou movimentação.
+- Nenhuma migration, policy, RLS, grant, role ou deploy.
