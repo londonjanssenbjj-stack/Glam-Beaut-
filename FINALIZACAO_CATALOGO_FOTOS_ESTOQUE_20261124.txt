@@ -3,10 +3,10 @@ Atualização: 24/11/2026
 Branch: glam-product-stock-management-plan
 
 TRABALHO EXECUTADO
-- Reabertura e inspeção dos quadros extraídos dos quatro vídeos.
-- Criação de um pacote de 31 quadros de referência separados por cena/categoria, com nomes descritivos.
+- Frames de referência extraídos dos quatro vídeos; o pacote ZIP verificado nesta sessão contém 49 frames, agrupados por vídeo/cena.
 - Fotos são frames reais, sem geração artificial de embalagens.
 - Separação visual por cosméticos/capilar, maquiagem/perfumaria, bolsas/acessórios e bijuterias.
+- Pacote ZIP e manifesto CSV presentes no ambiente de trabalho; não são fotos individuais definitivas de cada SKU.
 
 ESTOQUE E QUANTIDADES
 - Os vídeos são filmagens de apresentação e panorâmicas, com cenas repetidas.
@@ -17,7 +17,7 @@ ESTOQUE E QUANTIDADES
 
 PREÇOS
 - Mantidos apenas os preços já existentes no catálogo/base.
-- Preços ausentes permanecem vazios para inserção posterior.
+- Preços ausentes permanecem pendentes para inserção posterior.
 - Nenhum preço foi estimado.
 
 VOLUMES / VARIANTES
@@ -25,24 +25,27 @@ VOLUMES / VARIANTES
 - Variantes ou volumes ambíguos permanecem “a confirmar”.
 
 FOTOS
-- Pacote GLAM_BEAUT_FOTOS_REFERENCIA_VIDEOS.zip contém 31 quadros originais.
-- Cada foto tem nome de referência por cena, mas muitos frames são exposições de múltiplos produtos.
-- Ainda não são fotos individuais de SKU em fundo limpo, nem estão associadas automaticamente ao produto no painel.
+- Pacote GLAM_BEAUT_FOTOS_49_REFERENCIAS.zip contém 49 frames de referência.
+- Muitos frames são exposições de múltiplos produtos e/ou repetem produtos em cenas.
+- Ainda não são fotos individuais definitivas de SKU, nem estão automaticamente associadas a cada produto no banco.
 
-UPLOAD
-- Não foi possível fazer upload de imagens para Supabase Storage ou associá-las ao cadastro, porque não há ferramenta de upload binário/Storage disponível neste ambiente.
-- Auditoria anterior encontrou buckets vazios. Não foi criado bucket nem alterada política.
-- As imagens foram preparadas em pacote ZIP para uso manual futuro; nenhum acesso ou política foi relaxado.
+UPLOAD / STORAGE — STATUS ATUAL
+- Bucket Supabase glam-product-images criado e verificado.
+- Bucket é público para leitura de imagem; limite 8 MB; MIME permitido JPEG, PNG e WebP.
+- Policies de leitura pública e INSERT/UPDATE/DELETE para authenticated com role admin foram criadas e verificadas.
+- Upload direto de imagem no formulário de produto do admin-panel.html está implementado: valida formato/tamanho, confirma sessão e role admin, envia ao bucket e preenche a URL pública no campo de imagem.
+- Upload ainda precisa de teste funcional real no navegador com a sessão Admin Master e confirmação de salvamento do cadastro do produto.
+- Não declarar foto associada ao SKU até o upload e o vínculo no cadastro serem confirmados.
 
 REGRAS DE PRESERVAÇÃO
 - Main não foi alterada.
 - Site publicado não foi alterado.
-- Nenhuma migração aplicada.
-- Nenhuma escrita de catálogo no banco de produção.
-- Segurança/RLS não foi modificada.
-- PR permanece não mesclado.
+- Nenhuma importação de catálogo real em produção.
+- Nenhum estoque real foi inventado.
+- PR permanece aberto, Draft e não mesclado.
 
 PRÓXIMA ETAPA NECESSÁRIA PARA FECHAMENTO REAL
-1. Conferência física, SKU por SKU, com fotografia estática frontal e contagem de unidades.
-2. Confirmar preços, volumes e variantes ausentes.
-3. Upload das fotos individuais em Storage usando caminho de SKU e vínculo no banco.
+1. Confirmar visualmente cada foto com SKU/modelo correto, usando material individual quando possível.
+2. Conferência física, SKU por SKU, com contagem de unidades.
+3. Confirmar preços, volumes e variantes ausentes.
+4. Testar upload no navegador e salvar o cadastro com URL vinculada.
