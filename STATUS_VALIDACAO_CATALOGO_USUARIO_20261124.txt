@@ -1,0 +1,28 @@
+GLAM BEAUT — STATUS DE VALIDACAO DO CATALOGO
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+
+CONFIRMADO PELO USUARIO
+- Os produtos correspondem às fotos.
+- Os preços estão corretos conforme desejado.
+- Todos os produtos estão disponíveis.
+
+CONSEQUÊNCIA
+- Não é necessário solicitar nova conferência de identidade de produto, imagem ou preço.
+- O catálogo de 16 itens está validado em nível de identidade/foto/preço.
+- Disponibilidade foi confirmada, mas não substitui a contagem física em unidades.
+- Nenhuma quantidade foi inferida ou lançada.
+
+PENDÊNCIAS TÉCNICAS
+1. Preparar cadastro/ativação do catálogo no Supabase com variante padrão para produtos sem opções reais.
+2. Lançar estoque inicial com contagem física exata.
+3. Fazer revisão de segurança/consistência das funções de checkout e webhook.
+4. Testar em navegador real: vitrine, login, sacola, entrega/retirada, pedido, checkout Mercado Pago sandbox, webhook e atualização de estoque.
+5. Resolver e validar quaisquer falhas de runtime.
+6. Após testes, revisar PR e obter autorização explícita antes de merge/deploy.
+
+LIMITES
+- Não aplicar migrations nem executar compras.
+- Não publicar, mergear ou alterar produção.
+- Não inventar SKU, variantes ou saldo.
+- Não mudar identidade visual.
