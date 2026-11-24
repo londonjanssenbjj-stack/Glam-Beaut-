@@ -163,8 +163,8 @@
 
   function parsePaymentReturn(search = window.location.search) {
     const params = new URLSearchParams(search);
-    const status = (params.get("status") || params.get("collection_status") || "").toLowerCase();
-    const orderId = params.get("order_id") || params.get("external_reference") || "";
+    const status = (params.get("payment") || params.get("status") || params.get("collection_status") || "").toLowerCase();
+    const orderId = params.get("order_id") || params.get("order") || params.get("external_reference") || "";
     const normalized = status === "approved" ? "success"
       : ["pending", "in_process", "in_process"].includes(status) ? "pending"
       : ["rejected", "cancelled", "canceled"].includes(status) ? "failure"
@@ -227,14 +227,16 @@
     const returned = parsePaymentReturn(search);
     if (!returned.orderId) return { status: "unknown", verified: false, reason: "missing_order_id" };
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9]{3}-[89ab][0-9]{3}-[0-9a-f]{12}$/i;
-    if (!uuidPattern.test(returned.orderId)) return { status: "unknown", verified: false, reason: "invalid_order_id" };
+    if (!uuidPattern.test(returned.orderId) && !/^GL-\\d{14}-[A-F0-9]{6}$/i.test(returned.orderId)) {
+      return { status: "unknown", verified: false, reason: "invalid_order_identifier" };
+    }
     const serverData = await getOrderStatus(returned.orderId);
     const order = serverData.order || {};
     const payment = serverData.payment || {};
     const orderStatus = String(order.payment_status || payment.status || "").toLowerCase();
     const verifiedStatus = orderStatus === "approved" || orderStatus === "paid" ? "success"
       : ["pending", "in_process", "processing"].includes(orderStatus) ? "pending"
-      : ["rejected", "cancelled", "canceled", "failed"].includes(orderStatus) ? "failure"
+      : ["rejected", "cancelled", "canceled", "failed", "refunded"].includes(orderStatus) ? "failure"
       : "unknown";
     return { status: verifiedStatus, verified: true, order: order, payment: payment };
   }
@@ -245,8 +247,9 @@
     if (!session) throw new Error("Faça login para consultar o pedido.");
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     if (!uuidPattern.test(String(orderId || ""))) throw new Error("Identificador de pedido inválido.");
+    const isUuid = uuidPattern.test(String(orderId));
     const { data, error } = await sb.functions.invoke("order-status", {
-      body: { order_id: orderId }
+      body: isUuid ? { order_id: orderId } : { order_number: orderId }
     });
     if (error) throw error;
     if (!data || !data.order) throw new Error("Resposta de status inválida.");
