@@ -226,3 +226,12 @@ CORREÇÃO DE RETENTATIVA DO CADASTRO RÁPIDO EM LOTE — 24/11/2026
 - Mensagem informa quantidade salva e nome do item que falhou, e alerta para revisar possível criação parcial de produto/variante antes de tentar novamente.
 - Commit: 33f3001b7cb8f39d4b275eb4e580a83006ed1781.
 - Revisão estática do handler confirmou o novo comportamento; ainda não foi testado em execução real/browser. Nenhum dado real foi gravado nesta correção.
+
+
+CORREÇÃO DE STATUS — UPLOAD E STORAGE (24/11/2026)
+- A seção admin-panel.html já contém upload de arquivo diretamente pelo painel: aceita JPG/JPEG, PNG e WebP, limite 8 MB, exige sessão autenticada e confirmação do role admin, envia para o bucket glam-product-images e preenche a URL pública no campo da imagem com preview.
+- Bucket glam-product-images criado e verificado: público para leitura; limite 8 MB; MIME permitido JPEG, PNG e WebP.
+- Policies verificadas: leitura pública somente neste bucket; INSERT, UPDATE e DELETE em storage.objects limitados a authenticated e role admin em user_roles. Não foi exposta service_role.
+- Implementação de upload e bucket/policies estão feitos; falta teste funcional real com a sessão Admin Master no navegador e confirmação de upload/salvamento de produto.
+- Frames ZIP e manifesto CSV de referência não estão versionados como fotos definitivas individuais no PR; não associar automaticamente imagens de frames multi-produto a SKUs.
+- Estoque físico, preços ausentes, volumes/SKUs ilegíveis e associação visual final continuam sem confirmação; manter itens inativos e sem estoque inventado.
