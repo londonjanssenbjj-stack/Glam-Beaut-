@@ -30,6 +30,7 @@ as $$
       'description', p.description,
       'image_url', p.image_url,
       'is_featured', p.is_featured,
+      'created_at', p.created_at,
       'category_name', c.name,
       'category_slug', c.slug,
       'variant_id', pv.id,
