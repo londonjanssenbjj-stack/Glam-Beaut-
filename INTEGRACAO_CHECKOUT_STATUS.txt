@@ -1,0 +1,66 @@
+GLAM BEAUT - AUDITORIA E PLANO DE INTEGRACAO
+Data: 24/11/2026
+Branch: glam-supabase-checkout-integration
+
+1. REPOSITORIO / SITE
+- Site principal: index.html (GitHub Pages, HTML/JS unico)
+- Checkout atual: local, usa localStorage e encaminhamento WhatsApp.
+- Supabase ainda nao esta conectado ao index.html.
+- Criada branch de trabalho: glam-supabase-checkout-integration.
+- Nenhuma alteracao foi feita na branch main nem no site publicado.
+
+2. EDGE FUNCTIONS
+- create-payment: ACTIVE, deployment v4, verify_jwt=true.
+- mercadopago-webhook: ACTIVE, deployment v6, verify_jwt=false.
+- create-payment exige origem APP_ORIGIN, JWT de usuario, pedido existente e pertencente ao usuario, status pendente, total valido e itens do pedido.
+- Cria Order Mercado Pago via POST /v1/orders e retorna checkout_url.
+- Usa X-Idempotency-Key com UUID do pedido.
+- Webhook verifica assinatura HMAC, busca Order diretamente no Mercado Pago e valida referencia externa, valor e moeda.
+- Webhook ignora notificacoes de teste com Order inexistente (404 do Mercado Pago) sem alterar pedidos/pagamentos.
+- Log confirmado: simulacao webhook v6 recebeu POST e respondeu HTTP 200. O ID 123456 e ficticio; nao comprova pagamento.
+
+3. BANCO DE DADOS
+- orders, payments e payment_events permanecem sem registros de teste.
+- Policies RLS foram auditadas e nao foram alteradas.
+- RPC public.create_customer_order(p_items jsonb, p_delivery_method text, p_shipping_address jsonb, p_coupon_code text) exige autenticacao.
+- RPC calcula valores usando banco, valida produtos/variantes ativas, reserva estoque, valida entrega/cupom e cria pedido/itens.
+- products: 16 cadastrados, 0 ativos.
+- product_variants: 0 cadastrados, 0 ativos.
+- inventory: 0 linhas.
+- delivery_regions: 0 regioes ativas.
+- store_settings: 0 registros.
+- profiles: sem usuarios cadastrados.
+- user_roles: 0 atribuicoes e 0 admins.
+- categories: 6.
+- coupons/coupon_usages: 0.
+
+4. BLOQUEIOS PARA CHECKOUT FUNCIONAL
+A. Site ainda nao tem Supabase JS, autenticacao ou chamada RPC.
+B. Nenhum usuario autenticado existe; a criacao de pedido exige login.
+C. Nenhum administrador existe; nao ha conta administrativa para configurar catalogo/estoque.
+D. Produtos existentes estao inativos e sem variantes.
+E. Estoque e areas de entrega nao foram cadastrados.
+F. store_settings precisa ser inicializado/configurado.
+
+5. PROXIMA SEQUENCIA
+1) Criar primeiro usuario administrador com processo seguro de bootstrap.
+2) Inicializar store_settings com entrega/retirada deliberadamente configuradas.
+3) Cadastrar variantes e quantidades reais de estoque, ativar apenas produtos conferidos.
+4) Implementar Supabase Auth no frontend e criar/atualizar profiles.
+5) Implementar catalogo ativo carregado do Supabase.
+6) Checkout: chamar RPC create_customer_order com variant_id e quantity; para entrega enviar endereco estruturado (recipient_name, phone, postal_code, street, number, neighborhood); retirada usar delivery_method='pickup'.
+7) Chamar Edge Function create-payment com order_id e redirecionar para checkout_url.
+8) Testar sandbox com pedido real de teste, validar webhook e estados; reconciliar banco apos teste.
+
+6. SEGURANCA / REGRAS
+- Nunca expor Mercado Pago Access Token, webhook secret, Supabase service-role/secret key no frontend.
+- Supabase publishable/anon key e apropriada para frontend, protegida por RLS.
+- Nao relaxar RLS para contornar autenticao.
+- Nao criar produtos, precos, estoque, bairros ou dados de clientes ficticios.
+- Nao testar com transacao real.
+- Nao alterar main/site publicado durante fase de validacao.
+
+STATUS
+Webhook: validado por log HTTP 200 na v6.
+Checkout de ponta a ponta: pendente.
+Site conectado ao backend: pendente.
