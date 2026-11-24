@@ -189,3 +189,13 @@ ATUALIZAÇÃO CONTÍNUA DO PAINEL — 24/11/2026
 - [✓] Limpar formulário retorna o controle de ativação ao padrão inativo.
 - [!] Alteração validada por leitura estática do código e commit na branch; teste em navegador e persistência no Supabase ainda não executados.
 - [!] Não habilitar variante para venda sem revisar produto, preço e estoque.
+
+
+AUDITORIA STORAGE SUPABASE — 24/11/2026 (SOMENTE LEITURA)
+- Consulta ao schema storage.buckets: nenhum bucket existente foi retornado.
+- Consulta às policies em storage.objects: nenhuma policy existente foi retornada.
+- Portanto, upload de imagens não está preparado. Não há bucket nem policy que possamos reaproveitar.
+- Não foi criado bucket e não foram alteradas policies/permissões.
+- Próximo desenho seguro (ainda não aplicado): bucket privado; limites de tamanho e MIME; caminho por usuário/role; policies explícitas para leitura e escrita de Admin Master; evitar acesso público e não usar service-role no frontend. O acesso de exibição da vitrine deverá ser pensado separadamente (URLs assinadas ou outro fluxo seguro) após definir como imagens de produtos ativos serão exibidas.
+- A criação do bucket e policies é uma alteração de backend/segurança e permanece bloqueada até autorização explícita.
+- Login, CRUD, RPC estoque, catálogo público, gerente e Mercado Pago sandbox continuam dependendo de sessão real/ambiente de teste ou decisões/ações autorizadas.
