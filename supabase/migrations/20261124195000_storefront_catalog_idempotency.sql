@@ -1,3 +1,15 @@
+-- Ensure storefront category slugs used by the current public category filters exist.
+insert into public.categories(name, slug, sort_order, is_active)
+values
+  ('Skincare', 'skincare', 10, true),
+  ('Perfumaria', 'perfumaria', 20, true),
+  ('Roupas', 'roupas', 30, true),
+  ('Bolsas', 'bolsas', 40, true),
+  ('Acessórios', 'acessorios', 50, true),
+  ('Kits e Presentes', 'kits', 60, true)
+on conflict (slug) do update
+set name = excluded.name, sort_order = excluded.sort_order, is_active = true;
+
 -- Glam Beaut storefront catalog + idempotent order wrapper
 -- Draft for branch review only. NOT applied to Supabase.
 -- Public catalog reveals only sellable active variants and availability (boolean), never exact inventory.
