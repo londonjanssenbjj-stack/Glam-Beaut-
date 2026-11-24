@@ -77,3 +77,18 @@ PRÓXIMOS PASSOS SEGUROS
 5. Desenvolver recursos de escrita em etapas isoladas e com validação.
 6. Manter PR draft, sem merge ou publicação até aprovação explícita.
 
+IDENTIFICADORES DE LOGIN DEFINIDOS (24/11/2026)
+Administrador Master 1:
+- E-mail: londonjanssenbjj@gmail.com
+
+Administrador Master 2:
+- E-mail: odiselma_vital@hotmail.com
+
+Gerente Operacional:
+- E-mail: odiselma.vital@hotmail.com
+
+IMPORTANTE — CONTAS DISTINTAS
+- Os três identificadores de e-mail acima são diferentes entre si.
+- A conta do Gerente Operacional é separada da conta Administrador Master 2, mesmo sendo nomes de e-mail semelhantes.
+- Cada perfil terá login próprio, sem necessidade de alternar ou substituir e-mails.
+- Esta atualização é apenas documental. Nenhuma conta foi criada, nenhum papel foi atribuído e nenhuma permissão/auth/RLS foi alterada.
