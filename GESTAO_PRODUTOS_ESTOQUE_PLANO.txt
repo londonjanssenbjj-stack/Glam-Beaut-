@@ -1,0 +1,150 @@
+GLAM BEAUT — PLANO DE GESTÃO DE PRODUTOS, VENDAS E ESTOQUE
+Documento de planejamento | 24/11/2026
+Branch isolada: glam-product-stock-management-plan
+Base: main
+Status: SOMENTE DOCUMENTAÇÃO — NÃO IMPLEMENTA NEM ALTERA SISTEMA
+
+REGRAS PERMANENTES
+- Preservar o que já existe.
+- Não refazer o site nem redesenhar a interface.
+- Não apagar recursos, arquivos ou dados.
+- Não alterar a branch main nem publicar.
+- Não alterar checkout, Mercado Pago ou integrações existentes nesta etapa.
+- Não modificar RLS, políticas, permissões, chaves, autenticação ou segurança para contornar erros.
+- Implementação futura será pontual, em branch isolada e revisada.
+
+OBJETIVO
+Cada produto deve possuir seu próprio cadastro e página/campo de venda. Se houver várias unidades do mesmo produto, o cadastro permanece único e o estoque é controlado por quantidade. Produtos com diferenças reais (cor, tamanho, fragrância, volume, modelo) devem usar variantes separadas com estoque individual.
+
+ESTRUTURA DO PAINEL (PROPOSTA)
+1. Resumo
+   - Produtos cadastrados
+   - Produtos ativos no site
+   - Pedidos e vendas
+   - Produtos com estoque baixo
+   - Produtos esgotados
+   - Atalhos: cadastrar produto, entrada de estoque, consultar movimentações
+
+2. Produtos
+   - Lista pesquisável e filtrável
+   - Foto, nome, categoria, SKU, preço, status e quantidade disponível
+   - Criar/editar cadastro
+   - Ativar/desativar venda (sem excluir cadastro)
+   - Marcar destaque
+   - Editar informações, descrição e imagem
+
+3. Cadastro do produto
+   - Nome (obrigatório)
+   - Categoria (obrigatória)
+   - Descrição
+   - Imagem principal e imagens adicionais (se o site já suportar)
+   - SKU/código interno (único, quando preenchido)
+   - Preço de venda
+   - Preço anterior/promocional (opcional)
+   - Custo de compra (somente painel administrativo)
+   - Status: ativo/inativo
+   - Destaque: sim/não
+   - Limite de estoque baixo
+   - Variantes, quando aplicável
+
+4. Variantes
+   - Exemplo: Gloss — Rosa, Nude e Vermelho.
+   - Cada variante recebe SKU próprio, nome/atributo, preço opcional específico, status e estoque individual.
+   - Produto sem variantes deve continuar simples; não obrigar variante para todo item.
+   - A variante não deve ser confundida com múltiplas unidades do mesmo SKU.
+
+5. Estoque
+   - Quantidade atual por SKU/variante.
+   - Entrada de estoque por compra/reposição.
+   - Saída por venda.
+   - Ajuste por avaria/perda.
+   - Devolução (entrada somente após conferência).
+   - Inventário físico e correção de diferença, com justificativa.
+   - Não permitir estoque negativo.
+   - Alterações devem gerar movimentação registrada; evitar editar saldo sem histórico.
+
+6. Movimentações
+   - Data/hora
+   - Produto e variante/SKU
+   - Tipo: entrada, venda, ajuste, devolução
+   - Quantidade (+/-)
+   - Motivo/observação
+   - Referência do pedido quando for venda
+   - Usuário responsável, se o sistema já possuir identificação segura
+   - Saldo após movimentação (idealmente exibido; requer verificação de modelo atual)
+
+7. Alertas
+   - Normal
+   - Estoque baixo (saldo no limite configurado ou abaixo)
+   - Esgotado (saldo zero)
+   - Produtos esgotados não devem ser apresentados como disponíveis para compra.
+   - Não inventar quantidade ou disponibilidade no catálogo.
+
+8. Pedidos / Vendas
+   - Acompanhar pedido e status de pagamento/entrega já existentes.
+   - A saída de estoque deve ocorrer somente conforme regra transacional já definida no backend; confirmar a RPC existente antes de conectar a UI.
+   - Evitar duplicar baixa de estoque em webhook, atualização de status ou reprocessamento.
+   - Cancelamento/estorno deve seguir regra existente de liberação/devolução de estoque e registrar evento.
+   - Não substituir nem contornar o fluxo Mercado Pago existente.
+
+9. Relatórios (fase posterior)
+   - Estoque atual
+   - Estoque baixo/esgotado
+   - Entradas por período
+   - Vendas por produto/variante
+   - Produtos mais vendidos
+   - Valor estimado do estoque, se custo estiver cadastrado
+   - Relatórios não devem expor custo ou dados administrativos ao público.
+
+MAPEAMENTO AO BANCO EXISTENTE (AUDITORIA READ-ONLY)
+As tabelas abaixo já existem no Supabase e foram confirmadas; RLS estava habilitado na leitura:
+- categories: categorias e ordem/status.
+- products: cadastro principal, preço, SKU, categoria, imagem, descrição, status ativo/destaque.
+- product_variants: variante/SKU, preço opcional e status.
+- inventory: saldo por variant_id, quantidade não negativa.
+- inventory_movements: trilha de entradas, vendas, ajustes e devoluções.
+- order_items: item de pedido, variante, SKU, nome, preço unitário, quantidade e total de linha.
+- orders: pedido, status, subtotal, entrega, total, status de pagamento e método de entrega.
+
+OBSERVAÇÕES DA AUDITORIA
+- Tabelas do catálogo/estoque existem, porém estavam sem registros quando auditadas.
+- products tinha registros, todos inativos; não ativar sem conferência.
+- product_variants e inventory estavam vazias na auditoria.
+- Não foram encontrados triggers de estoque nas tabelas auditadas.
+- Foram lidas políticas RLS existentes nas categorias, produtos, variantes, estoque e movimentações. Nenhuma política foi alterada.
+- O estoque possui restrição de quantidade >= 0.
+- inventory_movements aceita tipos entry, sale, adjustment e return.
+- Estoque e movimentações possuem políticas que restringem acesso direto; não contornar.
+- Não foram criados dados de teste, produtos, preços, quantidades ou regiões.
+
+FLUXO OPERACIONAL SUGERIDO
+A) Cadastro: cadastrar produto e categoria; se houver variantes, cadastrá-las.
+B) Reposição: selecionar produto/variante, quantidade, observação e registrar entrada.
+C) Venda: site apresenta produtos/variantes disponíveis; o backend valida e reserva/baixa estoque de forma segura.
+D) Conferência: painel exibe saldo e histórico.
+E) Avaria: registrar ajuste negativo com motivo.
+F) Devolução: conferir item e registrar entrada de devolução conforme condição.
+G) Inventário: contar fisicamente e registrar ajuste com justificativa, sem apagar o histórico.
+
+PRIORIDADE DE IMPLEMENTAÇÃO (EM ETAPAS)
+Etapa 1 — Verificar estrutura do painel existente e localizar o ponto mínimo de extensão; nenhum redesenho.
+Etapa 2 — Conectar lista e formulário de produtos às tabelas já existentes, sem alterar schema se possível.
+Etapa 3 — Conectar variantes e saldos, preservando estoque por variante.
+Etapa 4 — Implementar entradas/ajustes/movimentações usando regras seguras e as políticas existentes.
+Etapa 5 — Conectar disponibilidade do catálogo público e ocultar/indisponibilizar itens sem estoque conforme regra confirmada.
+Etapa 6 — Integrar pedidos e baixa de estoque com o fluxo de checkout existente; testar duplicidade, cancelamento e reprocessamento.
+Etapa 7 — Validar com dados de teste apropriados em ambiente de teste; nenhuma transação real.
+
+CRITÉRIOS DE ACEITAÇÃO
+- O produto é cadastrado uma única vez e estoque de unidades é quantidade.
+- Variantes têm estoque separado.
+- O saldo nunca fica negativo.
+- Entrada, venda, ajuste e devolução deixam histórico.
+- Produto esgotado não pode ser comprado.
+- Venda e pagamento não causam baixa duplicada.
+- Site e painel não exibem custo interno.
+- Não há alteração de RLS/policies para corrigir erro de interface.
+- Mudanças permanecem em branch isolada; main e site publicado não são alterados sem autorização.
+
+PRÓXIMA AÇÃO
+A próxima fase é inspeção do HTML atual para localizar se há painel administrativo, estrutura de catálogo, controles de produto/estoque e pontos de integração. Antes de implementar, mapear os pontos existentes e fazer alteração mínima. Este documento não autoriza alterações no site ou banco.
