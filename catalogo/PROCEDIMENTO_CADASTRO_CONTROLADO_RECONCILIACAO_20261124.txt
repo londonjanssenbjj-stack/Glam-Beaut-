@@ -1,0 +1,59 @@
+GLAM BEAUT — PROCEDIMENTO DE CADASTRO CONTROLADO E RECONCILIAÇÃO
+Versão 1.0 | 24/11/2026 | Branch glam-product-stock-management-plan
+
+OBJETIVO
+Evitar duplicidade e cadastro parcial no inventário, com passos claros para execução e conferência.
+
+A. PRÉ-CADASTRO
+- Usar catalogo/PLANILHA_PREPARACAO_CADASTRO_VARIANTES_16_PRODUTOS.csv como lista de conferência.
+- Validar estrutura com tools/validate_catalog_preparation.py.
+- Verificar se cada product_id já existe no banco antes de criar novo produto. A lista contém IDs atuais; não recriar produtos existentes.
+- SKU proposto precisa ser revisado quanto à unicidade no banco e no catálogo.
+- Não usar nome do produto como identificador de SKU.
+
+B. VARIANTES
+- Produtos simples: uma variante apenas se o sistema exigir e o produto for realmente vendido como uma única configuração.
+- Produtos com tamanho/cor/volume/fragrância: uma variante por combinação vendável.
+- Kits: confirmar conteúdo e composição; não assumir que kit tem estoque próprio independente ou reserva de componentes.
+- Descrição de variante deve ser inequívoca (ex.: volume e tipo); não usar “Padrão” quando houver opções distintas.
+
+C. EXECUÇÃO CONTROLADA (AMBIENTE DE TESTE/SEGURO)
+1. Escolher um produto piloto que não tenha opções complexas e cuja contagem esteja confirmada.
+2. Antes de cadastrar, consultar por product_id, SKU e variante.
+3. Registrar evidência de saldo anterior e movimentações.
+4. Criar/editar produto/variante no painel; deixar inativo.
+5. Enviar imagem, confirmar URL e abrir a imagem.
+6. Registrar estoque inicial somente com contagem física confirmada.
+7. Conferir saldo resultante e movimento criado; se operação falhar, não repetir cegamente.
+8. Executar validator/preflight novamente para detectar inconsistências na planilha.
+9. Fazer teste de vitrine e carrinho apenas no ambiente autorizado; produto permanece inativo até aprovação.
+10. Documentar resultado, evidência e eventual reversão.
+
+D. RECUPERAÇÃO DE FALHA PARCIAL
+Como cadastro rápido pode executar chamadas sequenciais:
+- Se produto foi criado, mas variante falhou, não recomeçar lote.
+- Localizar produto pelo ID e revisar variantes existentes.
+- Se variante foi criada e estoque falhou, conferir movimentos e saldo.
+- Se imagem foi enviada mas produto não salvou URL, revisar arquivo no Storage e reaproveitar URL, evitando upload duplicado.
+- Não tentar “compensar” removendo registros sem revisar relações e dependências.
+
+E. CRITÉRIOS DE APROVAÇÃO
+Para cada produto:
+[ ] ID existente conferido
+[ ] SKU único conferido
+[ ] Nome/categoria conferidos
+[ ] Variante(s) corretas e completas
+[ ] Preço validado
+[ ] Foto correta e URL funcional
+[ ] Quantidade física comprovada
+[ ] Saldo e movimento conferidos
+[ ] Status inativo mantido durante a revisão
+[ ] Checklist registrado
+
+LIMITES DESTA ETAPA
+- Não houve escrita no Supabase.
+- Não foram cadastradas variantes ou movimentos.
+- Não foram ativados produtos.
+- Não foram aplicadas migrations.
+- Não houve pagamento, publicação ou deploy.
+- Este procedimento é orientação operacional, não substitui validação em runtime.
