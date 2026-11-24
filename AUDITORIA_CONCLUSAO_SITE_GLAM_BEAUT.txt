@@ -113,3 +113,14 @@ Inspeção de produto/categoria:
 - Categorias encontradas incluem Skincare, Kits, Perfumaria, Bolsas, Acessórios e Roupas.
 - Nenhum registro foi alterado; consulta somente leitura.
 Próxima ação: utilizar vídeos/fotos originais para catalogação, validar nome, marca, variantes, preço e quantidade com evidência antes de cadastrar qualquer estoque real.
+
+
+REVISAO READ-ONLY DAS FUNCOES DE PEDIDO E ESTOQUE (24/11/2026)
+- public.admin_adjust_inventory é wrapper SQL que delega para private.admin_adjust_inventory.
+- A função interna exige auth.uid() e role admin, rejeita quantidade zero, impede saldo negativo, atualiza inventory e registra inventory_movements atomicamente.
+- public.create_customer_order é wrapper que delega para private.create_customer_order.
+- A função interna exige usuário autenticado, valida a sacola, delivery/pickup, endereço e disponibilidade; confirma variante e produto ativos, bloqueia/atualiza estoque com condição quantity >= quantidade, registra movimento de sale com quantidade negativa e cria order/order_items com preço obtido do banco, calcula entrega e cupom.
+- A criação do pedido já reserva/baixa estoque (movimento sale) no fluxo atual. A futura integração de pagamento NÃO deve baixar novamente o estoque nem duplicar movimentos.
+- A função order requer variante ativa; hoje product_variants tem 0 registros, portanto o checkout backend ainda não tem variantes reais disponíveis.
+- Essa leitura é importante para planejar integração: confirmar estados de pagamento, reprocessamento/idempotência, cancelamento e liberação de estoque usando o campo orders.inventory_released_at, sem criar um segundo mecanismo de baixa.
+- Nenhuma função, tabela, pedido, movimento, pagamento, permissão ou policy foi alterada nesta revisão.
