@@ -153,3 +153,9 @@ AUDITORIA FINAL DE CONTINUIDADE — 24/11/2026
 [!] Checkout segue local/WhatsApp; backend/pagamento e sandbox não testados.
 [!] Variantes/estoque reais não existem; não inventar ou cadastrar sem evidência.
 RESULTADO: auditoria estática e preservação concluídas. Loja não pode ser declarada finalizada enquanto QA, catálogo real, checkout e pagamento persistirem como bloqueios. Nenhum custo e nenhuma alteração em main.
+
+REVISÃO TÉCNICA DA MIGRAÇÃO GERENTE — 24/11/2026 (DRAFT)
+- Corrigido na branch draft: a RPC de status agora bloqueia gerente de reabrir pedidos com status cancelled/refunded, além de impedir gerente de definir esses status.
+- A função faz SELECT do status atual com FOR UPDATE antes da atualização para evitar condição concorrente básica.
+- Correção é somente estática/draft; não foi aplicada ao Supabase.
+- Ainda requer matriz de transições de status completa, validação de nomes de constraints/policies, grants, RLS, transações e testes antes de aplicação. Não considerar a migração pronta.
