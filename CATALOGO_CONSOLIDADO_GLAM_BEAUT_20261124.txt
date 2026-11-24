@@ -35,3 +35,11 @@ REGRAS DE SEGURANÇA E ESCOPO
 5. Não importar catálogo para Supabase, não ativar produtos e não alterar a main.
 6. Não publicar imagens. Frames extraídos são material de revisão, ainda não upload de catálogo.
 7. Esta revisão não altera site, segurança, políticas RLS, autenticação, pagamentos ou produção.
+
+
+ADENDO DE STATUS (24/11/2026)
+- Pacote de frames verificado nesta sessão contém 49 referências (não confundir com o pacote antigo de 31 frames).
+- Supabase Storage bucket glam-product-images está criado, leitura pública, 8 MB, JPEG/PNG/WebP.
+- Upload de arquivos no painel Admin está implementado com sessão e role admin; URL pública é preenchida no formulário.
+- Teste real do upload e vínculo de imagem a produto continuam pendentes.
+- Fotos são frames de referência, não imagens individuais finais de cada SKU.
