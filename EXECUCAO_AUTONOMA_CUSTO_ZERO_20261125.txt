@@ -1,0 +1,29 @@
+GLAM BEAUT — EXECUÇÃO AUTÔNOMA CUSTO ZERO
+Data: 25/11/2026
+Branch: glam-product-stock-management-plan
+
+REALIZADO NESTA EXECUÇÃO
+- Releitura do migration draft do catálogo e checkout idempotente.
+- Consulta read-only ao Supabase: categorias e produtos existentes.
+- Corrigido o migration draft para não sobrescrever nomes, ordem ou ativação de categorias existentes (ON CONFLICT DO NOTHING).
+- Nenhuma migração aplicada no banco.
+- Nenhuma política RLS alterada.
+- Nenhuma branch QA paga criada.
+- Nenhum produto ativado, pagamento, cobrança, deploy ou merge efetuado.
+
+STATUS VERIFICADO NO BANCO (read-only)
+- 6 categorias existentes; todas inativas. Slugs: skincare, kits, perfumaria, bolsas, acessorios, roupas.
+- 17 produtos; todos inativos. Produto de teste “teste upload” tem imagem_url preenchida, mas permanece inativo.
+- RPC create_customer_order encontrada, com assinatura p_items jsonb, p_delivery_method text, p_shipping_address jsonb, p_coupon_code text. Não foi chamada.
+- As funções storefront_catalog e create_customer_order_idempotent não estão presentes no banco.
+
+PENDÊNCIAS QUE IMPEDEM PUBLICAÇÃO/TESTE E2E
+- Aplicar migration revisada (DDL no banco atual; não executada por proteção contra risco).
+- Associar/validar imagens e produtos reais; ativar produtos somente após validação comercial.
+- Validar variantes, SKU e estoque físico.
+- Validar preço, frete/entrega e fluxo do pedido com dados reais.
+- Testar checkout autenticado e Mercado Pago em sandbox (não realizado nesta execução).
+- Teste browser ponta-a-ponta e responsividade não executado; revisão foi estática.
+- Confirmação operacional/autorização de publicação ainda necessária.
+
+REGRA: sem custos adicionais. Sem upgrades, add-ons, branches pagas, cobrança ou pagamento real.
