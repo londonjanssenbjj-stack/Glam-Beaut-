@@ -954,7 +954,8 @@
 .product-favorite{position:absolute;right:10px;top:10px;z-index:4;width:38px;height:38px;border-radius:50%;border:1px solid rgba(25,10,18,.12);background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:20px;color:#201018;box-shadow:0 4px 12px rgba(20,5,10,.08)}
 .product-favorite.is-favorite{color:#b51c51;background:#fff1f5}
 .catalog-empty{grid-column:1/-1;text-align:center;padding:48px 16px;border:1px dashed #e5d7df;border-radius:16px;color:#786d74;background:#fcf8fa}
-@media(max-width:759px){.catalog-tools{justify-content:space-between;gap:8px;margin-bottom:14px}.catalog-sort-label{margin-left:auto}.catalog-fav-toggle,.catalog-sort{padding:9px 11px;font-size:11px}}\n</style>
+@media(max-width:759px){.catalog-tools{justify-content:space-between;gap:8px;margin-bottom:14px}.catalog-sort-label{margin-left:auto}.catalog-fav-toggle,.catalog-sort{padding:9px 11px;font-size:11px}}
+</style>
 </head>
 
 <body>
@@ -1112,7 +1113,8 @@
           <div class="section-sub" id="catalogCount">Produtos selecionados para você.</div>
         </div>
       </div>
-      <div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>\n<div class="grid" id="productGrid"></div>
+      <div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
+<div class="grid" id="productGrid"></div>
     </section>
 
     <!-- ANIVERSÁRIO -->
@@ -1500,7 +1502,9 @@ const SERVICES = [
    ESTADO
    ========================================================= */
 let cart = JSON.parse(localStorage.getItem("glam_cart") || "[]");
-let currentFilter = "todos";\nlet catalogSort = "featured";\nlet favorites = JSON.parse(localStorage.getItem("glam_favorites") || "[]");
+let currentFilter = "todos";
+let catalogSort = "featured";
+let favorites = JSON.parse(localStorage.getItem("glam_favorites") || "[]");
 
 /* =========================================================
    UTILIDADES
@@ -1538,7 +1542,8 @@ function findProduct(id){
 /* =========================================================
    PRODUTOS
    ========================================================= */
-function productCard(p){\n  const isFav=favorites.includes(p.id);
+function productCard(p){
+  const isFav=favorites.includes(p.id);
   const badge = p.badge ? `<span class="badge ${p.badgeType || ""}">${escapeHTML(p.badge)}</span>` : "";
   const image = p.image
     ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
@@ -1576,7 +1581,8 @@ function filterProducts(category, button){
 
   let list=PRODUCTS;
 
-  if(category==="favoritos") list=PRODUCTS.filter(p=>favorites.includes(p.id));\n  else if(category==="novos") list=PRODUCTS.filter(p=>p.badgeType==="new");
+  if(category==="favoritos") list=PRODUCTS.filter(p=>favorites.includes(p.id));
+  else if(category==="novos") list=PRODUCTS.filter(p=>p.badgeType==="new");
   else if(category==="best") list=PRODUCTS.filter(p=>p.badge==="MAIS VENDIDO");
   else if(category==="presentes") list=PRODUCTS.filter(p=>p.category==="kits");
   else if(category!=="todos") list=PRODUCTS.filter(p=>p.category===category);
@@ -1601,7 +1607,8 @@ function toggleFavorite(id,event){
  renderProducts(getFilteredCatalog());
  showToast(favorites.includes(id)?"Produto salvo nos favoritos.":"Produto removido dos favoritos.");
 }
-\nfunction searchProducts(term){
+
+function searchProducts(term){
   const q=term.trim().toLowerCase();
   const list=!q ? PRODUCTS : PRODUCTS.filter(p=>
     [p.name,p.description,p.category,p.badge].join(" ").toLowerCase().includes(q)
