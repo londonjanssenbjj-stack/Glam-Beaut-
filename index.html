@@ -983,6 +983,16 @@
 
 /* Catálogo em sessões, alteração localizada */
 .catalog-session{padding:28px 0 38px;border-bottom:1px solid #eadfe5}.catalog-session:last-child{border-bottom:0}.catalog-session-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid #eadfe5}.catalog-session-head h3{margin:0;font-size:clamp(21px,2vw,28px);font-weight:600;letter-spacing:-.03em}.catalog-session-head span{color:#7b6f76;font-size:12px;white-space:nowrap}.catalog-session-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 18px}.catalog-category-chips{margin:12px 0 16px}.catalog-session .product-image{height:250px!important;aspect-ratio:auto!important}.catalog-session .placeholder{display:flex!important;align-items:flex-end!important;justify-content:center!important;padding-bottom:14px!important;background:linear-gradient(145deg,#fff8fb,#f2e1eb)!important;color:#927985!important;font-size:10px;letter-spacing:.15em!important}.catalog-session .placeholder:after{content:"FOTO DO PRODUTO"!important;display:block!important}@media(max-width:1000px){.catalog-session-products{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:759px){.catalog-session{padding:20px 0 26px}.catalog-session-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.catalog-session .product-image{height:210px!important}.catalog-session-head h3{font-size:20px}}
+
+/* CORREÇÃO LOCAL: o contêiner externo do catálogo deve ocupar uma coluna
+   quando renderiza sessões, deixando cada sessão ocupar a largura total. */
+#productGrid:has(.catalog-session){display:block!important;grid-template-columns:1fr!important;gap:0!important;width:100%!important}
+#productGrid .catalog-session{display:block!important;width:100%!important;min-width:0!important}
+#productGrid .catalog-session-products{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;width:100%!important;gap:24px 18px!important}
+#productGrid .catalog-session .card{width:100%!important;min-width:0!important}
+@media(max-width:1000px){#productGrid .catalog-session-products{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:759px){#productGrid .catalog-session-products{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px 10px!important}}
+
 </style>
 </head>
 
