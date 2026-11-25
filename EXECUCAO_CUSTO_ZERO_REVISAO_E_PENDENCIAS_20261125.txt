@@ -1,0 +1,27 @@
+GLAM BEAUT — EXECUÇÃO CUSTO ZERO (CONTINUAÇÃO)
+Data: 25/11/2026
+Branch: glam-product-stock-management-plan
+Regra: não incorrer em custo. Produção não alterada.
+
+REVISAO ESTATICA DO FRONTEND
+- index.html: existe e tem aproximadamente 50 KB; vitrine estática base.
+- glam-storefront-integration.js: existe, cerca de 14 KB; usa Supabase RPC storefront_catalog para catálogo autoritativo, limpa catálogo/carrinho se RPC falhar (não mostra fallback de produtos estáticos), checkout requer sessão, usa RPC create_customer_order_idempotent e Edge Function create-payment; exige checkout_url para redirecionar.
+- admin-panel.html: existe e tem aproximadamente 46 KB; formulário de cadastro tem campo obrigatório productName, upload de imagem para bucket glam-product-images, URL pública preenchida após upload e instrução para salvar produto separadamente. Ajuste de estoque via RPC admin_adjust_inventory.
+- glam-supabase-config.js: contém URL e chave publishable (credencial pública), não inclui service_role nem tokens de Mercado Pago.
+- Migration draft: storefront_catalog/idempotency. NÃO aplicada.
+
+PONTOS DE REVISÃO/QA (AINDA SEM TESTE DE NAVEGADOR)
+1. Catálogo RPC não existente no banco impede a vitrine integrada de carregar o catálogo oficial.
+2. Checkout usa RPC idempotente ausente; não deve ser testado em produção.
+3. Cadastro de produto: fluxo upload é separado do salvar cadastro. Upload conclui preenchendo URL; usuário precisa clicar Salvar produto para persistir associação. Isso é explicitado na interface.
+4. O checkout usa a resposta order.order_id e depois invoca create-payment. Confirmar formato retornado pela RPC em QA.
+5. Frete: frontend chama addressPayload para entrega ou null para retirada; tarifa final e validação de endereço precisam ser confirmadas no servidor e exibidas com clareza antes do pagamento.
+6. Carrinho usa variant_id, quantidade, reconciliação ao carregar catálogo e estoque/preço autoritativos devem ser revalidados server-side.
+7. Teste visual/responsivo, erros de console e fluxo real de login permanecem pendentes porque não houve sessão de browser automatizada nem sandbox isolado.
+
+CONSULTA DE PRODUÇÃO (READ-ONLY)
+- Foi feita uma consulta de contagem de pagamentos; resultado visível: 0 pagamentos.
+- Nenhum pagamento, pedido, produto, estoque ou policy foi criado/alterado durante esta etapa.
+
+CONCLUSÃO HONESTA
+O código foi revisado estaticamente. A loja não está pronta para lançamento, pois a RPC catálogo e a RPC idempotente faltam no banco. Não aplicar migração diretamente em produção, sem QA isolado. Custo zero permanece como regra: usar apenas recursos gratuitos já existentes e, se o ambiente isolado exigir cobrança, não prosseguir com esse método.
