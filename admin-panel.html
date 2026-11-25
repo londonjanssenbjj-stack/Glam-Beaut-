@@ -379,7 +379,7 @@ const resetProductForm=()=>{
    const desiredQuantity=quantityInput.disabled?null:Number(quantityInput.value);
    if(desiredQuantity!==null&&(!Number.isInteger(desiredQuantity)||desiredQuantity<0)){setMessage(formMessage,'Informe uma quantidade inteira igual ou maior que zero.','error');button.disabled=false;return;}
    const productId=document.getElementById('editProductId').value;
-   const name=String(productForm.elements.namedItem('productName')?.value??document.getElementById('productName').value??'').trim();
+   const name=document.getElementById('productName').value.trim();
    const slug=slugify(name);
    const price=Number(document.getElementById('productPrice').value);
    const compareInput=document.getElementById('productComparePrice').value.trim();
