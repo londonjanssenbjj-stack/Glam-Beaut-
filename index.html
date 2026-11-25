@@ -659,294 +659,73 @@
       .two{grid-template-columns:1fr}
     }
   
-    /* =========================================================
-       GLAM HOMEPAGE — CSS CONSOLIDADO
-       Fonte única de estilos para cabeçalho e hero.
-       Não modifica seções internas, catálogo, checkout ou serviços.
-       ========================================================= */
-    .top-banner{
-      display:block;
-      background:#050505;
-      color:#fff;
-      text-align:center;
-      padding:12px 16px;
-      font-size:15px;
-      font-weight:600;
-      letter-spacing:0;
-    }
+    /* HOMEPAGE: regras consolidadas para cabeçalho e banner */
+    .top-banner{display:block;background:#050505;color:#fff;text-align:center;padding:12px 16px;font-size:15px;font-weight:600;letter-spacing:0}
     .top-banner:before{content:"🚚  ";color:#d5a100}
-    header{
-      position:relative;
-      top:auto;
-      z-index:40;
-      background:#fff;
-      backdrop-filter:none;
-      border:0;
-    }
-    .nav{
-      height:170px;
-      max-width:none;
-      margin:0;
-      padding:0 clamp(22px,5.3vw,84px);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:30px;
-    }
+    header{position:relative;top:auto;z-index:40;background:#fff;backdrop-filter:none;border:0}
+    .nav{height:190px;max-width:none;margin:0;padding:0 clamp(22px,5.3vw,84px);display:flex;align-items:center;justify-content:space-between;gap:30px}
     .logo{display:flex;align-items:center;flex:0 0 auto}
-    header .logo img{
-      width:180px!important;
-      height:180px!important;
-      max-height:180px!important;
-      object-fit:contain!important;
-      border-radius:50%;
-    }
-    .nav-links{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:clamp(22px,3.4vw,54px);
-      flex:1;
-    }
-    .nav-links a{
-      position:relative;
-      padding:16px 0;
-      color:#080808;
-      font-size:clamp(14px,1.3vw,19px);
-      font-weight:700;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-    .nav-links a:first-child:after{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      height:4px;
-      background:#d2a100;
-    }
+    header .logo img{width:185px!important;height:185px!important;max-height:185px!important;object-fit:cover!important;border-radius:50%!important}
+    .nav-links{display:flex;align-items:center;justify-content:center;gap:clamp(22px,3.4vw,54px);flex:1}
+    .nav-links a{position:relative;padding:16px 0;color:#080808;font-size:clamp(14px,1.3vw,19px);font-weight:700;text-transform:uppercase;white-space:nowrap}
+    .nav-links a:first-child:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#d2a100}
     .nav-actions{display:flex;align-items:center;gap:clamp(10px,1.8vw,24px)}
-    .icon-btn,.menu-btn{
-      background:transparent;
-      border:0;
-      min-height:46px;
-      padding:8px;
-      font-size:16px;
-    }
-    .icon-btn svg{
-      width:36px;
-      height:36px;
-      fill:none;
-      stroke:#111;
-      stroke-width:1.8;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
+    .icon-btn,.menu-btn{background:transparent;border:0;min-height:46px;padding:8px;font-size:16px}
+    .icon-btn svg{width:36px;height:36px;fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .search-icon,.account-icon,.bag-icon{font-size:0}
     .bag-icon{position:relative}
-    .bag-count{
-      position:absolute;
-      top:-3px;
-      right:-7px;
-      min-width:26px;
-      height:26px;
-      margin:0;
-      border-radius:50%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:#d6a000;
-      color:#fff;
-      font-size:12px;
-    }
+    .bag-count{position:absolute;top:-3px;right:-7px;min-width:26px;height:26px;margin:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#d6a000;color:#fff;font-size:12px}
     .menu-btn{display:none}
-
-    .hero{
-      max-width:none;
-      margin:0;
-      padding:16px 16px 24px;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.12fr .88fr;
-      min-height:618px;
-      border-radius:30px;
-      overflow:hidden;
-      background:linear-gradient(110deg,#fde7ef 0%,#f8dce8 100%);
-    }
-    .hero-copy{
-      padding:clamp(38px,4.6vw,72px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .hero-copy .eyebrow{
-      font-size:clamp(12px,1.1vw,16px);
-      font-weight:700;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      margin-bottom:24px;
-    }
-    .hero-copy h1{
-      font-size:clamp(48px,5.7vw,78px);
-      line-height:1;
-      font-weight:400;
-      letter-spacing:-.055em;
-      white-space:nowrap;
-      max-width:none;
-      margin:0 0 26px;
-    }
-    .hero-highlight{
-      color:#c49a26;
-      font-family:Georgia,"Times New Roman",serif;
-      font-style:italic;
-      font-weight:400;
-      letter-spacing:-.07em;
-    }
-    .hero-copy p{
-      font-size:clamp(17px,1.55vw,23px);
-      line-height:1.55;
-      max-width:680px;
-      margin:0 0 36px;
-      color:#21131b;
-    }
+    .hero{max-width:none;margin:0;padding:16px 16px 24px}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;min-height:618px;height:618px;border-radius:30px;overflow:hidden;background:linear-gradient(110deg,#fde7ef 0%,#f8dce8 62%,#f6d5e2 100%)}
+    .hero-copy{padding:clamp(38px,4.6vw,72px);display:flex;flex-direction:column;justify-content:center;position:relative;z-index:3}
+    .hero-copy .eyebrow{font-size:clamp(12px,1.1vw,16px);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:24px}
+    .hero-copy h1{font-size:clamp(48px,5.7vw,78px);line-height:1;font-weight:400;letter-spacing:-.055em;white-space:nowrap;max-width:none;margin:0 0 26px}
+    .hero-highlight{color:#c49a26;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-weight:400;letter-spacing:-.07em}
+    .hero-copy p{font-size:clamp(17px,1.55vw,23px);line-height:1.55;max-width:680px;margin:0 0 36px;color:#21131b}
     .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
-    .hero-cta .btn{
-      min-height:70px;
-      padding:18px 30px;
-      font-size:clamp(16px,1.35vw,20px);
-      border-radius:18px;
-      font-weight:700;
-    }
+    .hero-cta .btn{min-height:70px;padding:18px 30px;font-size:clamp(16px,1.35vw,20px);border-radius:18px;font-weight:700}
     .hero-cta .btn:first-child{background:#16050e;border-color:#16050e;color:#fff}
     .hero-cta .btn.outline{background:transparent;border:2px solid #26000b;color:#26000b}
-    .hero-art{
-      min-height:618px;
-      background:radial-gradient(ellipse at 60% 52%,#fff8fb 0%,#f8dce9 60%,#efcbdc 100%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-      padding:0;
-      isolation:isolate;
-    }
-    .hero-products{
-      width:100%;
-      max-width:720px;
-      height:auto;
-      max-height:610px;
-      position:relative;
-      z-index:2;
-      object-fit:contain;
-      filter:drop-shadow(0 12px 18px rgba(75,22,44,.13));
-    }
-    .anniversary-badge{
-      position:absolute;
-      z-index:8;
-      right:5%;
-      top:4%;
-      width:clamp(140px,14vw,205px);
-      height:auto;
-      aspect-ratio:1;
-      border-radius:50%;
-      background:#050505;
-      border:3px solid #05bfc0;
-      outline:2px solid #050505;
-      outline-offset:-9px;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,.15);
-    }
-    .badge-script{
-      position:absolute;
-      left:18%;
-      top:37%;
-      font-family:cursive;
-      font-style:italic;
-      font-size:clamp(25px,2.4vw,38px);
-      color:#fff;
-      line-height:1;
-    }
-    .badge-ten{
-      position:absolute;
-      right:20%;
-      top:19%;
-      font-family:Georgia,serif;
-      font-size:clamp(40px,4vw,60px);
-      color:#d6a400;
-      line-height:1;
-    }
-    .badge-years{
-      position:absolute;
-      right:14%;
-      top:51%;
-      font-family:Georgia,serif;
-      font-style:italic;
-      font-size:clamp(20px,2vw,30px);
-      color:#d6a400;
-    }
-    .anniversary-badge small{
-      position:absolute;
-      bottom:21%;
-      left:10%;
-      right:10%;
-      text-align:center;
-      font-size:clamp(6px,.6vw,9px);
-      letter-spacing:.03em;
-      color:#fff;
-      white-space:nowrap;
-    }
+    .hero-art{min-height:618px;height:618px;background:transparent;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0;isolation:isolate}
+    .hero-products{width:100%;max-width:760px;height:100%;max-height:610px;position:relative;z-index:2;object-fit:contain;filter:drop-shadow(0 12px 18px rgba(75,22,44,.13))}
+    .anniversary-badge{position:absolute;z-index:8;right:5%;top:4%;width:clamp(140px,14vw,205px);height:auto;aspect-ratio:1;border-radius:50%;background:#050505;border:3px solid #05bfc0;outline:2px solid #050505;outline-offset:-9px;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.15)}
+    .badge-script{position:absolute;left:18%;top:37%;font-family:cursive;font-style:italic;font-size:clamp(25px,2.4vw,38px);color:#fff;line-height:1}
+    .badge-ten{position:absolute;right:20%;top:19%;font-family:Georgia,serif;font-size:clamp(40px,4vw,60px);color:#d6a400;line-height:1}
+    .badge-years{position:absolute;right:14%;top:51%;font-family:Georgia,serif;font-style:italic;font-size:clamp(20px,2vw,30px);color:#d6a400}
+    .anniversary-badge small{position:absolute;bottom:21%;left:10%;right:10%;text-align:center;font-size:clamp(6px,.6vw,9px);letter-spacing:.03em;color:#fff;white-space:nowrap}
     .hero-dots{display:flex;justify-content:center;gap:12px;padding:26px 0 12px}
     .hero-dots span{width:20px;height:20px;border-radius:50%;background:#ddd;display:block}
     .hero-dots span.active{background:#d2a100}
-
     @media(max-width:1000px){
-      .nav{height:auto;min-height:130px;padding:12px 4%;flex-wrap:wrap}
-      header .logo img{width:120px!important;height:120px!important;max-height:120px!important}
+      .nav{height:auto;min-height:140px;padding:10px 4%;flex-wrap:wrap}
+      header .logo img{width:130px!important;height:130px!important;max-height:130px!important}
       .nav-links{gap:18px}
       .nav-links a{font-size:13px}
-      .hero-grid{grid-template-columns:1fr;min-height:0}
+      .hero-grid{grid-template-columns:1fr;min-height:0;height:auto}
       .hero-copy{padding:38px}
       .hero-copy h1{white-space:normal;font-size:clamp(42px,7.8vw,64px)}
-      .hero-art{min-height:420px}
+      .hero-art{min-height:420px;height:420px}
       .hero-products{max-height:430px}
       .anniversary-badge{width:145px;right:3%;top:3%}
-      .badge-script{font-size:30px}
-      .badge-ten{font-size:48px}
-      .badge-years{font-size:24px}
+      .badge-script{font-size:30px}.badge-ten{font-size:48px}.badge-years{font-size:24px}
     }
     @media(max-width:759px){
       .top-banner{font-size:12px;padding:9px 8px}
       .nav{min-height:90px;height:90px;padding:8px 12px;flex-wrap:nowrap}
       header .logo img{width:84px!important;height:84px!important;max-height:84px!important}
-      .nav-links{display:none}
-      .nav-actions{gap:2px}
-      .menu-btn{display:block}
+      .nav-links{display:none}.nav-actions{gap:2px}.menu-btn{display:block}
       .hero{padding:12px 10px 20px}
-      .hero-grid{grid-template-columns:1fr;min-height:0;border-radius:22px}
+      .hero-grid{grid-template-columns:1fr;min-height:0;height:auto;border-radius:22px}
       .hero-copy{padding:28px 20px}
       .hero-copy h1{font-size:clamp(36px,10.5vw,50px);white-space:normal;line-height:1.02}
       .hero-copy p{font-size:16px;margin-bottom:26px}
-      .hero-cta{gap:10px}
-      .hero-cta .btn{width:100%;font-size:15px;min-height:56px;padding:15px 18px;border-radius:14px}
-      .hero-art{min-height:310px}
-      .hero-products{max-height:330px}
+      .hero-cta{gap:10px}.hero-cta .btn{width:100%;font-size:15px;min-height:56px;padding:15px 18px;border-radius:14px}
+      .hero-art{min-height:310px;height:310px}.hero-products{max-height:330px}
       .anniversary-badge{width:116px;top:3%;right:3%}
-      .badge-script{font-size:25px}
-      .badge-ten{font-size:39px}
-      .badge-years{font-size:19px}
-      .anniversary-badge small{font-size:6px}
+      .badge-script{font-size:25px}.badge-ten{font-size:39px}.badge-years{font-size:19px}.anniversary-badge small{font-size:6px}
     }
-    @media(max-width:430px){
-      .hero-copy h1{font-size:clamp(34px,10vw,44px)}
-      .hero-art{min-height:280px}
-      .hero-products{max-height:300px}
-    }
+    @media(max-width:430px){.hero-copy h1{font-size:clamp(34px,10vw,44px)}.hero-art{min-height:280px;height:280px}.hero-products{max-height:300px}}
 
   </style>
 </head>
@@ -956,7 +735,7 @@
 
   <header>
     <nav class="nav">
-      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;"></a>
+      <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos"></a>
 
       <div class="nav-links" aria-label="Navegação principal"><a href="#" onclick="goHome();return false;">Início</a><a href="#catalogo">Loja</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></div>
       <div class="nav-actions">
@@ -971,7 +750,7 @@
   <div class="menu-overlay" id="menuOverlay">
     <div class="menu-head">
       <div class="logo">
-    <img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;">
+    <img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos">
 </div>  
       <button class="menu-btn" onclick="closeMenu()">FECHAR ×</button>
     </div>
@@ -1073,41 +852,92 @@
         </div>
       </div>
       <div class="hero-art" aria-label="Composição ilustrativa de produtos Glam"><div class="anniversary-badge"><span class="badge-script">glam!</span><span class="badge-ten">10</span><span class="badge-years">anos</span><small>BELEZA, ESTÉTICA E BEM-ESTAR</small></div>
-        <svg class="hero-products" viewBox="0 0 620 480" role="img" aria-label="Produtos de beleza em uma bandeja com flor">
-          <defs>
-            <linearGradient id="glassPink" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffe4e9"/><stop offset=".5" stop-color="#e7a6b6"/><stop offset="1" stop-color="#bf758b"/></linearGradient>
-            <linearGradient id="goldMetal" x1="0" x2="1"><stop stop-color="#9b6811"/><stop offset=".45" stop-color="#f8d26a"/><stop offset="1" stop-color="#b98119"/></linearGradient>
-            <linearGradient id="cream" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fffaf3"/><stop offset="1" stop-color="#e9d5bd"/></linearGradient>
-            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#91536d" flood-opacity=".2"/></filter>
-          </defs>
-          <circle cx="325" cy="220" r="196" fill="none" stroke="#c69b36" stroke-width="2"/>
-          <path d="M80 330 Q140 265 192 330 T310 326" fill="none" stroke="#62855c" stroke-width="18" stroke-linecap="round"/>
-          <path d="M445 322 Q500 245 555 310" fill="none" stroke="#537c50" stroke-width="16" stroke-linecap="round"/>
-          <g filter="url(#softShadow)">
-            <rect x="126" y="140" width="100" height="42" rx="9" fill="url(#goldMetal)"/>
-            <rect x="143" y="180" width="67" height="190" rx="28" fill="url(#glassPink)" stroke="#d19aa9"/>
-            <rect x="159" y="156" width="35" height="27" rx="5" fill="#e5a6b5"/>
-            <rect x="169" y="106" width="18" height="50" rx="5" fill="url(#goldMetal)"/>
-            <rect x="255" y="190" width="150" height="46" rx="15" fill="url(#goldMetal)"/>
-            <rect x="265" y="234" width="132" height="150" rx="24" fill="url(#cream)" stroke="#dfc4b5"/>
-            <rect x="286" y="212" width="92" height="25" rx="6" fill="#e4a8b7"/>
-            <rect x="308" y="125" width="54" height="85" rx="12" fill="url(#glassPink)"/>
-            <rect x="318" y="106" width="34" height="20" rx="4" fill="#d9a3b0"/>
-            <rect x="323" y="72" width="24" height="36" rx="5" fill="url(#goldMetal)"/>
-            <rect x="415" y="175" width="80" height="180" rx="22" fill="url(#glassPink)" stroke="#d19aa9"/>
-            <rect x="432" y="152" width="46" height="25" rx="8" fill="#f4d6df"/>
-            <rect x="440" y="112" width="30" height="43" rx="6" fill="url(#goldMetal)"/>
-            <rect x="438" y="245" width="54" height="46" rx="12" fill="#f1bdc9"/>
-          </g>
-          <ellipse cx="312" cy="390" rx="238" ry="36" fill="url(#cream)" stroke="#d7b67a" stroke-width="4"/>
-          <g transform="translate(478 340)">
-            <ellipse cx="0" cy="-25" rx="17" ry="29" fill="#e75c9a"/>
-            <ellipse cx="25" cy="0" rx="29" ry="17" fill="#e75c9a"/>
-            <ellipse cx="0" cy="25" rx="17" ry="29" fill="#e75c9a"/>
-            <ellipse cx="-25" cy="0" rx="29" ry="17" fill="#e75c9a"/>
-            <circle r="12" fill="#d5a232"/>
-          </g>
-        </svg>
+        <svg class="hero-products" viewBox="0 0 720 620" role="img" aria-label="Composição de cosméticos premium em tons rosados, dourados e creme">
+  <defs>
+    <linearGradient id="pinkGlass" x1="0" x2="1"><stop stop-color="#bb6f83"/><stop offset=".25" stop-color="#eaa5b7"/><stop offset=".58" stop-color="#f8d9e1"/><stop offset="1" stop-color="#c77d95"/></linearGradient>
+    <linearGradient id="pinkGlassDeep" x1="0" x2="1"><stop stop-color="#d77c9b"/><stop offset=".5" stop-color="#ffd0df"/><stop offset="1" stop-color="#b96381"/></linearGradient>
+    <linearGradient id="goldChrome" x1="0" x2="1"><stop stop-color="#9b6418"/><stop offset=".18" stop-color="#f6cb62"/><stop offset=".45" stop-color="#fff1ad"/><stop offset=".7" stop-color="#bf8524"/><stop offset="1" stop-color="#f5d277"/></linearGradient>
+    <linearGradient id="ivoryCream" x1="0" x2="1"><stop stop-color="#dfc5a7"/><stop offset=".45" stop-color="#fff9ed"/><stop offset="1" stop-color="#d5bda4"/></linearGradient>
+    <linearGradient id="pinkBackdrop" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6fa"/><stop offset="1" stop-color="#f2cadb"/></linearGradient>
+    <filter id="productShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#8d5268" flood-opacity=".22"/></filter>
+    <filter id="softBlur"><feGaussianBlur stdDeviation="10"/></filter>
+  </defs>
+  <ellipse cx="360" cy="548" rx="270" ry="34" fill="#b77a92" opacity=".16" filter="url(#softBlur)"/>
+  <circle cx="372" cy="290" r="246" fill="none" stroke="#caa247" stroke-width="2" opacity=".8"/>
+  <!-- greenery -->
+  <g fill="#5c8558">
+    <path d="M115 490 Q32 450 45 405 Q118 426 115 490Z"/><path d="M133 506 Q48 508 16 463 Q92 462 133 506Z"/>
+    <path d="M587 492 Q674 449 675 402 Q598 425 587 492Z"/><path d="M574 512 Q670 509 704 464 Q622 464 574 512Z"/>
+  </g>
+  <g fill="#86a16f">
+    <path d="M125 505 Q50 390 70 355 Q135 410 125 505Z"/><path d="M600 506 Q660 388 647 356 Q586 411 600 506Z"/>
+  </g>
+  <!-- rolled towel -->
+  <g filter="url(#productShadow)">
+    <rect x="555" y="335" width="112" height="178" rx="42" fill="#f8f2ee"/>
+    <path d="M566 354 Q606 336 656 354 M565 374 Q608 355 658 374 M563 395 Q609 375 660 395 M562 416 Q610 395 661 416 M562 438 Q610 416 662 438 M562 460 Q610 438 662 460" fill="none" stroke="#e4d8d7" stroke-width="5" opacity=".75"/>
+    <ellipse cx="611" cy="483" rx="48" ry="25" fill="#eee3e1"/>
+  </g>
+  <!-- serum dropper -->
+  <g filter="url(#productShadow)">
+    <rect x="180" y="244" width="114" height="52" rx="12" fill="url(#goldChrome)"/>
+    <rect x="198" y="287" width="78" height="28" rx="9" fill="#e3a6b7"/>
+    <rect x="205" y="310" width="64" height="186" rx="26" fill="url(#pinkGlassDeep)" stroke="#efcad6" stroke-width="2"/>
+    <rect x="225" y="226" width="24" height="20" rx="5" fill="#b98b65"/>
+    <rect x="227" y="160" width="20" height="68" rx="9" fill="#171516"/>
+    <rect x="217" y="206" width="40" height="28" rx="8" fill="url(#goldChrome)"/>
+    <rect x="219" y="356" width="36" height="52" rx="10" fill="#f7dce6" opacity=".7"/>
+  </g>
+  <!-- pump bottle -->
+  <g filter="url(#productShadow)">
+    <rect x="342" y="174" width="110" height="56" rx="12" fill="url(#goldChrome)"/>
+    <rect x="370" y="222" width="54" height="46" rx="8" fill="#d9a0b2"/>
+    <rect x="350" y="265" width="98" height="220" rx="31" fill="url(#pinkGlass)" stroke="#e7b9c8" stroke-width="2"/>
+    <rect x="373" y="132" width="52" height="46" rx="8" fill="url(#goldChrome)"/>
+    <rect x="386" y="104" width="26" height="34" rx="6" fill="#c89531"/>
+    <path d="M399 110 L399 88 L466 88 Q477 88 477 98 L477 101" fill="none" stroke="url(#goldChrome)" stroke-width="14" stroke-linecap="round"/>
+    <rect x="369" y="345" width="60" height="60" rx="8" fill="#f9e4eb" opacity=".7"/>
+  </g>
+  <!-- cream jar -->
+  <g filter="url(#productShadow)">
+    <rect x="270" y="396" width="190" height="54" rx="18" fill="url(#goldChrome)"/>
+    <rect x="286" y="440" width="158" height="120" rx="27" fill="url(#ivoryCream)" stroke="#e3cbb7" stroke-width="2"/>
+    <rect x="306" y="418" width="118" height="30" rx="10" fill="#e5adbf"/>
+    <ellipse cx="365" cy="398" rx="45" ry="25" fill="#fff4e8"/>
+    <path d="M330 398 Q365 378 390 398 Q375 406 365 414 Q348 411 330 398Z" fill="#fffaf0"/>
+  </g>
+  <!-- tall squeeze tube -->
+  <g filter="url(#productShadow)">
+    <path d="M490 218 Q490 207 501 207 H565 Q576 207 576 218 L598 484 Q600 502 583 502 H484 Q467 502 470 484Z" fill="url(#pinkGlassDeep)" stroke="#e2a8b8" stroke-width="2"/>
+    <rect x="483" y="195" width="100" height="18" rx="6" fill="#e9b7c5"/>
+    <rect x="490" y="180" width="86" height="18" rx="4" fill="url(#goldChrome)"/>
+    <rect x="510" y="145" width="46" height="38" rx="6" fill="url(#pinkGlass)"/>
+    <rect x="522" y="125" width="22" height="22" rx="4" fill="url(#goldChrome)"/>
+    <rect x="494" y="340" width="76" height="72" rx="12" fill="#f4d3de" opacity=".65"/>
+  </g>
+  <!-- fragrance bottle -->
+  <g filter="url(#productShadow)">
+    <rect x="595" y="375" width="92" height="42" rx="9" fill="url(#goldChrome)"/>
+    <rect x="612" y="415" width="58" height="22" rx="7" fill="#e7a4b6"/>
+    <rect x="588" y="438" width="106" height="144" rx="24" fill="url(#pinkGlassDeep)" stroke="#e7b2c1" stroke-width="2"/>
+    <rect x="610" y="357" width="62" height="24" rx="7" fill="url(#goldChrome)"/>
+    <rect x="601" y="333" width="80" height="26" rx="8" fill="#fff8f2" stroke="#d4c3b7" stroke-width="2"/>
+    <rect x="612" y="346" width="58" height="9" rx="4" fill="url(#goldChrome)"/>
+  </g>
+  <!-- floral orchid -->
+  <g transform="translate(490 540)">
+    <ellipse cx="0" cy="-38" rx="27" ry="45" fill="#f35da0"/><ellipse cx="34" cy="0" rx="45" ry="28" fill="#ef68a8"/>
+    <ellipse cx="0" cy="38" rx="28" ry="44" fill="#e84d91"/><ellipse cx="-34" cy="0" rx="45" ry="28" fill="#f16ba9"/>
+    <ellipse cx="20" cy="-22" rx="28" ry="35" fill="#ff8bc1" transform="rotate(35)"/>
+    <circle cx="0" cy="0" r="16" fill="#e3a93e"/><circle cx="0" cy="0" r="8" fill="#c75a7c"/>
+  </g>
+  <!-- glossy marble and gold platform -->
+  <g filter="url(#productShadow)">
+    <ellipse cx="384" cy="575" rx="286" ry="42" fill="url(#goldChrome)"/>
+    <ellipse cx="384" cy="560" rx="276" ry="40" fill="url(#ivoryCream)" stroke="#d8b46a" stroke-width="5"/>
+    <path d="M175 552 Q220 537 250 555 T330 553 M440 565 Q475 545 512 560 T570 560" fill="none" stroke="#c9a9a5" stroke-width="3" opacity=".4"/>
+  </g>
+</svg>
       </div>
     </div>
   </section>
