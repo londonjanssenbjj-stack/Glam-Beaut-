@@ -861,10 +861,54 @@ header{position:relative!important;top:auto!important;background:#fff!important;
 @media(max-width:759px){.nav{min-height:86px!important;height:86px!important;padding:8px 12px!important}.logo img{width:84px!important;height:84px!important;max-height:84px!important}.nav-links{display:none!important}.nav-actions{gap:2px!important}.hero{padding:14px 10px 20px!important}.hero-grid{border-radius:22px!important}.hero-copy{padding:28px 20px!important}.hero-copy h1{font-size:clamp(38px,10.5vw,58px)!important;white-space:normal!important}.hero-copy p{font-size:16px!important;margin-bottom:26px!important}.hero-cta{gap:10px!important}.hero-cta .btn{width:100%!important;min-height:56px!important;padding:15px 18px!important;font-size:15px!important;border-radius:14px!important}.hero-art{min-height:310px!important}.hero-products{max-height:330px!important}.hero-dots{padding:20px 0 4px}}
 
 
-/* Homepage aprovada: manter imagem integral e sem modificações */
-#homepage-reference{display:block;width:100%;margin:0;padding:0}
-#homepage-reference img{width:100%;height:auto;display:block}
-body>.top-banner, body>header, body>.hero{display:none!important}
+/* Removida regra que ocultava o cabeçalho e o hero. */
+
+
+/* FIX: restaurar header e hero como layout real, conforme referência */
+.top-banner{display:block!important;background:#050505!important;color:#fff!important;text-align:center!important;padding:10px 16px!important;font-size:14px!important;font-weight:600}
+body>header{display:block!important;background:#fff!important}
+body>.hero{display:block!important}
+#homepage-reference{display:none!important}
+header .nav{height:170px!important;max-width:none!important;padding:0 clamp(20px,5.5vw,85px)!important;gap:30px!important}
+header .logo img{width:180px!important;height:180px!important;max-height:180px!important;border-radius:50%!important;object-fit:contain!important}
+header .nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(25px,3.5vw,55px)!important;flex:1!important}
+header .nav-links a{font-size:17px!important;font-weight:700!important;text-transform:uppercase!important;padding:16px 0!important}
+header .nav-actions{display:flex!important;gap:18px!important;align-items:center!important}
+header .icon-btn svg{width:36px;height:36px;fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+header .menu-btn{display:none!important}
+body>.hero{max-width:none!important;padding:18px 16px 24px!important;margin:0!important}
+body>.hero .hero-grid{grid-template-columns:1.12fr .88fr!important;min-height:610px!important;border-radius:30px!important;background:linear-gradient(115deg,#fbd8e7,#ffe9f0 50%,#f6d1df)!important}
+body>.hero .hero-copy{padding:clamp(30px,4.5vw,68px)!important}
+body>.hero .hero-copy .eyebrow{font-size:16px!important;letter-spacing:.03em!important;margin-bottom:24px!important}
+body>.hero .hero-copy h1{font-size:clamp(50px,6.2vw,92px)!important;line-height:.98!important;letter-spacing:-.06em!important}
+body>.hero .hero-copy p{font-size:clamp(17px,1.6vw,24px)!important;line-height:1.6!important;color:#29131c!important}
+body>.hero .hero-cta .btn{width:auto!important;min-height:68px!important;padding:18px 32px!important;border-radius:18px!important;font-size:19px!important;font-weight:700!important}
+body>.hero .hero-cta .btn.outline{background:transparent!important;color:#26000b!important;border:2px solid #26000b!important}
+body>.hero .hero-art{min-height:530px!important;background:radial-gradient(ellipse at 55% 50%,#fff6fa 0%,#f8dce8 65%,#f3d0df 100%)!important}
+body>.hero .hero-products{width:100%!important;max-height:560px!important}
+@media(max-width:900px){
+ header .nav{height:auto!important;min-height:130px!important;padding:14px 20px!important}
+ header .logo img{width:125px!important;height:125px!important;max-height:125px!important}
+ header .nav-links{gap:16px!important}
+ header .nav-links a{font-size:13px!important}
+ body>.hero .hero-grid{min-height:unset!important}
+ body>.hero .hero-copy{padding:35px!important}
+ body>.hero .hero-art{min-height:400px!important}
+}
+@media(max-width:759px){
+ header .nav{min-height:90px!important;height:90px!important;padding:6px 14px!important}
+ header .logo img{width:82px!important;height:82px!important;max-height:82px!important}
+ header .nav-links{display:none!important}
+ header .menu-btn{display:block!important}
+ body>.hero{padding:10px!important}
+ body>.hero .hero-grid{grid-template-columns:1fr!important;border-radius:20px!important}
+ body>.hero .hero-copy{padding:28px 22px!important}
+ body>.hero .hero-copy h1{font-size:clamp(38px,11vw,55px)!important}
+ body>.hero .hero-copy p{font-size:16px!important}
+ body>.hero .hero-cta .btn{width:100%!important;font-size:16px!important;min-height:54px!important}
+ body>.hero .hero-art{min-height:300px!important}
+ body>.hero .hero-products{max-height:350px!important}
+}
 
 </style>
 </head>
