@@ -846,6 +846,104 @@
       .service-card p{font-size:11px}
     }
 
+  
+    /* ===== GLAM BEAUT | Refinamento UX inspirado em varejo premium =====
+       Mantém identidade, estrutura, conteúdo, carrinho e integrações existentes. */
+    :root{
+      --black:#160b12;
+      --pink:#fbf0f5;
+      --muted:#74656c;
+      --line:#eadfe5;
+      --soft:#fcf8fa;
+      --glam-gold:#c59a27;
+      --glam-rose:#f6e4ed;
+      --shadow:0 14px 38px rgba(33,12,24,.08);
+    }
+    body{background:#fff;color:#190f15}
+    .top-banner{
+      background:#160b12!important;
+      color:#fff!important;
+      padding:10px 14px!important;
+      font-size:12px!important;
+      letter-spacing:.035em!important;
+    }
+    .top-banner:before{color:#e2bb59!important}
+    header{
+      position:sticky!important;top:0!important;z-index:50!important;
+      border-bottom:1px solid #f0e6eb!important;
+      box-shadow:0 3px 16px rgba(30,10,20,.035);
+    }
+    .nav{background:rgba(255,255,255,.97)}
+    header .logo img{transition:transform .2s ease}
+    header .logo img:hover{transform:scale(1.025)}
+    .nav-links a{font-size:clamp(12px,1vw,15px)!important;letter-spacing:.035em!important}
+    .nav-links a:hover{color:#a47a17}
+    .nav-links a:first-child:after{height:3px!important;background:var(--glam-gold)!important}
+    .icon-btn,.menu-btn{transition:background .18s ease,border-radius .18s ease}
+    .icon-btn:hover,.menu-btn:hover{background:#f8f1f5;border-radius:12px}
+    .bag-count{background:var(--glam-gold)!important}
+    .hero{padding-top:22px!important}
+    .hero-grid{
+      border-radius:26px!important;
+      box-shadow:0 18px 48px rgba(77,25,48,.085)!important;
+      background:linear-gradient(115deg,#fbf0f5 0%,#f6e3ec 58%,#f0d9e5 100%)!important;
+    }
+    .hero-copy .eyebrow{color:#806222}
+    .hero-copy h1{line-height:1.03!important}
+    .hero-copy p{color:#51434a!important}
+    .hero-cta .btn:first-child{
+      background:#170a12!important;border-color:#170a12!important;
+      box-shadow:0 8px 18px rgba(23,10,18,.14)!important;
+    }
+    .hero-cta .btn.outline{border-color:#5d3b4a!important;color:#321c27!important}
+    .hero-cta .btn{border-radius:12px!important}
+    .section{scroll-margin-top:190px}
+    .section-head{align-items:center!important}
+    .section h2{font-weight:600!important}
+    .section-sub{color:#786d74!important}
+    .chips{scroll-snap-type:x mandatory}
+    .chip{scroll-snap-align:start;border-radius:999px!important;background:#fff!important}
+    .chip.active{background:#f6e4ed!important;border-color:#d9b8cb!important;color:#2b1521!important}
+    .product-image{background:#f8f2f6!important}
+    .card{border-color:#eee4e9!important;box-shadow:0 2px 12px rgba(25,8,18,.025)}
+    .card:hover{box-shadow:0 16px 32px rgba(25,8,18,.09)!important}
+    .card .btn:not(.outline){background:#170a12!important;border-color:#170a12!important}
+    .card .btn.outline:hover{background:#f8f1f5!important}
+    .service-card{border-color:#ebdfe6!important}
+    .service-card .btn{background:#170a12!important;border-color:#170a12!important}
+    .birthday{background:linear-gradient(110deg,#170a12,#301522)!important}
+    .modal-box{border:1px solid #f0e3e9;box-shadow:0 24px 80px rgba(15,5,10,.2)}
+    .drawer-panel{box-shadow:-16px 0 40px rgba(20,5,12,.12)}
+    .drawer-foot .btn,.checkout-submit,.btn.primary{border-radius:12px}
+    footer{background:#fff}
+    .footer-title{letter-spacing:-.03em}
+    @media(max-width:1000px){
+      header .logo img{width:112px!important;height:112px!important;max-height:112px!important}
+      .nav{min-height:120px!important}
+      .section{scroll-margin-top:130px}
+    }
+    @media(max-width:759px){
+      header{position:sticky!important}
+      .nav{height:82px!important;min-height:82px!important;padding:6px 12px!important}
+      header .logo img{width:72px!important;height:72px!important;max-height:72px!important}
+      .nav-actions{gap:0!important}
+      .icon-btn,.menu-btn{min-height:40px!important;padding:7px!important}
+      .hero-grid{box-shadow:0 10px 28px rgba(77,25,48,.07)!important}
+      .hero-copy h1{letter-spacing:-.045em!important}
+      .hero-cta .btn{border-radius:11px!important}
+      .section-head{align-items:flex-start!important}
+      .section h2{font-size:23px!important}
+      .chip{padding:10px 14px!important}
+      .card{box-shadow:none!important}
+      .card:hover{transform:none!important}
+      .product-image{border-radius:10px!important}
+      .service-card{box-shadow:none!important}
+      .section{scroll-margin-top:95px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+    }
+
   </style>
 </head>
 
