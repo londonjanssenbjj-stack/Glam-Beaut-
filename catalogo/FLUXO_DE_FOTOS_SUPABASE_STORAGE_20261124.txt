@@ -1,0 +1,48 @@
+GLAM BEAUT — FLUXO DEFINITIVO DE IMAGENS DE PRODUTOS
+Data: 24/11/2026
+Branch: glam-product-stock-management-plan
+
+OBJETIVO
+Cadastrar, trocar e visualizar fotos de produtos diretamente no painel administrativo, sem editar código ou enviar fotos ao GitHub.
+
+ESTADO INSPECIONADO
+O arquivo admin-panel.html já contém:
+- Campo para URL da imagem (alternativo).
+- Seletor de arquivo para JPG, PNG e WebP.
+- Limite de upload de 8 MB.
+- Upload autenticado no bucket glam-product-images.
+- Restrição de upload ao usuário com papel admin.
+- Nome de arquivo derivado do slug do produto mais identificador de tempo.
+- Preenchimento automático do campo URL da imagem após upload.
+- Pré-visualização da imagem.
+- Mensagem de sucesso instruindo salvar cadastro para vincular URL ao produto.
+
+FLUXO PARA O ADMIN
+1. Abrir o painel administrativo e entrar com a conta autorizada.
+2. Abrir Novo produto ou editar produto existente.
+3. Preencher nome e os dados do produto.
+4. No campo “Enviar foto diretamente para Storage”, selecionar a foto no computador ou celular.
+5. Aguardar “Upload concluído. URL preenchida”.
+6. Conferir a pré-visualização.
+7. Salvar o produto. O upload por si só não substitui o salvamento do cadastro; a URL deve ser persistida no produto.
+8. Para substituir uma foto, editar o produto, enviar nova foto e salvar.
+
+FORMATOS E LIMITES ATUAIS
+- JPG/JPEG, PNG, WebP
+- Máximo de 8 MB
+- Bucket: glam-product-images
+- Upload autenticado e restrito ao papel Admin Master, conforme a checagem presente no painel.
+
+IMPORTANTE
+- As fotos NÃO precisam ser adicionadas ao repositório GitHub.
+- O GitHub deve conter o código do site e arquivos de configuração/documentação, não o acervo de fotos dos produtos.
+- As imagens são armazenadas no Supabase Storage; o banco de dados guarda a URL vinculada ao produto.
+- Não apagar fotos antigas automaticamente: isso evita quebrar produtos ou referências. Limpeza de arquivos órfãos pode ser uma rotina separada e segura.
+- O upload não confirma, por si só, que todas as políticas (bucket e Storage RLS) estão corretas no projeto Supabase. A validação operacional final deve testar upload autenticado, URL pública e persistência da URL ao salvar o produto.
+- Não adicionar segredos ou chaves privadas ao GitHub.
+
+RESULTADO ESPERADO
+A rotina de novos produtos é inteiramente pelo painel: cadastrar nome/preço/quantidade, selecionar foto, visualizar, salvar e publicar após conferência. Sem VS Code, GitHub ou deploy para cada produto.
+
+STATUS
+A funcionalidade de upload está presente no painel da branch de desenvolvimento. Este documento consolida o fluxo de uso e as regras. O teste físico/operacional no navegador conectado ao Supabase ainda precisa ser executado antes de declarar o upload validado em produção.
