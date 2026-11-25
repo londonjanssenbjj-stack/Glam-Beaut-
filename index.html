@@ -1007,12 +1007,13 @@ html{scroll-behavior:smooth}
 #catalogo,#servicos,#sobre,#contato{scroll-margin-top:130px}
 .nav-links a.nav-current:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#d2a100}
 
-    /* Compactação exclusiva do cabeçalho */
+    /* Compactação exclusiva do cabeçalho: logo maior, barra menor */
     .top-banner{padding:7px 12px!important}
-    .nav{height:88px!important;min-height:88px!important;padding:0 clamp(18px,4vw,64px)!important;gap:18px!important}
-    header .logo img{width:82px!important;height:82px!important;max-height:82px!important}
-    @media(max-width:1000px){.nav{height:88px!important;min-height:88px!important}}
-    @media(max-width:759px){.nav{height:82px!important;min-height:82px!important;padding:6px 12px!important}header .logo img{width:72px!important;height:72px!important;max-height:72px!important}}
+    header .nav{height:94px!important;min-height:94px!important;max-height:94px!important;padding:0 clamp(18px,4vw,64px)!important;gap:18px!important;flex-wrap:nowrap!important}
+    header .logo{height:94px!important;display:flex!important;align-items:center!important}
+    header .logo img{width:92px!important;height:92px!important;max-height:92px!important;object-fit:contain!important}
+    @media(max-width:1000px){header .nav{height:90px!important;min-height:90px!important;max-height:90px!important}header .logo{height:90px!important}header .logo img{width:88px!important;height:88px!important;max-height:88px!important}}
+    @media(max-width:759px){header .nav{height:82px!important;min-height:82px!important;max-height:82px!important;padding:6px 12px!important}header .logo{height:82px!important}header .logo img{width:76px!important;height:76px!important;max-height:76px!important}}
 </style>
 </head>
 
