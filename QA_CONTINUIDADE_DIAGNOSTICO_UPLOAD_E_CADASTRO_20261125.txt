@@ -1,0 +1,29 @@
+GLAM BEAUT — CONTINUIDADE QA 25/11/2026
+Atualização baseada nas capturas de tela do teste local do painel e consultas read-only ao Supabase.
+
+CONFIRMAÇÃO DE CADASTRO TESTE
+- O produto "teste upload" foi persistido no banco.
+- A imagem está vinculada por URL pública do Storage.
+- A variante padrão "Unidade" foi criada e está ativa.
+- Estoque registrado: 1.
+- O produto aparece na listagem do painel como inativo.
+- Movimentação registrada: entrada de 1 unidade, nota "Ajuste pelo cadastro simples de produto".
+- Portanto, a mensagem visual "Informe o nome do produto" observada anteriormente não impediu o salvamento final. O registro de produto e o estoque confirmam sucesso.
+
+DIAGNÓSTICO
+- Nome do arquivo da imagem não é a causa do problema. O upload usa um caminho gerado (slug + timestamp + extensão), e o nome digitado do produto é usado apenas como base do caminho.
+- A captura mostra o formulário com o nome preenchido e URL de imagem, e outra captura mostra o item persistido no catálogo/estoque.
+- Há discrepância entre a mensagem vermelha exibida na tela e o estado real do banco. Hipótese: mensagem de validação antiga/stale após tentativa anterior, ou execução de cópia local do painel diferente da versão atual. A causa exata da mensagem residual não está comprovada porque não há acesso direto à execução do navegador local.
+- No HTML da branch, o formulário tem um único id productName e a rotina saveProduct lê esse id e valida name. A lógica da branch não reproduz automaticamente a situação do navegador local.
+
+PENDÊNCIA DE AMBIENTE
+- Criação de branch Supabase para QA foi tentada, mas o Supabase exige confirmação do custo da branch antes de permitir. Não foi criada branch nem cobrado custo nesta tentativa.
+- Não aplicar migração, não mesclar PR, não publicar, não ativar produtos de catálogo real e não executar pagamentos sem sandbox/teste isolado e autorização.
+
+PRÓXIMOS PASSOS SEGUROS
+1. Comparar a cópia local admin-panel(4).html com admin-panel.html da branch e identificar se divergem.
+2. Reproduzir a mensagem residual com dados de QA em ambiente isolado, se o usuário aprovar a criação da branch com custo.
+3. Validar RPC de catálogo e idempotência no branch de QA.
+4. Fazer revisão de vitrine e checkout, testando sem pagamento real.
+5. Preparar relatório final com lista de pendências e separar claramente o que exige o usuário (login, upload de imagens reais, conferência de preços/quantidades e autorização de publicação).
+
