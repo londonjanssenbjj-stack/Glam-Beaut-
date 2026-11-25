@@ -1023,6 +1023,28 @@ header.nav-hidden{transform:translateY(-105%)!important;box-shadow:none!importan
 header .nav{width:100%!important;max-width:none!important}
 @media(prefers-reduced-motion:reduce){header{transition:none!important}}
 </style>
+
+<style id="glam-header-fix-v2">
+/* Corrige exclusivamente o cabeçalho: logo inteira e ocultação confiável durante scroll */
+header{overflow:visible!important;transform:translateY(0)!important;transition:transform .24s ease!important}
+header .nav{overflow:visible!important;height:94px!important;min-height:94px!important;max-height:94px!important}
+header .logo{overflow:visible!important;height:94px!important;max-height:none!important;align-items:center!important}
+header .logo img{display:block!important;width:94px!important;height:94px!important;max-height:none!important;object-fit:contain!important;border-radius:50%!important;clip-path:none!important}
+header.nav-hidden{transform:translateY(-110%)!important;visibility:hidden!important;pointer-events:none!important}
+@media(max-width:759px){header .nav,header .logo{height:78px!important;min-height:78px!important;max-height:78px!important}header .logo img{width:76px!important;height:76px!important;max-height:76px!important}}
+</style>
+<script id="glam-smart-header-v2">
+(function(){
+ const h=document.querySelector('header'); if(!h)return; let prev=window.scrollY||0; let scheduled=false; const handle=()=>{
+  const now=window.scrollY||0;
+  if(now<50){h.classList.remove('nav-hidden');}
+  else if(now>prev+2){h.classList.add('nav-hidden');}
+  else if(now<prev-2){h.classList.remove('nav-hidden');}
+  prev=now;scheduled=false;
+ };
+ window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;window.requestAnimationFrame(handle)}},{passive:true});
+})();
+</script>
 </head>
 
 <body>
