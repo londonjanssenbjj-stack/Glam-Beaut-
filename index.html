@@ -1538,7 +1538,7 @@ function findProduct(id){
 /* =========================================================
    PRODUTOS
    ========================================================= */
-function productCard(p){
+function productCard(p){\n  const isFav=favorites.includes(p.id);
   const badge = p.badge ? `<span class="badge ${p.badgeType || ""}">${escapeHTML(p.badge)}</span>` : "";
   const image = p.image
     ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
@@ -1546,6 +1546,7 @@ function productCard(p){
 
   return `
     <article class="card">
+      <button class="product-favorite ${isFav?"is-favorite":""}" title="${isFav?"Remover dos favoritos":"Adicionar aos favoritos"}" aria-label="${isFav?"Remover dos favoritos":"Adicionar aos favoritos"}" onclick="toggleFavorite('${p.id}',event)">${isFav?"♥":"♡"}</button>
       <div class="product-image">
         ${badge}
         ${image}
