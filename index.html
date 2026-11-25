@@ -795,6 +795,21 @@ header{background:#fff!important;position:relative!important;top:auto!important;
 .hero-anniversary{width:116px!important;top:2%!important;right:3%!important}
 }
 
+
+    /* Ajuste solicitado: hero Glam referência, sem selo duplicado no lado direito */
+    .hero-anniversary{display:none!important}
+    @media(min-width:760px){
+      .hero{max-width:none;padding:10px 16px 24px}
+      .hero-grid{grid-template-columns:1.05fr .95fr;min-height:620px;border-radius:28px}
+      .hero-copy{padding:64px}
+      .hero-art{min-height:620px}
+      .hero-products{width:100%;height:100%;max-width:100%;max-height:620px}
+      .hero-copy h1{font-size:clamp(48px,5.8vw,76px);white-space:nowrap}
+    }
+    @media(max-width:759px){
+      .hero{padding-top:14px}
+      .hero-anniversary{display:none!important}
+    }
 </style>
 </head>
 
