@@ -1,0 +1,41 @@
+EXECUÇÃO CONTÍNUA — MELHORIAS VISUAIS GLAM BEAUT
+Data: 25/11/2026
+Branch: glam-product-stock-management-plan
+
+AÇÕES EXECUTADAS
+1) index.html — camada CSS de refinamento visual adicionada sem reestruturar HTML:
+- banner superior com gradiente discreto;
+- navegação e botões com estados de hover;
+- hero mais refinado, cantos arredondados, sombra suave;
+- títulos e espaçamentos responsivos;
+- cartões de produto, imagens e chips com acabamento visual consistente;
+- cartões de serviços e bloco de aniversário refinados;
+- drawer/modal com acabamento e foco acessível;
+- regras de foco visível para navegação por teclado;
+- ajustes específicos mobile e desktop.
+
+2) admin-panel.html — camada de acabamento:
+- cartões métricos e cards com sombras/cantos;
+- estados de hover dos botões;
+- foco visual em campos;
+- tabelas com espaçamento e divisores;
+- ajustes de layout para telas menores e celulares.
+
+LIMITES E SEGURANÇA
+- Mudanças feitas somente na branch de desenvolvimento.
+- Nenhuma alteração de banco de dados executada.
+- Nenhuma política RLS modificada.
+- Nenhum pagamento, pedido ou cobrança criada.
+- Nenhuma implantação, merge ou publicação executada.
+- Sem contratação ou ativação de recursos pagos.
+
+VALIDAÇÃO
+- Commits confirmados na branch.
+- Ainda precisa de validação visual em navegador real, especialmente imagens, mobile, checkout e painel administrativo.
+- O catálogo continua dependendo da RPC/migração não aplicada e de produtos/variantes/estoque reais ativos.
+- Não afirmar que o site publicado recebeu as mudanças; os commits estão na branch de desenvolvimento.
+
+COMMITS
+index.html: f75fbf3dc23d819179d05016c66103fb4a4678e
+admin-panel.html: 493ff52aa5e83074338ea593249c79d62cf10fe
+
