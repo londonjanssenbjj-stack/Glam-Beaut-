@@ -1,0 +1,30 @@
+GLAM BEAUT — REGRA DEFINITIVA DE CUSTO ZERO
+Atualizado em 25/11/2026
+
+REQUISITO DO PROPRIETÁRIO
+Não usar nada que gere custo. Não contratar, ativar, provisionar, aumentar plano ou criar recursos que gerem cobrança.
+
+PROIBIDO SEM EXCEÇÃO
+- Criar branches de Supabase com custo recorrente.
+- Upgrade de plano, add-on, compute pago, serviço externo pago.
+- Testes com pagamentos reais ou cobranças reais.
+- Hospedagem, domínio, APIs ou serviços pagos novos.
+
+AUTORIZADO
+- Revisão e correção de código em branch de desenvolvimento GitHub.
+- Testes estáticos locais, scripts de validação, HTML/CSS/JS.
+- Consultas read-only ao Supabase.
+- Utilizar recursos já disponíveis no plano gratuito, respeitando limites.
+- Sandbox Mercado Pago sem pagamento real.
+- Testes de interface que não gerem dados ou custos, sempre que viável.
+
+CONDIÇÃO DE SEGURANÇA
+Se um passo exigir confirmação de custo, upgrade ou recurso pago, parar esse passo e procurar alternativa gratuita. Não contornar o limite por meio de alteração em produção.
+
+PRÓXIMA EXECUÇÃO
+1. Validar arquivos HTML, JS e configuração na branch de desenvolvimento.
+2. Corrigir problemas de código identificáveis sem mudar escopo.
+3. Fazer revisão estática de vitrine, carrinho, login e checkout.
+4. Revalidar Supabase somente por consultas read-only e recursos gratuitos existentes.
+5. Documentar o que está concluído e o que exige interação do usuário.
+6. Não publicar em produção sem autorização explícita.
