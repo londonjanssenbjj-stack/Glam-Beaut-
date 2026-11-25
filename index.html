@@ -910,6 +910,43 @@ body>.hero .hero-products{width:100%!important;max-height:560px!important}
  body>.hero .hero-products{max-height:350px!important}
 }
 
+
+/* FINAL homepage visual correction: restore reference proportions and anniversary badge */
+@media(min-width:1000px){
+ .hero{padding:16px 16px 20px!important}
+ .hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:570px!important;height:570px!important}
+ .hero-copy{padding:clamp(38px,4vw,62px)!important}
+ .hero-copy h1{font-size:clamp(52px,4.8vw,72px)!important;white-space:nowrap!important;line-height:1!important;letter-spacing:-.055em!important;margin-bottom:24px!important}
+ .hero-copy p{font-size:21px!important;line-height:1.5!important;margin-bottom:30px!important}
+ .hero-art{min-height:570px!important;height:570px!important}
+ .hero-products{height:100%!important;max-height:570px!important;object-fit:contain!important}
+}
+.anniversary-badge{position:absolute!important;z-index:8!important;right:5%!important;top:4%!important;width:clamp(140px,14vw,205px)!important;height:auto!important;aspect-ratio:1!important;border-radius:50%!important;background:#050505!important;border:3px solid #05bfc0!important;outline:2px solid #050505!important;outline-offset:-9px!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;box-shadow:0 8px 20px rgba(0,0,0,.15)!important}
+.anniversary-badge .badge-script{position:absolute!important;left:18%!important;top:37%!important;font-family:cursive!important;font-style:italic!important;font-size:clamp(25px,2.4vw,38px)!important;color:#fff!important;line-height:1!important}
+.anniversary-badge .badge-ten{position:absolute!important;right:20%!important;top:19%!important;font-family:Georgia,serif!important;font-size:clamp(40px,4vw,60px)!important;color:#d6a400!important;line-height:1!important}
+.anniversary-badge .badge-years{position:absolute!important;right:14%!important;top:51%!important;font-family:Georgia,serif!important;font-style:italic!important;font-size:clamp(20px,2vw,30px)!important;color:#d6a400!important}
+.anniversary-badge small{position:absolute!important;bottom:21%!important;left:10%!important;right:10%!important;text-align:center!important;font-size:clamp(6px,.6vw,9px)!important;letter-spacing:.03em!important;color:#fff!important;white-space:nowrap!important}
+@media(max-width:999px){
+ .hero-grid{grid-template-columns:1fr!important;height:auto!important;min-height:0!important}
+ .hero-copy h1{font-size:clamp(42px,8vw,64px)!important;white-space:normal!important}
+ .hero-art{height:auto!important;min-height:400px!important}
+ .hero-products{max-height:430px!important}
+ .anniversary-badge{width:145px!important;right:3%!important;top:3%!important}
+ .anniversary-badge .badge-script{font-size:30px!important}
+ .anniversary-badge .badge-ten{font-size:48px!important}
+ .anniversary-badge .badge-years{font-size:24px!important}
+}
+@media(max-width:759px){
+ .hero-grid{grid-template-columns:1fr!important;height:auto!important}
+ .hero-copy h1{font-size:clamp(36px,10vw,48px)!important;white-space:normal!important}
+ .hero-art{min-height:300px!important;height:300px!important}
+ .hero-products{max-height:300px!important}
+ .anniversary-badge{width:116px!important}
+ .anniversary-badge .badge-script{font-size:25px!important}
+ .anniversary-badge .badge-ten{font-size:39px!important}
+ .anniversary-badge .badge-years{font-size:19px!important}
+}
+
 </style>
 </head>
 
