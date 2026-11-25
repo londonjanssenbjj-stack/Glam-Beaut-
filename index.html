@@ -651,6 +651,20 @@
   @media(max-width:759px){.hero{padding-top:24px}.hero-grid{border-radius:22px}.hero-copy{padding:28px 22px}.hero-art{min-height:240px}.birthday{padding:25px 20px}}
   @media(min-width:760px){.grid{gap:28px 18px}}
 
+
+  /* Hero visual replacement — premium Glam composition */
+  .hero-grid{grid-template-columns:1.12fr .88fr;min-height:560px;background:linear-gradient(110deg,#fde8ef 0%,#f8dfe9 60%,#f3d3e0 100%)}
+  .hero-copy{position:relative;z-index:2}
+  .hero-copy h1 em{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;color:#c79b25;letter-spacing:-.065em}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-cta .btn{min-height:58px;padding:15px 26px;font-size:15px}
+  .hero-cta .btn:first-child{background:#190a12;border-color:#190a12}
+  .hero-cta .btn.outline{border-width:2px;background:rgba(255,255,255,.14)}
+  .hero-art{background:linear-gradient(135deg,#f8dce8,#f5cdda);}
+  .hero-art:after{content:none}
+  .hero-products{width:min(100%,620px);height:auto;position:relative;z-index:2;filter:drop-shadow(0 10px 14px rgba(100,38,72,.12))}
+  @media(max-width:759px){.hero-grid{min-height:0}.hero-copy h1{font-size:clamp(38px,11vw,56px)}.hero-art{min-height:280px;padding:8px}.hero-products{max-height:330px}}
+  @media(min-width:760px){.hero-copy{padding:clamp(36px,5.5vw,78px)}.hero-art{min-height:560px}}
 </style>
 </head>
 
@@ -769,15 +783,49 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <div class="eyebrow">Glam Beleza Estética e Bem-estar</div>
-        <h1>sinta-se linda hoje.</h1>
+        <h1>sinta-se <em>linda</em> hoje.</h1>
         <p>Beleza, autocuidado e experiências pensadas para você. Descubra nossos produtos, presentes e serviços em Corumbá.</p>
-        <div style="display:flex;gap:9px;flex-wrap:wrap">
-          <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">Comprar agora</button>
-          <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView()">Agendar serviço</button>
+        <div class="hero-cta">
+          <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">🛍 Comprar agora</button>
+          <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">▦ Agendar serviço</button>
         </div>
       </div>
-      <div class="hero-art" aria-label="Imagem ilustrativa Glam">
-        <div class="hero-orb"></div>
+      <div class="hero-art" aria-label="Composição ilustrativa de produtos Glam">
+        <svg class="hero-products" viewBox="0 0 620 480" role="img" aria-label="Produtos de beleza em uma bandeja com flor">
+          <defs>
+            <linearGradient id="glassPink" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffe4e9"/><stop offset=".5" stop-color="#e7a6b6"/><stop offset="1" stop-color="#bf758b"/></linearGradient>
+            <linearGradient id="goldMetal" x1="0" x2="1"><stop stop-color="#9b6811"/><stop offset=".45" stop-color="#f8d26a"/><stop offset="1" stop-color="#b98119"/></linearGradient>
+            <linearGradient id="cream" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fffaf3"/><stop offset="1" stop-color="#e9d5bd"/></linearGradient>
+            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#91536d" flood-opacity=".2"/></filter>
+          </defs>
+          <circle cx="325" cy="220" r="196" fill="none" stroke="#c69b36" stroke-width="2"/>
+          <path d="M80 330 Q140 265 192 330 T310 326" fill="none" stroke="#62855c" stroke-width="18" stroke-linecap="round"/>
+          <path d="M445 322 Q500 245 555 310" fill="none" stroke="#537c50" stroke-width="16" stroke-linecap="round"/>
+          <g filter="url(#softShadow)">
+            <rect x="126" y="140" width="100" height="42" rx="9" fill="url(#goldMetal)"/>
+            <rect x="143" y="180" width="67" height="190" rx="28" fill="url(#glassPink)" stroke="#d19aa9"/>
+            <rect x="159" y="156" width="35" height="27" rx="5" fill="#e5a6b5"/>
+            <rect x="169" y="106" width="18" height="50" rx="5" fill="url(#goldMetal)"/>
+            <rect x="255" y="190" width="150" height="46" rx="15" fill="url(#goldMetal)"/>
+            <rect x="265" y="234" width="132" height="150" rx="24" fill="url(#cream)" stroke="#dfc4b5"/>
+            <rect x="286" y="212" width="92" height="25" rx="6" fill="#e4a8b7"/>
+            <rect x="308" y="125" width="54" height="85" rx="12" fill="url(#glassPink)"/>
+            <rect x="318" y="106" width="34" height="20" rx="4" fill="#d9a3b0"/>
+            <rect x="323" y="72" width="24" height="36" rx="5" fill="url(#goldMetal)"/>
+            <rect x="415" y="175" width="80" height="180" rx="22" fill="url(#glassPink)" stroke="#d19aa9"/>
+            <rect x="432" y="152" width="46" height="25" rx="8" fill="#f4d6df"/>
+            <rect x="440" y="112" width="30" height="43" rx="6" fill="url(#goldMetal)"/>
+            <rect x="438" y="245" width="54" height="46" rx="12" fill="#f1bdc9"/>
+          </g>
+          <ellipse cx="312" cy="390" rx="238" ry="36" fill="url(#cream)" stroke="#d7b67a" stroke-width="4"/>
+          <g transform="translate(478 340)">
+            <ellipse cx="0" cy="-25" rx="17" ry="29" fill="#e75c9a"/>
+            <ellipse cx="25" cy="0" rx="29" ry="17" fill="#e75c9a"/>
+            <ellipse cx="0" cy="25" rx="17" ry="29" fill="#e75c9a"/>
+            <ellipse cx="-25" cy="0" rx="29" ry="17" fill="#e75c9a"/>
+            <circle r="12" fill="#d5a232"/>
+          </g>
+        </svg>
       </div>
     </div>
   </section>
