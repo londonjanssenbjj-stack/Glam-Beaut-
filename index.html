@@ -870,11 +870,7 @@ body>.top-banner, body>header, body>.hero{display:none!important}
 </head>
 
 <body>
-  <!-- HOMEPAGE REFERÊNCIA: imagem aprovada, preservada sem alterações -->
-  <section id="homepage-reference" aria-label="Página inicial Glam conforme imagem de referência">
-    <img src="Homepage Glam Beleza e Bem-Estar (1).png" alt="Página inicial Glam 10 anos — beleza, estética e bem-estar" style="display:block;width:100%;height:auto;">
-  </section>
-  <div class="top-banner">Entrega rápida em Corumbá | Ganhe um presente no seu aniversário!</div>
+  <div class="top-banner"><span class="delivery-mark">🚚</span> Entrega rápida em Corumbá <span class="top-divider">|</span> Ganhe um presente no seu aniversário!</div>
 
   <header>
     <nav class="nav">
@@ -882,11 +878,9 @@ body>.top-banner, body>header, body>.hero{display:none!important}
 
       <div class="nav-links" aria-label="Navegação principal"><a href="#" onclick="goHome();return false;">Início</a><a href="#catalogo">Loja</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></div>
       <div class="nav-actions">
-        <button class="icon-btn" aria-label="Buscar" onclick="openSearch()">⌕</button>
-        <button class="menu-btn" onclick="openMenu()">MENU</button>
-        <button class="icon-btn" aria-label="Abrir sacola" onclick="openCart()">
-          BAG <span class="bag-count" id="bagCount">0</span>
-        </button>
+        <button class="icon-btn search-icon" aria-label="Buscar" onclick="openSearch()"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/></svg></button>
+        <button class="icon-btn account-icon" aria-label="Minha conta" onclick="openAccount()"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button><button class="menu-btn" onclick="openMenu()">MENU</button>
+        <button class="icon-btn bag-icon" aria-label="Abrir sacola" onclick="openCart()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1 14H5L4 7Z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg><span class="bag-count" id="bagCount">0</span></button>
       </div>
     </nav>
   </header>
@@ -996,7 +990,7 @@ body>.top-banner, body>header, body>.hero{display:none!important}
           <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">▦ Agendar serviço</button>
         </div>
       </div>
-      <div class="hero-art" aria-label="Composição ilustrativa de produtos Glam">
+      <div class="hero-art" aria-label="Composição ilustrativa de produtos Glam"><div class="anniversary-badge"><span class="badge-script">glam!</span><span class="badge-ten">10</span><span class="badge-years">anos</span><small>BELEZA, ESTÉTICA E BEM-ESTAR</small></div>
         <svg class="hero-products" viewBox="0 0 620 480" role="img" aria-label="Produtos de beleza em uma bandeja com flor">
           <defs>
             <linearGradient id="glassPink" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffe4e9"/><stop offset=".5" stop-color="#e7a6b6"/><stop offset="1" stop-color="#bf758b"/></linearGradient>
