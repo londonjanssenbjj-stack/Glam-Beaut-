@@ -970,6 +970,16 @@
   header .nav{height:82px!important;min-height:82px!important;max-height:82px!important;flex-wrap:nowrap!important}
   header .logo img{width:72px!important;height:72px!important;max-height:72px!important}
 }
+
+/* Ajuste solicitado: melhorar visibilidade das fotos nos cards */
+.product-image{height:250px!important;aspect-ratio:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;background:linear-gradient(145deg,#fff8fb,#f2e1eb)!important}
+.product-image img{object-fit:contain!important;padding:14px!important;max-height:100%!important;max-width:100%!important}
+.product-image .placeholder{background:transparent!important;min-height:0!important}
+.card{display:flex!important;flex-direction:column!important}
+.card h3{min-height:2.5em}
+.card .meta{min-height:2.8em}
+.card .price{margin-top:auto}
+@media(max-width:759px){.product-image{height:210px!important}}
 </style>
 </head>
 
