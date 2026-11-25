@@ -1,0 +1,31 @@
+GLAM BEAUT — RELATÓRIO DE EXECUÇÃO CONTÍNUA (24/11/2026)
+Branch de desenvolvimento: glam-product-stock-management-plan
+PR #3: aberto, Draft, não merged. main/produção preservadas.
+
+ESCOPO REALIZADO NESTA EXECUÇÃO
+- Conferida a branch e o PR #3, confirmando que o trabalho permanece isolado e em revisão.
+- Revisado admin-panel.html: campo Quantidade disponível integrado ao cadastro.
+- O painel usa a variante padrão “Unidade” para produtos simples e mantém o controle existente para produtos com variantes específicas.
+- O ajuste de quantidade é realizado por RPC admin_adjust_inventory, não por gravação direta na tabela de estoque.
+- Revisado o backend create_customer_order: verifica usuário autenticado, variante/produto ativo, quantidade, estoque, preço do banco, entrega e cupom; baixa/reserva estoque na criação de pedido.
+- Revisado storefront_catalog: só lista produto/variante ativa com saldo positivo e fornece URL da imagem do produto.
+- Confirmado por consulta read-only que Storage bucket glam-product-images existe, leitura pública e limite de 8 MB; JPEG, PNG, WebP. Políticas de upload/update/delete permanecem restritas a admin conforme a auditoria anterior.
+- Confirmado que o admin contém mecanismo de upload e preview e que storefront consome image_url.
+
+LIMITES / PENDÊNCIAS QUE DEPENDEM DE ACESSO OPERACIONAL
+- Não foi possível realizar teste de navegador com login de admin real nesta execução.
+- Upload de foto ainda não foi testado com arquivo real.
+- Salvamento de produto + variante padrão + ajuste de estoque precisa teste no navegador; o fluxo usa operações sequenciais e, se uma etapa falhar, pode deixar produto salvo com etapa posterior pendente. O painel apresenta erro, mas não há transação única para agrupar produto/variante/estoque.
+- Não foi feito teste de compra/checkout nem Mercado Pago Sandbox.
+- Os 16 produtos existentes não foram ativados nem tiveram quantidades/imagens preenchidas.
+- Não foram criadas contas de autenticação nem alteradas roles.
+- Nenhuma migration foi aplicada; nenhuma Edge Function alterada ou deployada.
+- Nenhuma política RLS/Storage alterada.
+- Nenhum dado real de produto/estoque/pedido foi alterado.
+- Não foi feito merge, publicação, deploy ou alteração na branch main.
+
+PRÓXIMA AÇÃO DO USUÁRIO
+A etapa que exige sua participação é abrir o ambiente de desenvolvimento, autenticar como Admin Master e testar o fluxo do painel (produto, foto e quantidade). Quando esse teste estiver disponível, a validação pode prosseguir com passos objetivos, sem refazer trabalho.
+
+CONCLUSÃO
+A simplificação de controle de quantidade foi implementada na branch de desenvolvimento. Revisão estática do fluxo de estoque e catálogo realizada. O site ainda não pode ser declarado finalizado ou pronto para venda porque faltam testes operacionais reais de autenticação, upload, gravação e pagamento Sandbox.
