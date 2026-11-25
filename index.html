@@ -670,6 +670,35 @@
     @media(max-width:759px){.hero-grid{min-height:0}.hero-copy h1{font-size:clamp(38px,11vw,56px)}.hero-art{min-height:280px;padding:8px}.hero-products{max-height:330px}}
     @media(min-width:760px){.hero-copy{padding:clamp(36px,5.5vw,78px)}.hero-art{min-height:560px}}
 
+<!-- Glam live reference override -->
+
+/* Glam reference layout — applied to live Pages source */
+.top-banner{background:#050505!important;color:#fff!important;font-weight:600!important;font-size:15px!important;padding:12px!important;text-align:center!important}
+.top-banner:before{content:'🚚  ';color:#d5a100}
+header{background:#fff!important;position:relative!important;top:auto!important;backdrop-filter:none!important;border-bottom:0!important}
+.nav{height:188px!important;max-width:1500px!important;padding:12px 5.5%!important;gap:30px!important}
+.logo img{width:168px!important;height:168px!important;max-height:168px!important;object-fit:contain!important;border-radius:50%!important}
+.nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(26px,4vw,64px)!important;flex:1!important}
+.nav-links a{font-size:16px!important;font-weight:700!important;text-transform:uppercase!important;white-space:nowrap!important;position:relative!important;padding:16px 0!important;color:#080808!important;text-decoration:none!important}
+.nav-links a:first-child:after{content:''!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:4px!important;background:#d2a100!important}
+.nav-actions{display:flex!important;align-items:center!important;gap:18px!important}
+.icon-btn{font-size:16px!important;min-height:48px!important;padding:10px 14px!important}
+.hero{max-width:none!important;margin:0!important;padding:14px 16px 24px!important}
+.hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:618px!important;border-radius:30px!important;overflow:hidden!important;background:#f9e3ed!important}
+.hero-copy{padding:clamp(36px,5vw,80px)!important}
+.eyebrow{font-size:16px!important;letter-spacing:.03em!important;margin-bottom:26px!important}
+.hero-copy h1{font-size:clamp(46px,6.5vw,90px)!important;line-height:1.04!important;letter-spacing:-.045em!important;margin-bottom:28px!important}
+.hero-highlight{color:#d0a000!important;font-family:Georgia,serif!important;font-style:italic!important;font-weight:400!important}
+.hero-copy p{font-size:clamp(18px,1.7vw,25px)!important;line-height:1.5!important;max-width:680px!important;margin-bottom:42px!important;color:#21131b!important}
+.hero-cta{display:flex!important;gap:16px!important;flex-wrap:wrap!important}
+.hero-cta .btn{min-height:74px!important;padding:18px 34px!important;font-size:20px!important;border-radius:18px!important;font-weight:700!important}
+.hero-cta .btn:first-child{background:#16050e!important;border-color:#16050e!important}
+.hero-cta .btn.outline{background:transparent!important;border-width:2px!important}
+.hero-art{min-height:618px!important;background:linear-gradient(135deg,#f9dce7,#f5cbdc)!important;position:relative!important}
+.hero-products{width:100%!important;max-width:720px!important;height:auto!important;filter:drop-shadow(0 12px 18px rgba(75,22,44,.13))!important}
+@media(max-width:1000px){.nav{height:auto!important;min-height:130px!important;padding:12px 4%!important}.logo img{width:118px!important;height:118px!important;max-height:118px!important}.nav-links{gap:20px!important}.nav-links a{font-size:13px!important}.hero-grid{min-height:500px!important}.hero-art{min-height:500px!important}.hero-cta .btn{font-size:16px!important;min-height:58px!important;padding:14px 20px!important}}
+@media(max-width:759px){.nav{min-height:90px!important;height:90px!important;padding:10px 14px!important}.logo img{width:68px!important;height:68px!important;max-height:68px!important}.nav-links{display:none!important}.menu-btn{display:block!important}.nav-actions{gap:4px!important}.hero{padding:12px!important}.hero-grid{grid-template-columns:1fr!important;min-height:0!important;border-radius:22px!important}.hero-copy{padding:28px 22px!important}.hero-copy h1{font-size:clamp(38px,11vw,58px)!important}.hero-copy p{font-size:16px!important;margin-bottom:26px!important}.hero-cta .btn{min-height:50px!important;padding:12px 16px!important;font-size:14px!important;border-radius:12px!important}.hero-art{min-height:280px!important;padding:12px!important}.hero-products{max-height:320px!important}}
+
 </style>
 </head>
 
@@ -680,6 +709,7 @@
     <nav class="nav">
       <a href="#" class="logo" onclick="goHome();return false;"><img src="Logo-Glam-Beaut.png.jpeg" alt="Glam Beleza, Estética e Bem-Estar - 10 Anos" style="max-height: 45px; width: auto; object-fit: contain; vertical-align: middle;"></a>
 
+      <div class="nav-links" aria-label="Navegação principal"><a href="#" onclick="goHome();return false;">Início</a><a href="#catalogo">Loja</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></div>
       <div class="nav-actions">
         <button class="icon-btn" aria-label="Buscar" onclick="openSearch()">⌕</button>
         <button class="menu-btn" onclick="openMenu()">MENU</button>
