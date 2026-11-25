@@ -699,6 +699,58 @@ header{background:#fff!important;position:relative!important;top:auto!important;
 @media(max-width:1000px){.nav{height:auto!important;min-height:130px!important;padding:12px 4%!important}.logo img{width:118px!important;height:118px!important;max-height:118px!important}.nav-links{gap:20px!important}.nav-links a{font-size:13px!important}.hero-grid{min-height:500px!important}.hero-art{min-height:500px!important}.hero-cta .btn{font-size:16px!important;min-height:58px!important;padding:14px 20px!important}}
 @media(max-width:759px){.nav{min-height:90px!important;height:90px!important;padding:10px 14px!important}.logo img{width:68px!important;height:68px!important;max-height:68px!important}.nav-links{display:none!important}.menu-btn{display:block!important}.nav-actions{gap:4px!important}.hero{padding:12px!important}.hero-grid{grid-template-columns:1fr!important;min-height:0!important;border-radius:22px!important}.hero-copy{padding:28px 22px!important}.hero-copy h1{font-size:clamp(38px,11vw,58px)!important}.hero-copy p{font-size:16px!important;margin-bottom:26px!important}.hero-cta .btn{min-height:50px!important;padding:12px 16px!important;font-size:14px!important;border-radius:12px!important}.hero-art{min-height:280px!important;padding:12px!important}.hero-products{max-height:320px!important}}
 
+
+
+    /* FINAL HERO / HEADER MATCH - approved reference image */
+    .top-banner{padding:12px 18px;font-size:16px;letter-spacing:0;}
+    .nav{height:170px;max-width:none;padding:0 clamp(22px,5.3vw,84px);gap:32px;}
+    .logo{display:flex;align-items:center;flex:0 0 auto;}
+    .logo img{max-height:180px!important;width:190px!important;height:190px!important;object-fit:contain!important;}
+    .nav-links{display:flex;align-items:center;justify-content:center;gap:clamp(20px,3.3vw,52px);flex:1;}
+    .nav-links a{font-size:clamp(14px,1.35vw,20px);font-weight:650;text-transform:uppercase;padding:16px 4px;position:relative;}
+    .nav-links a:first-child:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#c49a26;}
+    .nav-actions{gap:clamp(10px,1.8vw,28px);}
+    .icon-btn,.menu-btn{font-size:clamp(16px,1.25vw,20px);min-height:48px;padding:12px 10px;}
+    .hero{max-width:none;padding:24px 16px 12px;}
+    .hero-grid{grid-template-columns:1.18fr .82fr;min-height:620px;border-radius:30px;}
+    .hero-copy{padding:clamp(32px,4.4vw,72px);}
+    .eyebrow{font-size:clamp(12px,1.1vw,16px);letter-spacing:.09em;margin-bottom:28px;}
+    h1{font-size:clamp(46px,6.6vw,104px);line-height:1.02;letter-spacing:-.055em;margin-bottom:28px;max-width:100%;}
+    .hero-copy p{font-size:clamp(17px,1.65vw,25px);line-height:1.55;max-width:690px;margin-bottom:40px;}
+    .hero-cta{display:flex;gap:18px;flex-wrap:wrap;}
+    .hero-cta .btn{font-size:clamp(16px,1.4vw,23px);padding:20px 34px;min-height:72px;border-radius:18px;}
+    .hero-art{min-height:620px;}
+    .hero-display{width:min(100%,760px);height:min(52vw,580px);}
+    .hero-gold-arc{inset:6% 7% 7% 5%;}
+    @media(max-width:900px){
+      .nav{height:auto;min-height:110px;padding:12px 18px;flex-wrap:wrap;}
+      .logo img{width:120px!important;height:120px!important;max-height:120px!important;}
+      .nav-links{order:3;width:100%;flex-basis:100%;gap:14px;overflow-x:auto;justify-content:space-around;}
+      .nav-links a{font-size:13px;white-space:nowrap;}
+      .hero-grid{grid-template-columns:1fr;min-height:unset;}
+      .hero-copy{padding:36px 28px;}
+      h1{font-size:clamp(42px,9vw,72px);}
+      .hero-art{min-height:380px;}
+      .hero-display{height:360px;}
+    }
+    @media(max-width:560px){
+      .top-banner{font-size:12px;padding:9px 8px;}
+      .nav{min-height:82px;padding:8px 12px;}
+      .logo img{width:84px!important;height:84px!important;max-height:84px!important;}
+      .nav-actions{gap:2px;}
+      .nav-links{gap:10px;}
+      .nav-links a{font-size:11px;padding:10px 2px;}
+      .hero{padding:14px 10px 20px;}
+      .hero-grid{border-radius:22px;}
+      .hero-copy{padding:28px 20px;}
+      .eyebrow{font-size:10px;margin-bottom:18px;}
+      h1{font-size:clamp(38px,10.5vw,58px);}
+      .hero-copy p{font-size:16px;margin-bottom:26px;}
+      .hero-cta{gap:10px;}
+      .hero-cta .btn{font-size:15px;padding:15px 18px;min-height:56px;border-radius:14px;}
+      .hero-art{min-height:310px;}
+      .hero-display{height:300px;}
+    }
 </style>
 </head>
 
