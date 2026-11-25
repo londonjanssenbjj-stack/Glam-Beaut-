@@ -1,0 +1,32 @@
+GLAM BEAUT — EXECUÇÃO CONTÍNUA: AUDITORIA DE INTEGRAÇÃO E BLOQUEIOS
+Data: 25/11/2026
+Branch GitHub: glam-product-stock-management-plan
+Escopo: leitura e revisão estática; consultas read-only ao Supabase.
+
+CONFERÊNCIAS DE HOJE
+- Confirmado no banco: 17 produtos, 0 ativos; 1 variante ativa; 1 registro de inventário com quantidade 1.
+- Produto de teste "teste upload": inativo, preço R$ 10,00, URL de imagem salva, variante Unidade ativa, estoque 1.
+- O produto de teste não entra na vitrine porque products.is_active=false. Não alterar status.
+- Confirmado: storefront_catalog e customer_order_requests ainda não existem em produção. O arquivo de migração no branch não foi aplicado.
+- Confirmado: função create_customer_order existe em public e private.
+- Confirmado: políticas RLS de acesso direto ao inventário/movimentações/payment_events são restritivas; policies administrativas são por role.
+- Confirmado: frontend branch inclui scripts Supabase e integração storefront, enquanto a main é protótipo estático. O branch não deve ser publicado antes de testes completos.
+- Confirmado: integração usa RPC storefront_catalog, exige login para checkout, chama create_customer_order_idempotent e Edge Function create-payment, e redireciona para checkout_url.
+- Segurança: não foram alteradas políticas, configurações, credenciais, produto, estoque ou produção.
+
+REVISÃO ESTÁTICA — PONTOS A TESTAR EM QA
+1. Falha do RPC storefront_catalog deve ocultar catálogo estático e não mostrar produtos de fallback; o código faz isso.
+2. Persistência e filtragem de carrinho por variant_id; no código, IDs válidos são reconciliados ao carregar catálogo.
+3. Checkout exige sessão; signup/signin estão no modal.
+4. Idempotência depende da migração ausente: storefront_catalog e create_customer_order_idempotent.
+5. Checkout é iniciado via Edge Function create-payment e só prossegue com checkout_url.
+6. Entrega local aparece como "Calculado no checkout", mas o frontend não calcula tarifa. A RPC do pedido é a autoridade para taxa/endereços; validar valores e bairros no QA.
+7. Testar fluxos de erro, quantidade acima do saldo, item inativo, preço alterado, retry e webhook somente em ambiente sandbox.
+
+BLOQUEIO DE TESTE ISOLADO
+- Criação de branch de Supabase foi tentada, mas exige confirmação explícita de custo pela ferramenta.
+- Não foi criada branch de QA e não houve cobrança.
+- Nenhuma migração executada, nenhum pedido ou pagamento criado.
+
+PRÓXIMA ETAPA (REQUER BRANCH QA)
+A branch Supabase de QA deve ser criada após confirmar o custo apresentado pelo Supabase. Ela é o ambiente seguro para aplicar a migração, testar catálogo e checkout e evitar qualquer alteração em produção.
