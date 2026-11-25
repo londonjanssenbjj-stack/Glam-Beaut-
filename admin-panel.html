@@ -385,9 +385,10 @@ const resetProductForm=()=>{
    const compareInput=document.getElementById('productComparePrice').value.trim();
    const compare=compareInput===''?null:Number(compareInput);
    const sku=document.getElementById('productSku').value.trim()||null;
-   if(!name||!slug||!Number.isFinite(price)||price<0||(compare!==null&&(!Number.isFinite(compare)||compare<price))){
-     setMessage(formMessage,'Confira nome, preço e preço anterior (que deve ser igual ou maior que o preço atual).','error');button.disabled=false;return;
-   }
+   if(!name||!slug){setMessage(formMessage,'Informe o nome do produto.','error');button.disabled=false;return;}
+   const priceRaw=document.getElementById('productPrice').value.trim();
+   if(priceRaw===''||!Number.isFinite(price)||price<0){setMessage(formMessage,'Informe um preço de venda válido (zero ou maior).','error');button.disabled=false;return;}
+   if(compareInput!==''&&(!Number.isFinite(compare)||compare<price)){setMessage(formMessage,'O preço anterior deve ser um número igual ou maior que o preço atual. Deixe vazio se não houver preço anterior.','error');button.disabled=false;return;}
    const payload={name,slug,category_id:categorySelect.value||null,description:document.getElementById('productDescription').value.trim()||null,image_url:document.getElementById('productImage').value.trim()||null,sku,price,compare_at_price:compare,is_featured:document.getElementById('productFeatured').checked,is_active:document.getElementById('productActive').checked,updated_at:new Date().toISOString()};
    try{
      const duplicateSlug=await client.from('products').select('id').eq('slug',slug);
