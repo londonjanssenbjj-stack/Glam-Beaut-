@@ -1,0 +1,28 @@
+GLAM BEAUT — MAPA DE FINALIZAÇÃO E PENDÊNCIAS
+Atualizado: 25/11/2026
+Branch: glam-product-stock-management-plan
+Produção: preservada; nenhuma alteração neste ciclo.
+
+PENDÊNCIAS PARA FINALIZAÇÃO
+A. Ambiente QA isolado: branch Supabase não criada. A tentativa foi interrompida pela etapa de confirmação de custo. Não há branch QA criada.
+B. Migração catálogo/idempotência: revisar, testar em QA, depois aprovar e aplicar. Arquivo: supabase/migrations/20261124195000_storefront_catalog_idempotency.sql. Não aplicar em produção antes do teste isolado.
+C. Catálogo público: storefront_catalog inexistente no Supabase. Após migração, validar produtos ativos, variantes ativas, imagem, preço, categoria e estoque positivo. Não revelar quantidade exata ao cliente.
+D. Carrinho: testar adicionar/remover, quantidades, revalidação de variante/preço/estoque e estado após recarregar.
+E. Pedido: validar create_customer_order_idempotent, chave repetida com mesmo payload, chave repetida com payload diferente, falhas e concorrência. A RPC create_customer_order permanece autoridade de preço/estoque/transação.
+F. Frete: confirmar cálculo, regiões e taxa real, porque o frontend atualmente apresenta a entrega como calculada no checkout mas não calcula a taxa sozinho; validar autoridade no servidor e consistência da tela.
+G. Mercado Pago: sandbox - testar checkout, pagamento aprovado, pendente, recusado, cancelado, webhook, assinatura, valor, moeda, external_reference, retry e idempotência. Nenhuma cobrança real.
+H. Login/conta: validar autenticação do cliente, recuperação de senha, sessão, logout, pedido autenticado e UX de erro.
+I. Admin: concluir teste browser real de cadastro/upload/estoque e reconciliação da mensagem residual "Informe o nome do produto" (o registro do teste persistiu apesar da mensagem).
+J. Conteúdo comercial: imagens reais, títulos, descrição, categoria, variantes/SKUs, preço e quantidade conferidos pelo proprietário.
+K. QA responsivo e regressão: desktop/mobile, imagens, links, botões, navegação, console/network errors, acessibilidade básica e políticas RLS.
+L. Publicação: merge/deploy apenas após QA, aprovação explícita e confirmação de domínio/ambiente. Produção ainda não foi liberada.
+
+REVISÃO DA MIGRAÇÃO
+- Upsert de categorias muda nomes/ordem/ativação de categorias existentes que tenham slug correspondente.
+- storefront_catalog é security definer, stable, set search_path vazio, com execute para anon/authenticated; revela só variantes vendáveis e disponibilidade.
+- customer_order_requests em private, RLS habilitada, acesso revogado de anon/authenticated.
+- create_customer_order_idempotent exige usuário autenticado e chama create_customer_order para validação/transação autoritativa.
+- Antes de executar em QA, revisar as alterações de categorias e o hashing/idempotência; só então aplicar e testar.
+
+PRÓXIMO BLOQUEIO
+A criação de branch de QA requer confirmação do custo do Supabase. Não foi criada branch e não houve cobrança. Para prosseguir com a branch, preciso que o usuário veja o valor/recorrência informado pelo Supabase e confirme. Nenhuma publicação ou alteração de produção será feita sem autorização explícita.
