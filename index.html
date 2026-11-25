@@ -980,6 +980,9 @@
 .card .meta{min-height:2.8em}
 .card .price{margin-top:auto}
 @media(max-width:759px){.product-image{height:210px!important}}
+
+/* Catálogo em sessões, alteração localizada */
+.catalog-session{padding:28px 0 38px;border-bottom:1px solid #eadfe5}.catalog-session:last-child{border-bottom:0}.catalog-session-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid #eadfe5}.catalog-session-head h3{margin:0;font-size:clamp(21px,2vw,28px);font-weight:600;letter-spacing:-.03em}.catalog-session-head span{color:#7b6f76;font-size:12px;white-space:nowrap}.catalog-session-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 18px}.catalog-category-chips{margin:12px 0 16px}.catalog-session .product-image{height:250px!important;aspect-ratio:auto!important}.catalog-session .placeholder{display:flex!important;align-items:flex-end!important;justify-content:center!important;padding-bottom:14px!important;background:linear-gradient(145deg,#fff8fb,#f2e1eb)!important;color:#927985!important;font-size:10px;letter-spacing:.15em!important}.catalog-session .placeholder:after{content:"FOTO DO PRODUTO"!important;display:block!important}@media(max-width:1000px){.catalog-session-products{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:759px){.catalog-session{padding:20px 0 26px}.catalog-session-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.catalog-session .product-image{height:210px!important}.catalog-session-head h3{font-size:20px}}
 </style>
 </head>
 
@@ -1138,7 +1141,7 @@
           <div class="section-sub" id="catalogCount">Produtos selecionados para você.</div>
         </div>
       </div>
-      <div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
+      <div class="chips catalog-category-chips"><button class="chip" onclick="filterProducts('cabelos',this)">Cabelos</button><button class="chip" onclick="filterProducts('maquiagem',this)">Maquiagem</button><button class="chip" onclick="filterProducts('perfumaria',this)">Perfumes</button><button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button><button class="chip" onclick="filterProducts('acessorios',this)">Acessórios & Semijoias</button><button class="chip" onclick="filterProducts('kits',this)">Kits & Presentes</button><button class="chip active" onclick="filterProducts('todos',this)">Todos (110)</button></div><div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
 <div class="grid" id="productGrid"></div>
     </section>
 
@@ -1414,302 +1417,116 @@ const CONFIG = {
    CATÁLOGO — EDITE / DUPLIQUE OS ITENS
    ========================================================= */
 const PRODUCTS = [
-  {
-    id:"p1", name:"Glow Facial Premium Express", price:145.00,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Experiência facial para devolver viço e luminosidade.",
-    image:""
-  },
-  {
-    id:"p2", name:"Glass Skin Coreano", price:130.00,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Protocolo de aparência iluminada e pele bem cuidada.",
-    image:""
-  },
-  {
-    id:"p3", name:"Glam Deep Hydration", price:140.90,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Hidratação profunda para cabelos que precisam de cuidado.",
-    image:""
-  },
-  {
-    id:"p4", name:"Glam Absolut Repair", price:159.99,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Tratamento de reparação e cuidado.",
-    image:""
-  },
-  {
-    id:"p5", name:"Glam Hi Repair", price:179.99,
-    category:"skincare", badge:"NEW", badgeType:"new",
-    description:"Reconstrução e reparação para fios sensibilizados.",
-    image:""
-  },
-  {
-    id:"p6", name:"Glam CPR SOS", price:265.00,
-    category:"skincare", badge:"AVALIAÇÃO", badgeType:"kit",
-    description:"Protocolo SOS mediante avaliação profissional.",
-    image:""
-  },
-  {
-    id:"p7", name:"Glam Platinum Repair", price:275.90,
-    category:"skincare", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Experiência premium de reparação.",
-    image:""
-  },
-  {
-    id:"p8", name:"Glam Hair Experience", price:285.99,
-    category:"skincare", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Experiência completa de cuidado capilar.",
-    image:""
-  },
-  {
-    id:"p9", name:"Kit Aniversário Glam", price:199.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Seleção especial para presentear alguém.",
-    image:""
-  },
-  {
-    id:"p10", name:"Experiência Glam — Kit Misto", price:299.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Produto + experiência estética em um único presente.",
-    image:""
-  },
-  {
-    id:"p11", name:"Kit Dia de Beleza", price:349.90,
-    category:"kits", badge:"MAIS VENDIDO", badgeType:"kit",
-    description:"Uma experiência de autocuidado para celebrar.",
-    image:""
-  },
-  {
-    id:"p12", name:"Perfume Glam", price:189.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância para acompanhar seus melhores momentos.",
-    image:""
-  },
-  {
-    id:"p13", name:"Bolsa Glam", price:219.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Modelo selecionado para compor seu look.",
-    image:""
-  },
-  {
-    id:"p14", name:"Acessório Glam", price:59.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Detalhe delicado para completar sua produção.",
-    image:""
-  },
-  {
-    id:"p15", name:"Look Glam", price:169.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Peça selecionada para um visual sofisticado.",
-    image:""
-  },
-  {
-    id:"p16", name:"Kit Presente Skincare", price:159.90,
-    category:"kits", badge:"KIT ANIVER", badgeType:"kit",
-    description:"Cuidados para uma rotina de beleza especial.",
-    image:""
-  },
-  {
-    id:"p17", name:"Aurora Floral Eau de Parfum", price:249.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Floral sofisticado para ocasiões especiais.", image:""
-  },
-  {
-    id:"p18", name:"Velvet Rose Eau de Parfum", price:229.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância floral com toque elegante.", image:""
-  },
-  {
-    id:"p19", name:"Golden Musk Eau de Parfum", price:259.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Perfume envolvente para usar à noite.", image:""
-  },
-  {
-    id:"p20", name:"Jardim de Íris Eau de Toilette", price:189.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância leve com inspiração floral.", image:""
-  },
-  {
-    id:"p21", name:"Vanilla Dreams Perfume", price:219.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Aroma adocicado com perfil aconchegante.", image:""
-  },
-  {
-    id:"p22", name:"Bloom Intense Perfume", price:239.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Perfume marcante para momentos especiais.", image:""
-  },
-  {
-    id:"p23", name:"Fresh Citrus Perfume", price:179.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância fresca para o dia a dia.", image:""
-  },
-  {
-    id:"p24", name:"Chérie Rose Perfume", price:199.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Perfume delicado e romântico.", image:""
-  },
-  {
-    id:"p25", name:"Noir Elegance Perfume", price:269.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Fragrância elegante de presença.", image:""
-  },
-  {
-    id:"p26", name:"Lumière Perfume", price:209.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Perfume versátil para todos os momentos.", image:""
-  },
-  {
-    id:"p27", name:"Blusa Glam Essencial", price:119.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Blusa versátil para compor looks.", image:""
-  },
-  {
-    id:"p28", name:"Blusa Elegance", price:139.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Modelagem elegante para diversas ocasiões.", image:""
-  },
-  {
-    id:"p29", name:"Vestido Midi Aurora", price:219.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Vestido midi com visual sofisticado.", image:""
-  },
-  {
-    id:"p30", name:"Vestido Casual Chic", price:189.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Peça casual com toque refinado.", image:""
-  },
-  {
-    id:"p31", name:"Calça Wide Leg Glam", price:199.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Calça ampla para um look moderno.", image:""
-  },
-  {
-    id:"p32", name:"Calça Alfaiataria Essencial", price:229.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Alfaiataria clássica e versátil.", image:""
-  },
-  {
-    id:"p33", name:"Conjunto Soft Glam", price:249.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Conjunto coordenado para um visual completo.", image:""
-  },
-  {
-    id:"p34", name:"Saia Midi Elegance", price:179.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Saia midi para produções elegantes.", image:""
-  },
-  {
-    id:"p35", name:"Camisa Classic Chic", price:159.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Camisa clássica que combina com tudo.", image:""
-  },
-  {
-    id:"p36", name:"Top Fashion Glam", price:99.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Top moderno para combinar com suas peças favoritas.", image:""
-  },
-  {
-    id:"p37", name:"Bolsa Tote Clássica", price:189.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Bolsa espaçosa para rotina e passeio.", image:""
-  },
-  {
-    id:"p38", name:"Bolsa Crossbody Mini", price:169.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Modelo compacto para levar o essencial.", image:""
-  },
-  {
-    id:"p39", name:"Bolsa Estruturada Elegance", price:259.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Silhueta estruturada e sofisticada.", image:""
-  },
-  {
-    id:"p40", name:"Bolsa Shoulder Chic", price:219.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Bolsa de ombro para looks versáteis.", image:""
-  },
-  {
-    id:"p41", name:"Bolsa Hobo Soft", price:199.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Formato hobo com estilo casual.", image:""
-  },
-  {
-    id:"p42", name:"Bolsa Satchel Glam", price:239.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Modelo elegante com formato clássico.", image:""
-  },
-  {
-    id:"p43", name:"Bolsa Mini Party", price:149.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Bolsa pequena para eventos e festas.", image:""
-  },
-  {
-    id:"p44", name:"Bolsa Shopper Everyday", price:209.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Shopper prática para o dia a dia.", image:""
-  },
-  {
-    id:"p45", name:"Bolsa Carteira Premium", price:139.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Modelo compacto para itens essenciais.", image:""
-  },
-  {
-    id:"p46", name:"Clutch Festa Lumière", price:179.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Clutch para ocasiões especiais.", image:""
-  },
-  {
-    id:"p47", name:"Brinco Argola Dourada", price:49.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Argola clássica para usar diariamente.", image:""
-  },
-  {
-    id:"p48", name:"Colar Ponto de Luz", price:69.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Colar delicado com detalhe luminoso.", image:""
-  },
-  {
-    id:"p49", name:"Pulseira Elo Português", price:79.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Pulseira elegante com elos clássicos.", image:""
-  },
-  {
-    id:"p50", name:"Anel Solitário Delicado", price:89.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Anel delicado para compor combinações.", image:""
-  },
-  {
-    id:"p51", name:"Colar Trevo Dourado", price:74.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Colar com motivo de trevo.", image:""
-  },
-  {
-    id:"p52", name:"Brinco Pérola Clássica", price:59.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Pérolas em estilo atemporal.", image:""
-  },
-  {
-    id:"p53", name:"Kit Semijoias Floral", price:129.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Conjunto coordenado com inspiração floral.", image:""
-  },
-  {
-    id:"p54", name:"Bracelete Minimalista", price:69.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Bracelete clean e versátil.", image:""
-  },
-  {
-    id:"p55", name:"Colar Coração", price:64.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Colar romântico com pingente de coração.", image:""
-  },
-  {
-    id:"p56", name:"Kit Acessórios Glam", price:119.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Seleção coordenada para presentear.", image:""
-  }
+  {id:"catalog001",name:"Hydratei Shampoo Multifuncional",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog002",name:"Hydratei Condicionador Multifuncional",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog003",name:"Hydratei Máscara Multifuncional",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog004",name:"Hydratei Leave-in Multifuncional",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog005",name:"Keune Color Brillian Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog006",name:"Keune Color Brillian Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog007",name:"Keune Keratin Smooth Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog008",name:"Keune Keratin Smooth Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog009",name:"Wella BlondorPlex Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog010",name:"Wella BlondorPlex Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog011",name:"Salerm Hi-Repair 01 Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog012",name:"Salerm Hi-Repair 02 Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog013",name:"Eudora Siàge Reconstrói os Fios Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog014",name:"Eudora Siàge Reconstrói os Fios Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog015",name:"Eudora Siàge Reconstrói os Fios Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog016",name:"Eudora Siàge Nutri Rosé Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog017",name:"Eudora Siàge Nutri Rosé Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog018",name:"Eudora Siàge Nutri Rosé Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog019",name:"Vult Cabelos Hidra Nutri Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog020",name:"Vult Cabelos Hidra Nutri Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog021",name:"Vult Cabelos Hidra Nutri Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog022",name:"Wepink Hair Shampoo",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog023",name:"Wepink Hair Condicionador",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog024",name:"Wepink Hair Máscara",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 ml",image:""},
+  {id:"catalog025",name:"Wepink Oil Repair Óleo Capilar",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog026",name:"Wepink Leave-in Protetor Térmico",price:0,category:"cabelos",badge:"",badgeType:"",description:"300 ml",image:""},
+  {id:"catalog027",name:"Wepink Spray Finalizador",price:0,category:"cabelos",badge:"",badgeType:"",description:"250 g",image:""},
+  {id:"catalog028",name:"Eudora La Victorie Eau de Parfum",price:0,category:"perfumaria",badge:"",badgeType:"",description:"75 ml",image:""},
+  {id:"catalog029",name:"Eudora La Victorie Intense Eau de Parfum",price:0,category:"perfumaria",badge:"",badgeType:"",description:"75 ml",image:""},
+  {id:"catalog030",name:"Eudora Soul Desodorante Colônia",price:0,category:"perfumaria",badge:"",badgeType:"",description:"100 ml",image:""},
+  {id:"catalog031",name:"Wepink Sweet Love Body Splash",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog032",name:"Wepink Vanilla Body Splash",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog033",name:"Wepink Pink Body Splash",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog034",name:"Wepink Red Body Splash",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog035",name:"Wepink Pink Red Body Splash",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog036",name:"Hidratante Wepink Pink",price:0,category:"perfumaria",badge:"",badgeType:"",description:"200 ml",image:""},
+  {id:"catalog037",name:"Hidratante Wepink Vanilla",price:0,category:"maquiagem",badge:"",badgeType:"",description:"30 ml",image:""},
+  {id:"catalog038",name:"Payot Base Retinol",price:0,category:"maquiagem",badge:"",badgeType:"",description:"30 ml",image:""},
+  {id:"catalog039",name:"Payot Base Matte Chérie",price:0,category:"maquiagem",badge:"",badgeType:"",description:"4 ml",image:""},
+  {id:"catalog040",name:"Payot Corretivo Líquido",price:0,category:"maquiagem",badge:"",badgeType:"",description:"20 g",image:""},
+  {id:"catalog041",name:"Payot Pó Facial Solto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"10 g",image:""},
+  {id:"catalog042",name:"Payot Pó Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"6 g",image:""},
+  {id:"catalog043",name:"Payot Blush Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"6 g",image:""},
+  {id:"catalog044",name:"Payot Contorno Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"6 g",image:""},
+  {id:"catalog045",name:"Payot Iluminador Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"5 g",image:""},
+  {id:"catalog046",name:"Payot Balm Cremoso",price:0,category:"maquiagem",badge:"",badgeType:"",description:"3,5 g",image:""},
+  {id:"catalog047",name:"Payot Batom Matte",price:0,category:"maquiagem",badge:"",badgeType:"",description:"4 ml",image:""},
+  {id:"catalog048",name:"Payot Gloss Labial",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1,2 g",image:""},
+  {id:"catalog049",name:"Payot Lápis de Olhos",price:0,category:"maquiagem",badge:"",badgeType:"",description:"8 ml",image:""},
+  {id:"catalog050",name:"Payot Máscara de Cílios Volume",price:0,category:"maquiagem",badge:"",badgeType:"",description:"8 ml",image:""},
+  {id:"catalog051",name:"Payot Máscara de Cílios Alongadora",price:0,category:"maquiagem",badge:"",badgeType:"",description:"7,8 g",image:""},
+  {id:"catalog052",name:"Payot Sombra 5 Cores",price:0,category:"maquiagem",badge:"",badgeType:"",description:"5 g",image:""},
+  {id:"catalog053",name:"Payot Sombra Unitária",price:0,category:"maquiagem",badge:"",badgeType:"",description:"3 ml",image:""},
+  {id:"catalog054",name:"Payot Delineador Líquido",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1 ml",image:""},
+  {id:"catalog055",name:"Payot Caneta Delineadora",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1,1 g",image:""},
+  {id:"catalog056",name:"Payot Lápis para Sobrancelha",price:0,category:"maquiagem",badge:"",badgeType:"",description:"4,8 g",image:""},
+  {id:"catalog057",name:"Payot Gel de Sobrancelha",price:0,category:"maquiagem",badge:"",badgeType:"",description:"30 ml",image:""},
+  {id:"catalog058",name:"Vult Base Líquida HD",price:0,category:"maquiagem",badge:"",badgeType:"",description:"4 ml",image:""},
+  {id:"catalog059",name:"Vult Corretivo Líquido",price:0,category:"maquiagem",badge:"",badgeType:"",description:"9 g",image:""},
+  {id:"catalog060",name:"Vult Pó Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"6 g",image:""},
+  {id:"catalog061",name:"Vult Blush Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"6 g",image:""},
+  {id:"catalog062",name:"Vult Iluminador Compacto",price:0,category:"maquiagem",badge:"",badgeType:"",description:"3,6 g",image:""},
+  {id:"catalog063",name:"Vult Batom Cremoso",price:0,category:"maquiagem",badge:"",badgeType:"",description:"3,6 g",image:""},
+  {id:"catalog064",name:"Vult Batom Matte",price:0,category:"maquiagem",badge:"",badgeType:"",description:"4 ml",image:""},
+  {id:"catalog065",name:"Vult Gloss Labial",price:0,category:"maquiagem",badge:"",badgeType:"",description:"10 ml",image:""},
+  {id:"catalog066",name:"Vult Máscara de Cílios",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1,1 g",image:""},
+  {id:"catalog067",name:"Vult Lápis de Olhos",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1,1 g",image:""},
+  {id:"catalog068",name:"Vult Lápis para Sobrancelha",price:0,category:"maquiagem",badge:"",badgeType:"",description:"1 ml",image:""},
+  {id:"catalog069",name:"Vult Caneta Delineadora",price:0,category:"acessorios",badge:"",badgeType:"",description:"10 peças",image:""},
+  {id:"catalog070",name:"Kit Pincéis de Maquiagem (10 peças)",price:0,category:"acessorios",badge:"",badgeType:"",description:"2 unidades",image:""},
+  {id:"catalog071",name:"Esponja de Maquiagem (2 unidades)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Média",image:""},
+  {id:"catalog072",name:"Necessaire Glam Beaut (Média)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Grande",image:""},
+  {id:"catalog073",name:"Necessaire Glam Beaut (Grande)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog074",name:"Bolsa Tote Clássica (Caramelo)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog075",name:"Bolsa Crossbody (Preta)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog076",name:"Bolsa Crossbody (Bege)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog077",name:"Bolsa Estruturada (Off White)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog078",name:"Bolsa Transversal (Marrom)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog079",name:"Bolsa Carteira (Preta)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog080",name:"Bolsa Carteira (Rosé)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog081",name:"Bolsa Mini Bag",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog082",name:"Bolsa Saco (Caramelo)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog083",name:"Bolsa Hobo (Preta)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog084",name:"Bolsa Hobo (Bege)",price:0,category:"bolsas",badge:"",badgeType:"",description:"Modelo/Cor",image:""},
+  {id:"catalog085",name:"Clutch Festa (Dourada)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog086",name:"Brinco Argola Lisa (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog087",name:"Brinco Argola Média (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog088",name:"Brinco Argola Cravejada (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog089",name:"Brinco Ponto de Luz (Zircônia)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog090",name:"Brinco Gota (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog091",name:"Brinco Coração (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog092",name:"Brinco Pérola (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog093",name:"Brinco Flor (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog094",name:"Colar Ponto de Luz (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog095",name:"Colar Coração (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog096",name:"Colar Trevo (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog097",name:"Colar Pérola (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog098",name:"Pulseira Coração (Dourada)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog099",name:"Pulseira Elo Português (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog100",name:"Pulseira Riviera (Zircônia)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog101",name:"Pulseira Pérola (Dourada)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog102",name:"Anel Solitário (Zircônia)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog103",name:"Anel Meia Aliança (Zircônia)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog104",name:"Anel Coração (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog105",name:"Anel Trevo (Dourado)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog106",name:"Kit Semijoias Clássico (Colar + Brinco)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog107",name:"Kit Semijoias Elegante (Colar + Pulseira)",price:0,category:"acessorios",badge:"",badgeType:"",description:"Dourado / Zircônia / Pérola",image:""},
+  {id:"catalog108",name:"Kit Semijoias Luxo (Colar + Brinco + Anel)",price:0,category:"kits",badge:"",badgeType:"",description:"Kit",image:""},
+  {id:"catalog109",name:"Presente Glam Beaut (Necessaire + Acessórios)",price:0,category:"kits",badge:"",badgeType:"",description:"Kit",image:""},
+  {id:"catalog110",name:"Kit Glam Cabelos (seleção de cuidados)",price:0,category:"kits",badge:"",badgeType:"",description:"Kit",image:""}
 ];
 
 const SERVICES = [
@@ -1792,12 +1609,17 @@ function productCard(p){
 
 function renderProducts(list=PRODUCTS){
   const grid=document.getElementById("productGrid");
+  const labels={cabelos:"Cabelos",maquiagem:"Maquiagem",perfumaria:"Perfumes",bolsas:"Bolsas",acessorios:"Acessórios & Semijoias",kits:"Kits & Presentes"};
+  const order=["cabelos","maquiagem","perfumaria","bolsas","acessorios","kits"];
+  const showSessions=currentFilter==="todos" && list.length===PRODUCTS.length && catalogSort==="featured";
   let ordered=[...list];
   if(catalogSort==="price-asc") ordered.sort((a,b)=>a.price-b.price);
   if(catalogSort==="price-desc") ordered.sort((a,b)=>b.price-a.price);
   if(catalogSort==="name") ordered.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
-  grid.innerHTML=ordered.length ? ordered.map(productCard).join("") : '<div class="catalog-empty">Nenhum produto nesta seleção. Explore outras categorias ou salve seus favoritos.</div>';
-  document.getElementById("catalogCount").textContent=`${ordered.length} ${ordered.length===1 ? "item disponível" : "itens disponíveis"}.`;
+  if(showSessions){
+    grid.innerHTML=order.map(cat=>{const items=PRODUCTS.filter(p=>p.category===cat);return items.length?'<section class="catalog-session"><header class="catalog-session-head"><h3>'+labels[cat]+'</h3><span>'+items.length+' produtos</span></header><div class="catalog-session-products">'+items.map(productCard).join("")+'</div></section>':""}).join("");
+  }else grid.innerHTML=ordered.length?ordered.map(productCard).join(""):'<div class="catalog-empty">Nenhum produto nesta seleção.</div>';
+  document.getElementById("catalogCount").textContent=ordered.length+" produtos no catálogo.";
 }
 function filterProducts(category, button){
   currentFilter=category;
