@@ -697,6 +697,46 @@
     .hero-dots{display:flex;justify-content:center;gap:12px;padding:26px 0 12px}
     .hero-dots span{width:20px;height:20px;border-radius:50%;background:#ddd;display:block}
     .hero-dots span.active{background:#d2a100}
+
+    /* Acabamento premium da homepage — refinamento sem alterar estrutura */
+    .hero{padding:18px 18px 28px}
+    .hero-grid{
+      border:1px solid rgba(255,255,255,.65);
+      box-shadow:0 18px 48px rgba(91,25,52,.08);
+      background:linear-gradient(115deg,#fce6ef 0%,#f8dce8 58%,#f3d1df 100%);
+    }
+    .hero-copy{padding:clamp(34px,4.3vw,64px)}
+    .hero-copy .eyebrow{margin-bottom:20px;letter-spacing:.065em}
+    .hero-copy h1{font-size:clamp(44px,5.35vw,74px);letter-spacing:-.06em;margin-bottom:22px}
+    .hero-highlight{color:#c59a27;text-shadow:0 1px 0 rgba(255,255,255,.2)}
+    .hero-copy p{max-width:620px;line-height:1.52;margin-bottom:30px}
+    .hero-cta{gap:14px}
+    .hero-cta .btn{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease;box-shadow:0 4px 10px rgba(44,5,20,.07)}
+    .hero-cta .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(44,5,20,.14)}
+    .hero-cta .btn.outline:hover{background:rgba(255,255,255,.4)}
+    .hero-art{background:linear-gradient(110deg,rgba(248,220,232,.2),transparent 22%);position:relative}
+    .hero-art:before{content:"";position:absolute;inset:0 auto 0 0;width:12%;background:linear-gradient(90deg,#f8dce8 0%,rgba(248,220,232,0) 100%);z-index:3;pointer-events:none}
+    .hero-photo{object-position:center;filter:drop-shadow(0 14px 20px rgba(75,22,44,.1))}
+    @media(max-width:1000px){
+      .hero-copy h1{font-size:clamp(42px,7.2vw,62px)}
+      .hero-copy p{max-width:700px}
+      .hero-art:before{width:8%}
+    }
+    @media(max-width:759px){
+      .hero{padding:12px 10px 22px}
+      .hero-grid{border-radius:22px}
+      .hero-copy{padding:30px 22px}
+      .hero-copy .eyebrow{margin-bottom:16px}
+      .hero-copy h1{font-size:clamp(36px,10.2vw,48px);letter-spacing:-.055em;margin-bottom:18px}
+      .hero-copy p{line-height:1.5;margin-bottom:24px}
+      .hero-cta{gap:10px}
+      .hero-art:before{width:100%;height:8%;inset:0 0 auto;background:linear-gradient(180deg,#f8dce8,rgba(248,220,232,0))}
+      .hero-photo{object-position:center center}
+    }
+    @media(max-width:430px){
+      .hero-copy{padding:26px 18px}
+      .hero-copy h1{font-size:clamp(34px,9.8vw,42px)}
+    }
     @media(max-width:1000px){
       .nav{height:auto;min-height:140px;padding:10px 4%;flex-wrap:wrap}
       header .logo img{width:130px!important;height:130px!important;max-height:130px!important}
