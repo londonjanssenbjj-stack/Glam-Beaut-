@@ -993,6 +993,13 @@
 @media(max-width:1000px){#productGrid .catalog-session-products{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:759px){#productGrid .catalog-session-products{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px 10px!important}}
 
+
+/* Indicador fixo da seção ativa no catálogo */
+.catalog-active-bar{position:sticky;top:72px;z-index:35;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;margin:0 0 8px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #f0e3e9;opacity:0;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease;pointer-events:none}
+.catalog-active-bar.visible{opacity:1;transform:translateY(0)}
+.catalog-active-bar strong{font-size:16px;font-weight:650;letter-spacing:-.02em}
+.catalog-active-bar span{font-size:12px;color:#786d74}
+@media(max-width:759px){.catalog-active-bar{top:62px;padding:8px 14px}.catalog-active-bar strong{font-size:14px}}
 </style>
 
 <style id="glam-nav-fix">
@@ -1158,6 +1165,7 @@ html{scroll-behavior:smooth}
         </div>
       </div>
       <div class="chips catalog-category-chips"><button class="chip" onclick="filterProducts('cabelos',this)">Cabelos</button><button class="chip" onclick="filterProducts('maquiagem',this)">Maquiagem</button><button class="chip" onclick="filterProducts('perfumaria',this)">Perfumes</button><button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button><button class="chip" onclick="filterProducts('acessorios',this)">Acessórios & Semijoias</button><button class="chip" onclick="filterProducts('kits',this)">Kits & Presentes</button><button class="chip active" onclick="filterProducts('todos',this)">Todos (110)</button></div><div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
+<div id="catalogActiveBar" class="catalog-active-bar" aria-live="polite"><strong id="catalogActiveTitle">Catálogo</strong><span id="catalogActiveCount"></span></div>
 <div class="grid" id="productGrid"></div>
     </section>
 
@@ -1623,6 +1631,29 @@ function productCard(p){
   `;
 }
 
+function hideCatalogSectionIndicator(){const bar=document.getElementById("catalogActiveBar");if(bar)bar.classList.remove("visible");}
+function initCatalogSectionIndicator(){
+  const bar=document.getElementById("catalogActiveBar"),title=document.getElementById("catalogActiveTitle"),count=document.getElementById("catalogActiveCount");
+  if(!bar||!title||!count)return;
+  const sections=[...document.querySelectorAll("#productGrid .catalog-session")];
+  if(!sections.length){hideCatalogSectionIndicator();return;}
+  bar.classList.add("visible");
+  const header=document.querySelector("header");
+  const offset=(header?header.offsetHeight:72)+bar.offsetHeight+12;
+  let active=sections[0];
+  const update=()=>{
+    let current=sections[0];
+    sections.forEach(sec=>{if(sec.getBoundingClientRect().top<=offset)current=sec;});
+    active=current;
+    title.textContent=current.dataset.catalogLabel||"Catálogo";
+    count.textContent=(current.dataset.catalogCount||"")+" produtos";
+  };
+  update();
+  if(window.__glamCatalogScrollHandler)window.removeEventListener("scroll",window.__glamCatalogScrollHandler);
+  window.__glamCatalogScrollHandler=update;
+  window.addEventListener("scroll",update,{passive:true});
+}
+
 function renderProducts(list=PRODUCTS){
   const grid=document.getElementById("productGrid");
   const labels={cabelos:"Cabelos",maquiagem:"Maquiagem",perfumaria:"Perfumes",bolsas:"Bolsas",acessorios:"Acessórios & Semijoias",kits:"Kits & Presentes"};
@@ -1633,8 +1664,12 @@ function renderProducts(list=PRODUCTS){
   if(catalogSort==="price-desc") ordered.sort((a,b)=>b.price-a.price);
   if(catalogSort==="name") ordered.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
   if(showSessions){
-    grid.innerHTML=order.map(cat=>{const items=PRODUCTS.filter(p=>p.category===cat);return items.length?'<section class="catalog-session"><header class="catalog-session-head"><h3>'+labels[cat]+'</h3><span>'+items.length+' produtos</span></header><div class="catalog-session-products">'+items.map(productCard).join("")+'</div></section>':""}).join("");
-  }else grid.innerHTML=ordered.length?ordered.map(productCard).join(""):'<div class="catalog-empty">Nenhum produto nesta seleção.</div>';
+    grid.innerHTML=order.map(cat=>{const items=PRODUCTS.filter(p=>p.category===cat);return items.length?'<section class="catalog-session" data-catalog-label="'+labels[cat]+'" data-catalog-count="'+items.length+'"><header class="catalog-session-head"><h3>'+labels[cat]+'</h3><span>'+items.length+' produtos</span></header><div class="catalog-session-products">'+items.map(productCard).join("")+'</div></section>':""}).join("");
+    initCatalogSectionIndicator();
+  }else {
+    grid.innerHTML=ordered.length?ordered.map(productCard).join(""):'<div class="catalog-empty">Nenhum produto nesta seleção.</div>';
+    hideCatalogSectionIndicator();
+  }
   document.getElementById("catalogCount").textContent=ordered.length+" produtos no catálogo.";
 }
 function filterProducts(category, button){
