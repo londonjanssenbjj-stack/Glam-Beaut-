@@ -83,7 +83,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
    <p>Produtos novos são criados inativos para revisão. Não há exclusão neste painel.</p>
    <form id="productEditorForm">
     <input id="editProductId" type="hidden">
-    <label for="productName">Nome do produto *</label><input id="productName" required maxlength="160">
+    <label for="productName">Nome do produto *</label><input id="productName" name="productName" required maxlength="160">
     <label for="productCategory">Categoria</label><select id="productCategory"><option value="">Sem categoria</option></select>
     <label for="productDescription">Descrição</label><textarea id="productDescription" rows="3" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font:inherit"></textarea>
     <label for="productImage">URL da imagem</label><input id="productImage" type="url" placeholder="https://"><label for="productImageUpload">Enviar foto diretamente para Storage</label><input id="productImageUpload" type="file" accept="image/jpeg,image/png,image/webp"><div id="imageUploadMessage" class="msg" role="status"></div><div id="productImagePreview" class="hide" style="margin-top:10px"><img id="productImagePreviewImg" alt="Pré-visualização da imagem do produto" style="max-width:180px;max-height:180px;object-fit:contain;border:1px solid var(--line);border-radius:10px"><p>Pré-visualização</p></div>
@@ -379,7 +379,7 @@ const resetProductForm=()=>{
    const desiredQuantity=quantityInput.disabled?null:Number(quantityInput.value);
    if(desiredQuantity!==null&&(!Number.isInteger(desiredQuantity)||desiredQuantity<0)){setMessage(formMessage,'Informe uma quantidade inteira igual ou maior que zero.','error');button.disabled=false;return;}
    const productId=document.getElementById('editProductId').value;
-   const name=document.getElementById('productName').value.trim();
+   const name=String(productForm.elements.namedItem('productName')?.value??document.getElementById('productName').value??'').trim();
    const slug=slugify(name);
    const price=Number(document.getElementById('productPrice').value);
    const compareInput=document.getElementById('productComparePrice').value.trim();
