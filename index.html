@@ -659,295 +659,296 @@
       .two{grid-template-columns:1fr}
     }
   
-    /* Hero visual Glam atualizado - isolado na vitrine principal */
-    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-    .hero-cta .btn{min-height:58px;padding:15px 26px;font-size:15px}
-    .hero-cta .btn:first-child{background:#190a12;border-color:#190a12}
-    .hero-cta .btn.outline{border-width:2px;background:rgba(255,255,255,.14)}
-    .hero-art{background:linear-gradient(135deg,#f8dce8,#f5cdda);display:flex;align-items:center;justify-content:center;padding:8px}
-    .hero-art:after{content:none}
-    .hero-products{width:min(100%,620px);height:auto;position:relative;z-index:2;filter:drop-shadow(0 10px 14px rgba(100,38,72,.12))}
-    @media(max-width:759px){.hero-grid{min-height:0}.hero-copy h1{font-size:clamp(38px,11vw,56px)}.hero-art{min-height:280px;padding:8px}.hero-products{max-height:330px}}
-    @media(min-width:760px){.hero-copy{padding:clamp(36px,5.5vw,78px)}.hero-art{min-height:560px}}
-
-<!-- Glam live reference override -->
-
-/* Glam reference layout — applied to live Pages source */
-.top-banner{background:#050505!important;color:#fff!important;font-weight:600!important;font-size:15px!important;padding:12px!important;text-align:center!important}
-.top-banner:before{content:'🚚  ';color:#d5a100}
-header{background:#fff!important;position:relative!important;top:auto!important;backdrop-filter:none!important;border-bottom:0!important}
-.nav{height:188px!important;max-width:1500px!important;padding:12px 5.5%!important;gap:30px!important}
-.logo img{width:168px!important;height:168px!important;max-height:168px!important;object-fit:contain!important;border-radius:50%!important}
-.nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(26px,4vw,64px)!important;flex:1!important}
-.nav-links a{font-size:16px!important;font-weight:700!important;text-transform:uppercase!important;white-space:nowrap!important;position:relative!important;padding:16px 0!important;color:#080808!important;text-decoration:none!important}
-.nav-links a:first-child:after{content:''!important;position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:4px!important;background:#d2a100!important}
-.nav-actions{display:flex!important;align-items:center!important;gap:18px!important}
-.icon-btn{font-size:16px!important;min-height:48px!important;padding:10px 14px!important}
-.hero{max-width:none!important;margin:0!important;padding:14px 16px 24px!important}
-.hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:618px!important;border-radius:30px!important;overflow:hidden!important;background:#f9e3ed!important}
-.hero-copy{padding:clamp(36px,5vw,80px)!important}
-.eyebrow{font-size:16px!important;letter-spacing:.03em!important;margin-bottom:26px!important}
-.hero-copy h1{font-size:clamp(46px,6.5vw,90px)!important;line-height:1.04!important;letter-spacing:-.045em!important;margin-bottom:28px!important}
-.hero-highlight{color:#d0a000!important;font-family:Georgia,serif!important;font-style:italic!important;font-weight:400!important}
-.hero-copy p{font-size:clamp(18px,1.7vw,25px)!important;line-height:1.5!important;max-width:680px!important;margin-bottom:42px!important;color:#21131b!important}
-.hero-cta{display:flex!important;gap:16px!important;flex-wrap:wrap!important}
-.hero-cta .btn{min-height:74px!important;padding:18px 34px!important;font-size:20px!important;border-radius:18px!important;font-weight:700!important}
-.hero-cta .btn:first-child{background:#16050e!important;border-color:#16050e!important}
-.hero-cta .btn.outline{background:transparent!important;border-width:2px!important}
-.hero-art{min-height:618px!important;background:linear-gradient(135deg,#f9dce7,#f5cbdc)!important;position:relative!important}
-.hero-products{width:100%!important;max-width:720px!important;height:auto!important;filter:drop-shadow(0 12px 18px rgba(75,22,44,.13))!important}
-@media(max-width:1000px){.nav{height:auto!important;min-height:130px!important;padding:12px 4%!important}.logo img{width:118px!important;height:118px!important;max-height:118px!important}.nav-links{gap:20px!important}.nav-links a{font-size:13px!important}.hero-grid{min-height:500px!important}.hero-art{min-height:500px!important}.hero-cta .btn{font-size:16px!important;min-height:58px!important;padding:14px 20px!important}}
-@media(max-width:759px){.nav{min-height:90px!important;height:90px!important;padding:10px 14px!important}.logo img{width:68px!important;height:68px!important;max-height:68px!important}.nav-links{display:none!important}.menu-btn{display:block!important}.nav-actions{gap:4px!important}.hero{padding:12px!important}.hero-grid{grid-template-columns:1fr!important;min-height:0!important;border-radius:22px!important}.hero-copy{padding:28px 22px!important}.hero-copy h1{font-size:clamp(38px,11vw,58px)!important}.hero-copy p{font-size:16px!important;margin-bottom:26px!important}.hero-cta .btn{min-height:50px!important;padding:12px 16px!important;font-size:14px!important;border-radius:12px!important}.hero-art{min-height:280px!important;padding:12px!important}.hero-products{max-height:320px!important}}
-
-
-
-    /* FINAL HERO / HEADER MATCH - approved reference image */
-    .top-banner{padding:12px 18px;font-size:16px;letter-spacing:0;}
-    .nav{height:170px;max-width:none;padding:0 clamp(22px,5.3vw,84px);gap:32px;}
-    .logo{display:flex;align-items:center;flex:0 0 auto;}
-    .logo img{max-height:180px!important;width:190px!important;height:190px!important;object-fit:contain!important;}
-    .nav-links{display:flex;align-items:center;justify-content:center;gap:clamp(20px,3.3vw,52px);flex:1;}
-    .nav-links a{font-size:clamp(14px,1.35vw,20px);font-weight:650;text-transform:uppercase;padding:16px 4px;position:relative;}
-    .nav-links a:first-child:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#c49a26;}
-    .nav-actions{gap:clamp(10px,1.8vw,28px);}
-    .icon-btn,.menu-btn{font-size:clamp(16px,1.25vw,20px);min-height:48px;padding:12px 10px;}
-    .hero{max-width:none;padding:24px 16px 12px;}
-    .hero-grid{grid-template-columns:1.18fr .82fr;min-height:620px;border-radius:30px;}
-    .hero-copy{padding:clamp(32px,4.4vw,72px);}
-    .eyebrow{font-size:clamp(12px,1.1vw,16px);letter-spacing:.09em;margin-bottom:28px;}
-    h1{font-size:clamp(46px,6.6vw,104px);line-height:1.02;letter-spacing:-.055em;margin-bottom:28px;max-width:100%;}
-    .hero-copy p{font-size:clamp(17px,1.65vw,25px);line-height:1.55;max-width:690px;margin-bottom:40px;}
-    .hero-cta{display:flex;gap:18px;flex-wrap:wrap;}
-    .hero-cta .btn{font-size:clamp(16px,1.4vw,23px);padding:20px 34px;min-height:72px;border-radius:18px;}
-    .hero-art{min-height:620px;}
-    .hero-display{width:min(100%,760px);height:min(52vw,580px);}
-    .hero-gold-arc{inset:6% 7% 7% 5%;}
-    @media(max-width:900px){
-      .nav{height:auto;min-height:110px;padding:12px 18px;flex-wrap:wrap;}
-      .logo img{width:120px!important;height:120px!important;max-height:120px!important;}
-      .nav-links{order:3;width:100%;flex-basis:100%;gap:14px;overflow-x:auto;justify-content:space-around;}
-      .nav-links a{font-size:13px;white-space:nowrap;}
-      .hero-grid{grid-template-columns:1fr;min-height:unset;}
-      .hero-copy{padding:36px 28px;}
-      h1{font-size:clamp(42px,9vw,72px);}
-      .hero-art{min-height:380px;}
-      .hero-display{height:360px;}
+    /* =========================================================
+       GLAM HOMEPAGE — CSS CONSOLIDADO
+       Fonte única de estilos para cabeçalho e hero.
+       Não modifica seções internas, catálogo, checkout ou serviços.
+       ========================================================= */
+    .top-banner{
+      display:block;
+      background:#050505;
+      color:#fff;
+      text-align:center;
+      padding:12px 16px;
+      font-size:15px;
+      font-weight:600;
+      letter-spacing:0;
     }
-    @media(max-width:560px){
-      .top-banner{font-size:12px;padding:9px 8px;}
-      .nav{min-height:82px;padding:8px 12px;}
-      .logo img{width:84px!important;height:84px!important;max-height:84px!important;}
-      .nav-actions{gap:2px;}
-      .nav-links{gap:10px;}
-      .nav-links a{font-size:11px;padding:10px 2px;}
-      .hero{padding:14px 10px 20px;}
-      .hero-grid{border-radius:22px;}
-      .hero-copy{padding:28px 20px;}
-      .eyebrow{font-size:10px;margin-bottom:18px;}
-      h1{font-size:clamp(38px,10.5vw,58px);}
-      .hero-copy p{font-size:16px;margin-bottom:26px;}
-      .hero-cta{gap:10px;}
-      .hero-cta .btn{font-size:15px;padding:15px 18px;min-height:56px;border-radius:14px;}
-      .hero-art{min-height:310px;}
-      .hero-display{height:300px;}
+    .top-banner:before{content:"🚚  ";color:#d5a100}
+    header{
+      position:relative;
+      top:auto;
+      z-index:40;
+      background:#fff;
+      backdrop-filter:none;
+      border:0;
     }
+    .nav{
+      height:170px;
+      max-width:none;
+      margin:0;
+      padding:0 clamp(22px,5.3vw,84px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+    }
+    .logo{display:flex;align-items:center;flex:0 0 auto}
+    header .logo img{
+      width:180px!important;
+      height:180px!important;
+      max-height:180px!important;
+      object-fit:contain!important;
+      border-radius:50%;
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:clamp(22px,3.4vw,54px);
+      flex:1;
+    }
+    .nav-links a{
+      position:relative;
+      padding:16px 0;
+      color:#080808;
+      font-size:clamp(14px,1.3vw,19px);
+      font-weight:700;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .nav-links a:first-child:after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:4px;
+      background:#d2a100;
+    }
+    .nav-actions{display:flex;align-items:center;gap:clamp(10px,1.8vw,24px)}
+    .icon-btn,.menu-btn{
+      background:transparent;
+      border:0;
+      min-height:46px;
+      padding:8px;
+      font-size:16px;
+    }
+    .icon-btn svg{
+      width:36px;
+      height:36px;
+      fill:none;
+      stroke:#111;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .search-icon,.account-icon,.bag-icon{font-size:0}
+    .bag-icon{position:relative}
+    .bag-count{
+      position:absolute;
+      top:-3px;
+      right:-7px;
+      min-width:26px;
+      height:26px;
+      margin:0;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:#d6a000;
+      color:#fff;
+      font-size:12px;
+    }
+    .menu-btn{display:none}
 
-/* Ajuste definitivo do hero Glam 10 anos — layout premium da referência */
-.hero-grid{grid-template-columns:1.08fr .92fr;min-height:520px;border-radius:30px;background:linear-gradient(110deg,#fde8f0 0%,#f7dce8 100%)}
-.hero-copy{padding:clamp(28px,5vw,76px)}
-.hero h1{font-size:clamp(44px,6.2vw,82px);line-height:1.02;max-width:720px}
-.hero-highlight{font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#c49a26;font-weight:400}
-.hero-art{position:relative;background:radial-gradient(ellipse at 55% 55%,#fff6f8 0%,#f8dce9 58%,#efcbdc 100%);min-height:520px}
-.hero-anniversary{position:absolute;z-index:8;top:4%;right:5%;width:clamp(115px,15vw,205px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#050505;border:3px solid #05c7c4;box-shadow:0 12px 24px rgba(0,0,0,.18)}
-.hero-anniversary img{width:100%;height:100%;object-fit:cover}
-.hero-products{width:100%;height:100%;max-height:520px;position:relative;z-index:2}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.hero-cta .btn{border-radius:14px;min-height:58px;padding:14px 24px;font-size:15px}
-@media(max-width:759px){.hero-grid{grid-template-columns:1fr;min-height:0}.hero-copy{padding:28px 24px}.hero-art{min-height:300px}.hero-anniversary{width:116px;top:3%;right:3%}.hero-cta .btn{width:100%}}
+    .hero{
+      max-width:none;
+      margin:0;
+      padding:16px 16px 24px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.12fr .88fr;
+      min-height:618px;
+      border-radius:30px;
+      overflow:hidden;
+      background:linear-gradient(110deg,#fde7ef 0%,#f8dce8 100%);
+    }
+    .hero-copy{
+      padding:clamp(38px,4.6vw,72px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .hero-copy .eyebrow{
+      font-size:clamp(12px,1.1vw,16px);
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .hero-copy h1{
+      font-size:clamp(48px,5.7vw,78px);
+      line-height:1;
+      font-weight:400;
+      letter-spacing:-.055em;
+      white-space:nowrap;
+      max-width:none;
+      margin:0 0 26px;
+    }
+    .hero-highlight{
+      color:#c49a26;
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-weight:400;
+      letter-spacing:-.07em;
+    }
+    .hero-copy p{
+      font-size:clamp(17px,1.55vw,23px);
+      line-height:1.55;
+      max-width:680px;
+      margin:0 0 36px;
+      color:#21131b;
+    }
+    .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+    .hero-cta .btn{
+      min-height:70px;
+      padding:18px 30px;
+      font-size:clamp(16px,1.35vw,20px);
+      border-radius:18px;
+      font-weight:700;
+    }
+    .hero-cta .btn:first-child{background:#16050e;border-color:#16050e;color:#fff}
+    .hero-cta .btn.outline{background:transparent;border:2px solid #26000b;color:#26000b}
+    .hero-art{
+      min-height:618px;
+      background:radial-gradient(ellipse at 60% 52%,#fff8fb 0%,#f8dce9 60%,#efcbdc 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      padding:0;
+      isolation:isolate;
+    }
+    .hero-products{
+      width:100%;
+      max-width:720px;
+      height:auto;
+      max-height:610px;
+      position:relative;
+      z-index:2;
+      object-fit:contain;
+      filter:drop-shadow(0 12px 18px rgba(75,22,44,.13));
+    }
+    .anniversary-badge{
+      position:absolute;
+      z-index:8;
+      right:5%;
+      top:4%;
+      width:clamp(140px,14vw,205px);
+      height:auto;
+      aspect-ratio:1;
+      border-radius:50%;
+      background:#050505;
+      border:3px solid #05bfc0;
+      outline:2px solid #050505;
+      outline-offset:-9px;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+    .badge-script{
+      position:absolute;
+      left:18%;
+      top:37%;
+      font-family:cursive;
+      font-style:italic;
+      font-size:clamp(25px,2.4vw,38px);
+      color:#fff;
+      line-height:1;
+    }
+    .badge-ten{
+      position:absolute;
+      right:20%;
+      top:19%;
+      font-family:Georgia,serif;
+      font-size:clamp(40px,4vw,60px);
+      color:#d6a400;
+      line-height:1;
+    }
+    .badge-years{
+      position:absolute;
+      right:14%;
+      top:51%;
+      font-family:Georgia,serif;
+      font-style:italic;
+      font-size:clamp(20px,2vw,30px);
+      color:#d6a400;
+    }
+    .anniversary-badge small{
+      position:absolute;
+      bottom:21%;
+      left:10%;
+      right:10%;
+      text-align:center;
+      font-size:clamp(6px,.6vw,9px);
+      letter-spacing:.03em;
+      color:#fff;
+      white-space:nowrap;
+    }
+    .hero-dots{display:flex;justify-content:center;gap:12px;padding:26px 0 12px}
+    .hero-dots span{width:20px;height:20px;border-radius:50%;background:#ddd;display:block}
+    .hero-dots span.active{background:#d2a100}
 
-
-/* HERO RECONSTRUIDO PARA A REFERENCIA GLAM 10 ANOS — somente vitrine principal */
-.hero{max-width:none!important;margin:0!important;padding:22px 16px 24px!important}
-.hero-grid{grid-template-columns:1.06fr .94fr!important;min-height:620px!important;border-radius:30px!important;background:linear-gradient(110deg,#fde7ef 0%,#f8dce8 100%)!important}
-.hero-copy{padding:clamp(42px,5.4vw,84px)!important}
-.hero-copy h1{font-size:clamp(52px,6.4vw,100px)!important;line-height:1.02!important;letter-spacing:-.055em!important;white-space:normal!important;max-width:850px!important}
-.hero-copy p{font-size:clamp(18px,1.6vw,24px)!important;line-height:1.52!important;max-width:740px!important}
-.hero-art{min-height:620px!important;background:radial-gradient(ellipse at 60% 52%,#fff8fb 0%,#f8dce9 60%,#efcbdc 100%)!important;overflow:hidden!important;padding:8px!important}
-.hero-products{width:100%!important;height:100%!important;max-height:610px!important;object-fit:contain!important;filter:drop-shadow(0 14px 18px rgba(75,22,44,.16))!important}
-.hero-anniversary{top:3%!important;right:4%!important;width:clamp(130px,16vw,220px)!important;z-index:8!important;border:3px solid #05c7c4!important;background:#050505!important;box-shadow:0 0 0 2px #050505,0 12px 24px rgba(0,0,0,.22)!important}
-.hero-anniversary img{object-fit:cover!important;object-position:center!important}
-.hero-cta .btn{min-height:72px!important;padding:18px 32px!important;font-size:clamp(16px,1.4vw,22px)!important;border-radius:18px!important}
-.hero-cta .btn:first-child{background:#18050d!important;border-color:#18050d!important}
-@media(max-width:1000px){
-.hero-grid{min-height:540px!important}
-.hero-art{min-height:520px!important}
-.hero-products{max-height:500px!important}
-}
-@media(max-width:759px){
-.hero{padding:12px 10px 20px!important}
-.hero-grid{grid-template-columns:1fr!important;min-height:0!important;border-radius:22px!important}
-.hero-copy{padding:30px 22px!important}
-.hero-copy h1{font-size:clamp(42px,10.5vw,60px)!important}
-.hero-copy p{font-size:16px!important;margin-bottom:26px!important}
-.hero-cta .btn{width:100%!important;min-height:54px!important;padding:14px 18px!important;font-size:15px!important;border-radius:14px!important}
-.hero-art{min-height:330px!important;padding:8px!important}
-.hero-products{max-height:340px!important}
-.hero-anniversary{width:116px!important;top:2%!important;right:3%!important}
-}
-
-
-    /* Ajuste solicitado: hero Glam referência, sem selo duplicado no lado direito */
-    .hero-anniversary{display:none!important}
-    @media(min-width:760px){
-      .hero{max-width:none;padding:10px 16px 24px}
-      .hero-grid{grid-template-columns:1.05fr .95fr;min-height:620px;border-radius:28px}
-      .hero-copy{padding:64px}
-      .hero-art{min-height:620px}
-      .hero-products{width:100%;height:100%;max-width:100%;max-height:620px}
-      .hero-copy h1{font-size:clamp(48px,5.8vw,76px);white-space:nowrap}
+    @media(max-width:1000px){
+      .nav{height:auto;min-height:130px;padding:12px 4%;flex-wrap:wrap}
+      header .logo img{width:120px!important;height:120px!important;max-height:120px!important}
+      .nav-links{gap:18px}
+      .nav-links a{font-size:13px}
+      .hero-grid{grid-template-columns:1fr;min-height:0}
+      .hero-copy{padding:38px}
+      .hero-copy h1{white-space:normal;font-size:clamp(42px,7.8vw,64px)}
+      .hero-art{min-height:420px}
+      .hero-products{max-height:430px}
+      .anniversary-badge{width:145px;right:3%;top:3%}
+      .badge-script{font-size:30px}
+      .badge-ten{font-size:48px}
+      .badge-years{font-size:24px}
     }
     @media(max-width:759px){
-      .hero{padding-top:14px}
-      .hero-anniversary{display:none!important}
+      .top-banner{font-size:12px;padding:9px 8px}
+      .nav{min-height:90px;height:90px;padding:8px 12px;flex-wrap:nowrap}
+      header .logo img{width:84px!important;height:84px!important;max-height:84px!important}
+      .nav-links{display:none}
+      .nav-actions{gap:2px}
+      .menu-btn{display:block}
+      .hero{padding:12px 10px 20px}
+      .hero-grid{grid-template-columns:1fr;min-height:0;border-radius:22px}
+      .hero-copy{padding:28px 20px}
+      .hero-copy h1{font-size:clamp(36px,10.5vw,50px);white-space:normal;line-height:1.02}
+      .hero-copy p{font-size:16px;margin-bottom:26px}
+      .hero-cta{gap:10px}
+      .hero-cta .btn{width:100%;font-size:15px;min-height:56px;padding:15px 18px;border-radius:14px}
+      .hero-art{min-height:310px}
+      .hero-products{max-height:330px}
+      .anniversary-badge{width:116px;top:3%;right:3%}
+      .badge-script{font-size:25px}
+      .badge-ten{font-size:39px}
+      .badge-years{font-size:19px}
+      .anniversary-badge small{font-size:6px}
+    }
+    @media(max-width:430px){
+      .hero-copy h1{font-size:clamp(34px,10vw,44px)}
+      .hero-art{min-height:280px}
+      .hero-products{max-height:300px}
     }
 
-    /* Correção de proporção do hero — referência Glam enviada em 25/11 */
-    @media(min-width:760px){
-      .hero{max-width:none;margin:0;padding:10px 16px 26px!important}
-      .hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:620px!important;border-radius:28px!important}
-      .hero-copy{padding:64px!important}
-      .hero-copy h1{white-space:nowrap!important;font-size:clamp(46px,5.4vw,74px)!important;line-height:1.02!important;max-width:none!important}
-      .hero-copy p{font-size:clamp(17px,1.6vw,21px)!important;line-height:1.55!important;max-width:650px!important}
-      .hero-art{min-height:620px!important;padding:0!important;background:linear-gradient(130deg,#f9e0ec,#f6d3e3,#f7e5ee)!important}
-      .hero-products{width:100%!important;height:100%!important;max-height:620px!important;object-fit:contain!important}
-    }
-    @media(max-width:759px){
-      .hero-grid{border-radius:20px!important}
-      .hero-copy h1{font-size:clamp(36px,10vw,48px)!important;white-space:normal!important}
-      .hero-art{min-height:270px!important}
-      .hero-products{max-height:300px!important}
-    }
-
-
-/* RECONSTRUÇÃO VISUAL SOLICITADA — referência homepage Glam */
-.top-banner{background:#050505!important;color:#fff!important;padding:12px 18px!important;font-size:15px!important;font-weight:600!important}
-.top-banner:before{content:"🚚  ";color:#d6a400}
-header{position:relative!important;top:auto!important;background:#fff!important;backdrop-filter:none!important;border:0!important}
-.nav{height:190px!important;max-width:none!important;padding:0 clamp(24px,5.3vw,84px)!important;gap:32px!important}
-.logo img{width:190px!important;height:190px!important;max-height:190px!important;object-fit:contain!important}
-.nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(22px,3.4vw,56px)!important;flex:1!important}
-.nav-links a{font-size:clamp(14px,1.3vw,20px)!important;font-weight:700!important;text-transform:uppercase!important;white-space:nowrap!important;padding:16px 4px!important}
-.nav-links a:first-child:after{content:""!important;height:4px!important;background:#d2a100!important}
-.nav-actions{display:flex!important;align-items:center!important;gap:clamp(10px,1.8vw,28px)!important}
-.icon-btn,.menu-btn{font-size:clamp(16px,1.25vw,20px)!important;min-height:48px!important;padding:12px 10px!important}
-.hero{max-width:none!important;margin:0!important;padding:24px 16px 0!important}
-.hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:620px!important;border-radius:30px!important;background:linear-gradient(110deg,#fde7ef 0%,#f8dce8 100%)!important}
-.hero-copy{padding:clamp(36px,5vw,80px)!important}
-.hero-copy .eyebrow{font-size:clamp(12px,1.1vw,16px)!important;letter-spacing:.09em!important;margin-bottom:24px!important}
-.hero-copy h1{font-size:clamp(46px,6.2vw,88px)!important;line-height:1.02!important;letter-spacing:-.05em!important;white-space:normal!important;max-width:850px!important;margin-bottom:28px!important}
-.hero-highlight{font-family:Georgia,"Times New Roman",serif!important;font-style:italic!important;color:#c49a26!important;font-weight:400!important}
-.hero-copy p{font-size:clamp(17px,1.6vw,24px)!important;line-height:1.55!important;max-width:690px!important;margin-bottom:40px!important;color:#21131b!important}
-.hero-cta{display:flex!important;gap:16px!important;flex-wrap:wrap!important}
-.hero-cta .btn{font-size:clamp(16px,1.4vw,22px)!important;padding:18px 30px!important;min-height:72px!important;border-radius:18px!important;font-weight:700!important}
-.hero-cta .btn:first-child{background:#16050e!important;border-color:#16050e!important}
-.hero-cta .btn.outline{background:transparent!important;border-width:2px!important}
-.hero-art{min-height:620px!important;background:radial-gradient(ellipse at 60% 52%,#fff8fb 0%,#f8dce9 60%,#efcbdc 100%)!important;position:relative!important;overflow:hidden!important;padding:0!important}
-.hero-products{width:100%!important;height:100%!important;max-height:620px!important;object-fit:contain!important;filter:drop-shadow(0 12px 18px rgba(75,22,44,.13))!important}
-.hero-anniversary{display:none!important}
-.hero-dots{display:flex;justify-content:center;gap:12px;padding:26px 0 12px}
-.hero-dots span{width:20px;height:20px;border-radius:50%;background:#ddd;display:block}
-.hero-dots span.active{background:#d2a100}
-@media(max-width:900px){.nav{height:auto!important;min-height:115px!important;padding:12px 18px!important;flex-wrap:wrap!important}.logo img{width:120px!important;height:120px!important;max-height:120px!important}.nav-links{order:3;width:100%;flex-basis:100%;gap:14px!important;overflow-x:auto!important;justify-content:space-around!important}.nav-links a{font-size:13px!important}.hero-grid{grid-template-columns:1fr!important;min-height:unset!important}.hero-copy{padding:36px 28px!important}.hero-art{min-height:380px!important}.hero-products{height:auto!important;max-height:380px!important}}
-@media(max-width:759px){.nav{min-height:86px!important;height:86px!important;padding:8px 12px!important}.logo img{width:84px!important;height:84px!important;max-height:84px!important}.nav-links{display:none!important}.nav-actions{gap:2px!important}.hero{padding:14px 10px 20px!important}.hero-grid{border-radius:22px!important}.hero-copy{padding:28px 20px!important}.hero-copy h1{font-size:clamp(38px,10.5vw,58px)!important;white-space:normal!important}.hero-copy p{font-size:16px!important;margin-bottom:26px!important}.hero-cta{gap:10px!important}.hero-cta .btn{width:100%!important;min-height:56px!important;padding:15px 18px!important;font-size:15px!important;border-radius:14px!important}.hero-art{min-height:310px!important}.hero-products{max-height:330px!important}.hero-dots{padding:20px 0 4px}}
-
-
-/* Removida regra que ocultava o cabeçalho e o hero. */
-
-
-/* FIX: restaurar header e hero como layout real, conforme referência */
-.top-banner{display:block!important;background:#050505!important;color:#fff!important;text-align:center!important;padding:10px 16px!important;font-size:14px!important;font-weight:600}
-body>header{display:block!important;background:#fff!important}
-body>.hero{display:block!important}
-#homepage-reference{display:none!important}
-header .nav{height:170px!important;max-width:none!important;padding:0 clamp(20px,5.5vw,85px)!important;gap:30px!important}
-header .logo img{width:180px!important;height:180px!important;max-height:180px!important;border-radius:50%!important;object-fit:contain!important}
-header .nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(25px,3.5vw,55px)!important;flex:1!important}
-header .nav-links a{font-size:17px!important;font-weight:700!important;text-transform:uppercase!important;padding:16px 0!important}
-header .nav-actions{display:flex!important;gap:18px!important;align-items:center!important}
-header .icon-btn svg{width:36px;height:36px;fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-header .menu-btn{display:none!important}
-body>.hero{max-width:none!important;padding:18px 16px 24px!important;margin:0!important}
-body>.hero .hero-grid{grid-template-columns:1.12fr .88fr!important;min-height:610px!important;border-radius:30px!important;background:linear-gradient(115deg,#fbd8e7,#ffe9f0 50%,#f6d1df)!important}
-body>.hero .hero-copy{padding:clamp(30px,4.5vw,68px)!important}
-body>.hero .hero-copy .eyebrow{font-size:16px!important;letter-spacing:.03em!important;margin-bottom:24px!important}
-body>.hero .hero-copy h1{font-size:clamp(50px,6.2vw,92px)!important;line-height:.98!important;letter-spacing:-.06em!important}
-body>.hero .hero-copy p{font-size:clamp(17px,1.6vw,24px)!important;line-height:1.6!important;color:#29131c!important}
-body>.hero .hero-cta .btn{width:auto!important;min-height:68px!important;padding:18px 32px!important;border-radius:18px!important;font-size:19px!important;font-weight:700!important}
-body>.hero .hero-cta .btn.outline{background:transparent!important;color:#26000b!important;border:2px solid #26000b!important}
-body>.hero .hero-art{min-height:530px!important;background:radial-gradient(ellipse at 55% 50%,#fff6fa 0%,#f8dce8 65%,#f3d0df 100%)!important}
-body>.hero .hero-products{width:100%!important;max-height:560px!important}
-@media(max-width:900px){
- header .nav{height:auto!important;min-height:130px!important;padding:14px 20px!important}
- header .logo img{width:125px!important;height:125px!important;max-height:125px!important}
- header .nav-links{gap:16px!important}
- header .nav-links a{font-size:13px!important}
- body>.hero .hero-grid{min-height:unset!important}
- body>.hero .hero-copy{padding:35px!important}
- body>.hero .hero-art{min-height:400px!important}
-}
-@media(max-width:759px){
- header .nav{min-height:90px!important;height:90px!important;padding:6px 14px!important}
- header .logo img{width:82px!important;height:82px!important;max-height:82px!important}
- header .nav-links{display:none!important}
- header .menu-btn{display:block!important}
- body>.hero{padding:10px!important}
- body>.hero .hero-grid{grid-template-columns:1fr!important;border-radius:20px!important}
- body>.hero .hero-copy{padding:28px 22px!important}
- body>.hero .hero-copy h1{font-size:clamp(38px,11vw,55px)!important}
- body>.hero .hero-copy p{font-size:16px!important}
- body>.hero .hero-cta .btn{width:100%!important;font-size:16px!important;min-height:54px!important}
- body>.hero .hero-art{min-height:300px!important}
- body>.hero .hero-products{max-height:350px!important}
-}
-
-
-/* FINAL homepage visual correction: restore reference proportions and anniversary badge */
-@media(min-width:1000px){
- .hero{padding:16px 16px 20px!important}
- .hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:570px!important;height:570px!important}
- .hero-copy{padding:clamp(38px,4vw,62px)!important}
- .hero-copy h1{font-size:clamp(52px,4.8vw,72px)!important;white-space:nowrap!important;line-height:1!important;letter-spacing:-.055em!important;margin-bottom:24px!important}
- .hero-copy p{font-size:21px!important;line-height:1.5!important;margin-bottom:30px!important}
- .hero-art{min-height:570px!important;height:570px!important}
- .hero-products{height:100%!important;max-height:570px!important;object-fit:contain!important}
-}
-.anniversary-badge{position:absolute!important;z-index:8!important;right:5%!important;top:4%!important;width:clamp(140px,14vw,205px)!important;height:auto!important;aspect-ratio:1!important;border-radius:50%!important;background:#050505!important;border:3px solid #05bfc0!important;outline:2px solid #050505!important;outline-offset:-9px!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;box-shadow:0 8px 20px rgba(0,0,0,.15)!important}
-.anniversary-badge .badge-script{position:absolute!important;left:18%!important;top:37%!important;font-family:cursive!important;font-style:italic!important;font-size:clamp(25px,2.4vw,38px)!important;color:#fff!important;line-height:1!important}
-.anniversary-badge .badge-ten{position:absolute!important;right:20%!important;top:19%!important;font-family:Georgia,serif!important;font-size:clamp(40px,4vw,60px)!important;color:#d6a400!important;line-height:1!important}
-.anniversary-badge .badge-years{position:absolute!important;right:14%!important;top:51%!important;font-family:Georgia,serif!important;font-style:italic!important;font-size:clamp(20px,2vw,30px)!important;color:#d6a400!important}
-.anniversary-badge small{position:absolute!important;bottom:21%!important;left:10%!important;right:10%!important;text-align:center!important;font-size:clamp(6px,.6vw,9px)!important;letter-spacing:.03em!important;color:#fff!important;white-space:nowrap!important}
-@media(max-width:999px){
- .hero-grid{grid-template-columns:1fr!important;height:auto!important;min-height:0!important}
- .hero-copy h1{font-size:clamp(42px,8vw,64px)!important;white-space:normal!important}
- .hero-art{height:auto!important;min-height:400px!important}
- .hero-products{max-height:430px!important}
- .anniversary-badge{width:145px!important;right:3%!important;top:3%!important}
- .anniversary-badge .badge-script{font-size:30px!important}
- .anniversary-badge .badge-ten{font-size:48px!important}
- .anniversary-badge .badge-years{font-size:24px!important}
-}
-@media(max-width:759px){
- .hero-grid{grid-template-columns:1fr!important;height:auto!important}
- .hero-copy h1{font-size:clamp(36px,10vw,48px)!important;white-space:normal!important}
- .hero-art{min-height:300px!important;height:300px!important}
- .hero-products{max-height:300px!important}
- .anniversary-badge{width:116px!important}
- .anniversary-badge .badge-script{font-size:25px!important}
- .anniversary-badge .badge-ten{font-size:39px!important}
- .anniversary-badge .badge-years{font-size:19px!important}
-}
-
-</style>
+  </style>
 </head>
 
 <body>
