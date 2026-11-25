@@ -1,0 +1,53 @@
+GLAM BEAUT — AUDITORIA DE CATÁLOGO E PRÓXIMA ETAPA
+Data: 24/11/2026
+Projeto Supabase: Glam Beaut (hxheluremudcdhtopdlv)
+Branch: glam-product-stock-management-plan
+
+VALIDAÇÕES REALIZADAS (LEITURA)
+1) STORAGE
+Bucket glam-product-images encontrado.
+Público para leitura.
+Limite: 8 MB.
+Tipos permitidos: image/jpeg, image/png, image/webp.
+Políticas existentes: leitura pública; upload, update e delete restritos a usuário autenticado com papel admin, por verificação em user_roles.
+Nenhuma policy foi alterada.
+
+2) PRODUTOS
+16 produtos cadastrados.
+0 produtos ativos.
+0 produtos com image_url preenchida.
+
+3) VARIANTES
+0 variantes cadastradas.
+0 variantes ativas.
+
+4) ESTOQUE
+0 linhas na tabela inventory.
+Nenhum estoque disponível cadastrado.
+
+INTERPRETAÇÃO
+O catálogo está cadastrado como base de produtos, mas não está operacional para venda. A storefront atual depende do RPC storefront_catalog e de variantes ativas com estoque positivo. Portanto, até criar variantes e saldo, a loja não exibirá esses itens.
+
+NÃO EXECUTADO
+- Nenhum produto ativado.
+- Nenhuma variante criada.
+- Nenhum estoque inserido.
+- Nenhuma migration aplicada.
+- Nenhuma policy alterada.
+- Nenhuma compra real/teste de pagamento criada.
+- Nenhuma publicação/deploy.
+
+PRÓXIMA ETAPA RECOMENDADA
+Antes de inserir dados de catálogo:
+1. Decidir o modelo simplificado de quantidade por produto que a proprietária/admin consegue controlar.
+2. Revisar o fluxo de variantes “Unidade” padrão e a RPC de estoque para garantir que não seja necessário gerenciar opções quando um produto não possui variações reais.
+3. Testar upload de uma imagem de produto, confirmar URL pública e salvar vínculo no produto, em ambiente de desenvolvimento.
+4. Testar exibição da imagem na loja.
+5. Só então iniciar carga controlada de catálogo e estoque.
+6. Testar checkout e pagamento Mercado Pago Sandbox.
+
+NOTA DE ESCOPO
+O objetivo é um catálogo simples: produtos com foto, nome, preço e quantidade disponível; variantes somente quando necessárias. A estrutura técnica atual é variante-based, então a simplificação deve ser feita com compatibilidade de backend, sem improvisar alterações isoladas no painel.
+
+STATUS
+Storage e políticas confirmados por consulta read-only. Catálogo identificado como não operacional (16 produtos, sem imagens, variantes ou estoque). Nenhuma alteração de dados de venda foi executada.
