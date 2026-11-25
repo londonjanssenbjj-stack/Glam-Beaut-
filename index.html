@@ -1637,16 +1637,16 @@ function initCatalogSectionIndicator(){
   if(!bar||!title||!count)return;
   const sections=[...document.querySelectorAll("#productGrid .catalog-session")];
   if(!sections.length){hideCatalogSectionIndicator();return;}
-  bar.classList.add("visible");
   const header=document.querySelector("header");
   const offset=(header?header.offsetHeight:72)+bar.offsetHeight+12;
-  let active=sections[0];
   const update=()=>{
     let current=sections[0];
     sections.forEach(sec=>{if(sec.getBoundingClientRect().top<=offset)current=sec;});
-    active=current;
     title.textContent=current.dataset.catalogLabel||"Catálogo";
     count.textContent=(current.dataset.catalogCount||"")+" produtos";
+    const sectionHeading=current.querySelector(".catalog-session-head");
+    const showSticky=sectionHeading && sectionHeading.getBoundingClientRect().top<=offset;
+    bar.classList.toggle("visible",!!showSticky);
   };
   update();
   if(window.__glamCatalogScrollHandler)window.removeEventListener("scroll",window.__glamCatalogScrollHandler);
