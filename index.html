@@ -955,6 +955,21 @@
 .product-favorite.is-favorite{color:#b51c51;background:#fff1f5}
 .catalog-empty{grid-column:1/-1;text-align:center;padding:48px 16px;border:1px dashed #e5d7df;border-radius:16px;color:#786d74;background:#fcf8fa}
 @media(max-width:759px){.catalog-tools{justify-content:space-between;gap:8px;margin-bottom:14px}.catalog-sort-label{margin-left:auto}.catalog-fav-toggle,.catalog-sort{padding:9px 11px;font-size:11px}}
+
+/* FIX DEFINITIVO: cabeçalho compacto (somente cabeçalho) */
+@media (min-width:1001px){
+  header .nav{height:118px!important;min-height:118px!important;max-height:118px!important;padding:0 clamp(22px,5.3vw,84px)!important;flex-wrap:nowrap!important;gap:24px!important}
+  header .logo img{width:100px!important;height:100px!important;max-height:100px!important}
+  header .nav-links a{padding:8px 0!important}
+}
+@media (min-width:760px) and (max-width:1000px){
+  header .nav{height:104px!important;min-height:104px!important;max-height:104px!important;flex-wrap:nowrap!important}
+  header .logo img{width:88px!important;height:88px!important;max-height:88px!important}
+}
+@media (max-width:759px){
+  header .nav{height:82px!important;min-height:82px!important;max-height:82px!important;flex-wrap:nowrap!important}
+  header .logo img{width:72px!important;height:72px!important;max-height:72px!important}
+}
 </style>
 </head>
 
