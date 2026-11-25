@@ -7,8 +7,7 @@ values
   ('Bolsas', 'bolsas', 40, true),
   ('Acessórios', 'acessorios', 50, true),
   ('Kits e Presentes', 'kits', 60, true)
-on conflict (slug) do update
-set name = excluded.name, sort_order = excluded.sort_order, is_active = true;
+on conflict (slug) do nothing;
 
 -- Glam Beaut storefront catalog + idempotent order wrapper
 -- Draft for branch review only. NOT applied to Supabase.
