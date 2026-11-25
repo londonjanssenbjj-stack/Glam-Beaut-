@@ -810,6 +810,24 @@ header{background:#fff!important;position:relative!important;top:auto!important;
       .hero{padding-top:14px}
       .hero-anniversary{display:none!important}
     }
+
+    /* Correção de proporção do hero — referência Glam enviada em 25/11 */
+    @media(min-width:760px){
+      .hero{max-width:none;margin:0;padding:10px 16px 26px!important}
+      .hero-grid{grid-template-columns:1.08fr .92fr!important;min-height:620px!important;border-radius:28px!important}
+      .hero-copy{padding:64px!important}
+      .hero-copy h1{white-space:nowrap!important;font-size:clamp(46px,5.4vw,74px)!important;line-height:1.02!important;max-width:none!important}
+      .hero-copy p{font-size:clamp(17px,1.6vw,21px)!important;line-height:1.55!important;max-width:650px!important}
+      .hero-art{min-height:620px!important;padding:0!important;background:linear-gradient(130deg,#f9e0ec,#f6d3e3,#f7e5ee)!important}
+      .hero-products{width:100%!important;height:100%!important;max-height:620px!important;object-fit:contain!important}
+    }
+    @media(max-width:759px){
+      .hero-grid{border-radius:20px!important}
+      .hero-copy h1{font-size:clamp(36px,10vw,48px)!important;white-space:normal!important}
+      .hero-art{min-height:270px!important}
+      .hero-products{max-height:300px!important}
+    }
+
 </style>
 </head>
 
