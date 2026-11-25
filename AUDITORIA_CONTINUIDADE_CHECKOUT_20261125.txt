@@ -1,0 +1,47 @@
+GLAM BEAUT — AUDITORIA DE CONTINUIDADE E CHECKOUT
+Data: 25/11/2026
+Branch: glam-product-stock-management-plan
+Escopo: inspeção somente leitura do Supabase + revisão estática de código. Nenhuma alteração em produção.
+
+1) ESTADO DO CATÁLOGO CONFIRMADO
+- Produtos: 17
+- Produtos ativos: 0
+- Variantes: 1 (ativa)
+- Registros de estoque: 1
+- Quantidade total de estoque: 1
+- Produtos com URL de imagem: 1
+- Produto de teste "teste upload": inativo; variante Unidade ativa; saldo 1; preço R$ 10,00.
+- O produto teste não aparece na vitrine porque o produto está inativo.
+
+2) MIGRAÇÃO DO CATÁLOGO / IDEMPOTÊNCIA
+- storefront_catalog ausente no banco.
+- private.customer_order_requests ausente no banco.
+- create_customer_order existe (wrapper SQL para função private).
+- Extensões digest(text,text) e digest(bytea,text) estão disponíveis.
+- categories.slug tem restrição de unicidade.
+- Migração draft em supabase/migrations/20261124195000_storefront_catalog_idempotency.sql, no branch.
+- Migração NÃO aplicada.
+
+3) RESERVA E LIBERAÇÃO DE ESTOQUE
+- Trigger release_order_inventory_on_terminal_status existe.
+- Libera estoque quando pedido muda para cancelled/refunded ou payment_status failed/refunded, caso inventory_released_at ainda esteja nulo.
+- Registra movimento de devolução e evita dupla liberação via inventory_released_at.
+- Revisão do checkout e webhook indica que o fluxo usa o pedido e valor armazenados no banco; webhook consulta order no Mercado Pago e verifica assinatura, valor, moeda e referência.
+
+4) ALERTA DE SEGURANÇA DO SUPABASE
+- Advisor de segurança aponta Leaked Password Protection Disabled (WARN).
+- Recomenda habilitar a proteção contra senhas comprometidas no Auth.
+- Não alterado, por ser uma configuração do ambiente de produção que requer autorização/validação.
+
+5) PERFORMANCE
+- Advisors reportam índices não usados (INFO) e políticas permissivas múltiplas (WARN). Em banco ainda sem tráfego real, os índices “não usados” não são motivo suficiente para removê-los. Nenhuma política RLS ou índice alterado.
+
+6) LIMITES DE TESTE
+- Não existe branch de desenvolvimento do Supabase no projeto. Criar branch de banco pode gerar cobrança; não foi criada.
+- A migração não foi executada nem testada em banco isolado.
+- Não foi iniciado checkout/pagamento real nem sandbox.
+- Não foi feito deploy, merge, ativação de produto ou lançamento de estoque real.
+
+PRÓXIMA AÇÃO TÉCNICA
+- Revisar e preparar um teste de migração isolado (branch de Supabase) após aprovação do custo do ambiente.
+- Manter produção inalterada até validar migração, catálogo, carrinho e checkout.
