@@ -29,6 +29,18 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:10px;bord
 .table-wrap{overflow:auto}
 .hide{display:none!important}
 @media(max-width:760px){main{padding:15px}.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{padding:14px}}
+
+/* UI refinement layer: improve spacing, responsive layout and interaction states */
+.metrics{gap:14px}.metric,.card{box-shadow:0 8px 24px rgba(44,20,32,.04)}
+.card{border-radius:18px}.metric{border-radius:16px}
+button{transition:background .18s,color .18s,transform .18s,box-shadow .18s}
+button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 7px 18px rgba(35,20,30,.08)}
+input:focus{outline:3px solid rgba(177,138,73,.18);border-color:var(--gold)}
+table{width:100%;border-collapse:collapse;overflow-x:auto}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}
+th{background:#faf6f7}
+@media(max-width:780px){main{padding:16px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.card{padding:14px}.metrics .metric strong{font-size:22px}}
+@media(max-width:440px){header{padding:12px 14px}main{padding:12px}.metrics{gap:8px}.metric{padding:11px}}
+
 </style>
 </head>
 <body>
