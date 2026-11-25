@@ -387,6 +387,28 @@
     .birthday h2{margin:0 0 8px;font-size:25px}
     .birthday p{margin:0;color:#ddd;line-height:1.55;font-size:13px}
 
+    /* Seções institucionais Sobre e Contato */
+    .glam-info{padding-top:28px;padding-bottom:18px}
+    .glam-info-card{border-radius:26px;background:linear-gradient(130deg,#fff7fa,#f8e0eb);padding:clamp(28px,5vw,64px);border:1px solid #f1d6e2}
+    .glam-info-mark{font-size:14px;font-weight:800;letter-spacing:.1em;color:#201019;margin-bottom:24px}
+    .glam-info-mark span{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#c59a27;letter-spacing:0;margin-left:8px}
+    .glam-info-card h2{font-size:clamp(28px,4vw,46px);font-weight:500;letter-spacing:-.04em;max-width:720px;margin:10px 0 18px}
+    .glam-info-card p{font-size:clamp(14px,1.5vw,17px);line-height:1.75;color:#503c46;max-width:760px}
+    .glam-info-note{margin-top:26px;font-weight:700;color:#b38b1b!important}
+    .glam-contact{padding-top:12px;padding-bottom:45px}
+    .glam-contact-card{background:#12050d;color:#fff;border-radius:26px;padding:clamp(28px,4.5vw,56px);display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+    .glam-contact-card .eyebrow{color:#e2b43a}
+    .glam-contact-card h2{font-size:clamp(30px,4vw,48px);font-weight:500;letter-spacing:-.04em;margin:0}
+    .glam-contact-card p{max-width:620px;color:#e8dfe4;line-height:1.7;margin:0 0 8px}
+    .glam-contact-card .btn{display:inline-flex;align-items:center;text-decoration:none}
+    .glam-contact-meta{width:100%;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#d6cbd1;font-size:13px}
+    .glam-contact-meta a{color:#f3d37a;text-decoration:none}
+    @media(max-width:759px){
+      .glam-info-card,.glam-contact-card{border-radius:20px}
+      .glam-info-card p,.glam-contact-card p{font-size:14px}
+      .glam-contact-meta{flex-direction:column;gap:8px}
+    }
+
     footer{
       border-top:1px solid var(--line);
       padding:35px 18px 50px;
@@ -948,6 +970,28 @@
         </div>
       </div>
       <div class="service-grid" id="serviceGrid"></div>
+    </section>
+
+    <!-- SOBRE GLAM -->
+    <section class="section glam-info" id="sobre">
+      <div class="glam-info-card">
+        <div class="glam-info-mark">GLAM <span>10 anos</span></div>
+        <div class="eyebrow">Beleza, estética e bem-estar</div>
+        <h2>Um espaço para você se sentir ainda mais linda.</h2>
+        <p>A Glam reúne beleza, autocuidado, produtos, presentes e serviços para tornar seus momentos especiais. Com presença em Corumbá, nosso propósito é oferecer uma experiência acolhedora e um cuidado que combina com você.</p>
+        <p class="glam-info-note">10 anos celebrando beleza e bem-estar.</p>
+      </div>
+    </section>
+
+    <!-- CONTATO GLAM -->
+    <section class="section glam-contact" id="contato">
+      <div class="glam-contact-card">
+        <div class="eyebrow">Estamos por aqui</div>
+        <h2>Vamos conversar?</h2>
+        <p>Fale com a Glam para tirar dúvidas sobre produtos, presentes, serviços e atendimento em Corumbá.</p>
+        <a class="btn primary" href="https://instagram.com/glamcorumba" target="_blank" rel="noopener">Conversar pelo Instagram ↗</a>
+        <div class="glam-contact-meta"><span>Corumbá — Mato Grosso do Sul</span><a href="https://instagram.com/glamcorumba" target="_blank" rel="noopener">@glamcorumba</a></div>
+      </div>
     </section>
 
     <!-- FRASE -->
