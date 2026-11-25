@@ -1529,12 +1529,7 @@ const PRODUCTS = [
     id:"p25", name:"Noir Elegance Perfume", price:269.90,
     category:"perfumaria", badge:"NEW", badgeType:"new",
     description:"Fragrância elegante de presença.", image:""
-  },
-  {
-    id:"p26", name:"Lumière Perfume", price:209.90,
-    category:"perfumaria", badge:"NEW", badgeType:"new",
-    description:"Perfume versátil para todos os momentos.", image:""
-  },
+   },
   {
     id:"p27", name:"Blusa Glam Essencial", price:119.90,
     category:"roupas", badge:"NEW", badgeType:"new",
@@ -1579,12 +1574,7 @@ const PRODUCTS = [
     id:"p35", name:"Camisa Classic Chic", price:159.90,
     category:"roupas", badge:"NEW", badgeType:"new",
     description:"Camisa clássica que combina com tudo.", image:""
-  },
-  {
-    id:"p36", name:"Top Fashion Glam", price:99.90,
-    category:"roupas", badge:"NEW", badgeType:"new",
-    description:"Top moderno para combinar com suas peças favoritas.", image:""
-  },
+   },
   {
     id:"p37", name:"Bolsa Tote Clássica", price:189.90,
     category:"bolsas", badge:"NEW", badgeType:"new",
@@ -1629,12 +1619,7 @@ const PRODUCTS = [
     id:"p45", name:"Bolsa Carteira Premium", price:139.90,
     category:"bolsas", badge:"NEW", badgeType:"new",
     description:"Modelo compacto para itens essenciais.", image:""
-  },
-  {
-    id:"p46", name:"Clutch Festa Lumière", price:179.90,
-    category:"bolsas", badge:"NEW", badgeType:"new",
-    description:"Clutch para ocasiões especiais.", image:""
-  },
+   },
   {
     id:"p47", name:"Brinco Argola Dourada", price:49.90,
     category:"acessorios", badge:"NEW", badgeType:"new",
@@ -1679,179 +1664,7 @@ const PRODUCTS = [
     id:"p55", name:"Colar Coração", price:64.90,
     category:"acessorios", badge:"NEW", badgeType:"new",
     description:"Colar romântico com pingente de coração.", image:""
-  },
-  {
-    id:"p56", name:"Kit Acessórios Glam", price:119.90,
-    category:"acessorios", badge:"NEW", badgeType:"new",
-    description:"Seleção coordenada para presentear.", image:""
-  }
-];
-
-const SERVICES = [
-  {id:"s1",name:"Hidratação + Escova",price:89.90,desc:"Cuidado e finalização para um cabelo macio e bonito."},
-  {id:"s2",name:"Reconstrução + Escova",price:139.00,desc:"Reconstrução com finalização. Consulte disponibilidade do brinde promocional."},
-  {id:"s3",name:"Glow Facial Premium Express",price:145.00,desc:"Protocolo facial com foco em luminosidade e viço."},
-  {id:"s4",name:"Limpeza de Pele",price:135.00,desc:"Higienização e cuidado facial conforme avaliação."},
-  {id:"s5",name:"Drenagem Linfática",price:120.00,desc:"Sessão de cuidado corporal."},
-  {id:"s6",name:"Massagem Relaxante",price:120.00,desc:"Momento de relaxamento e bem-estar."},
-  {id:"s7",name:"Microagulhamento Facial",price:0,desc:"Valor mediante avaliação e indicação profissional."},
-  {id:"s8",name:"Protocolo Papada sem Agulhas",price:0,desc:"Avaliação necessária para definir protocolo."}
-];
-
-/* =========================================================
-   ESTADO
-   ========================================================= */
-let cart = JSON.parse(localStorage.getItem("glam_cart") || "[]");
-let currentFilter = "todos";
-let catalogSort = "featured";
-let favorites = JSON.parse(localStorage.getItem("glam_favorites") || "[]");
-
-/* =========================================================
-   UTILIDADES
-   ========================================================= */
-function money(value){
-  return Number(value || 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-}
-
-function escapeHTML(value){
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-function showToast(message){
-  const el=document.getElementById("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
-}
-
-function saveCart(){
-  localStorage.setItem("glam_cart",JSON.stringify(cart));
-  updateCart();
-}
-
-function findProduct(id){
-  return PRODUCTS.find(p=>p.id===id);
-}
-
-/* =========================================================
-   PRODUTOS
-   ========================================================= */
-function productCard(p){
-  const isFav=favorites.includes(p.id);
-  const badge = p.badge ? `<span class="badge ${p.badgeType || ""}">${escapeHTML(p.badge)}</span>` : "";
-  const image = p.image
-    ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
-    : `<div class="placeholder">G</div>`;
-
-  return `
-    <article class="card">
-      <button class="product-favorite ${isFav?"is-favorite":""}" title="${isFav?"Remover dos favoritos":"Adicionar aos favoritos"}" aria-label="${isFav?"Remover dos favoritos":"Adicionar aos favoritos"}" onclick="toggleFavorite('${p.id}',event)">${isFav?"♥":"♡"}</button>
-      <div class="product-image">
-        ${badge}
-        ${image}
-      </div>
-      <h3>${escapeHTML(p.name)}</h3>
-      <div class="meta">${escapeHTML(p.description)}</div>
-      <div class="price">${money(p.price)}</div>
-      <button class="btn outline" onclick="addToCart('${p.id}')">Adicionar à Sacola</button>
-      <button class="btn" style="margin-top:6px" onclick="sendGift('${p.id}')">Enviar de presente</button>
-    </article>
-  `;
-}
-
-function renderProducts(list=PRODUCTS){
-  const grid=document.getElementById("productGrid");
-  let ordered=[...list];
-  if(catalogSort==="price-asc") ordered.sort((a,b)=>a.price-b.price);
-  if(catalogSort==="price-desc") ordered.sort((a,b)=>b.price-a.price);
-  if(catalogSort==="name") ordered.sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
-  grid.innerHTML=ordered.length ? ordered.map(productCard).join("") : '<div class="catalog-empty">Nenhum produto nesta seleção. Explore outras categorias ou salve seus favoritos.</div>';
-  document.getElementById("catalogCount").textContent=`${ordered.length} ${ordered.length===1 ? "item disponível" : "itens disponíveis"}.`;
-}
-function filterProducts(category, button){
-  currentFilter=category;
-  document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
-  if(button) button.classList.add("active");
-
-  let list=PRODUCTS;
-
-  if(category==="favoritos") list=PRODUCTS.filter(p=>favorites.includes(p.id));
-  else if(category==="novos") list=PRODUCTS.filter(p=>p.badgeType==="new");
-  else if(category==="best") list=PRODUCTS.filter(p=>p.badge==="MAIS VENDIDO");
-  else if(category==="presentes") list=PRODUCTS.filter(p=>p.category==="kits");
-  else if(category!=="todos") list=PRODUCTS.filter(p=>p.category===category);
-
-  renderProducts(list);
-  document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
-}
-
-function setCatalogSort(value){catalogSort=value;renderProducts(getFilteredCatalog());}
-function getFilteredCatalog(){
- if(currentFilter==="favoritos") return PRODUCTS.filter(p=>favorites.includes(p.id));
- if(currentFilter==="novos") return PRODUCTS.filter(p=>p.badgeType==="new");
- if(currentFilter==="best") return PRODUCTS.filter(p=>p.badge==="MAIS VENDIDO");
- if(currentFilter==="presentes"||currentFilter==="kits") return PRODUCTS.filter(p=>p.category==="kits");
- if(currentFilter==="todos"||!currentFilter) return PRODUCTS;
- return PRODUCTS.filter(p=>p.category===currentFilter);
-}
-function toggleFavorite(id,event){
- if(event) event.stopPropagation();
- favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
- localStorage.setItem("glam_favorites",JSON.stringify(favorites));
- renderProducts(getFilteredCatalog());
- showToast(favorites.includes(id)?"Produto salvo nos favoritos.":"Produto removido dos favoritos.");
-}
-
-function searchProducts(term){
-  const q=term.trim().toLowerCase();
-  const list=!q ? PRODUCTS : PRODUCTS.filter(p=>
-    [p.name,p.description,p.category,p.badge].join(" ").toLowerCase().includes(q)
-  );
-  document.getElementById("searchResults").innerHTML=list.length
-    ? list.map(productCard).join("")
-    : `<p style="color:#666">Nenhum resultado encontrado.</p>`;
-}
-
-/* =========================================================
-   CARRINHO
-   ========================================================= */
-function addToCart(id){
-  const p=findProduct(id);
-  if(!p)return;
-
-  const item=cart.find(x=>x.id===id);
-  if(item)item.qty++;
-  else cart.push({id,qty:1});
-
-  saveCart();
-  showToast(`${p.name} foi adicionada à sacola.`);
-  openCart();
-}
-
-function removeFromCart(id){
-  cart=cart.filter(x=>x.id!==id);
-  saveCart();
-}
-
-function changeQty(id,delta){
-  const item=cart.find(x=>x.id===id);
-  if(!item)return;
-  item.qty+=delta;
-  if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
-  saveCart();
-}
-
-function cartSubtotal(){
-  return cart.reduce((sum,item)=>{
-    const p=findProduct(item.id);
-    return sum+(p ? p.price*item.qty : 0);
-  },0);
+   },0);
 }
 
 function deliveryValue(){
