@@ -1,0 +1,16 @@
+GLAM BEAUT — REVISÃO COMPLEMENTAR (CUSTO ZERO)
+Data: 25/11/2026
+Branch: glam-product-stock-management-plan
+
+INSPEÇÃO COMPLEMENTAR
+1. Checkout: usa UUID persistente no localStorage como chave de requisição. A chave é removida somente depois da criação do pedido e retorno de checkout_url. Em falhas, a chave é preservada para retry. Esta estratégia precisa de teste QA, mas é coerente com idempotência.
+2. Checkout: entrega envia addressPayload(delivery) e retirada envia null, a partir do seletor checkoutDelivery.
+3. Admin: productName é o ID do campo de nome. Upload valida que nome existe antes do upload. Upload e salvamento do produto são operações separadas; após upload, ainda é necessário salvar o cadastro para persistir o image_url no produto.
+4. Admin: quantidade inicial/ajustes são feitos por RPC admin_adjust_inventory; não há escrita direta na tabela inventory no formulário simples.
+5. Migração: observação crítica — o bloco de upsert de categorias altera name, sort_order e is_active das categorias existentes com slugs correspondentes. Não deve ser aplicada sem revisar esse efeito para não sobrescrever personalizações atuais. Pode ser ajustada posteriormente em branch de desenvolvimento para inserir apenas categorias faltantes (ON CONFLICT DO NOTHING), se isso atender ao comportamento pretendido.
+6. Não foram feitas alterações de banco, estoque, catálogo, pedidos, pagamento, políticas ou configuração.
+
+Limitação do teste
+- O ambiente atual não oferece branch isolada de QA sem confirmação de custo; por regra custo zero, não será criado.
+- O checkout completo, pagamento sandbox, webhook e responsividade dependem de teste de navegador real/ambiente de sandbox. Inspeção estática não substitui teste de ponta a ponta.
+- Nenhuma alteração de código foi feita nesta revisão complementar; é um achado de segurança de dados e deve ser considerado antes da migração.
