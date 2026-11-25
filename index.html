@@ -1137,25 +1137,6 @@ html{scroll-behavior:smooth}
   </section>
 
   <main>
-    <!-- CATEGORIAS -->
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2>Descubra a Glam</h2>
-          <div class="section-sub">Escolha uma categoria para começar.</div>
-        </div>
-      </div>
-      <div class="chips">
-        <button class="chip active" onclick="filterProducts('todos',this)">Tudo</button>
-        <button class="chip" onclick="filterProducts('skincare',this)">Skincare</button>
-        <button class="chip" onclick="filterProducts('perfumaria',this)">Perfumaria</button>
-        <button class="chip" onclick="filterProducts('roupas',this)">Roupas</button>
-        <button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button>
-        <button class="chip" onclick="filterProducts('acessorios',this)">Acessórios</button>
-        <button class="chip" onclick="filterProducts('kits',this)">Kits Presente</button>
-      </div>
-    </section>
-
     <!-- CATÁLOGO -->
     <section class="section" id="catalogo">
       <div class="section-head">
@@ -1164,7 +1145,7 @@ html{scroll-behavior:smooth}
           <div class="section-sub" id="catalogCount">Produtos selecionados para você.</div>
         </div>
       </div>
-      <div class="chips catalog-category-chips"><button class="chip" onclick="filterProducts('cabelos',this)">Cabelos</button><button class="chip" onclick="filterProducts('maquiagem',this)">Maquiagem</button><button class="chip" onclick="filterProducts('perfumaria',this)">Perfumes</button><button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button><button class="chip" onclick="filterProducts('acessorios',this)">Acessórios & Semijoias</button><button class="chip" onclick="filterProducts('kits',this)">Kits & Presentes</button><button class="chip active" onclick="filterProducts('todos',this)">Todos (110)</button></div><div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
+      <div class="chips catalog-category-chips"><button class="chip" onclick="filterProducts('cabelos',this)">Cabelos</button><button class="chip" onclick="filterProducts('maquiagem',this)">Maquiagem</button><button class="chip" onclick="filterProducts('perfumaria',this)">Perfumes</button><button class="chip" onclick="filterProducts('roupas',this)">Roupas</button><button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button><button class="chip" onclick="filterProducts('acessorios',this)">Acessórios & Semijoias</button><button class="chip" onclick="filterProducts('kits',this)">Kits & Presentes</button><button class="chip active" onclick="filterProducts('todos',this)">Todos (126)</button></div><div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
 <div id="catalogActiveBar" class="catalog-active-bar" aria-live="polite"><strong id="catalogActiveTitle">Catálogo</strong><span id="catalogActiveCount"></span></div>
 <div class="grid" id="productGrid"></div>
     </section>
