@@ -1114,6 +1114,21 @@ body>header .nav>a.logo img{display:block!important;width:72px!important;height:
 /* Preserve the floating indicator on the right, including section name and product count */
 #catalogActiveBar.catalog-active-bar{display:flex!important;visibility:visible!important;pointer-events:none!important}
 </style>
+
+<style id="catalog-left-sticky-header-final-fix">
+/* FIX DEFINITIVO: os cabeçalhos de sessão do catálogo não podem ficar fixos à esquerda; o indicador lateral direito permanece intacto. */
+#productGrid .catalog-session-head,
+#productGrid .catalog-session .catalog-session-head,
+#productGrid .catalog-session-head h3,
+#productGrid .catalog-session-head span{
+  position:static!important;
+  inset:auto!important;
+  transform:none!important;
+  z-index:auto!important;
+}
+#productGrid .catalog-session-head{display:flex!important;}
+</style>
+
 </head>
 
 <body>
