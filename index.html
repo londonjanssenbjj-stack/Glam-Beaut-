@@ -1021,14 +1021,14 @@
     .glam-banner-book{left:27.5%;bottom:7.5%;width:25.5%;height:11.5%}
     @media(max-width:759px){.glam-banner-hero{padding:12px 10px 20px}.glam-banner-wrap{border-radius:12px}.glam-banner-hit{border-radius:8px}}
 
-/* Ajuste solicitado: banner proporcional dentro da altura visível, sem alterar as margens laterais */
-.glam-banner-hero{max-width:96vw!important;padding-top:8px!important;padding-bottom:8px!important}
-.glam-banner-wrap{height:calc(100vh - 300px)!important;max-height:620px!important;min-height:0!important}
-.glam-banner-image{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+/* Correção exclusiva: manter banner em proporção natural, sem distorção nem margens laterais alteradas */
+.glam-banner-hero{max-width:var(--max)!important;padding-top:8px!important;padding-bottom:8px!important}
+.glam-banner-wrap{height:auto!important;max-height:none!important;min-height:0!important}
+.glam-banner-image{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
 @media(max-width:759px){
   .glam-banner-hero{max-width:100%!important;padding:8px 10px!important}
-  .glam-banner-wrap{height:calc(100svh - 260px)!important;max-height:500px!important;min-height:0!important}
-  .glam-banner-image{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+  .glam-banner-wrap{height:auto!important;max-height:none!important;min-height:0!important}
+  .glam-banner-image{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
 }
 </style>
 
