@@ -1070,12 +1070,12 @@ header.nav-hidden{transform:translateY(-110%)!important;visibility:hidden!import
 </style>
 
 <style id="header-fix-confirmed">
-/* Targeting the real header/nav elements, superseding older conflicting header rules */
-body>header{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;transform:none!important}
-body>header .nav{box-sizing:border-box!important;width:100%!important;height:76px!important;min-height:76px!important;max-height:76px!important;padding:0 24px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;overflow:visible!important;gap:20px!important}
-body>header .nav>a.logo{box-sizing:border-box!important;flex:0 0 76px!important;width:76px!important;height:76px!important;min-height:76px!important;max-height:76px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;padding:0!important;margin:0!important}
-body>header .nav>a.logo img{display:block!important;width:70px!important;height:70px!important;min-width:70px!important;min-height:70px!important;max-width:70px!important;max-height:70px!important;object-fit:contain!important;border-radius:50%!important;clip-path:none!important}
-@media(max-width:759px){body>header .nav{height:70px!important;min-height:70px!important;max-height:70px!important;padding:0 10px!important;gap:8px!important}body>header .nav>a.logo{flex-basis:66px!important;width:66px!important;height:66px!important;min-height:66px!important;max-height:66px!important}body>header .nav>a.logo img{width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important;max-width:62px!important;max-height:62px!important}}
+/* Correção pontual: logo do cabeçalho sem recorte, mantendo a barra compacta */
+body>header{overflow:visible!important}
+body>header .nav{height:76px!important;min-height:76px!important;max-height:76px!important;overflow:visible!important}
+body>header .nav>a.logo{flex:0 0 104px!important;width:104px!important;height:76px!important;min-height:76px!important;max-height:76px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;padding:0!important;margin:0!important}
+body>header .nav>a.logo img{display:block!important;width:auto!important;height:auto!important;max-width:100px!important;max-height:72px!important;min-width:0!important;min-height:0!important;object-fit:contain!important;border-radius:0!important;clip-path:none!important;transform:none!important}
+@media(max-width:759px){body>header .nav{height:70px!important;min-height:70px!important;max-height:70px!important;padding:0 10px!important}body>header .nav>a.logo{flex-basis:82px!important;width:82px!important;height:70px!important;min-height:70px!important;max-height:70px!important}body>header .nav>a.logo img{max-width:78px!important;max-height:66px!important}}
 </style>
 </head>
 
