@@ -1198,6 +1198,8 @@ body>header .nav>a.logo img{display:block!important;width:72px!important;height:
     </div>
   </div>
 
+  <div id="catalogActiveBar" class="catalog-active-bar" aria-live="polite"><strong id="catalogActiveTitle">Catálogo</strong><span id="catalogActiveCount"></span></div>
+
   <!-- HERO -->
   <section class="hero glam-banner-hero" aria-label="Banner Glam Beaut">
     <div class="glam-banner-wrap">
@@ -1701,8 +1703,24 @@ function productCard(p){
   `;
 }
 
-function hideCatalogSectionIndicator(){}
-function initCatalogSectionIndicator(){}
+function hideCatalogSectionIndicator(){const bar=document.getElementById("catalogActiveBar");if(bar)bar.classList.remove("visible");}
+function initCatalogSectionIndicator(){
+  const bar=document.getElementById("catalogActiveBar"),title=document.getElementById("catalogActiveTitle"),count=document.getElementById("catalogActiveCount");
+  if(!bar||!title||!count)return;
+  const sections=[...document.querySelectorAll("#productGrid .catalog-session")];
+  if(!sections.length){hideCatalogSectionIndicator();return;}
+  const update=()=>{
+    let current=sections[0];
+    sections.forEach(sec=>{if(sec.getBoundingClientRect().top<=120)current=sec;});
+    title.textContent=current.dataset.catalogLabel||"Catálogo";
+    count.textContent=(current.dataset.catalogCount||"")+" produtos";
+    bar.classList.toggle("visible",current.getBoundingClientRect().top<=120);
+  };
+  update();
+  if(window.__glamCatalogScrollHandler)window.removeEventListener("scroll",window.__glamCatalogScrollHandler);
+  window.__glamCatalogScrollHandler=update;
+  window.addEventListener("scroll",update,{passive:true});
+}
 
 function renderProducts(list=PRODUCTS){
   const grid=document.getElementById("productGrid");
