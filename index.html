@@ -2195,3 +2195,8 @@ checkBirthday();
 </script>
 </body>
 </html>
+/* Correção pontual: banner responsivo para caber inteiro na primeira dobra */
+.hero.glam-banner-hero{padding:12px 18px 8px!important;margin:0 auto!important}
+.glam-banner-wrap{height:auto!important;max-height:calc(100vh - 300px)!important;overflow:hidden!important}
+.glam-banner-image{display:block!important;width:100%!important;height:auto!important;max-height:calc(100vh - 300px)!important;object-fit:contain!important;object-position:center!important}
+@media(max-width:759px){.hero.glam-banner-hero{padding:8px 10px 12px!important}.glam-banner-wrap,.glam-banner-image{max-height:none!important}}
