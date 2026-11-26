@@ -1002,6 +1002,16 @@
 @media(max-width:759px){.catalog-active-bar{top:62px;padding:8px 14px}.catalog-active-bar strong{font-size:14px}}
 
     /* Banner Glam Beaut: imagem de referência com CTAs HTML funcionais sobre a arte */
+/* Ajuste solicitado: banner completo na primeira tela, sem cortes e com gap reduzido */
+@media(min-width:760px){
+  .glam-banner-hero{padding:8px 18px 8px!important;margin:0 auto!important}
+  .glam-banner-wrap{height:calc(100vh - 300px)!important;max-height:620px!important;min-height:0!important}
+  .glam-banner-image{width:100%!important;height:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important}
+}
+@media(max-width:759px){
+  .glam-banner-hero{padding-top:8px!important}
+}
+
     .glam-banner-hero{max-width:var(--max);margin:0 auto;padding:24px 18px 30px}
     .glam-banner-wrap{position:relative;width:100%;line-height:0;overflow:hidden;border-radius:24px}
     .glam-banner-image{display:block;width:100%;height:auto;object-fit:contain}
