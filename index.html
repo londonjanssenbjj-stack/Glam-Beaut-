@@ -1000,6 +1000,16 @@
 .catalog-active-bar strong{font-size:16px;font-weight:650;letter-spacing:-.02em}
 .catalog-active-bar span{font-size:12px;color:#786d74}
 @media(max-width:759px){.catalog-active-bar{top:62px;padding:8px 14px}.catalog-active-bar strong{font-size:14px}}
+
+    /* Banner Glam Beaut: imagem de referência com CTAs HTML funcionais sobre a arte */
+    .glam-banner-hero{max-width:var(--max);margin:0 auto;padding:24px 18px 30px}
+    .glam-banner-wrap{position:relative;width:100%;line-height:0;overflow:hidden;border-radius:24px}
+    .glam-banner-image{display:block;width:100%;height:auto;object-fit:contain}
+    .glam-banner-actions{position:absolute;inset:0;pointer-events:none}
+    .glam-banner-hit{position:absolute;pointer-events:auto;border:0;background:transparent;border-radius:20px;cursor:pointer;outline-offset:4px}
+    .glam-banner-buy{left:3.4%;bottom:7.5%;width:25.5%;height:11.5%}
+    .glam-banner-book{left:27.5%;bottom:7.5%;width:25.5%;height:11.5%}
+    @media(max-width:759px){.glam-banner-hero{padding:12px 10px 20px}.glam-banner-wrap{border-radius:12px}.glam-banner-hit{border-radius:8px}}
 </style>
 
 <style id="glam-nav-fix">
@@ -1157,19 +1167,12 @@ header.nav-hidden{transform:translateY(-110%)!important;visibility:hidden!import
   </div>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">GLAM BEAUT</div>
-        <h1>sinta-se <span class="hero-highlight">linda</span> hoje.</h1>
-        <p>Beleza, autocuidado e experiências pensadas para você. Descubra nossos produtos, presentes e serviços em Corumbá.</p>
-        <div class="hero-cta">
-          <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">🛍 Comprar agora</button>
-          <button class="btn outline" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">▦ Agendar serviço</button>
-        </div>
-      </div>
-      <div class="hero-art" aria-label="Fotografia premium de produtos Glam">
-        <img class="hero-photo" src="glam-hero-photo-q80.webp" alt="Fotografia premium de produtos Glam em tons de rosa, dourado e orquídea">
+  <section class="hero glam-banner-hero" aria-label="Banner Glam Beaut">
+    <div class="glam-banner-wrap">
+      <img class="glam-banner-image" src="Banner Glam_ beleza, autocuidado e estilo.png" alt="Glam Beaut: sinta-se linda hoje. Beleza, autocuidado e experiências pensadas para você.">
+      <div class="glam-banner-actions" aria-label="Ações do banner">
+        <button class="glam-banner-hit glam-banner-buy" aria-label="Comprar agora" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})"></button>
+        <button class="glam-banner-hit glam-banner-book" aria-label="Agendar serviço" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})"></button>
       </div>
     </div>
   </section>
