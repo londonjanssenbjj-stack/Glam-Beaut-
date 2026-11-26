@@ -1219,7 +1219,7 @@ body>header .nav>a.logo img{display:block!important;width:72px!important;height:
         </div>
       </div>
       <div class="chips catalog-category-chips"><button class="chip" onclick="filterProducts('cabelos',this)">Cabelos</button><button class="chip" onclick="filterProducts('maquiagem',this)">Maquiagem</button><button class="chip" onclick="filterProducts('perfumaria',this)">Perfumes</button><button class="chip" onclick="filterProducts('roupas',this)">Roupas</button><button class="chip" onclick="filterProducts('bolsas',this)">Bolsas</button><button class="chip" onclick="filterProducts('acessorios',this)">Acessórios & Semijoias</button><button class="chip" onclick="filterProducts('kits',this)">Kits & Presentes</button><button class="chip active" onclick="filterProducts('todos',this)">Todos (126)</button></div><div class="catalog-tools"><button id="favoritesFilter" class="catalog-fav-toggle" onclick="filterProducts('favoritos',this)">♡ Favoritos</button><label class="catalog-sort-label" for="catalogSort">Ordenar</label><select id="catalogSort" class="catalog-sort" onchange="setCatalogSort(this.value)"><option value="featured">Destaques</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option><option value="name">Nome A–Z</option></select></div>
-<div id="catalogActiveBar" class="catalog-active-bar" aria-live="polite"><strong id="catalogActiveTitle">Catálogo</strong><span id="catalogActiveCount"></span></div>
+
 <div class="grid" id="productGrid"></div>
     </section>
 
@@ -1701,28 +1701,8 @@ function productCard(p){
   `;
 }
 
-function hideCatalogSectionIndicator(){const bar=document.getElementById("catalogActiveBar");if(bar)bar.classList.remove("visible");}
-function initCatalogSectionIndicator(){
-  const bar=document.getElementById("catalogActiveBar"),title=document.getElementById("catalogActiveTitle"),count=document.getElementById("catalogActiveCount");
-  if(!bar||!title||!count)return;
-  const sections=[...document.querySelectorAll("#productGrid .catalog-session")];
-  if(!sections.length){hideCatalogSectionIndicator();return;}
-  const header=document.querySelector("header");
-  const offset=(header?header.offsetHeight:72)+8;
-  const update=()=>{
-    let current=sections[0];
-    sections.forEach(sec=>{if(sec.getBoundingClientRect().top<=offset)current=sec;});
-    title.textContent=current.dataset.catalogLabel||"Catálogo";
-    count.textContent=(current.dataset.catalogCount||"")+" produtos";
-    const sectionHeading=current.querySelector(".catalog-session-head");
-    const showSticky=sectionHeading && sectionHeading.getBoundingClientRect().top<=offset;
-    bar.classList.toggle("visible",!!showSticky);
-  };
-  update();
-  if(window.__glamCatalogScrollHandler)window.removeEventListener("scroll",window.__glamCatalogScrollHandler);
-  window.__glamCatalogScrollHandler=update;
-  window.addEventListener("scroll",update,{passive:true});
-}
+function hideCatalogSectionIndicator(){}
+function initCatalogSectionIndicator(){}
 
 function renderProducts(list=PRODUCTS){
   const grid=document.getElementById("productGrid");
