@@ -2209,6 +2209,8 @@ checkBirthday();
 </style>
 
 <style id="catalog-active-bar-overlap-fix">
-/* Evita o indicador flutuante de cobrir o catálogo; títulos das seções permanecem no fluxo normal */
-#catalogActiveBar{display:none!important}
+/* Correção definitiva: indicador visível na lateral, sem sobreposição do cabeçalho */
+#catalogActiveBar{display:flex!important;position:fixed!important;right:14px!important;top:48vh!important;bottom:auto!important;left:auto!important;z-index:999!important;max-width:170px!important;opacity:0;transform:translateX(12px);pointer-events:none}
+#catalogActiveBar.visible{opacity:1!important;transform:translateX(0)!important}
+@media(max-width:759px){#catalogActiveBar{right:8px!important;top:auto!important;bottom:18px!important;max-width:145px!important}}
 </style>
