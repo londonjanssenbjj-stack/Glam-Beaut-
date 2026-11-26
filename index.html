@@ -2212,3 +2212,8 @@ checkBirthday();
 #catalogActiveBar.visible{opacity:1!important;transform:translateX(0)!important}
 @media(max-width:759px){#catalogActiveBar{right:8px!important;top:auto!important;bottom:18px!important;max-width:145px!important}}
 </style>
+
+<style id="remove-left-catalog-overlay-fix">
+/* Remove somente a faixa de categoria que sobrepõe o cabeçalho; mantém o indicador lateral direito. */
+.catalog-session-head{position:static!important;top:auto!important;z-index:auto!important;}
+</style>
