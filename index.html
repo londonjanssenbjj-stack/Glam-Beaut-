@@ -1068,6 +1068,15 @@ header.nav-hidden{transform:translateY(-110%)!important;visibility:hidden!import
 @media(min-width:760px) and (max-width:1000px){header .nav{height:88px!important;min-height:88px!important;max-height:88px!important;padding:0 18px!important}header .logo{height:88px!important;max-height:88px!important}header .logo img{width:80px!important;height:80px!important;max-height:80px!important;object-fit:contain!important}}
 @media(max-width:759px){header .nav{height:76px!important;min-height:76px!important;max-height:76px!important;padding:4px 10px!important}header .logo{height:76px!important;max-height:76px!important}header .logo img{width:68px!important;height:68px!important;max-height:68px!important;object-fit:contain!important}}
 </style>
+
+<style id="header-fix-confirmed">
+/* Targeting the real header/nav elements, superseding older conflicting header rules */
+body>header{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;transform:none!important}
+body>header .nav{box-sizing:border-box!important;width:100%!important;height:76px!important;min-height:76px!important;max-height:76px!important;padding:0 24px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;overflow:visible!important;gap:20px!important}
+body>header .nav>a.logo{box-sizing:border-box!important;flex:0 0 76px!important;width:76px!important;height:76px!important;min-height:76px!important;max-height:76px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;padding:0!important;margin:0!important}
+body>header .nav>a.logo img{display:block!important;width:70px!important;height:70px!important;min-width:70px!important;min-height:70px!important;max-width:70px!important;max-height:70px!important;object-fit:contain!important;border-radius:50%!important;clip-path:none!important}
+@media(max-width:759px){body>header .nav{height:70px!important;min-height:70px!important;max-height:70px!important;padding:0 10px!important;gap:8px!important}body>header .nav>a.logo{flex-basis:66px!important;width:66px!important;height:66px!important;min-height:66px!important;max-height:66px!important}body>header .nav>a.logo img{width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important;max-width:62px!important;max-height:62px!important}}
+</style>
 </head>
 
 <body>
