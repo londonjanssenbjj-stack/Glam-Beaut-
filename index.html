@@ -1091,6 +1091,17 @@ body>header .nav>a.logo{flex:0 0 104px!important;width:104px!important;height:76
 body>header .nav>a.logo img{display:block!important;width:72px!important;height:72px!important;max-width:72px!important;max-height:72px!important;min-width:72px!important;min-height:72px!important;object-fit:cover!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;transform:none!important}
 @media(max-width:759px){body>header .nav{height:70px!important;min-height:70px!important;max-height:70px!important;padding:0 10px!important}body>header .nav>a.logo{flex-basis:82px!important;width:82px!important;height:70px!important;min-height:70px!important;max-height:70px!important}body>header .nav>a.logo img{width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important;max-width:62px!important;max-height:62px!important}}
 </style>
+
+<style id="glam-banner-final-ratio-fix">
+/* Banner: largura lateral preservada, proporção natural, sem cortes nem espaço artificial */
+.hero.glam-banner-hero{max-width:96vw!important;margin:0 auto!important;padding:8px 18px 10px!important}
+.glam-banner-wrap{width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important;line-height:0!important}
+.glam-banner-image{display:block!important;width:100%!important;height:auto!important;max-height:calc(100vh - 215px)!important;object-fit:contain!important;object-position:center!important}
+@media(max-width:759px){
+ .hero.glam-banner-hero{max-width:100%!important;padding:8px 10px 12px!important}
+ .glam-banner-wrap,.glam-banner-image{max-height:none!important}
+}
+</style>
 </head>
 
 <body>
@@ -2197,27 +2208,3 @@ checkBirthday();
 </script>
 </body>
 </html>
-/* Correção pontual: banner responsivo para caber inteiro na primeira dobra */
-.hero.glam-banner-hero{padding:12px 18px 8px!important;margin:0 auto!important}
-.glam-banner-wrap{height:auto!important;max-height:calc(100vh - 300px)!important;overflow:hidden!important}
-.glam-banner-image{display:block!important;width:100%!important;height:auto!important;max-height:calc(100vh - 300px)!important;object-fit:contain!important;object-position:center!important}
-@media(max-width:759px){.hero.glam-banner-hero{padding:8px 10px 12px!important}.glam-banner-wrap,.glam-banner-image{max-height:none!important}}
-
-<!-- Correção pontual: barra de categoria respeita o cabeçalho principal -->
-<style id="catalog-active-bar-header-offset-fix">
-:root{--glam-main-header-offset:110px}
-.catalog-active-bar{top:var(--glam-main-header-offset)!important}
-@media(max-width:759px){:root{--glam-main-header-offset:80px}.catalog-active-bar{top:var(--glam-main-header-offset)!important}}
-</style>
-
-<style id="catalog-active-bar-overlap-fix">
-/* Correção definitiva: indicador visível na lateral, sem sobreposição do cabeçalho */
-#catalogActiveBar{display:flex!important;position:fixed!important;right:14px!important;top:48vh!important;bottom:auto!important;left:auto!important;z-index:999!important;max-width:170px!important;opacity:0;transform:translateX(12px);pointer-events:none}
-#catalogActiveBar.visible{opacity:1!important;transform:translateX(0)!important}
-@media(max-width:759px){#catalogActiveBar{right:8px!important;top:auto!important;bottom:18px!important;max-width:145px!important}}
-</style>
-
-<style id="remove-left-catalog-overlay-fix">
-/* Remove somente a faixa de categoria que sobrepõe o cabeçalho; mantém o indicador lateral direito. */
-.catalog-session-head{position:static!important;top:auto!important;z-index:auto!important;}
-</style>
