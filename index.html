@@ -1010,6 +1010,11 @@
     .glam-banner-buy{left:3.4%;bottom:7.5%;width:25.5%;height:11.5%}
     .glam-banner-book{left:27.5%;bottom:7.5%;width:25.5%;height:11.5%}
     @media(max-width:759px){.glam-banner-hero{padding:12px 10px 20px}.glam-banner-wrap{border-radius:12px}.glam-banner-hit{border-radius:8px}}
+
+/* Ajuste pontual solicitado: banner mais compacto, sem alterar o restante */
+.glam-banner-wrap{height:clamp(390px,36vw,520px)!important}
+.glam-banner-image{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+@media(max-width:759px){.glam-banner-wrap{height:420px!important}.glam-banner-image{object-position:center!important}}
 </style>
 
 <style id="glam-nav-fix">
