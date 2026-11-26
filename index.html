@@ -1102,6 +1102,14 @@ body>header .nav>a.logo img{display:block!important;width:72px!important;height:
  .glam-banner-wrap,.glam-banner-image{max-height:none!important}
 }
 </style>
+
+<style id="glam-banner-natural-ratio-final">
+/* FINAL: preserve image's intrinsic proportions; prevent earlier max-height overrides from shrinking it */
+.hero.glam-banner-hero{width:100%!important;max-width:var(--max)!important;margin:0 auto!important;padding:8px 18px!important}
+.hero.glam-banner-hero .glam-banner-wrap{width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important}
+.hero.glam-banner-hero .glam-banner-image{width:100%!important;height:auto!important;max-height:none!important;object-fit:initial!important;object-position:initial!important}
+@media(max-width:759px){.hero.glam-banner-hero{padding:8px 10px!important}}
+</style>
 </head>
 
 <body>
